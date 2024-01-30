@@ -1,0 +1,41 @@
+body {
+    background-image: url("../assets/blob.jpg");
+    background-repeat: round;
+    background-size: contain;
+}
+
+#title-box {
+    background-color: black;
+    opacity: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    color: #fff;
+    text-align: center;
+    width: 90vw;
+    height: 12vh;
+    margin-left: 5%;
+    border-radius: 10px;
+}
+
+#title {
+    font-size: 80px;
+    opacity: 100%;
+}
+
+#title:hover {
+    font-size: 90px;
+}
+
+#text-box {
+    background-color: black;
+    opacity: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    width: 90vw;
+    margin-left: 5%;
+    border-radius: 10px;
+    padding: 10px 0 10px 0;
+    margin-top: 20px;
+}
