@@ -39,7 +39,7 @@ body {
 
 #title:hover {
     font-size: 80px;
-    animation: title-animation 2s forwards ease-in-out;
+    animation: title-animation 1s infinite;
 }
 
 #text-box {
@@ -75,7 +75,10 @@ body {
     0% {
         font-size: 60px;
     }
-    100% {
+    50% {
         font-size: 80px;
+    }
+    100% {
+        font-size: 60px;
     }
 }
