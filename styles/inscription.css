@@ -1,0 +1,81 @@
+* {
+    font-family: '', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #CB7C8C;
+    height: 10vh;
+}
+
+.header img {
+    width: inherit;
+    height: 100%;
+}
+
+.main {
+    background-color: #FFF1F3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80vh;
+
+    animation: gradient 15s ease infinite;
+}
+
+.inscription-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 500px;
+    height: 50vh;
+
+    background-color: #FFF1F3;
+    border: 5px solid #82AEB1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.inscription-form__inputs {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 3px;
+}
+
+.inscription-form__inputs input {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-radius: 3px;
+    width: 300px;
+    border: 3px solid #3b4f50;
+}
+
+.inscription-form label {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: #3b4f50;
+}
+
+.inscription-form input[type="submit"] {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-radius: 3px;
+    border: 3px solid #3b4f50;
+    background-color: #82AEB1;
+    color: rgba(3, 49, 33, 0.72);
+    font-weight: bold;
+    cursor: pointer;
+    width: 300px;
+}
+
+.footer {
+    background-color: #CB7C8C;
+    height: 10vh;
+}

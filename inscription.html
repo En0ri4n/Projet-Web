@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="styles/inscription.css">
+</head>
+<body>
+<header class="header">
+    <img src="assets/logo.png" alt="Logo">
+</header>
+<main class="main">
+    <div class="inscription-form">
+        <h1>Inscription</h1>
+        <form action="inscription.php" method="post">
+            <div class="inscription-form__inputs">
+                <input type="text" id="nom" name="nom" placeholder=" Nom" required>
+                <input type="text" id="prenom" name="prenom" placeholder=" Prénom" required>
+                <input type="email" id="email" name="email" placeholder=" E-mail" required>
+                <input type="password" id="password" name="password" placeholder=" Mot de passe" required>
+                <input type="password" id="password-confirm" name="password-confirm" placeholder=" Confirmation de mot de passe" required>
+            </div>
+            <input type="radio" id="student-account" name="account-type" value="Élève" required>
+            <label for="student-account">Client</label>
+            <input type="radio" id="pilote-account" name="account-type" value="Tuteur" required>
+            <label for="pilote-account">Tuteur</label><br>
+            <input type="submit" value="Confirmer l'inscription">
+
+        </form>
+    </div>
+</main>
+<footer class="footer">
+
+</footer>
+</body>
+</html>
