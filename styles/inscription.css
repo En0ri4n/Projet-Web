@@ -31,10 +31,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
 
     width: 500px;
-    height: 50vh;
+    height: 450px;
 
     background-color: #FFF1F3;
     border: 5px solid #82AEB1;
@@ -50,11 +49,28 @@
 }
 
 .inscription-form__inputs input {
-    margin: 10px 0 10px 0;
-    padding: 10px 0 10px 0;
+    margin: 10px 0 0 0;
+    padding: 8px 0 8px 8px;
     border-radius: 3px;
     width: 300px;
     border: 3px solid #3b4f50;
+    font-size: 1em;
+    font-weight: bold;
+
+    &:first-child {
+        margin: 0;
+    }
+}
+
+.inscription-form__inputs input:focus {
+    border: 3px solid #78a2a4;
+    outline-width: 0;
+}
+
+.inscription-form .account-type {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .inscription-form label {
@@ -73,9 +89,32 @@
     font-weight: bold;
     cursor: pointer;
     width: 300px;
+    font-size: 1em;
 }
 
 .footer {
     background-color: #CB7C8C;
     height: 10vh;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .inscription-form {
+        width: 300px;
+        height: 400px;
+    }
+
+    .inscription-form__inputs input {
+        width: 200px;
+    }
+
+    .inscription-form input[type="submit"] {
+        width: 200px;
+    }
+
 }
