@@ -1,84 +1,95 @@
 body {
-    background-image: url("../assets/blob.jpg");
-    background-repeat: round;
-    margin: 0 0 0 0;
-}
-
-#main {
-    /* background-color: rgba(255, 236, 0, 0.76);*/
-}
-
-#title-box {
+    background-color: #FFF1F3;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vh;
-    width: 100%;
-    left: 0;
-    top: 0;
+    flex-direction: column;
+    gap:10px;
+    margin:0;
+    padding:0:
 }
 
-#title-text-box {
+img{
+    height:50px;
+}
+
+.navbar{
+    background-color: #CB7C8C;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-    font-family: 'Roboto', sans-serif;
-    color: #fff;
-    text-align: center;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.78);
-    width: 50vw;
-    height: 100px;
+    flex-direction: row;
 }
 
-#title {
-    font-size: 60px;
-    opacity: 100%;
+.logo{
+    
 }
 
-#title:hover {
-    font-size: 80px;
-    animation: title-animation 1s infinite;
+.liens{
+    
 }
 
-#text-box {
+.input_box_long{
+    height:100px;
+}
+
+.input_box{
+    width:340px
+}
+
+footer{
+    background-color: #CB7C8C;
+    height:50px;
+}
+.lignes{
     display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    text-align: center;
-
-    width: 100vw;
-
-    padding: 10px 0 10px 0;
-    margin-top: 20px;
-    border-radius: 10px;
-    /* background-color: blue; */
+    flex-direction: row;
+    gap:50px;
 }
 
-#text {
-    width: 50vw;
-    color: black;
-    padding: 15px 15px 15px 15px;
-    border-radius: 10px;
-    background: linear-gradient(#e66465D0, #9198e5D0);
+.bouton{
+    width: 100px;
+    background-color:#82AEB1 ;
 }
 
-#text p {
-    opacity: 100%;
+.poster{
+    background-color:#82AEB1 ;
+    text-align:center;
+    width : 340px;
+    height: 50px;
 }
 
-@keyframes title-animation {
-    0% {
-        font-size: 60px;
-    }
-    50% {
-        font-size: 80px;
-    }
-    100% {
-        font-size: 60px;
-    }
+.titre1{
+    font-size: 30px;
+    font-weight: bold;
+    
+}
+
+.texte_form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: start;
+}
+
+.input_form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.formulaire{
+    display: flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.ajout{
+    display:flex;
+    flex-direction: column;
+}
+
+.barre{
+    display: flex;
+    flex-direction: row;
+}
+
+.page{
+    gap: 10px;
 }
