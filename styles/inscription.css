@@ -26,7 +26,7 @@
     animation: gradient 15s ease infinite;
 }
 
-.inscription-form {
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,14 +41,14 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
-.inscription-form__inputs {
+.form__inputs {
     display: flex;
     flex-direction: column;
 
     border-radius: 3px;
 }
 
-.inscription-form__inputs input {
+.form__inputs input {
     margin: 10px 0 0 0;
     padding: 8px 0 8px 8px;
     border-radius: 3px;
@@ -62,24 +62,24 @@
     }
 }
 
-.inscription-form__inputs input:focus {
+.form__inputs input:focus {
     border: 3px solid #78a2a4;
     outline-width: 0;
 }
 
-.inscription-form .account-type {
+.form .account-type {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
 
-.inscription-form label {
+.form label {
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
     color: #3b4f50;
 }
 
-.inscription-form input[type="submit"] {
+.form input[type="submit"] {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
     border-radius: 3px;
@@ -104,16 +104,16 @@
 }
 
 @media (max-width: 600px) {
-    .inscription-form {
+    .form {
         width: 300px;
         height: 400px;
     }
 
-    .inscription-form__inputs input {
+    .form__inputs input {
         width: 200px;
     }
 
-    .inscription-form input[type="submit"] {
+    .form input[type="submit"] {
         width: 200px;
     }
 
