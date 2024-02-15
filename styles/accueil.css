@@ -1,0 +1,157 @@
+* {
+    font-family: '', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #CB7C8C;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+    img {
+        width: 20vh;
+        height: 100%;
+    }
+    .login{
+        color: #495867;
+        a{
+            color: #495867;
+            text-decoration:none;
+        }
+    }
+}
+
+.main {
+    background-color: #FFF1F3;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.presentation{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    h1{
+        color: #495867;
+        font-size: 70px;
+    }
+    p{
+        color: #82AEB1;
+        font-size: 24px;
+    }
+    img{
+        width: 100vh;
+        flex: 1 1 auto;
+    }
+    .description{
+         flex: 1 1 auto;
+         justify-content: center;
+         align-items: center;
+        padding: 10%;
+        box-sizing: border-box;
+     }
+}
+
+.recherche{
+    padding: 50px 80px 50px 80px;
+}
+
+.posts{
+    display: flex;
+    justify-content: center;
+    padding: 50px 50px 50px 50px;
+}
+
+.parametres{
+    display: flex;
+    justify-content: space-between;
+}
+
+.mode{
+    color: #495867;
+    font-weight: bold;
+    font-size: 20px;
+    a{
+        color: #495867;
+        text-decoration:none;
+        padding: 5px 5px 5px 5px;
+    }
+}
+
+.selected{
+    border: solid #82AEB1;
+}
+
+.filtres{
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #495867;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.offre{
+    display: flex;
+    background-color: #82AEB1;
+    border-radius: 30px 30px 30px 30px;
+    width: 70%;
+    height: 30vh;
+    align-items: center;
+    img{
+        height: 85%;
+        width: 25.5vh;
+        border: solid #495867;
+        margin-left: 2.25vh;
+    }
+    article{
+        width: 100%;
+        padding: 40px 60px 40px 20px;
+        flex-direction: row;
+        row-gap: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: start;
+        color: white;
+        font-size: 18px;
+        ul {
+            list-style-type: none;
+
+            li {
+                display: inline;
+            }
+
+            li:not(:last-child):after {
+                content: ', ';
+            }
+        }
+    }
+}
+
+.c1, .c2, .c3{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 33%;
+    row-gap: 30px;
+}
+
+.c2{
+    row-gap: 36px;
+}
+
+.list {
+    width: 100%;
+}
+
+.poste{
+    font-size: 24px;
+}
