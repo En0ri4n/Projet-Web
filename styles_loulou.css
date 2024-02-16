@@ -1,0 +1,106 @@
+@media screen and (min-width: 350px) {
+    body{
+        display: flex;
+        flex-direction: column;
+        margin:0px;
+        padding: 0px;
+        background-color: #ecbcc3;
+        color: #495867;
+    }
+
+    .header{
+        background-color: #CB7C8C;
+    }
+    .entreprise{
+        display: flex;
+        flex-direction: row;
+        background-color: whitesmoke;
+    }
+
+    .titre{
+        font-weight: bold;
+        text-align: center;
+    }
+    .description_entreprise{
+        display: flex;
+        flex-direction: column;
+        width:180px;
+        margin-bottom: 10px;
+
+    }
+    .paragraphe{
+        height:100px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+    .description_entreprise a:link{
+        color: #82AEB1;   
+    }
+    .description_entreprise a:visited{
+        color: #82AEB1;
+    }
+    .description_entreprise a:hover{
+        color: #82AEB1;
+    }
+    #postuler {
+        background-color: #495867;
+        color: #FFF1F3;
+        border-radius: 5px;
+        border-color: #CB7C8C;
+        margin-left: 10px;
+    }
+    #wishlist{
+        background-color: #FFF1F3;
+        color: #495867;
+        border-radius: 5px;
+        border-color: #495867;
+    }
+    .titres{
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        gap:50px
+    }
+
+    .titres #NomPoste{
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 10px;
+    }
+    .titres #NivEtds{
+
+    }
+    .titres #Domaine{
+        background-color: #82AEB1;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .box_competences{
+        background-color: whitesmoke;
+        padding:10px;
+    }
+    .div_competences{
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+    }
+    .competence{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 10px;
+    }
+
+    footer{
+        background-color: #CB7C8C;
+    }
+    .contacts{
+        display: flex;
+        flex-direction: column;
+    }
+    .contacts .titres{
+        display: flex;
+        flex-direction: row;
+    }
+}
