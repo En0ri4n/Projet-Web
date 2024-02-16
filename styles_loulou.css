@@ -95,6 +95,10 @@
     footer{
         background-color: #CB7C8C;
     }
+    .contact{
+        display: flex;
+        flex-direction: row;
+    }
     .contacts{
         display: flex;
         flex-direction: column;
@@ -102,5 +106,10 @@
     .contacts .titres{
         display: flex;
         flex-direction: row;
+    }
+    iframe{
+        margin-left:50px;
+        margin-top:0px
+        padding:0px;
     }
 }
