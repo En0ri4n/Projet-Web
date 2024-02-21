@@ -10,13 +10,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 20px;
+    position: fixed;
+    width: 100%;
     img {
         width: 20vh;
         height: 100%;
     }
+    .search{
+        background-color: #FFF1F3;
+        color: #82AEB1;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        input{
+            background: none;
+            border: none;
+            width: 25vw;
+            font-size: 18px;
+        }
+        button{
+            background: none;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    }
     .login{
         color: #495867;
+        padding-right: 20px;
         a{
             color: #495867;
             text-decoration:none;
@@ -32,45 +56,52 @@
 }
 
 .presentation{
+    padding-top: 10vh;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    h1{
-        color: #495867;
-        font-size: 70px;
-    }
-    p{
-        color: #82AEB1;
-        font-size: 24px;
-    }
+
     img{
-        width: 100vh;
+        width: 40vw;
+        height: 40vw;
         flex: 1 1 auto;
+        border: solid #495867;
     }
     .description{
          flex: 1 1 auto;
          justify-content: center;
          align-items: center;
-        padding: 10%;
+        padding: 5%;
         box-sizing: border-box;
+        h1{
+        color: #495867;
+        font-size: 6vw;
+    }
+        p{
+            color: #82AEB1;
+            font-size: 2vw;
+        }
      }
 }
 
-.recherche{
-    padding: 50px 80px 50px 80px;
+.list-offres{
+    padding: 50px 20px 50px 20px;
 }
 
 .posts{
     display: flex;
     justify-content: center;
-    padding: 50px 50px 50px 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .parametres{
     display: flex;
     justify-content: space-between;
+    padding-right: 5vw;
+    padding-left: 44vw;
 }
 
 .mode{
@@ -102,14 +133,15 @@
     display: flex;
     background-color: #82AEB1;
     border-radius: 30px 30px 30px 30px;
-    width: 70%;
-    height: 30vh;
+    width: 900px;
+    height: 200px;
     align-items: center;
+    cursor: pointer;
     img{
-        height: 85%;
-        width: 25.5vh;
+        height: 170px;
+        width: 170px;
         border: solid #495867;
-        margin-left: 2.25vh;
+        margin-left: 15px;
     }
     article{
         width: 100%;
@@ -148,10 +180,32 @@
     row-gap: 36px;
 }
 
-.list {
+.list-competences {
     width: 100%;
 }
 
 .poste{
     font-size: 24px;
+}
+
+@media (max-width: 700px) {
+    .presentation {
+        .description {
+            p {
+                font-size: 3vw;
+            }
+        }
+    }
+
+    .offre {
+        img {
+            width: 130px;
+            height: 130px;
+        }
+    }
+
+    .parametres{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
