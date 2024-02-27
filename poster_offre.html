@@ -6,49 +6,47 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">
-            <img src="C:\Users\MOI\Documents\cesi\A2\blocs\4web\projet\projet code\Projet-Web\assets\blob.jpg">
-        </div>
-        <div class="liens">
-            <a href="connexion.html">Connexion |</a>
-            <a href="inscription.html">Inscription</a>
-        </div>
-    </header>
-            <div class="poster">    Poster une offre </div>
-            <label for="" "description"="">Description du poste</label>
-            <input class="input_box_long"  required="">
-            <div class="formulaire">
-                    <label for="poste" "description"="">Nom du poste : </label>
-                    <input class="input_box"  required="">
-
-                    <label for="" "description"="">Domaine : </label>
-                    <input class="input_box"  required="">
-
-                    <label for="" "description"="">Niveau d'études demandé : </label>
-                    <input class="input_box"  required="">
-
-                    <label for="" "description"="">Dates : </label>
-                    <input class="input_box"  required="">
-
-                    <label for="" "description"="">Adresse : </label>
-                    <input class="input_box"  required="">
+<header class="header">
+    <img src="assets/logo.png" alt="Logo">
+</header>
+<main>
+    <div class="form">
+        <h1> Poster une offre</h1>
+        <form method="post">
+            <div class="form__inputs">
+                <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
+                <textarea id="description" placeholder="Description du poste" required></textarea>
+                <input type="text" class="form-input" id="domain" placeholder="Domaine" required>
+                <input type="text" class="form-input" id="level" placeholder="Niveau d'études demandé" required>
+                <br>
+                <div id="dates">
+                    <div>
+                        <label for="start-date">Date début</label>
+                        <input class="form-input" type="date" id="start-date" required>
+                    </div>
+                    <div></div>
+                    <div>
+                        <label for="end-date">Date fin</label>
+                        <input class="form-input" type="date" id="end-date" required>
+                    </div>
                 </div>
+                <input type="text" class="form-input" id="location" placeholder="Lieu" required>
+                <div class="skills-div">
+                    <input class="form-input"  id="input-skill" placeholder="Ajouter une compétence" required>
+                    <div class="skills-list">
+                        <ul>
+                            <li>Compétence 1<a>✕</a></li>
+                            <li>Compétence 2<a>✕</a></li>
+                            <li>Compétence 3<a>✕</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <input type="submit" class="submit" placeholder="Publier">
             </div>
-            <div class="ajout">
-                <label for="" "description"="">Ajouter une compétence</label>
-                <div class="barre">
-                    <input class="input_box"  required="">
-                    <button class="bouton">
-                        Ajouter
-                    </button>
-                </div> 
-            </div>
-            <button class="poster" width="7%"> 
-                Poster
-            </button>
-        <footer>
-            
-        </footer>
+        </form>
+    </div>
+</main>
+<footer class="footer">
+</footer>
 </body>
 </html>
