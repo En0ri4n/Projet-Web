@@ -1,95 +1,177 @@
+* {
+    font-family: 'Century Gothic', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: #FFF1F3;
     display: flex;
     flex-direction: column;
-    gap:10px;
-    margin:0;
-    padding:0:
 }
 
-img{
-    height:50px;
-}
-
-.navbar{
+.header {
     background-color: #CB7C8C;
+    height: 10vh;
+
+    img {
+        width: inherit;
+        height: 100%;
+    }
+}
+
+main {
+    background-color: #FFF1F3;
+
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5vh 0 5vh 0;
+
+    flex: 1;
 }
 
-.logo{
-    
-}
-
-.liens{
-    
-}
-
-.input_box_long{
-    height:100px;
-}
-
-.input_box{
-    width:340px
-}
-
-footer{
-    background-color: #CB7C8C;
-    height:50px;
-}
-.lignes{
+.form {
     display: flex;
-    flex-direction: row;
-    gap:50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: min(500px, 100%);
+
+    background-color: #FFF1F3;
+    border: 5px solid #82AEB1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+    padding: 20px 0 20px 0;
 }
 
-.bouton{
-    width: 100px;
-    background-color:#82AEB1 ;
+.form__inputs {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    .form-input, textarea, select {
+        box-sizing: border-box;
+        margin: 10px 0 0 0;
+        padding: 8px 0px 8px 8px;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    #dates {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 80%;
+
+            .form-input {
+                width: 90%;
+            }
+        }
+    }
+
+    .skills-div {
+        display: flex;
+        flex-direction: column;
+
+
+        .skills-list {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            ul {
+                padding: 5px;
+                width: 100%;
+                background-color: yellow;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            ul li {
+                font-family: "Century Gothic", sans-serif;
+                font-weight: bold;
+                font-size: 1em;
+                display: inline-block;
+                border: 1px solid black;
+                cursor: pointer;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 3px 0 3px;
+
+                border-radius: 3px;
+
+                &:before {
+                    content: "•";
+                }
+
+                &:hover {
+                    background-color: #82AEB1;
+                }
+            }
+        }
+    }
+
+    label {
+        font-family: "Century Gothic", sans-serif;
+        font-weight: bold;
+    }
 }
 
-.poster{
-    background-color:#82AEB1 ;
-    text-align:center;
-    width : 340px;
-    height: 50px;
-}
 
-.titre1{
-    font-size: 30px;
+.submit {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-radius: 3px;
+    border: 3px solid #3b4f50;
+    background-color: #82AEB1;
+    color: rgba(3, 49, 33, 0.72);
     font-weight: bold;
-    
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
 }
 
-.texte_form{
+.texte_form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     text-align: start;
 }
 
-.input_form{
+.input_form {
     display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
 }
 
-.formulaire{
-    display: flex;
-    flex-direction:column;
-    gap:10px;
+.footer {
+    background-color: #CB7C8C;
+    height: 10vh;
 }
 
-.ajout{
-    display:flex;
-    flex-direction: column;
-}
+@media all and (max-width: 600px) {
+    .form {
+        border: none;
+        box-shadow: none;
+    }
 
-.barre{
-    display: flex;
-    flex-direction: row;
-}
-
-.page{
-    gap: 10px;
+    #dates {
+        flex-direction: column;
+    }
 }
