@@ -11,6 +11,10 @@
     .header{
         background-color: #CB7C8C;
     }
+
+    #image_entreprise{
+        width:100%;
+    }
     .entreprise{
         display: flex;
         flex-direction: row;
