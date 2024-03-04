@@ -71,34 +71,32 @@ body{
 .contact img{
     width: 20%;
 }
-.entreprise{
-    display: flex;
-    flex-direction: row;
-    background-color: whitesmoke;
-    height:250px;
-}
 
 .titre{
     font-weight: bold;
     text-align: center;
 }
+
+.entreprise{
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+    height:250px;
+    padding-top: 10vh;
+}
 .description_entreprise{
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin: 10px;
     width:50%;
+    height:100%;
 }
-
-.description{
-    text-align: start;
-    margin:20px;
-}
-
 .paragraphe{
-    overflow: hidden;
-    margin-bottom: 10px;
-    margin-left: 10px;
+   overflow: hidden;
+   height:70%;
+   padding-bottom: 10px;
 }
+
 .description_entreprise a:link{
     color: #82AEB1;   
 }
@@ -140,6 +138,11 @@ body{
     background-color: #82AEB1;
     border-radius: 5px;
     padding: 10px;
+}
+
+.description{
+    text-align: start;
+    margin:20px;
 }
 
 .box_offres{
@@ -298,22 +301,33 @@ iframe{
     .contact img{
         width: 10%;
     }
-    .entreprise{
-        display: flex;
-        flex-direction: row;
-        background-color: whitesmoke;
-    }
 
     .titre{
         font-weight: bold;
         text-align: center;
     }
+
+    .entreprise{
+        display: flex;
+        flex-direction: row;
+        background-color: whitesmoke;
+        height:250px;
+        padding-top: 10vh;
+    }
     .description_entreprise{
         display: flex;
         flex-direction: column;
+        margin: 10px;
         width:50%;
-        margin-bottom: 10px;
+        height:100%;
     }
+    .paragraphe{
+       overflow: hidden;
+       height:70%;
+       padding-bottom: 10px;
+    }
+
+    
 
     .description{
         text-align: start;
@@ -321,13 +335,6 @@ iframe{
         margin-left: 10px;
         margin-right: 10px;
 
-    }
-
-    .paragraphe{
-        height:100px;
-        overflow: hidden;
-        margin-bottom: 10px;
-        margin-left: 10px;
     }
     .description_entreprise a:link{
         color: #82AEB1;   
