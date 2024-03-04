@@ -1,4 +1,5 @@
 /*affichage pc*/
+@media screen and (min-width: 600px){
 body{
     display: flex;
     flex-direction: column;
@@ -16,10 +17,16 @@ body{
     width:100%;
     height:250px;
 }
+
+#image_entreprise_offre{
+    width:50%;
+}
+
 .entreprise{
     display: flex;
     flex-direction: row;
     background-color: whitesmoke;
+    height:250px;
 }
 
 .titre{
@@ -29,20 +36,16 @@ body{
 .description_entreprise{
     display: flex;
     flex-direction: column;
-    width:180px;
     margin-bottom: 10px;
+    width:50%;
 }
 
 .description{
     text-align: start;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-
+    margin:20px;
 }
 
 .paragraphe{
-    height:100px;
     overflow: hidden;
     margin-bottom: 10px;
     margin-left: 10px;
@@ -90,13 +93,14 @@ body{
     padding: 10px;
 }
 
+.box_offres{
+    background-color: #FFF1F3;
+    text-align: center;
+}
+
 .box_competences{
     background-color: whitesmoke;
     padding:10px;
-}
-
-.box_offres{
-    background-color: #FFF1F3;
     text-align: center;
 }
 .div_competences{
@@ -108,6 +112,7 @@ body{
     display: flex;
     flex-direction: column;
     padding-bottom: 10px;
+    text-align: center;
 }
 
 #statistiques{
@@ -117,22 +122,19 @@ body{
 #offres{
 
 }
-
-
-
 footer{
     background-color: #CB7C8C;
 }
 .div{
     background-color: #CB7C8C;
-    height:5px;
+    height:20px;
 }
 #evaluation{
     display: flex;
     flex-direction: row;
     gap:10px;
     background-color: #FFF1F3;
-    height:50px;
+    padding:10px;
 }
 .etoile{
     width:60px;
@@ -149,9 +151,11 @@ footer{
     background-color: #FFF1F3;
 }
 .contacts{
+    margin-left: 20px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-
+    width:50%;
 }
 .contacts .titres{
     display: flex;
@@ -159,15 +163,19 @@ footer{
 
 }
 iframe{
-    margin-right:0px;
     margin-top:0px;
     padding:0px;
-    width:500px;
-    height:300px;
+    width:100%;
+    height:250px;
+}
 }
 
+
+
+
+
 /*affichage mobile*/
-@media screen and (min-width: 350px) {
+@media screen and (max-width: 599px) {
     body{
         display: flex;
         flex-direction: column;
@@ -185,6 +193,10 @@ iframe{
         width:100%;
         height:200px;
     }
+    #image_entreprise_offre{
+        width:50%;
+    }
+
     .entreprise{
         display: flex;
         flex-direction: row;
@@ -198,7 +210,7 @@ iframe{
     .description_entreprise{
         display: flex;
         flex-direction: column;
-        width:180px;
+        width:50%;
         margin-bottom: 10px;
     }
 
@@ -301,6 +313,7 @@ iframe{
         flex-direction: row;
         gap:10px;
         background-color: #FFF1F3;
+        padding:10px;
     }
     .etoile{
         width:60px;
@@ -317,8 +330,11 @@ iframe{
         background-color: #FFF1F3;
     }
     .contacts{
+        margin-right: 10px;
+        margin-top: 10px;
         display: flex;
         flex-direction: column;
+        width:50%;
     }
     .contacts .titres{
         display: flex;
@@ -328,7 +344,7 @@ iframe{
         margin-left:50px;
         margin-top:0px;
         padding:0px;
-        width:180;
-        height:180;
+        width:100%;
+        height:180px;
     }
 }
