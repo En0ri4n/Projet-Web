@@ -45,8 +45,6 @@ img{
     align-items: center;
     justify-content: center;
     height: 50px;
-    width:80%;
-    margin-left: 10%;
     margin-top : 3%;
     margin-bottom : 3%;
 }
@@ -57,6 +55,13 @@ img{
     margin-left: 3%;
     width: 94%;
 }
+
+@media (max-width: 800px) {
+    .box {
+      flex-direction: column;
+    }
+}
+
 .box2{
     padding-inline: 4px;
     margin-inline: 5px;
@@ -67,7 +72,7 @@ img{
 .input_box{
     float: right;
     clear: both;
-    width: 60%;
+    width: 100%;
     border-color: #495867;
     border-width: 3px;
     font-size: 1.5rem;
@@ -76,9 +81,9 @@ img{
 .input_box_long{
     float: right;
     box-sizing: border-box;
-    width: 60%;
+    width: 100%;
     height: 100%;
-    resize: none;
+    resize: vertical;
     border-color: #495867;
     border-width: 3px;
     font-size: 1.5rem;
@@ -92,9 +97,9 @@ img{
 .bouton{
     background-color:#82AEB1 ;
     color:#495867;
-    margin-left:40%;
+    margin-left: 5%;
+    width: 90%;
     height:50px;
-    width: 20%;
     align-items: center;
     border-radius: 10px;
     
