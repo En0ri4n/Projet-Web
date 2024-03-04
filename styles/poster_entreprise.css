@@ -1,0 +1,116 @@
+* {
+    font-family: '', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.PosterEnterprise_Header {
+    background-color: #CB7C8C;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+    img {
+        width: 20vh;
+        height: 100%;
+    }
+    .login{
+        color: #495867;
+        a{
+            color: #495867;
+            text-decoration:none;
+        }
+        a:hover{
+            color:#FFF1F3;
+        }
+    }
+}
+
+body {
+    background-color: #FFF1F3;
+    color:#495867;
+    gap:10px;
+    margin:0;
+    padding:0;
+    
+}
+img{
+    width: 100vh;
+}
+
+.poster{
+    background-color:#82AEB1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    margin-top : 3%;
+    margin-bottom : 3%;
+}
+
+.box{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 3%;
+    width: 94%;
+}
+
+@media (max-width: 800px) {
+    .box {
+      flex-direction: column;
+    }
+}
+
+.box2{
+    padding-inline: 4px;
+    margin-inline: 5px;
+    flex: 1 1 100%;
+    margin-bottom: 3%;
+}
+
+.input_box{
+    float: right;
+    clear: both;
+    width: 100%;
+    border-color: #495867;
+    border-width: 3px;
+    font-size: 1.5rem;
+}
+
+.input_box_long{
+    float: right;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    resize: vertical;
+    border-color: #495867;
+    border-width: 3px;
+    font-size: 1.5rem;
+}
+
+.box_div{
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+.bouton{
+    background-color:#82AEB1 ;
+    color:#495867;
+    margin-left: 5%;
+    width: 90%;
+    height:50px;
+    align-items: center;
+    border-radius: 10px;
+    
+}
+.bouton:hover{
+    background-color:#495867;
+    color: #FFF1F3;;
+}
+
+.PosterEnterprise_Footer{
+    margin-top: 10vh;
+    background-color: #CB7C8C;
+    height: 10vh;
+}
