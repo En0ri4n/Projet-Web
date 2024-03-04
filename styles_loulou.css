@@ -89,6 +89,11 @@
         background-color: whitesmoke;
         padding:10px;
     }
+
+    .box_offres{
+        background-color: #FFF1F3;
+        text-align: center;
+    }
     .div_competences{
         display: flex;
         flex-direction: row;
