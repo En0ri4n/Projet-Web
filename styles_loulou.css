@@ -125,7 +125,7 @@ footer{
 }
 .div{
     background-color: #CB7C8C;
-    margin: 10px;
+    height:5px;
 }
 #evaluation{
     display: flex;
@@ -156,6 +156,7 @@ footer{
 .contacts .titres{
     display: flex;
     flex-direction: row;
+
 }
 iframe{
     margin-right:0px;
