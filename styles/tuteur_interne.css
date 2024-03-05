@@ -19,9 +19,10 @@ button, input[type="submit"]{
 }
 
 h1{
-    font-size: 20px;
+    font-size: 1.5em;
     color: #495867;
     font-weight: bold;
+    text-align: center;
 }
 
 .header {
@@ -47,7 +48,7 @@ h1{
             background: none;
             border: none;
             width: 25vw;
-            font-size: 18px;
+            font-size: 1em;
         }
         button{
             background: none;
@@ -55,7 +56,7 @@ h1{
             outline: none;
             box-shadow: none;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 1em;
             font-weight: normal;
         }
     }
@@ -65,6 +66,9 @@ h1{
         a{
             color: #495867;
             text-decoration:none;
+        }
+        a:hover{
+            color:#FFF1F3;
         }
     }
 }
@@ -86,30 +90,36 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-
+    gap: 5vw;
     img{
         border: solid #82AEB1;
-        width: 20vw;
-        height: 20vw;
-    }
+        width: 30vh;
+        height: 30vh;
+    }    
 }
 
-.form {
+
+form{
+    width: 100%;
+}
+
+.profil_form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    width: min(400px,50vw);
 }
 
 .form__inputs {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
     input:not(:last-child){
         padding: 7px 0 7px 7px;
         border-radius: 3px;
-        width: 400px;
+        width: 100%;
         border: 3px solid #3b4f50;
         font-size: 1em;
         font-weight: bold;
@@ -120,6 +130,7 @@ h1{
     padding-top: 40px;
     padding-bottom: 40px;
     display: flex;
+    width: 100%;
     flex-direction: column;
     gap: 40px;
     form{
@@ -129,13 +140,16 @@ h1{
     }
 }
 
+
+
 .recherche{
     display: flex;
+    justify-content: center;
     gap: 10px;
     input[type="search"]{
         padding: 7px 0 7px 7px;
         border-radius: 3px;
-        width: 500px;
+        width: min(500px,40vw);
         border: 3px solid #3b4f50;
         font-size: 1em;
         font-weight: bold;
@@ -143,45 +157,13 @@ h1{
 
 }
 
-.row{
-        display: flex;
-        justify-content: center;
-    align-items: center;
-        gap: 5vw;
-}
-
-.membre{
+.c1, .c2 {
     display: flex;
-    background-color: #82AEB1;
-    border-radius: 30px 30px 30px 30px;
-    width: 600px;
-    height: 150px;
-    align-items: center;
-    cursor: pointer;
-    img{
-        height: 120px;
-        width: 120px;
-        border: solid #495867;
-        margin-left: 15px;
-    }
-    article {
-        width: 100%;
-        padding: 40px 60px 40px 20px;
-        flex-direction: row;
-        row-gap: 30px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: start;
-        color: #495867;
-        font-size: 18px;
-    }
-    .c1, .c2{
-        width: 50%;
-        row-gap: 36px;
-    }
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    row-gap: 30px;
 }
-
 .bold{
     font-weight: bold;
 }
@@ -197,30 +179,44 @@ h1{
     box-sizing: border-box;
 }
 
+.list_data {
+    padding: 0vh 2vh;
+}
+
+.contener_row {
+    display: flex;
+    justify-content: center;
+    padding-top: 3vh;
+    padding-bottom: 0;
+    align-items:center;
+}
+
 .add{
     display: flex;
     gap: 10vw;
     justify-content: center;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
 }
 
 .new{
-    width: 10vw;
-    height: 66px;
+    width: auto;
+    height: auto;
 }
 
 .parametres{
     display: flex;
     justify-content: start;
     align-items: center;
-    padding-top: 80px;
-    padding-bottom: 50px;
-    gap: 80px;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    gap: 3vh;
 }
 
 .mode{
     color: #495867;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1em;
     a{
         color: #495867;
         text-decoration:none;
@@ -239,11 +235,11 @@ h1{
     box-shadow: none;
     font-weight: normal;
     color: #495867;
-    font-size: 18px;
+    font-size: 1em;
     cursor: pointer;
 }
 
-.offre{
+.row_data {
     display: flex;
     background-color: #82AEB1;
     border-radius: 30px 30px 30px 30px;
@@ -251,26 +247,33 @@ h1{
     height: 200px;
     align-items: center;
     cursor: pointer;
-    img{
+    margin-right: 5vw;
+
+    img {
         height: 170px;
         width: 170px;
         border: solid #495867;
         margin-left: 15px;
     }
-    article{
-        width: 100%;
-        padding: 40px 60px 40px 20px;
+
+    article {
+        box-sizing: border-box;
+        height: 100%;
+        width: 90%;
+        padding: 20px 60px 40px 20px;
         flex-direction: row;
         row-gap: 30px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        align-items: start;
+        align-items:center;
         color: white;
-        font-size: 18px;
-        .c2{
-            row-gap: 36px;
+        font-size: 1.4em;
+
+        .poste {
+            font-size: 1.5em;
         }
+
         ul {
             list-style-type: none;
 
@@ -284,19 +287,66 @@ h1{
         }
     }
 }
-
-.c1, .c2, .c3{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    width: 33%;
-    row-gap: 30px;
+.c1, .c2, .c3 {
+    row-gap: 10px;
 }
+
 
 .list-competences {
     width: 100%;
 }
 
 .tall{
-    font-size: 24px;
+    font-size: 1.3em;
+}
+
+input[type="submit"]:hover, .delete:hover, .new:hover{
+    background-color:#495867;
+    color: #FFF1F3;;
+}
+
+
+@media (max-width: 600px) {
+    .profil {
+    flex-direction: column-reverse;
+        img{
+            border: solid #82AEB1;
+            width: 20vh;
+            height: 20vh;
+        }  
+    }
+    .row_data {
+        padding: 0 0 0 0;
+        margin: 0 0 0 0;
+        font-size: 1em;
+        justify-content: center;
+        border-radius: 10px 10px 10px 10px;
+        height: 100%;
+        margin-right: 5vw;
+        img {
+            width: 15vw;
+            height: 15vw;
+        }
+
+        article {
+            box-sizing: border-box;
+            padding: 15px 10px 10px 10px;
+            height: 100px;
+            font-size: 0.8em;
+            row-gap: 0;
+
+            .poste {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+
+            ul {
+                font-size: 1em;
+
+                li {
+                    font-size: 1em;
+                }
+            }
+        }
+    }
 }
