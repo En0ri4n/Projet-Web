@@ -5,7 +5,7 @@ body{
     flex-direction: column;
     margin:0px;
     padding: 0px;
-    background-color: #ecbcc3;
+    background-color: #FFF1F3;
     color: #495867;
 }
 
@@ -79,7 +79,7 @@ body{
 .entreprise{
     display: flex;
     flex-direction: row;
-    background-color: whitesmoke;
+    background-color: white;
     height:250px;
     padding-top: 10vh;
 }
@@ -113,7 +113,7 @@ body{
     margin-left: 10px;
 }
 #wishlist{
-    background-color: #FFF1F3;
+    background-color:white;
     color: #495867;
     border-radius: 5px;
     border-color: #495867;
@@ -145,7 +145,7 @@ body{
 }
 
 .box_offres{
-    background-color: #FFF1F3;
+    background-color:white;
     text-align: center;
 }
 .offre {
@@ -208,7 +208,7 @@ body{
     width: 100%;
 }
 .box_competences{
-    background-color: whitesmoke;
+    background-color: white;
     padding:10px;
     text-align: center;
 }
@@ -294,7 +294,7 @@ iframe{
         flex-direction: column;
         margin:0px;
         padding: 0px;
-        background-color: #ecbcc3;
+        background-color: #FFF1F3;
         color: #495867;
     }
 
@@ -367,7 +367,7 @@ iframe{
     .entreprise{
         display: flex;
         flex-direction: row;
-        background-color: whitesmoke;
+        background-color: white;
         height:250px;
         padding-top: 10vh;
     }
@@ -410,7 +410,7 @@ iframe{
         margin-left: 10px;
     }
     #wishlist{
-        background-color: #FFF1F3;
+        background-color: white;
         color: #495867;
         border-radius: 5px;
         border-color: #495867;
@@ -437,12 +437,12 @@ iframe{
     }
 
     .box_competences{
-        background-color: whitesmoke;
+        background-color: white;
         padding:10px;
     }
 
     .box_offres{
-        background-color: #FFF1F3;
+        background-color: white;
         text-align: center;
     }
 
