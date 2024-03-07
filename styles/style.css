@@ -63,22 +63,16 @@ main {
         width: 100%;
     }
 
-    #dates {
+    #duree {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
-
-        div {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 80%;
-
+        column-gap: 5px;
             .form-input {
                 width: 90%;
             }
-        }
+
     }
 
     .skills-div {

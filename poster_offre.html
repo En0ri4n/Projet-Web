@@ -16,21 +16,27 @@
             <div class="form__inputs">
                 <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
                 <textarea id="description" placeholder="Description du poste" required></textarea>
-                <input type="text" class="form-input" id="domain" placeholder="Domaine" required>
+                <select class="form-input" id="entreprise" required>
+                    <option value="entreprise 1">Entreprise 1</option>
+                    <option value="entreprise 2">Entreprise 2</option>
+                </select>
                 <input type="text" class="form-input" id="level" placeholder="Niveau d'études demandé" required>
                 <br>
-                <div id="dates">
                     <div>
                         <label for="start-date">Date début</label>
                         <input class="form-input" type="date" id="start-date" required>
                     </div>
-                    <div></div>
-                    <div>
-                        <label for="end-date">Date fin</label>
-                        <input class="form-input" type="date" id="end-date" required>
+                    <div id="duree">
+                        <input class="form-input" type="number" id="nb-duree" max="20" placeholder="Durée" required>
+                        <select class="form-input" id="type-duree" required>
+                            <option value="semaines">Semaines</option>
+                            <option value="mois">Mois</option>
+                        </select>
                     </div>
-                </div>
                 <input type="text" class="form-input" id="location" placeholder="Lieu" required>
+                <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
+                <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" required>
+                <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">
                 <div class="skills-div">
                     <input class="form-input"  id="input-skill" placeholder="Ajouter une compétence" required>
                     <div class="skills-list">
