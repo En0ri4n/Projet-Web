@@ -59,6 +59,65 @@ body{
     }
 }
 
+.offre {
+    display: flex;
+    background-color: #82AEB1;
+    border-radius: 30px 30px 30px 30px;
+    width: 900px;
+    height: 200px;
+    align-items: center;
+    cursor: pointer;
+
+    img {
+        height: 170px;
+        width: 170px;
+        border: solid #495867;
+        margin-left: 15px;
+    }
+
+    article {
+        box-sizing: border-box;
+        height: 100%;
+        width: 90%;
+        padding: 20px 60px 40px 20px;
+        flex-direction: row;
+        row-gap: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: start;
+        color: white;
+        font-size: 1.4em;
+
+        .poste {
+            font-size: 1.5em;
+        }
+
+        ul {
+            list-style-type: none;
+
+            li {
+                display: inline;
+            }
+
+            li:not(:last-child):after {
+                content: ', ';
+            }
+        }
+    }
+}
+
+.c1, .c2 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    row-gap: 30px;
+}
+
+.list-competences {
+    width: 100%;
+}
 
 #image_entreprise{
     width:100%;
@@ -148,65 +207,7 @@ body{
     background-color:white;
     text-align: center;
 }
-.offre {
-    display: flex;
-    background-color: #82AEB1;
-    border-radius: 30px 30px 30px 30px;
-    width: 900px;
-    height: 200px;
-    align-items: center;
-    cursor: pointer;
 
-    img {
-        height: 170px;
-        width: 170px;
-        border: solid #495867;
-        margin-left: 15px;
-    }
-
-    article {
-        box-sizing: border-box;
-        height: 100%;
-        width: 90%;
-        padding: 20px 60px 40px 20px;
-        flex-direction: row;
-        row-gap: 30px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: start;
-        color: white;
-        font-size: 1.4em;
-
-        .poste {
-            font-size: 1.5em;
-        }
-
-        ul {
-            list-style-type: none;
-
-            li {
-                display: inline;
-            }
-
-            li:not(:last-child):after {
-                content: ', ';
-            }
-        }
-    }
-}
-
-.c1, .c2 {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    width: 100%;
-    row-gap: 30px;
-}
-
-.list-competences {
-    width: 100%;
-}
 .box_competences{
     background-color: white;
     padding:10px;
@@ -348,6 +349,66 @@ iframe{
         }
     }
 
+    .offre {
+        display: flex;
+        background-color: #82AEB1;
+        border-radius: 30px 30px 30px 30px;
+        width: 900px;
+        height: 200px;
+        align-items: center;
+        cursor: pointer;
+    
+        img {
+            height: 20%;
+            width: 20%;
+            border: solid #495867;
+            margin-left: 15px;
+        }
+    
+        article {
+            box-sizing: border-box;
+            height: 100%;
+            width: 90%;
+            padding: 20px 60px 40px 20px;
+            flex-direction: row;
+            row-gap: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: start;
+            color: white;
+            font-size: 1.4em;
+    
+            .poste {
+                font-size: 1.5em;
+            }
+    
+            ul {
+                list-style-type: none;
+    
+                li {
+                    display: inline;
+                }
+    
+                li:not(:last-child):after {
+                    content: ', ';
+                }
+            }
+        }
+    }
+    
+    .c1, .c2 {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+        row-gap: 30px;
+    }
+    
+    .list-competences {
+        width: 100%;
+    }
+
     #image_entreprise{
         width:100%;
         height:200px;
@@ -450,8 +511,8 @@ iframe{
         display: flex;
         background-color: #82AEB1;
         border-radius: 30px 30px 30px 30px;
-        width: 900px;
-        height: 200px;
+        width: 80%;
+        height: 100%;
         align-items: center;
         cursor: pointer;
     
