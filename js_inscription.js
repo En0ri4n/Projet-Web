@@ -1,17 +1,3 @@
-/*etoiles*/
-const starts = document.querySelectorAll('.start .etoile')
-const btn = document.querySelector('button')
-
-starts.forEach((debut, num) => {
-    debut.addEventListener('click', () => {
-        starts.forEach((debut, num2) => {
-            console.log(debut)
-            num >= num2 ? debut.classList.add('active') : debut.classList.remove('active');
-        })
-    })
-})
-
-
 /*verification inscription*/
 function check_data() {
     setCustomValidator(document.getElementById('nom'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du poste doit au moins contenir 3 caractères');
