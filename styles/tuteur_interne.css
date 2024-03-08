@@ -350,3 +350,26 @@ input[type="submit"]:hover, .delete:hover, .new:hover{
         }
     }
 }
+
+/*Bouton pour scroll en haut de la page*/
+#button_back 
+{
+    position:fixed;
+    font-size: 2rem;
+    bottom: 5vh;
+    right: 5vh;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius:50%;
+    border-width: 1px;
+    background-color: #CB7C8C;
+    border-color: #CB7C8C;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+#button_back:hover
+{
+    background-color: #D72483;
+    cursor: pointer;
+}
