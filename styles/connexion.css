@@ -83,7 +83,7 @@ main {
     color: #3b4f50;
 }
 
-.form input[type="submit"] {
+.form button {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
     border-radius: 3px;
