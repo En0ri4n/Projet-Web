@@ -1,11 +1,11 @@
 <?php
-$host = 'cesi-project-web.sitam.me:3306';
-$dbname = 'projet-web-eno';
-$username = 'enow';
-$password = 'enow';
+$HOST = 'cesi-project-web.sitam.me:3306';
+$DB_NAME = 'projet-web-eno';
+$USERNAME = 'enow';
+$PASSWORD = 'enow';
 try
 {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:host=$HOST;dbname=$DB_NAME", $USERNAME, $PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e)
