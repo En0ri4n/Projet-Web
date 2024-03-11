@@ -252,7 +252,7 @@ footer{
 .etoile{
     width:60px;
     filter:invert(75%);
-    cursor:-pointer;
+    cursor: pointer;
     margin-left:1%;
 }
 .active{
@@ -613,7 +613,7 @@ iframe{
     .etoile{
         width:60px;
         filter:invert(75%);
-        cursor:-pointer;
+        cursor:pointer;
         margin-left:1%;
     }
     .active{
