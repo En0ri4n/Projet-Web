@@ -7,47 +7,22 @@ header('Content-Type: application/json');
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
+
+$data = json_decode(file_get_contents('php://input'), true);
+
 switch($method)
 {
     case 'GET':
-        // Read operation (fetch books)
-        $stmt = $pdo->query('SELECT * FROM books');
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($result);
+        echo json_encode(['message' => 'GET Request Successful', 'arguments' => $_GET, 'data' => $data]);
         break;
     case 'POST':
-        // Create operation (add a new book)
-        $data = json_decode(file_get_contents('php://input'), true);
-        $title = $data['title'];
-        $author = $data['author'];
-        $published_at = $data['published_at'];
-
-        $stmt = $pdo->prepare('INSERT INTO books (title, author, published_at) VALUES (?, ?, ?)');
-        $stmt->execute([$title, $author, $published_at]);
-
-        echo json_encode(['message' => 'Book added successfully']);
+        echo json_encode(['message' => 'POST Request Successful', 'arguments' => $_POST, 'data' => $data]);
         break;
     case 'PUT':
-        // Update operation (edit a book)
-        parse_str(file_get_contents('php://input'), $data);
-        $id = $data['id'];
-        $title = $data['title'];
-        $author = $data['author'];
-        $published_at = $data['published_at'];
-
-        $stmt = $pdo->prepare('UPDATE books SET title=?, author=?, published_at=? WHERE id=?');
-        $stmt->execute([$title, $author, $published_at, $id]);
-
-        echo json_encode(['message' => 'Book updated successfully']);
+        echo json_encode(['message' => 'PUT Request Successful', 'data' => $data]);
         break;
     case 'DELETE':
-        // Delete operation (remove a book)
-        $id = $_GET['id'];
-
-        $stmt = $pdo->prepare('DELETE FROM books WHERE id=?');
-        $stmt->execute([$id]);
-
-        echo json_encode(['message' => 'Book deleted successfully']);
+        echo json_encode(['message' => 'DELETE Request Successful', 'data' => $data]);
         break;
     default:
         // Invalid method
