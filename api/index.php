@@ -16,7 +16,7 @@ switch($method)
         echo json_encode(['message' => 'GET Request Successful', 'arguments' => $_GET, 'data' => $data]);
         break;
     case 'POST':
-        echo json_encode(['message' => 'POST Request Successful', 'arguments' => $_POST, 'data' => $data]);
+        echo json_encode(['message' => 'POST Request Successful', 'data' => $data]);
         break;
     case 'PUT':
         echo json_encode(['message' => 'PUT Request Successful', 'data' => $data]);
