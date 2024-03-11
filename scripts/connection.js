@@ -1,4 +1,4 @@
-import {addEventTo, sha256} from "./main.js";
+import { addEventTo, sha256 } from "./main.js";
 
 addEventTo(document.getElementById('submit'), 'click', async(evt) =>
 {
