@@ -1,24 +1,16 @@
-import 'scripts/main.js'
+import { addEventTo, setCustomValidator } from "./main";
 
 // Add event to the document when it is ready, to ensure that all the elements are loaded before doing anything
-addEventTo(document, 'DOMContentLoaded', () => onReady());
+addEventTo(document, 'DOMContentLoaded', onReady);
 
 /**
  * Called when the document is ready and all the elements (DOM) are loaded
- */
-function onReady()
-{
-	registerEvents();
-}
-
-/**
+ * <br>
  * Register events for the form fields
  * It will add custom validation for each fields
  */
-function registerEvents()
+function onReady()
 {
-	console.log('register events');
-	
 	addEventTo(window, 'keyup', (event) => {
 		if(event.keyCode === 13) {
 			event.preventDefault();
