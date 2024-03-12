@@ -56,12 +56,6 @@ img{
     width: 94%;
 }
 
-@media (max-width: 800px) {
-    .box {
-      flex-direction: column;
-    }
-}
-
 .box2{
     padding-inline: 4px;
     margin-inline: 5px;
@@ -94,6 +88,10 @@ img{
     margin-bottom:5%;
 }
 
+.marge{
+    margin-left: 5%;
+}
+
 .bouton{
     background-color:#82AEB1 ;
     color:#495867;
@@ -113,4 +111,10 @@ img{
     margin-top: 10vh;
     background-color: #CB7C8C;
     height: 10vh;
+}
+
+@media (max-width: 800px) {
+    .box {
+        flex-direction: column;
+    }
 }
