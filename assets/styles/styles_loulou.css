@@ -9,6 +9,10 @@ body{
     color: #495867;
 }
 
+.checked{
+    color: #D72483;
+}
+
 .header {
     background-color: #CB7C8C;
     height: 10vh;
@@ -248,7 +252,7 @@ footer{
 .etoile{
     width:60px;
     filter:invert(75%);
-    cursor:-pointer;
+    cursor: pointer;
     margin-left:1%;
 }
 .active{
@@ -297,6 +301,10 @@ iframe{
         padding: 0px;
         background-color: #FFF1F3;
         color: #495867;
+    }
+
+    .checked{
+        color: #D72483;
     }
 
     .header {
@@ -605,7 +613,7 @@ iframe{
     .etoile{
         width:60px;
         filter:invert(75%);
-        cursor:-pointer;
+        cursor:pointer;
         margin-left:1%;
     }
     .active{
