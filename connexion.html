@@ -12,7 +12,7 @@
 </head>
 <body id="body">
 <header class="header">
-    <img src="/assets/logo.png" alt="Logo">
+    <img src="/assets/logo.png" alt="Logo" onclick="window.location.href='accueil.html'">
 </header>
 <main class="main">
     <div class="form">
