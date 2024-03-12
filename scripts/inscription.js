@@ -1,8 +1,8 @@
 /*verification inscription*/
 function check_data() {
     setCustomValidator(document.getElementById('nom'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du poste doit au moins contenir 3 caractères');
-    setCustomValidator(document.getElementById('prenom'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du poste doit au moins contenir 3 caractères');
-    setCustomValidator(document.getElementById('email'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du poste doit au moins contenir 3 caractères');
+    setCustomValidator(document.getElementById('prenom'), /^[a-zA-Z\s._-]{3,}$/, 'Le prénom doit au moins contenir 3 caractères');
+    setCustomValidator(document.getElementById('email'), /^[a-zA-Z\s._-]{3,}$/, 'Lemail du poste doit au moins contenir 3 caractères');
     if (document.form_inscription.email.value.indexOf('@') == -1) {
         alert("Adresse mail invalide")
     }
