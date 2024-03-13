@@ -101,5 +101,5 @@
 </main>
 <?php include 'components/footer.php'; ?>
 </body>
-<script src="/scripts/descriptions.js"></script>
+<script type="module" src="/scripts/descriptions.js"></script>
 </html>

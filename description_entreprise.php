@@ -89,5 +89,5 @@ include 'components/header.php'; ?>
 </main>
 <?php include 'components/footer.php'; ?>
 </body>
-<script src="/scripts/etoile.js"></script>
+<script type="module" src="/scripts/etoile.js"></script>
 </html>
