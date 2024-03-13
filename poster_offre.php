@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Site - Groupe 1</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="/assets/styles/style.css">
 </head>
 <body>
 <header class="header">
-    <img src="assets/logo.png" alt="Logo">
+    <img src="/assets/logo.png" alt="Logo">
 </header>
 <main>
     <div class="form">
@@ -54,6 +54,6 @@
 </main>
 <footer class="footer">
 </footer>
-<script src="scripts/poster_offre.js"></script>
+<script type="module" src="/scripts/poster_offre.js"></script>
 </body>
 </html>

@@ -3,19 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <title>Site - Groupe 1</title>
-        <link rel="stylesheet" href="styles/descriptions.css">
+        <link rel="stylesheet" href="/assets/styles/styles_loulou.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <script src="/scripts/etoile.js" defer></script>
     </head>
     <body>
         <header class="header">
-            <img src="assets/logo.png" alt="Logo" width="100">
+            <img src="/assets/logo.png" alt="Logo" width="100">
             <div class="search-wrapper">
                 <input type="text" class="search-input" placeholder="Type to search">
             </div>
-            <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
+            <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
         </header>
         <main>
             <div>
-                <img id="image_entreprise" src="assets/logo.png" alt="">
+                <img id="image_entreprise" src="/assets/logo.png" alt="">
             </div>
             
                 <div class="titres">
@@ -31,7 +33,7 @@
                     <span class="titre">Offres</span>
                     <div class="posts">
                         <div class="offre">
-                            <img src="assets/poste.png" alt="Entreprise">
+                            <img src="/assets/poste.png" alt="Entreprise">
                             <article>
                                 <div class="c1">
                                     <span class="poste">Poste</span>
@@ -63,26 +65,26 @@
         <div class="div"></div>
         <div id="evaluation">
             Laisser une évaluation
-            <img class="etoile" src="assets/logo.png" alt="">
-            <img class="etoile" src="assets/logo.png" alt="">
-            <img class="etoile" src="assets/logo.png" alt="">
-            <img class="etoile" src="assets/logo.png" alt="">
-            <img class="etoile" src="assets/logo.png" alt="">
+            <span class="fas fa-star" data-star="1"></span>
+            <span class="fas fa-star" data-star="2"></span>
+            <span class="fas fa-star" data-star="3"></span>
+            <span class="fas fa-star" data-star="4"></span>
+            <span class="fas fa-star" data-star="5"></span>
         </div>
         <div class="div"></div>
         <div class="contact">
             <div class="contacts">
                 <span>Contacts</span>
                 <div class="titres">
-                    <img src="assets/logo.png" alt="">
+                    <img src="/assets/logo.png" alt="">
                     <span>Adresse</span>
                 </div>
                 <div class="titres">
-                    <img src="assets/logo.png" alt="">
+                    <img src="/assets/logo.png" alt="">
                     <span>Mail</span>
                 </div>
                 <div class="titres">
-                    <img src="assets/logo.png" alt="">
+                    <img src="/assets/logo.png" alt="">
                     <span>Telephone</span>
                 </div>
             </div>

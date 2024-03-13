@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil</title>
-    <link rel="stylesheet" href="styles/etudiant_interne.css">
+    <link rel="stylesheet" href="/assets/styles/etudiant_interne.css">
 </head>
 <body>
 <header class="header">
-    <img src="assets/logo.png" alt="Logo">
+    <img src="/assets/logo.png" alt="Logo">
     <div class="search"><input type="search" placeholder="Rechercher..."><button>🔍</button></div>
-    <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
+    <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
 </header>
 <main>
     <div class="profil">
@@ -30,7 +30,7 @@
                 </div>
             </form>
         </div>
-        <img src="assets/logo.png" alt="Image de profil">
+        <img src="/assets/logo.png" alt="Image de profil">
     </div>
     <div class="informations">
         <div class="listes">

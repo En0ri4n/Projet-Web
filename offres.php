@@ -3,26 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Accueil</title>
-    <link rel="stylesheet" href="styles/accueil.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- <link rel="preload" as="image" href="assets/logo.png"> TODO: Preload images-->
+    <link rel="stylesheet" href="/assets/styles/accueil.css">
 </head>
 <body>
-<header class="header">
-    <img src="assets/logo.png" alt="Logo" style="cursor: pointer" onclick="window.location.href='accueil.html'">
-    <div class="search-wrapper">
-        <input type="text" class="search-input" placeholder="Type to search" />
-    </div>
-    <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
-</header>
+<?php include 'components/header.php'; ?>
 <main class="main">
-    <div class="presentation">
-        <article class="description">
-            <h1>StageFinder</h1><br>
-            <p>Trouvez un stage qui vous correspond.</p>
-        </article>
-        <img src="assets/stage.jpg" alt="Presentation">
-    </div>
     <div class="list-offres">
         <div class="parametres">
             <div class="mode"><a class="selected">Classic</a> | <a href="fancy.html">Fancy</a></div>
@@ -30,7 +15,7 @@
         </div>
         <div class="posts">
             <div class="offre">
-                <img src="assets/poste.png" alt="Entreprise">
+                <img src="/assets/poste.png" alt="Entreprise">
                 <article>
                     <div class="c1">
                         <span class="poste">Poste</span>
@@ -54,6 +39,6 @@
         </div>
     </div>
 </main>
-<script src="scripts/accueil.js"></script>
+<?php include 'components/footer.php'; ?>
 </body>
 </html>

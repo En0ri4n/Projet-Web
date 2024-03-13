@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="styles/connexion.css">
+    <link rel="stylesheet" href="/assets/styles/connexion.css">
+    <link rel="stylesheet" href="/assets/styles/components.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Description: This is the connection page. -->
     <!-- It is used to connect to the website. -->
@@ -11,26 +12,24 @@
     <meta name="keywords" content="connection, connexion, website, site">
 </head>
 <body id="body">
-<header class="header">
-    <img src="assets/logo.png" alt="Logo">
-</header>
+<?php include 'components/header.php'; ?>
 <main class="main">
     <div class="form">
         <h1>Connexion</h1>
         <br>
-        <div>
+        <form method="post">
             <div class="form__inputs">
                 <input type="text" id="identifiant" name="identifiant" placeholder="Identifiant" required>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" required>
             </div>
             <br>
             <div class="center">
-                <button value="Connexion" id="submit">Connexion</button>
+                <input type="submit" value="Connexion">
             </div>
-        </div>
+        </form>
     </div>
 </main>
-<footer class="footer"></footer>
-<script type="module" src="scripts/connection.js"></script>
+<?php include 'components/footer.php'; ?>
+<script src="/scripts/connexion.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
-    <link rel="stylesheet" href="styles/inscription.css">
+    <link rel="stylesheet" href="/assets/styles/inscription.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Description: This is the inscription page. -->
     <!-- It is used to create an account on the website. -->
@@ -11,14 +11,12 @@
     <meta name="keywords" content="inscription, account, create, website">
 </head>
 <body>
-<header class="header">
-    <img src="assets/logo.png" alt="Logo">
-</header>
+<?php include('components/header.php');?>
 <main class="main">
     <div class="form">
         <h1>Inscription</h1>
         <br>
-        <form method="post">
+        <form method="post" id="form_inscription">
             <div class="form__inputs">
                 <input type="text" id="nom" name="nom" placeholder="Nom" required>
                 <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
@@ -27,7 +25,7 @@
                 <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirmation" required>
             </div>
             <br>
-            <div class="account-type">
+            <div class="account-type" id="account">
                 <div>
                     <input type="radio" id="student-account" name="account-type" value="student" required>
                     <label for="student-account">Élève</label>
@@ -47,5 +45,6 @@
 <footer class="footer">
 
 </footer>
+<script type="module" src="/scripts/inscription.js"></script>
 </body>
 </html>

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Site - Groupe 1</title>
-    <link rel="stylesheet" href="styles/poster_entreprise.css">
+    <link rel="stylesheet" href="/assets/styles/poster_entreprise.css">
 </head>
 <body>
     <header class="PosterEnterprise_Header">
-        <img src="assets/logo.png" alt="Logo">
-            <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
+        <img src="/assets/logo.png" alt="Logo">
+            <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
     </header>
             <div class="poster"> Créer une fiche entreprise </div>
             
@@ -22,8 +22,8 @@
                     <div class="box_div"><label>Téléphone </label> <input class="input_box"></div>
                 </div>
                 <div class = "box2">
-                    <label>Description de l'entreprise*</label>
-                    <textarea class="input_box_long" required></textarea>
+                    <label for="entreprise-desc">Description de l'entreprise</label>
+                    <textarea class="input_box_long" id="entreprise-desc" required=""></textarea>
                 </div>
             </div>
             <p class="marge">*Champs obligatoires</p>
@@ -33,4 +33,5 @@
             
         </footer>
     </body>
+<script type="module" src="/scripts/poster_entreprise.js"></script>
 </html>
