@@ -13,7 +13,7 @@
             <div class="search-wrapper">
                 <input type="text" class="search-input" placeholder="Type to search">
             </div>
-            <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
+            <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
         </header>
         <main>
             <div>

@@ -11,13 +11,13 @@
     <div class="search-wrapper">
         <input type="text" class="search-input" placeholder="Type to search">
     </div>
-    <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
+    <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
 </header>
 <div class="entreprise">
     <div class="description_entreprise">
         <span class="titre">NomEntreprise</span>
         <div class="paragraphe">
-            <a href="description_entreprise.html">
+            <a href="description_entreprise.php">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                     et dolore magna aliqua. Mi eget mauris pharetra et. Neque aliquam vestibulum morbi blandit cursus
