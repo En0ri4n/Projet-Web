@@ -124,14 +124,15 @@
 .parametres {
     display: flex;
     justify-content: space-between;
-    padding-right: 5vw;
-    padding-left: 44vw;
+    flex-direction: row;
+    box-sizing: border-box;
+
 }
 
 .mode {
     color: #495867;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1.3em;
 
     a {
         color: #495867;
