@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Connexion</title>
     <link rel="stylesheet" href="/assets/styles/connexion.css">
+    <link rel="stylesheet" href="/assets/styles/components.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Description: This is the connection page. -->
     <!-- It is used to connect to the website. -->
@@ -11,9 +12,7 @@
     <meta name="keywords" content="connection, connexion, website, site">
 </head>
 <body id="body">
-<header class="header">
-    <img src="/assets/logo.png" alt="Logo" onclick="window.location.href='accueil.html'">
-</header>
+<?php include 'components/header.php'; ?>
 <main class="main">
     <div class="form">
         <h1>Connexion</h1>
@@ -31,8 +30,7 @@
         </form>
     </div>
 </main>
-<footer class="footer">
-
-</footer>
+<?php include 'components/footer.php'; ?>
+<script src="/scripts/connexion.js"></script>
 </body>
 </html>
