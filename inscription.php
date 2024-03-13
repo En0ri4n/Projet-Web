@@ -38,13 +38,10 @@
             <div class="center">
                 <input type="submit" value="Confirmer l'inscription">
             </div>
-
         </form>
     </div>
 </main>
-<footer class="footer">
-
-</footer>
-<script type="module" src="/scripts/inscription.js"></script>
+<?php include('components/footer.php'); ?>
 </body>
+<script type="module" src="/scripts/inscription.js"></script>
 </html>

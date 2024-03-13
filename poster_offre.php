@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="/assets/styles/style.css">
 </head>
 <body>
-<header class="header">
-    <img src="/assets/logo.png" alt="Logo">
-</header>
+<?php include 'components/header.php'; ?>
 <main>
     <div class="form">
         <h1> Poster une offre</h1>
@@ -52,8 +50,7 @@
         </form>
     </div>
 </main>
-<footer class="footer">
-</footer>
+<?php include 'components/footer.php'; ?>
 <script type="module" src="/scripts/poster_offre.js"></script>
 </body>
 </html>

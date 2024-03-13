@@ -1,67 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Site - Groupe 1</title>
-        <link rel="stylesheet" href="/assets/styles/styles_loulou.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-        <script src="/scripts/etoile.js" defer></script>
-    </head>
-    <body>
-        <header class="header">
-            <img src="/assets/logo.png" alt="Logo" width="100">
-            <div class="search-wrapper">
-                <input type="text" class="search-input" placeholder="Type to search">
-            </div>
-            <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
-        </header>
-        <main>
-            <div>
-                <img id="image_entreprise" src="/assets/logo.png" alt="">
-            </div>
-            
-                <div class="titres">
-                    <span id="Nom">NomEntreprise</span>
-                    <span id="Domaine">Domaine</span>
-                </div>
-                
-                <p class="description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi eget mauris pharetra et. Neque aliquam vestibulum morbi blandit cursus risus at. Et malesuada fames ac turpis. Proin fermentum leo vel orci porta non pulvinar. Tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. At urna condimentum mattis pellentesque id nibh. Porta lorem mollis aliquam ut porttitor leo a. Et leo duis ut diam quam nulla porttitor. Quis risus sed vulputate odio ut enim blandit. Duis convallis convallis tellus id interdum velit laoreet id donec. Et molestie ac feugiat sed lectus vestibulum. Sapien nec sagittis aliquam malesuada bibendum. Rutrum quisque non tellus orci ac auctor augue mauris. Tortor posuere ac ut consequat semper viverra nam libero. Ante in nibh mauris cursus mattis molestie. Faucibus turpis in eu mi bibendum.
-                </p>
-                
-                <div class="box_offres">
-                    <span class="titre">Offres</span>
-                    <div class="posts">
-                        <div class="offre">
-                            <img src="/assets/poste.png" alt="Entreprise">
-                            <article>
-                                <div class="c1">
-                                    <span class="poste">Poste</span>
-                                    <span >Entreprise</span>
-                                    <span class="niveau">Niveau</span>
-                                </div>
-                                <div class="c2">
-                                    <span class="domaine">Domaine</span>
-                                    <span class="dates">Dates</span>
-                                </div>
-                                <div class="c3">
-                                </div>
-                                <div class="list-competences">
-                                    <ul class="competences">Compétences :
-                                        <li>competence 1</li>
-                                        <li>competence 2</li>
-                                    </ul>
-                                </div>
-                            </article>
-                        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Site - Groupe 1</title>
+    <link rel="stylesheet" href="/assets/styles/descriptions.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+</head>
+<body>
+<?php
+include 'components/header.php'; ?>
+<main>
+    <div>
+        <img id="image_entreprise" src="/assets/logo.png" alt="">
+    </div>
+
+    <div class="titres">
+        <span id="Nom">NomEntreprise</span>
+        <span id="Domaine">Domaine</span>
+    </div>
+
+    <p class="description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi eget mauris pharetra et. Neque aliquam vestibulum morbi blandit cursus risus at. Et malesuada fames ac turpis. Proin fermentum leo vel orci porta non pulvinar. Tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. At urna condimentum mattis pellentesque id nibh. Porta lorem mollis aliquam ut porttitor leo a. Et leo duis ut diam quam nulla porttitor. Quis risus sed vulputate odio ut enim blandit. Duis convallis convallis tellus id interdum velit laoreet id donec. Et molestie ac feugiat sed lectus vestibulum. Sapien nec sagittis aliquam malesuada bibendum. Rutrum quisque non tellus orci ac auctor augue mauris. Tortor posuere ac ut consequat semper viverra nam libero. Ante in nibh mauris cursus mattis molestie. Faucibus turpis in eu mi bibendum.
+    </p>
+
+    <div class="box_offres">
+        <span class="titre">Offres</span>
+        <div class="posts">
+            <div class="offre">
+                <img src="/assets/poste.png" alt="Entreprise">
+                <article>
+                    <div class="c1">
+                        <span class="poste">Poste</span>
+                        <span>Entreprise</span>
+                        <span class="niveau">Niveau</span>
                     </div>
-                </div>
-                <div class="titre">
-                    <span >Statistiques</span>
-                </div>
-        </main>
-    </body>
-    <footer>
+                    <div class="c2">
+                        <span class="domaine">Domaine</span>
+                        <span class="dates">Dates</span>
+                    </div>
+                    <div class="c3">
+                    </div>
+                    <div class="list-competences">
+                        <ul class="competences">Compétences :
+                            <li>competence 1</li>
+                            <li>competence 2</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="titre">
+        <span>Statistiques</span>
+    </div>
+    <div>
         <div class="div"></div>
         <div id="evaluation">
             Laisser une évaluation
@@ -93,5 +85,9 @@
             </div>
         </div>
         <div class="div"></div>
-    </footer>
+    </div>
+</main>
+<?php include 'components/footer.php'; ?>
+</body>
+<script src="/scripts/etoile.js"></script>
 </html>

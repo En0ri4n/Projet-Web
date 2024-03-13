@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Site - Groupe 1</title>
-    <link rel="stylesheet" href="/assets/styles/styles_loulou.css">
+    <link rel="stylesheet" href="/assets/styles/descriptions.css">
 </head>
 <body>
-<header class="header">
-    <img src="/assets/logo.png" alt="Logo" width="10%">
-    <div class="search-wrapper">
-        <input type="text" class="search-input" placeholder="Type to search">
-    </div>
-    <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
-</header>
+<?php include 'components/header.php'; ?>
+<main>
 <div class="entreprise">
     <div class="description_entreprise">
         <span class="titre">NomEntreprise</span>
@@ -79,7 +74,7 @@
     </div>
 </div>
 <span class="titre">Statistiques</span>
-<footer>
+<div>
     <div class="contact">
         <div class="contacts">
             <span>Contacts</span>
@@ -102,6 +97,9 @@
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
-</footer>
+</div>
+</main>
+<?php include 'components/footer.php'; ?>
 </body>
+<script src="/scripts/descriptions.js"></script>
 </html>

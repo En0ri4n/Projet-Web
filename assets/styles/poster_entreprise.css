@@ -4,29 +4,6 @@
     padding: 0;
 }
 
-.PosterEnterprise_Header {
-    background-color: #CB7C8C;
-    height: 10vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 20px;
-    img {
-        width: 20vh;
-        height: 100%;
-    }
-    .login{
-        color: #495867;
-        a{
-            color: #495867;
-            text-decoration:none;
-        }
-        a:hover{
-            color:#FFF1F3;
-        }
-    }
-}
-
 body {
     background-color: #FFF1F3;
     color:#495867;
@@ -105,12 +82,6 @@ img{
 .bouton:hover{
     background-color:#495867;
     color: #FFF1F3;;
-}
-
-.PosterEnterprise_Footer{
-    margin-top: 10vh;
-    background-color: #CB7C8C;
-    height: 10vh;
 }
 
 @media (max-width: 800px) {

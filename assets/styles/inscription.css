@@ -4,16 +4,6 @@
     padding: 0;
 }
 
-.header {
-    background-color: #CB7C8C;
-    height: 10vh;
-}
-
-.header img {
-    width: inherit;
-    height: 100%;
-}
-
 .main {
     background-color: #FFF1F3;
 
