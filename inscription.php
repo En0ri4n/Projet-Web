@@ -11,9 +11,7 @@
     <meta name="keywords" content="inscription, account, create, website">
 </head>
 <body>
-<header class="header">
-    <img src="/assets/logo.png" alt="Logo" onclick="window.location.href='accueil.html'">
-</header>
+<?php include('components/header.php');?>
 <main class="main">
     <div class="form">
         <h1>Inscription</h1>
@@ -27,7 +25,7 @@
                 <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirmation" required>
             </div>
             <br>
-            <div class="account-type">
+            <div class="account-type" id="account">
                 <div>
                     <input type="radio" id="student-account" name="account-type" value="student" required>
                     <label for="student-account">Élève</label>

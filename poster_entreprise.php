@@ -8,7 +8,7 @@
 <body>
     <header class="PosterEnterprise_Header">
         <img src="/assets/logo.png" alt="Logo">
-            <div class="login"><a href="connexion.html">Connexion</a> | <a href="inscription.html">Inscription</a></div>
+            <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
     </header>
             <div class="poster"> Créer une fiche entreprise </div>
             

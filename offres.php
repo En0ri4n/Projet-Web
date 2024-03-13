@@ -14,13 +14,6 @@
     <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
 </header>
 <main class="main">
-    <div class="presentation">
-        <article class="description">
-            <h1>StageFinder</h1><br>
-            <p>Trouvez un stage qui vous correspond.</p>
-        </article>
-        <img src="/assets/stage.jpg" alt="Presentation">
-    </div>
     <div class="list-offres">
         <div class="parametres">
             <div class="mode"><a class="selected">Classic</a> | <a href="fancy.html">Fancy</a></div>
