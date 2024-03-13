@@ -6,13 +6,7 @@
     <link rel="stylesheet" href="/assets/styles/accueil.css">
 </head>
 <body>
-<header class="header">
-    <img src="/assets/logo.png" alt="Logo" style="cursor: pointer" onclick="window.location.href='accueil.html'">
-    <div class="search-wrapper">
-        <input type="text" class="search-input" placeholder="Type to search"/>
-    </div>
-    <div class="login"><a href="connexion.php">Connexion</a> | <a href="inscription.php">Inscription</a></div>
-</header>
+<?php include 'components/header.php'; ?>
 <main class="main">
     <div class="list-offres">
         <div class="parametres">
@@ -45,5 +39,6 @@
         </div>
     </div>
 </main>
+<?php include 'components/footer.php'; ?>
 </body>
 </html>

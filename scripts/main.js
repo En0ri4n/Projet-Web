@@ -86,3 +86,19 @@ export const setCustomConditionValidator = (input, condition, message) =>
 		evt.target.reportValidity()
 	})
 }
+
+addEventTo(document, 'DOMContentLoaded', () =>
+{
+	const searchBar = document.getElementById('search-input');
+
+	if(searchBar == null)
+		return;
+
+	addEventTo(searchBar, 'keyup', (evt) => {
+		if(evt.keyCode === 13)
+		{
+			console.log('Enter pressed');
+			window.location.href = `/search/${searchBar.value}`;
+		}
+	});
+})
