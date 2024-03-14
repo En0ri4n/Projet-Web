@@ -38,22 +38,6 @@ CREATE TABLE Evaluation(
    FOREIGN KEY(IdEntreprise) REFERENCES Entreprise(IdEntreprise)
 );
 
-CREATE TABLE Offre(
-   IdOffre INT,
-   DateOffre DATE NOT NULL,
-   DureeOffre INT NOT NULL,
-   Remuneration CURRENCY NOT NULL,
-   NbPlace INT NOT NULL,
-   NomOffre VARCHAR(64) NOT NULL,
-   NiveauOffre INT,
-   DescriptionOffre VARCHAR(512) NOT NULL,
-   IdAdresse INT NOT NULL,
-   IdEntreprise INT NOT NULL,
-   PRIMARY KEY(IdOffre),
-   FOREIGN KEY(IdAdresse) REFERENCES Adresse(IdAdresse),
-   FOREIGN KEY(IdEntreprise) REFERENCES Entreprise(IdEntreprise)
-);
-
 CREATE TABLE Competence(
    IdCompetence INT,
    NomCompetence VARCHAR(64) NOT NULL,
@@ -91,7 +75,25 @@ CREATE TABLE Promotion(
    IdUtilisateur_1 VARCHAR(64),
    PRIMARY KEY(IdPromotion),
    FOREIGN KEY(IdUtilisateur) REFERENCES Administrateur(IdUtilisateur),
-   FOREIGN KEY(IdUtilisateurAdmin) REFERENCES Pilote(IdUtilisateur)
+   FOREIGN KEY(IdUtilisateur_1) REFERENCES Pilote(IdUtilisateur)
+);
+
+CREATE TABLE Offre(
+   IdOffre INT,
+   DateOffre DATE NOT NULL,
+   DureeOffre INT NOT NULL,
+   Remuneration INT NOT NULL,
+   NbPlace INT NOT NULL,
+   NomOffre VARCHAR(64) NOT NULL,
+   NiveauOffre INT,
+   DescriptionOffre VARCHAR(512) NOT NULL,
+   IdSecteur INT NOT NULL,
+   IdAdresse INT NOT NULL,
+   IdEntreprise INT NOT NULL,
+   PRIMARY KEY(IdOffre),
+   FOREIGN KEY(IdSecteur) REFERENCES Secteur(IdSecteur),
+   FOREIGN KEY(IdAdresse) REFERENCES Adresse(IdAdresse),
+   FOREIGN KEY(IdEntreprise) REFERENCES Entreprise(IdEntreprise)
 );
 
 CREATE TABLE Etudiant(
@@ -108,12 +110,13 @@ CREATE TABLE Candidature(
    IdCandidature INT,
    CV VARCHAR(64),
    LettreMotivation VARCHAR(50),
+   StatutCandidature VARCHAR(16),
    IdUtilisateur VARCHAR(64),
    IdUtilisateur_1 VARCHAR(64),
    IdOffre INT NOT NULL,
    PRIMARY KEY(IdCandidature),
    FOREIGN KEY(IdUtilisateur) REFERENCES Etudiant(IdUtilisateur),
-   FOREIGN KEY(IdUtilisateurAdmin) REFERENCES Administrateur(IdUtilisateur),
+   FOREIGN KEY(IdUtilisateur_1) REFERENCES Administrateur(IdUtilisateur),
    FOREIGN KEY(IdOffre) REFERENCES Offre(IdOffre)
 );
 
