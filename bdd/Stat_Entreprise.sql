@@ -12,4 +12,5 @@ WHERE Adresse.Ville = ''; #trier les entreprises par ville
 SELECT AVG(Note)
 FROM Evaluation 
 INNER JOIN Entreprise ON Evaluation.IdEvaluation = Entreprise.IdEntreprise 
-GROUP BY NomEntreprise;#moyenne evaluation entreprise 
+GROUP BY NomEntreprise
+WHERE IdEntreprise = '';#moyenne evaluation entreprise 
