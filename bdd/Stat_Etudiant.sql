@@ -1,5 +1,6 @@
--- Active: 1710404343123@@cesi-project-web.sitam.me@3306@projet-web-eno
-SELECT Nom FROM Utilisateur WHERE IdUtilisateur IN Etudiant;
-SELECT Prenom FROM Utilisateur WHERE IdUtilisateur IN Etudiant;
-SELECT  NomPromotion FROM Promotion INNER JOIN Etudiant ON Appartenir.IdPromotion = Appartenir.IdUtilisateur;
-SELECT Centre FROM Promotion INNER JOIN Etudiant ON Appartenir.IdPromotion = Appartenir.IdUtilisateur;
+/*Cherche les données d'un etudiant basé sur son Id*/
+SELECT Utilisateur.Nom, Utilisateur.Prenom, Promotion.NomPromotion, Promotion.Centre
+FROM Utilisateur
+INNER JOIN Etudiant ON Utilisateur.IdUtilisateur = Etudiant.IdUtilisateur
+INNER JOIN Promotion ON Etudiant.IdPromotion = Promotion.IdPromotion
+WHERE Etudiant.IdUtilisateur = 0;
