@@ -2,19 +2,29 @@
 <html lang="fr" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="/assets/styles/accueil.css">
+    <title>Offres de Stage</title>
+    <link rel="stylesheet" href="/assets/styles/offres.css">
     <link rel="stylesheet" href="/assets/styles/components.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/assets/favicon.ico" />
 </head>
 <body>
 <?php include 'components/header.php'; ?>
 <main class="main">
-    <div class="list-offres">
-        <div class="parametres">
-            <div class="mode"><a class="selected">Classic</a> | <a href="fancy.html">Fancy</a></div>
-            <button class="filtres">Filtrer ▼</button>
+    <div class="parametres">
+        <h1>Filtres</h1>
+        <div class="filtres">
+            <input type="text" id="filter-name" placeholder="Nom">
+            <select id="filter-entreprise"><option value="default">Entreprise...</option></select>
+            <select id="filter-niveau"><option value="default">Niveau...</option></select>
+            <input type="date" id="filter-date" placeholder="Date">
+            <input type="number" id="duree" placeholder="Durée (Mois)">
+            <select id="filter-location"><option value="default">Lieu...</option></select>
+            <button id="reset-filter">Réinitiliaser</button>
+            <button id="filter-button">Filtrer</button>
         </div>
+    </div>
+    <div class="list-offres">
         <div class="posts">
             <div class="offre">
                 <img src="/assets/poste.png" alt="Entreprise">
