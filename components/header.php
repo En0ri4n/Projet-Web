@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <header id="header">
     <img src="/assets/logo.svg" alt="Logo" style="cursor: pointer" onclick="window.location.href='/accueil.php'">
-    <div class="search-wrapper">
-        <input type="text" id="search-input" placeholder="Type to search"/>
-    </div>
+    <!--<div class="search-wrapper">
+        <input type="text" id="search-input" placeholder="Type to search"/> TODO: See what we do
+    </div>-->
     <div class="login">
         <?php
         if(isset($_COOKIE['userId']))
