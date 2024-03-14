@@ -5,6 +5,7 @@
     <title>Accueil</title>
     <link rel="stylesheet" href="/assets/styles/accueil.css">
     <link rel="stylesheet" href="/assets/styles/components.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
 <?php include('components/header.php'); ?>

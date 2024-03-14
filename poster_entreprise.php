@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Site - Groupe 1</title>
     <link rel="stylesheet" href="/assets/styles/poster_entreprise.css">
+    <link rel="stylesheet" href="/assets/styles/components.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
 <?php include 'components/header.php'; ?>
