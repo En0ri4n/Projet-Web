@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <header id="header">
-    <img src="/assets/logo.png" alt="Logo" style="cursor: pointer" onclick="window.location.href='accueil.html'">
+    <img src="/assets/logo.svg" alt="Logo" style="cursor: pointer" onclick="window.location.href='/accueil.php'">
     <div class="search-wrapper">
         <input type="text" id="search-input" placeholder="Type to search"/>
     </div>
@@ -19,5 +19,6 @@
         ?>
     </div>
 </header>
+<div id="header-below"></div>
 
 
