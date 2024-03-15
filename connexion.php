@@ -30,5 +30,6 @@
     </div>
 </main>
 <?php include 'components/footer.php'; ?>
+<script type="module" src="scripts/connection.js"></script>
 </body>
 </html>
