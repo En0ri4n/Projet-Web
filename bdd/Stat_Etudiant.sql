@@ -3,14 +3,23 @@ SELECT Nom, Prenom
 FROM Utilisateur
 WHERE IdUtilisateur
           IN (SELECT IdUtilisateur FROM Etudiant);
+
+
 #nom de l'etudiant
 #prenom de l'etudiant
 SELECT NomPromotion
 FROM Promotion
-         INNER JOIN Etudiant ON Etudiant.IdPromotion = Promotion.IdUtilisateur; #promo de l'etudiant
+         INNER JOIN Etudiant ON Etudiant.IdPromotion = Promotion.IdPromotion
+         INNER JOIN Utilisateur ON Etudiant.IdUtilisateur = Utilisateur.IdUtilisateur
+WHERE Utilisateur.IdUtilisateur = Etudiant.IdUtilisateur AND Utilisateur.Nom = 'Doe' AND Utilisateur.Prenom = 'John';
+; #promo de l'etudiant
+
+
 SELECT Centre
 FROM Promotion
          INNER JOIN Etudiant ON Promotion.IdPromotion = Etudiant.IdPromotion;
+
+
 #centre ou etudie l'etudiant
 #nbre d'offres en wishlist
 #nbre d'offres postulees
