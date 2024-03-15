@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
     <title>Accueil</title>
-    <link rel="stylesheet" href="/assets/styles/accueil.css">
-    <link rel="stylesheet" href="/assets/styles/components.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <?php include('components/head.php'); ?>
 </head>
 <body>
 <?php include('components/header.php'); ?>
-<main class="main">
+<main>
     <div class="presentation">
         <article class="description">
             <h1>StageFinder</h1><br>
@@ -17,12 +14,12 @@
         </article>
         <img src="/assets/stage.jpg" alt="Presentation">
     </div>
-    <div class="list-offres">
-        <div class="parametres">
-            <div class="mode"><a class="selected">Classic</a> | <a href="fancy.html">Fancy</a></div>
-            <button class="filtres">Filtrer ▼</button>
+    <div class="accueil-offres">
+        <div class="space-between-two">
+            <div class="mode-accueil"><a class="selected">Classic</a> | <a href="fancy.html">Fancy</a></div>
+            <button class="go-button">Filtrer</button>
         </div>
-        <div class="posts">
+        <div class="liste-offres">
             <div class="offre">
                 <img src="/assets/poste.png" alt="Entreprise">
                 <article>

@@ -26,7 +26,7 @@ include 'components/header.php'; ?>
 
     <div class="box_offres">
         <span class="titre">Offres</span>
-        <div class="posts">
+        <div class="liste-offres">
             <div class="offre">
                 <img src="/assets/poste.png" alt="Entreprise">
                 <article>

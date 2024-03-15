@@ -132,7 +132,7 @@ form{
 }
 
 .list_data {
-    padding: 0vh 2vh;
+    padding: 0 2vh;
 }
 
 .contener_row {
@@ -156,7 +156,7 @@ form{
     height: auto;
 }
 
-.parametres{
+.space-between-two{
     display: flex;
     justify-content: start;
     align-items: center;
@@ -165,7 +165,7 @@ form{
     gap: 3vh;
 }
 
-.mode{
+.mode-accueil{
     color: #495867;
     font-weight: bold;
     font-size: 1em;
