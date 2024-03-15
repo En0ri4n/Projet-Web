@@ -1,16 +1,15 @@
+import { addEventTo} from "./main.js";
+
 let current_page = 1;
 let total_pages = 2;
 let per_page = 3;
 let page_count = 0;
 
+addEventTo(document, "DOMContentLoaded", onReady);
+
+addEventTo(document.getElementById('go-button'), "click", () => window.location.href = "/offres.php");
+
 function onReady()
-{
-	get();
-}
-
-document.addEventListener("DOMContentLoaded", () => onReady());
-
-function get()
 {
 	per_page = 10; // document.getElementById("per_page").value;
 	
@@ -55,17 +54,8 @@ function get()
 			// document.getElementById("pages").innerHTML = `${data["page"]} / ${total_pages}`;
 		}
 		
-		document.getElementsByClassName("posts")[0].innerHTML = html;
+		document.getElementsByClassName("liste-offres")[0].innerHTML = html;
 		// document.getElementById("get_result").innerHTML = html;
 	};
 	xhr.send(); //Envoi de la requête au serveur (asynchrone par défaut)
-}
-
-function checkButtons()
-{
-	document.getElementById("per_page").max = page_count;
-	
-	document.getElementById("btn_prev").disabled = current_page <= 1;
-	
-	document.getElementById("btn_next").disabled = current_page >= total_pages;
 }
