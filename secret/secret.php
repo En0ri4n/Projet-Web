@@ -5,9 +5,6 @@
     <title>La page secrète</title>
 </head>
 <body>
-<header class="header">
-    <img src="../assets/logo.png" alt="Logo">
-</header>
 <main style="display: flex; flex-direction: column">
     <h1>La page secrète</h1>
     <br>
