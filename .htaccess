@@ -1,8 +1,8 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{HTTP_COOKIE} "user=([^;]+)" [NC]
-RewriteRule ^api/(.*)$ /api/$1.php [L,R] # <- for test, for prod use [L,R=301]
+RewriteCond %{HTTP_COOKIE} "userId=([^;]+)" [NC]
+RewriteRule ^api/(?<!(\.php))$ /api/$1.php [L,R] # <- for test, for prod use [L,R=301]
 
 # Check if the "userId" cookie is not present
 RewriteCond %{HTTP_COOKIE} !^.*userId=.*$ [NC]
