@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Inscription</title>
-    <link rel="stylesheet" href="/assets/styles/inscription.css">
-    <link rel="stylesheet" href="/assets/styles/components.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <?php include('components/head.php'); ?>
     <!-- Description: This is the inscription page. -->
     <!-- It is used to create an account on the website. -->
     <meta name="description" content="This is the inscription page. It is used to create an account on the website.">

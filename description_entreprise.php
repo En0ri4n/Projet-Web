@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Site - Groupe 1</title>
-    <link rel="stylesheet" href="/assets/styles/descriptions.css">
-    <link rel="stylesheet" href="/assets/styles/components.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Description Entreprise</title>
+    <?php include('components/head.php'); ?>
 </head>
 <body>
 <?php

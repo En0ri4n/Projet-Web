@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="/assets/styles/connexion.css">
-    <link rel="stylesheet" href="/assets/styles/components.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <?php include('components/head.php'); ?>
     <!-- Description: This is the connection page. -->
     <!-- It is used to connect to the website. -->
     <meta name="description" content="This is the connection page. It is used to connect to the website.">

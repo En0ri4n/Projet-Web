@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Profil</title>
-    <link rel="stylesheet" href="/assets/styles/tuteur_interne.css">
-    <link rel="stylesheet" href="/assets/styles/components.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profil Pilote</title>
+    <?php include('components/head.php'); ?>
 </head>
 <body>
 <?php include 'components/header.php'; ?>

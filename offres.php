@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
     <title>Offres de Stage</title>
-    <link rel="stylesheet" href="/assets/styles/offres.css">
-    <link rel="stylesheet" href="/assets/styles/components.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/assets/favicon.ico" />
+    <?php include('components/head.php'); ?>
 </head>
 <body>
 <?php include 'components/header.php'; ?>
