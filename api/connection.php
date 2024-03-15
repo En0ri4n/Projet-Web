@@ -23,7 +23,7 @@ switch($method)
         if($result)
         {
             setcookie('userId', $result['IdUtilisateur'], time() + 3600, '/');
-            echo json_encode(['authorized' => true, 'message' => 'Authorized', 'user' => $result['IdUtilisateur'], 'redirect' => '/accueil.html']);
+            echo json_encode(['authorized' => true, 'message' => 'Authorized', 'user' => $result['IdUtilisateur'], 'redirect' => '/accueil.php']);
         }
         else
         {

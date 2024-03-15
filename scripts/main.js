@@ -87,17 +87,12 @@ export const setCustomConditionValidator = (input, condition, message) =>
 	})
 }
 
-export function sha256(message) {
-	// encode as UTF-8
+export const sha256 = async message => {
 	const msgBuffer = new TextEncoder().encode(message);
-
-	// hash the message
-	return crypto.subtle.digest('SHA-256', msgBuffer).then(buffer => {
-		const hashArray = Array.from(new Uint8Array(buffer));
-		return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-	});
-}
-
+	const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+};
 addEventTo(document, 'DOMContentLoaded', () =>
 {
 	const searchBar = document.getElementById('search-input');
@@ -113,13 +108,6 @@ addEventTo(document, 'DOMContentLoaded', () =>
 		}
 	});
 })
-
-export const sha256 = async message => {
-	const msgBuffer = new TextEncoder().encode(message);
-	const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-	const hashArray = Array.from(new Uint8Array(hashBuffer));
-	return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-};
 
 function checkVisible(elm) {
     var rect = elm.getBoundingClientRect();
