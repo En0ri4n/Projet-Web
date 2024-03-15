@@ -12,8 +12,10 @@
 }
 
 .parametres {
-    height: 80vh;
-    background-color: red;
+    height: fit-content;
+    /* background-color: red; */
+    background-color: #00000020;
+    box-shadow: 0 0 10px 0 #00000020;
 
     box-sizing: border-box;
     flex: 0 0 20%;
@@ -27,7 +29,7 @@
     align-items: center;
 
     .filtres {
-        background-color: green;
+        /* background-color: green; */
 
         display: flex;
         flex-direction: column;
@@ -58,11 +60,21 @@
             cursor: pointer;
 
         }
+
+        &:last-child:after {
+            content: '';
+            display: block;
+            height: 10px;
+        }
     }
 }
 
 .list-offres {
-    background-color: blue;
+
+    margin: 10px 5px 5px 5px;
+    border-radius: 10px;
+
+    background-color: #00000030;
 
     flex: 1 1 auto;
 

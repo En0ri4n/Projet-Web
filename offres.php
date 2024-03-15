@@ -24,8 +24,8 @@
             <button id="filter-button">Filtrer</button>
         </div>
     </div>
-    <div class="list-offres">
-        <div class="posts">
+    <div class="offres">
+        <div class="liste-offres">
             <div class="offre">
                 <img src="/assets/poste.png" alt="Entreprise">
                 <article>
