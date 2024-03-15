@@ -42,6 +42,25 @@ main {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
     padding: 20px 0 20px 0;
+
+    label {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        color: #3b4f50;
+    }
+
+    button {
+        margin: 10px 0 10px 0;
+        padding: 10px 0 10px 0;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        background-color: #82AEB1;
+        color: rgba(3, 49, 33, 0.72);
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1em;
+    }
 }
 
 .form__inputs {
@@ -49,44 +68,25 @@ main {
     flex-direction: column;
 
     border-radius: 3px;
-}
 
-.form__inputs input {
-    margin: 10px 0 0 0;
-    padding: 8px 0 8px 8px;
-    border-radius: 3px;
-    width: 300px;
-    border: 3px solid #3b4f50;
-    font-size: 1em;
-    font-weight: bold;
+    input {
+        margin: 10px 0 0 0;
+        padding: 8px 0 8px 8px;
+        border-radius: 3px;
+        width: 300px;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
 
-    &:first-child {
-        margin: 0;
+        &:first-child {
+            margin: 0;
+        }
+
+        &:focus {
+            border: 3px solid #78a2a4;
+            outline-width: 0;
+        }
     }
-}
-
-.form__inputs input:focus {
-    border: 3px solid #78a2a4;
-    outline-width: 0;
-}
-
-.form label {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-    color: #3b4f50;
-}
-
-.form button {
-    margin: 10px 0 10px 0;
-    padding: 10px 0 10px 0;
-    border-radius: 3px;
-    border: 3px solid #3b4f50;
-    background-color: #82AEB1;
-    color: rgba(3, 49, 33, 0.72);
-    font-weight: bold;
-    cursor: pointer;
-    width: 300px;
-    font-size: 1em;
 }
 
 .center {
@@ -108,5 +108,4 @@ main {
     .form input[type="submit"] {
         width: 200px;
     }
-
 }

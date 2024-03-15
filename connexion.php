@@ -24,12 +24,11 @@
             </div>
             <br>
             <div class="center">
-                <input type="submit" value="Connexion">
+                <button id="connect-button">Connexion</button>
             </div>
         </form>
     </div>
 </main>
 <?php include 'components/footer.php'; ?>
-<script type="module" src="/scripts/connexion.js"></script>
 </body>
 </html>
