@@ -1,3 +1,10 @@
+/**
+ * This file contains the styles for the components of the website.
+ * It's independent from the main style.css file, and it's used to style the components of the website.
+ * Current components:
+ * - Header
+ * - Footer
+ */
 
 #header {
     background-color: #CB7C8C;
