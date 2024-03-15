@@ -79,9 +79,13 @@ CALL createAdministateur('Enorian.Rajoelisoa', SHA2('admin', 256), 'RAJOELISOA',
 CALL createAdministateur('Laura.Giese', SHA2('admin', 256), 'GIESE', 'Laura', 'laura.giese@viacesi.fr', '0644444444');
 
 INSERT INTO Entreprise(NomEntreprise, Site, DescriptionEntreprise, MailEntreprise, TelephoneEntreprise, Statut)
-VALUES ('IBM', 'https://www.ibm.com',
-        'International Business Machines Corporation, connue sous le sigle IBM, est une entreprise multinationale américaine présente dans les domaines du matériel informatique, du logiciel et des services informatiques.',
-        'contact@ibm.com', '+33 805 54 20 07', 'Disponible'),
-       ('Strasbourg Eurométropole', 'https://www.strasbourg.eu/',
-        'L''Eurométropole de Strasbourg (EMS) est une métropole française située dans la collectivité européenne d''Alsace. Créée le 4 décembre 1967 sous le nom de communauté urbaine de Strasbourg (CUS), elle devient une métropole le 1er janvier 2015.',
-        'contact@strasbourg.eu', '+33 (0)3 68 98 50 00', 'Disponible');
+VALUES ('IBM','https://www.ibm.com','International Business Machines Corporation, connue sous le sigle IBM, est une entreprise multinationale américaine présente dans les domaines du matériel informatique, du logiciel et des services informatiques.',
+        'contact@ibm.com','+33 805 54 20 07','Disponible'),
+       ('Strasbourg Eurométropole', 'https://www.strasbourg.eu/', 'L''Eurométropole de Strasbourg (EMS) est une métropole française située dans la collectivité européenne d''Alsace. Créée le 4 décembre 1967 sous le nom de communauté urbaine de Strasbourg (CUS), elle devient une métropole le 1er janvier 2015.',
+        'contact@strasbourg.eu','+33 (0)3 68 98 50 00','Disponible'),
+       ('Dalim Software','https://www.dalim.com','Notre équipe internationale de développeurs donne vie à nos solutions innovantes de flux de production depuis notre siège situé à Kehl, soit à la frontière entre l’Allemagne et la France. Notre équipe multilingue de support est présente dans le monde entier pour répondre plus rapidement aux besoins de nos clients internationaux.',
+        'jobs@dalim.com','+49785191960','Disponible'),
+       ('Alcatel','https://www.al-enterprise.com','Alcatel (acronyme d''Alsacienne de constructions atomiques, de télécommunications et d''électronique) était une entreprise française spécialisée dans le secteur des télécommunications. Elle fusionne avec Lucent Technologies au mois de décembre 2006 pour devenir « Alcatel-Lucent ». Alcatel-Lucent est rachetée par Nokia en 2015 et n''a plus d''existence propre en 2016.',
+        'contact@alcatel.com','0820 820 217','Disponible'),
+       ('Cherry Pick','https://app.cherry-pick.io','Cherry Pick a développé un véritable système de matching se basant sur les besoins de l’entreprise et les compétences de chaque talent (hard & soft skills).',
+        'contact@cherry-pick.io','06 62 97 21 64','Disponible');
