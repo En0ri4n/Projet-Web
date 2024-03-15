@@ -1,5 +1,5 @@
 
-![Logo](https://github.com/En0ri4n/Projet-Web/blob/development/assets/logo.png?raw=true)
+![Logo](https://github.com/En0ri4n/Projet-Web/blob/development/assets/logo.svg?raw=true)
 
 
 # Projet Web - Stage Finder
