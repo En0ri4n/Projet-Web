@@ -77,7 +77,7 @@
     background-color: #CB7C8C;
 
     .content {
-        margin: 4vh 0 2vh 0;
+        margin: 2vh 0 1vh 0;
         padding: 0 0 2vh 0;
         display: flex;
         justify-content: center;
@@ -97,20 +97,32 @@
             }
         }
 
-        #footer-about {
-            flex: 1 0 30%;
-        }
-
         #footer-links {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
             ul {
                 list-style: none;
-                justify-content: space-between;
                 width: 100%;
 
                 li {
+                    display: inline;
                     padding: 5px 0;
                     a {
                         text-decoration: none;
+                        color: #152c44;
+
+                        &:hover {
+                            color: #FFF1F3;
+                            text-decoration: underline;
+                        }
+                    }
+
+                    &:not(:last-child):after {
+                        content: " | ";
                         color: #152c44;
                     }
                 }

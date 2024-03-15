@@ -1,9 +1,5 @@
 <footer id="footer">
     <div class="content">
-        <div id="footer-about">
-            <h1>À propos</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas sed sed risus pretium. Porttitor massa id neque aliquam vestibulum morbi blandit cursus. Gravida arcu ac tortor dignissim convallis aenean. Non sodales neque sodales ut etiam. Ac tortor dignissim convallis aenean et tortor at risus. Non nisi est sit amet facilisis magna etiam tempor orci. Urna nec tincidunt praesent semper. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Cursus euismod quis viverra nibh. Massa enim nec dui nunc mattis. Quam viverra orci sagittis eu volutpat odio facilisis mauris. Tempus imperdiet nulla malesuada pellentesque elit. Faucibus interdum posuere lorem ipsum dolor. Sem viverra aliquet eget sit amet tellus cras adipiscing enim. Eget nulla facilisi etiam dignissim diam quis.</p>
-        </div>
         <div id="footer-links">
             <h1>Liens</h1>
             <ul>
