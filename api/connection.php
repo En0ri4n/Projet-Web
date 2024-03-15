@@ -14,14 +14,16 @@ switch($method)
         $username = $data['username'];
         $password = $data['password'];
 
-        $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE `IdUtilisateur` = '$username' AND `MotDePasse` = '$password'");
+        $stmt = $pdo->prepare("SELECT * FROM Utilisateur WHERE `IdUtilisateur` = :username AND `MotDePasse` = :password");
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
         $stmt->execute();
         $result = $stmt->fetch();
 
         if($result)
         {
             setcookie('userId', $result['IdUtilisateur'], time() + 3600, '/');
-            echo json_encode(['authorized' => true, 'message' => 'Authorized', 'user' => $result['IdUtilisateur']]);//, 'redirect' => 'accueil.php']);
+            echo json_encode(['authorized' => true, 'message' => 'Authorized', 'user' => $result['IdUtilisateur'], 'redirect' => '/accueil.html']);
         }
         else
         {
