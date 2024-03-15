@@ -82,9 +82,20 @@ export const setCustomConditionValidator = (input, condition, message) =>
 			evt.target.className = 'invalid'
 			evt.target.setCustomValidity(message);
 		}
-
+		
 		evt.target.reportValidity()
 	})
+}
+
+export function sha256(message) {
+	// encode as UTF-8
+	const msgBuffer = new TextEncoder().encode(message);
+
+	// hash the message
+	return crypto.subtle.digest('SHA-256', msgBuffer).then(buffer => {
+		const hashArray = Array.from(new Uint8Array(buffer));
+		return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+	});
 }
 
 addEventTo(document, 'DOMContentLoaded', () =>
@@ -150,7 +161,7 @@ const appear = [
 	{ opacity:1,},
 	{ opacity:0,},
   ];
-
+  
   const length_animation = {
 	duration: 500,
 	iterations: 1,
