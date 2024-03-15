@@ -37,8 +37,8 @@ CREATE TABLE Promotion
     AdministrateurPromotion VARCHAR(64),
     PilotePromotion         VARCHAR(64),
     PRIMARY KEY (IdPromotion),
-    FOREIGN KEY (PilotePromotion) REFERENCES Administrateur (IdUtilisateur),
-    FOREIGN KEY (AdministrateurPromotion) REFERENCES Pilote (IdUtilisateur)
+    FOREIGN KEY (PilotePromotion) REFERENCES Pilote (IdUtilisateur),
+    FOREIGN KEY (AdministrateurPromotion) REFERENCES Administrateur (IdUtilisateur)
 );
 
 ALTER TABLE Administrateur
