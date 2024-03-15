@@ -2,7 +2,7 @@
 SELECT NomOffre 
 FROM Offre 
 INNER JOIN Competence ON Offre.IdOffre = Competence.IdCompetence 
-WHERE Competence = ''; #trier les offres par competence
+WHERE Competence.IdCompetence = ''; #trier les offres par competence
 SELECT NomOffre 
 FROM Offre 
 INNER JOIN Adresse ON Offre.IdOffre = Adresse.IdAdresse 
@@ -16,7 +16,7 @@ WHERE DureeOffre >= '' AND DureeOffre <= ''; #trier les offres par durée
 SELECT NomOffre 
 FROM Offre 
 INNER JOIN Wishlist ON Wishlist.IdOffre = Offre.IdOffre 
-WHERE  #recuperer les offres les plus placees dans une wishlist
+WHERE Offre.NomOffre = '';  #recuperer les offres les plus placees dans une wishlist
 /*Cherche les offres ayant une certaine compétence*/
 SELECT Offre.NomOffre 
 FROM Offre 
