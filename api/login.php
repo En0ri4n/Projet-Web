@@ -1,5 +1,8 @@
 <?php
 global $pdo;
+
+use Table\UtilisateurTable;
+
 require_once 'config.php';
 include_once 'table/UtilisateurTable.php';
 
@@ -8,6 +11,7 @@ header('Content-Type: application/json');
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
+
 switch($method)
 {
     case 'POST':
