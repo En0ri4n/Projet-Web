@@ -1,4 +1,4 @@
-import { addEventTo} from "./main.js";
+import { addEventTo } from "./main.js";
 
 let current_page = 1;
 let total_pages = 2;
@@ -6,8 +6,6 @@ let per_page = 3;
 let page_count = 0;
 
 addEventTo(document, "DOMContentLoaded", onReady);
-
-addEventTo(document.getElementById('go-button'), "click", () => window.location.href = "/offres.php");
 
 function onReady()
 {

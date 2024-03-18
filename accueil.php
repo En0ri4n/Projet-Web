@@ -46,6 +46,6 @@
     </div>
 </main>
 <?php include('components/footer.php'); ?>
-<script type="module" src="scripts/main.js"></script>
+<script type="module" src="scripts/accueil.js"></script>
 </body>
 </html>
