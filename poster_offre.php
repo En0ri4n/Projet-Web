@@ -24,7 +24,7 @@
                         <input class="form-input" type="date" id="start-date" required>
                     </div>
                     <div id="duree">
-                        <input class="form-input" type="number" id="nb-duree" max="20" placeholder="Durée" required>
+                        <input class="form-input" type="number" id="nb-duree" min="1" max="20" placeholder="Durée" required>
                         <select class="form-input" id="type-duree" required>
                             <option value="semaines">Semaines</option>
                             <option value="mois">Mois</option>

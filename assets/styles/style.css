@@ -167,6 +167,8 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     width: min(500px, 100%);
 
@@ -193,10 +195,6 @@ main {
         font-size: 1em;
         font-weight: bold;
 
-        &:first-child {
-            margin: 0;
-        }
-
         &:focus {
             border: 3px solid #78a2a4;
             outline-width: 0;
@@ -212,6 +210,10 @@ main {
         font-size: 1em;
         font-weight: bold;
         width: 100%;
+    }
+
+    textarea{
+        resize: vertical;
     }
 
     #duree {
@@ -234,6 +236,7 @@ main {
         .skills-list {
             display: flex;
             flex-direction: row;
+            margin-top: 10px;
             gap: 10px;
 
             ul {
@@ -366,4 +369,15 @@ main {
         padding-left: 20px;
         padding-right: 20px;
     }
+}
+
+.small-button {
+    border-radius: 3px;
+    border: 2px solid #3b4f50;
+    background-color: #82AEB1;
+}
+
+.small-button:hover{
+    border: 2px solid #a6b5b7;
+    background-color: #a6b5b7;
 }
