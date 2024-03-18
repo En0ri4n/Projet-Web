@@ -8,7 +8,7 @@
         <?php
         if(isset($_COOKIE['userId']))
         {
-            echo '<a href="/deconnexion.php">Déconnexion</a>';
+            echo '<a href="/api/logout.php">Déconnexion</a>';
         }
         else
         {
