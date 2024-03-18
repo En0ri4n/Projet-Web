@@ -13,7 +13,6 @@
 <main class="main">
     <div class="form">
         <h1>Inscription</h1>
-        <br>
         <form method="post" id="form_inscription">
             <div class="form__inputs">
                 <input type="text" id="nom" name="nom" placeholder="Nom" required>
@@ -22,7 +21,6 @@
                 <input type="password" id="password" name="password" placeholder="Mot de passe" required>
                 <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirmation" required>
             </div>
-            <br>
             <div class="account-type" id="account">
                 <div>
                     <input type="radio" id="student-account" name="account-type" value="student" required>
@@ -30,11 +28,11 @@
                 </div>
                 <div>
                     <input type="radio" id="pilote-account" name="account-type" value="tuteur" required>
-                    <label for="pilote-account">Tuteur</label><br>
+                    <label for="pilote-account">Tuteur</label>
                 </div>
             </div>
             <div class="center">
-                <input type="submit" value="Confirmer l'inscription">
+                <input class="submit" type="submit" value="Confirmer l'inscription">
             </div>
         </form>
     </div>

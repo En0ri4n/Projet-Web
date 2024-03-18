@@ -13,15 +13,13 @@
 <main class="main">
     <div class="form">
         <h1>Connexion</h1>
-        <br>
         <form method="post">
             <div class="form__inputs">
                 <input type="text" id="identifiant" name="identifiant" placeholder="Identifiant" required>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" required>
             </div>
-            <br>
-            <div class="center">
-                <button id="connect-button">Connexion</button>
+            <div>
+                <button class="submit" id="connect-button">Connexion</button>
             </div>
         </form>
     </div>
