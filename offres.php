@@ -14,7 +14,7 @@
             <select id="filter-entreprise"><option value="default">Entreprise...</option></select>
             <select id="filter-niveau"><option value="default">Niveau...</option></select>
             <input type="date" id="filter-date" placeholder="Date">
-            <input type="number" id="duree" placeholder="Durée (Mois)">
+            <input type="number" id="duree" placeholder="Durée (Mois)" min="1">
             <select id="filter-location"><option value="default">Lieu...</option></select>
             <button id="reset-filter" class="small-button">Réinitiliaser</button>
             <button id="filter-button" class="small-button">Filtrer</button>

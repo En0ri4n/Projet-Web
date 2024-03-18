@@ -17,7 +17,7 @@
     <div class="accueil-offres">
         <div class="space-between-two">
             <div class="mode-accueil"><a class="selected">Classic</a> | <a href="fancy.html">Fancy</a></div>
-            <button class="go-button">Filtrer</button>
+            <button class="go-button" onclick="window.location.href='/offres.php';">Filtrer</button>
         </div>
         <div class="liste-offres">
             <div class="offre">

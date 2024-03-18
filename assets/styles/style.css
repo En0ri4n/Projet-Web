@@ -3,8 +3,9 @@
  * Files merged:
  * - assets/styles/style.css
  * - assets/styles/accueil.css
- *
- * TODO: connexion.css, description.css, etudiant_interne.css, inscription.css, offres.css, poster_entreprise.css, tuteur_interne.css
+ * - assets/styles/connexion.css
+ * - assets/styles/inscription.css
+ * TODO: offres.css, description.css, etudiant_interne.css, poster_entreprise.css, tuteur_interne.css
  */
 
 * {
