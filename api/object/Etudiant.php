@@ -1,5 +1,11 @@
 <?php
 
+namespace Object;
+
+use Table\EtudiantTable;
+
+include_once 'Utilisateur.php';
+
 class Etudiant extends Utilisateur
 {
     private string $idPromotion;

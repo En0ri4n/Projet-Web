@@ -1,4 +1,10 @@
 <?php
+
+namespace Table;
+
+use Exception;
+use Object\Pilote;
+
 class PiloteTable extends UtilisateurTable
 {
     /**

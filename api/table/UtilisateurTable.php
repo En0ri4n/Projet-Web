@@ -1,4 +1,11 @@
 <?php
+
+namespace Table;
+
+use Exception;
+use Object\Utilisateur;
+use PDO;
+
 include_once 'AbstractTable.php';
 
 class UtilisateurTable extends AbstractTable

@@ -1,4 +1,10 @@
 <?php
+
+namespace Table;
+
+use Exception;
+use Object\Etudiant;
+
 class EtudiantTable extends UtilisateurTable
 {
     public static string $PROMOTION_COLUMN = "IdPromotion";

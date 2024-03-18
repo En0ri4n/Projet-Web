@@ -1,5 +1,11 @@
 <?php
-include_once 'objects/Utilisateur.php';
+namespace Table;
+
+use Exception;
+use PDO;
+use PDOStatement;
+
+include_once 'object/Utilisateur.php';
 
 abstract class AbstractTable
 {
