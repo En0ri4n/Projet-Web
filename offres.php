@@ -6,7 +6,7 @@
 </head>
 <body>
 <?php include 'components/header.php'; ?>
-<main class="main">
+<main>
     <div class="parametres">
         <h1>Filtres</h1>
         <div class="filtres">
