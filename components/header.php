@@ -1,24 +1,30 @@
-<!DOCTYPE html>
+<?php
+global $USER_COOKIE_NAME, $DEFAULT_PAGE, $CONNECTION_PAGE;
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
+?>
 <header id="header">
-    <img src="/assets/logo.svg" alt="Logo" style="cursor: pointer" onclick="window.location.href='/accueil.php'">
+    <img src="/assets/logo.svg" alt="Logo" onclick="window.location.href='<?= $DEFAULT_PAGE ?>'">
     <!--<div class="search-wrapper">
         <input type="text" id="search-input" placeholder="Type to search"/> TODO: See what we do
     </div>-->
     <div class="login">
         <?php
-        if(isset($_COOKIE['userId']))
+
+        if(isset($_COOKIE[$USER_COOKIE_NAME]))
         {
-            echo '<a href="/api/logout.php">Déconnexion</a>';
+            $user = Utilisateur::fromArray(json_decode(base64_decode($_COOKIE[$USER_COOKIE_NAME]), true));
+
+            echo '<a href="/profil.php?userId=' . $user->getId() . '">' . $user->getPrenom() . ' ' . $user->getNom() . '</a> ';
+
+            echo '<a href="/api/logout">Déconnexion</a>';
         }
         else
         {
-            echo '<a href="/connexion.php">Connexion</a>';
-            echo ' | ';
-            echo '<a href="/inscription.php">Inscription</a>';
+            if($_SERVER['REQUEST_URI'] !== $CONNECTION_PAGE)
+                header("Location: $CONNECTION_PAGE");
         }
         ?>
     </div>
 </header>
-<div id="header-below"></div>
 
 
