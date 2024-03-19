@@ -1,35 +1,12 @@
-import { addEventTo, sha256 } from "./main.js";
+import {addEventTo, sha256} from "./main.js";
 
-addEventTo(document.getElementById('connect-button'), 'click', async(evt) =>
+addEventTo(document.getElementById('form'), 'submit', onSubmit);
+
+async function onSubmit(e)
 {
-    evt.preventDefault();
-
-    const username = document.getElementById('identifiant').value;
-    const password = document.getElementById('password').value;
-
-    const hashedPassword = await sha256(password);
-
-    const json = JSON.stringify({'username': username, 'password': hashedPassword});
-
-    fetch('http://localhost/api/connection.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: json
-    }).then(res => processResponse(res))
-});
-
-async function processResponse(response)
-{
-    const responseJson = await response.json();
-
-    if(responseJson['authorized'])
-    {
-        window.location.href = responseJson['redirect'];
-    }
-    else
-    {
-        alert(responseJson['message']);
-    }
+    e.preventDefault();
+    const passwordField = document.getElementById('password');
+    Promise.all(await sha256(passwordField.value)
+        .then((hash) => passwordField.value = hash))
+        .then(() => this.submit());
 }
