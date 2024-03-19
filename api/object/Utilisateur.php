@@ -1,4 +1,9 @@
 <?php
+
+namespace Object;
+
+use Table\UtilisateurTable;
+
 include_once 'table/UtilisateurTable.php';
 
 class Utilisateur

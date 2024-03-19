@@ -1,4 +1,7 @@
 <?php
+
+namespace Table;
+
 class AdministrateurTable extends UtilisateurTable
 {
     public function getAdministrateurTable($db): AdministrateurTable
