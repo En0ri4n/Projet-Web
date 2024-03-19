@@ -9,7 +9,7 @@ addEventTo(document, "DOMContentLoaded", onReady);
 
 function onReady()
 {
-	per_page = 10; // document.getElementById("per_page").value;
+	per_page = 2; // document.getElementById("per_page").value;
 	
 	const xhr = new XMLHttpRequest();
 	// Ajoute un paramètre à la requête
