@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <title>Ajouter une Offre de Stage</title>
-    <?php include('components/head.php'); ?>
+    <?php require_once('components/head.php'); ?>
 </head>
 <body>
 <?php include 'components/header.php'; ?>

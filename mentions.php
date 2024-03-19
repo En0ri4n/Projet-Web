@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <title>Mentions Légales</title>
     <?php include 'components/head.php'; ?>

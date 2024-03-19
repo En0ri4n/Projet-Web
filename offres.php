@@ -2,7 +2,7 @@
 <html lang="fr" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Offres de Stage</title>
-    <?php include('components/head.php'); ?>
+    <?php require_once('components/head.php'); ?>
 </head>
 <body>
 <?php include 'components/header.php'; ?>

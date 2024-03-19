@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <title>Inscription</title>
-    <?php include('components/head.php'); ?>
+    <?php require_once('components/head.php'); ?>
     <!-- Description: This is the inscription page. -->
     <!-- It is used to create an account on the website. -->
     <meta name="description" content="This is the inscription page. It is used to create an account on the website.">
     <meta name="keywords" content="inscription, account, create, website">
 </head>
 <body>
-<?php include('components/header.php');?>
+<?php require_once('components/header.php');?>
 <main class="main">
     <div class="form">
         <h1>Inscription</h1>
@@ -37,7 +37,7 @@
         </form>
     </div>
 </main>
-<?php include('components/footer.php'); ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 <script type="module" src="/scripts/inscription.js"></script>
 </html>

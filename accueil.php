@@ -2,10 +2,11 @@
 <html lang="fr">
 <head>
     <title>Accueil</title>
-    <?php include('components/head.php'); ?>
+    <?php require_once('components/head.php'); ?>
+    <link rel="preload" href="assets/stage.jpg" as="image">
 </head>
 <body>
-<?php include('components/header.php'); ?>
+<?php require_once('components/header.php'); ?>
 <main>
     <div class="presentation">
         <article class="description">
@@ -16,7 +17,7 @@
     </div>
     <div class="accueil-offres">
         <div class="space-between-two">
-            <div class="mode-accueil"><a class="selected">Classic</a> | <a href="/accueil.php">Fancy</a></div>
+            <div class="mode-accueil"><a class="selected" href="/accueil.php">Classic</a> | <a href="/accueil.php">Fancy</a></div>
             <button class="go-button" onclick="window.location.href='/offres.php';">Filtrer</button>
         </div>
         <div class="liste-offres">
@@ -45,7 +46,7 @@
         </div>
     </div>
 </main>
-<?php include('components/footer.php'); ?>
+<?php require_once('components/footer.php'); ?>
 <script type="module" src="scripts/accueil.js"></script>
 </body>
 </html>

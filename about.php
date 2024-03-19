@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <title>À propos</title>
-    <?php include "components/head.php" ?>
+    <?php require_once("components/head.php") ?>
 </head>
 <body>
-<?php
-include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 <main>
     <p>À propos</p>
     <!-- TODO: Créer la page -->
 </main>
-<?php
-include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 </html>
