@@ -1,10 +1,7 @@
 <?php
-global $pdo;
+global $pdo, $USER_COOKIE_NAME, $DEFAULT_PAGE, $CONNECTION_PAGE;
 
-use Table\UtilisateurTable;
-
-require_once 'config.php';
-include_once 'table/UtilisateurTable.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 // Set the content type to JSON
 header('Content-Type: application/json');
@@ -15,21 +12,22 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch($method)
 {
     case 'POST':
-        $data = json_decode(file_get_contents('php://input'), true);
-        $username = $data['username'];
-        $password = $data['password'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
         try
         {
-            $utilisateur = UtilisateurTable::getUtilisateurTable($pdo)->selectUtilisateur(array(), array(UtilisateurTable::$ID_COLUMN => $username, UtilisateurTable::$PASSWORD_COLUMN => $password));
+            $utilisateur = Tables::get()::$UTILISATEUR_TABLE->selectUtilisateur(array(UtilisateurTable::$ID_COLUMN => $username, UtilisateurTable::$PASSWORD_COLUMN => $password));
 
             if(!$utilisateur->isEmpty())
             {
-                setcookie('userId', $utilisateur->getId(), time() + 3600, '/');
-                echo json_encode(['authorized' => true, 'message' => 'User authentified', 'user' => $utilisateur->getId(), 'redirect' => '/accueil.php']);
+                header("Location: $DEFAULT_PAGE");
+                setcookie($USER_COOKIE_NAME, base64_encode(json_encode($utilisateur->toArray())), time() + 3600, '/');
+                echo json_encode(['authorized' => true, 'message' => 'User authentified', 'user' => $utilisateur->getId()]);
             }
             else
             {
+                header("Location: $CONNECTION_PAGE");
                 echo json_encode(['authorized' => false, 'message' => 'Invalid username or password']);
             }
             return;
