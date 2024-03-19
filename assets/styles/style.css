@@ -404,7 +404,7 @@ p {
 }
 
 .contact {
-    width:-webkit-fill-available;
+    width: max-content; /* -webkit-fill-available; */
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -420,11 +420,11 @@ p {
 }
 
 .map {
-    width: -webkit-fill-available;
+    width: max-content; /* -webkit-fill-available; */
 }
 
 iframe{
-    width: -webkit-fill-available;
+    width: max-content; /* -webkit-fill-available; */
     height: 300px;
 }
 @media all and (max-width: 600px) {
@@ -503,7 +503,7 @@ iframe{
                 width: 45%;
             }
             button{
-                width:-webkit-fill-available;
+                width: max-content; /* -webkit-fill-available; */
             }
         }
     }
