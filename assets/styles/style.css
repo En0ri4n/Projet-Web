@@ -321,6 +321,29 @@ p {
     text-align: start;
 }
 
+.paragraphe{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    width: min(500px, 100%);
+
+    background-color: #FFF1F3;
+    border: 5px solid #82AEB1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+    padding: 50px;
+}
+
+#valowont{
+    align-items: center;
+}
+
 .filtres_box {
     height: fit-content;
     /* background-color: red; */
