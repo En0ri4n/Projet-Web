@@ -1,11 +1,6 @@
 <?php
-namespace Table;
 
-use Exception;
-use PDO;
-use PDOStatement;
-
-include_once 'object/Utilisateur.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 abstract class AbstractTable
 {
@@ -43,16 +38,12 @@ abstract class AbstractTable
     /**
      * Select one or more rows from the table with the given column keys and values
      *
-     * @param array $columns The columns to select
      * @param array $map Associative array of column keys and values to select
      * @return PDOStatement The result of the select
-     * @throws Exception if the columns and values do not have the same length or if the columns array is too long
      */
-    public function select(array $columns, array $map): PDOStatement
+    public function select(array $map): PDOStatement
     {
-        $this->verifyArray($columns, fn($array) => count($array) > $this->getColumnCount(), "Too many columns");
-
-        $query = "SELECT " . (empty($columns) ? "*" : implode(", ", $columns)) . " FROM " . $this->table_name;
+        $query = "SELECT * FROM " . $this->table_name;
 
         if(empty($map))
         {
@@ -101,7 +92,7 @@ abstract class AbstractTable
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id);
         foreach($columns as $column)
-            $stmt->bindParam(':' . $column, $values[$column]);
+            $stmt->bindValue(':' . $column, $values[$column]);
         if($stmt->execute())
             return true;
         return false;
@@ -117,7 +108,7 @@ abstract class AbstractTable
     {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 

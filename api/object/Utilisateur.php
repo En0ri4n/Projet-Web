@@ -1,10 +1,6 @@
 <?php
 
-namespace Object;
-
-use Table\UtilisateurTable;
-
-include_once 'table/UtilisateurTable.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class Utilisateur
 {

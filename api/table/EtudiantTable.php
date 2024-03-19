@@ -1,9 +1,6 @@
 <?php
 
-namespace Table;
-
-use Exception;
-use Object\Etudiant;
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class EtudiantTable extends UtilisateurTable
 {
@@ -26,11 +23,11 @@ class EtudiantTable extends UtilisateurTable
         return $created;
     }
 
-    public function getEtudiantTable($db): EtudiantTable
+    public static function getEtudiantTable($db): EtudiantTable
     {
         $instance = new EtudiantTable();
-        $this->setDatabase($db);
-        $this->setTable("Etudiant");
+        $instance->setDatabase($db);
+        $instance->setTable("Etudiant");
         return $instance;
     }
 }

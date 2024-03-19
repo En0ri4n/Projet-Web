@@ -1,10 +1,6 @@
 <?php
 
-namespace Object;
-
-use Table\EtudiantTable;
-
-include_once 'Utilisateur.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class Etudiant extends Utilisateur
 {

@@ -1,8 +1,6 @@
 <?php
 
-namespace Object;
-
-include_once 'Utilisateur.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class Pilote extends Utilisateur
 {

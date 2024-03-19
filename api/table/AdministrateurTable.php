@@ -1,6 +1,6 @@
 <?php
 
-namespace Table;
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class AdministrateurTable extends UtilisateurTable
 {

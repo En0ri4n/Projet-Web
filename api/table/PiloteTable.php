@@ -1,9 +1,6 @@
 <?php
 
-namespace Table;
-
-use Exception;
-use Object\Pilote;
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class PiloteTable extends UtilisateurTable
 {
@@ -21,11 +18,11 @@ class PiloteTable extends UtilisateurTable
         return $created;
     }
 
-    public function getPiloteTable($db): PiloteTable
+    public static function getPiloteTable($db): PiloteTable
     {
         $instance = new PiloteTable();
-        $this->setDatabase($db);
-        $this->setTable("Pilote");
+        $instance->setDatabase($db);
+        $instance->setTable("Pilote");
         return $instance;
     }
 }

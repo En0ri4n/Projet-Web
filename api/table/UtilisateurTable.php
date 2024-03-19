@@ -1,12 +1,6 @@
 <?php
 
-namespace Table;
-
-use Exception;
-use Object\Utilisateur;
-use PDO;
-
-include_once 'AbstractTable.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class UtilisateurTable extends AbstractTable
 {
@@ -47,15 +41,21 @@ class UtilisateurTable extends AbstractTable
     /**
      * Select a utilisateur from the database
      *
-     * @param array $columns The columns to select
      * @param array $map Associative array of column keys and values to select
-     * @throws Exception if the columns and values do not have the same length or if the columns array is too long
+     * @return Utilisateur The utilisateur selected
      */
-    public function selectUtilisateur(array $columns, array $map): Utilisateur
+    public function selectUtilisateur(array $map): Utilisateur
     {
-        $stmt = $this->select($columns, $map);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ? Utilisateur::fromArray($row) : new Utilisateur("", "", "", "", "", "");
+        try
+        {
+            $stmt = $this->select($map);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row ? Utilisateur::fromArray($row) : new Utilisateur("", "", "", "", "", "");
+        }
+        catch (Exception $e)
+        {
+            return new Utilisateur("", "", "", "", "", "");
+        }
     }
 
     #[\Override]
