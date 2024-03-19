@@ -89,3 +89,33 @@ VALUES ('IBM','https://www.ibm.com','International Business Machines Corporation
         'contact@alcatel.com','0820 820 217','Disponible'),
        ('Cherry Pick','https://app.cherry-pick.io','Cherry Pick a développé un véritable système de matching se basant sur les besoins de l’entreprise et les compétences de chaque talent (hard & soft skills).',
         'contact@cherry-pick.io','06 62 97 21 64','Disponible');
+
+DROP PROCEDURE IF EXISTS createRandomEvaluations;
+CREATE PROCEDURE `createRandomEvaluations`(IN count INT)
+BEGIN
+    FOR i IN 1..count DO
+            SET @user = (SELECT IdUtilisateur FROM Utilisateur ORDER BY RAND() LIMIT 1);
+            SET @entreprise = (SELECT IdEntreprise FROM Entreprise WHERE NOT EXISTS(SELECT IdEntreprise FROM Evaluation WHERE IdUtilisateur = @user AND Evaluation.IdEntreprise = Entreprise.IdEntreprise) ORDER BY RAND() LIMIT 1);
+            IF @entreprise IS NOT NULL THEN
+            INSERT INTO Evaluation(Note, Commentaire, IdUtilisateur, IdEntreprise)
+            VALUES (FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac.',@user,@entreprise);
+        END IF;
+            END FOR;
+END;
+
+CALL createRandomEvaluations(100);
+
+INSERT INTO Secteur (NomSecteur)
+VALUES ('Aérospatial'),('Aéronautique'),('Automobile'),('Métallurgie'),('Bâtiment'),('Electromécanique'),('Mécanique'),('Electronique'),('Electricité'),('Développement'),('Réseau'),('Cybersécurité'),('Web'),('Robotique');
+
+DROP PROCEDURE IF EXISTS createRandomOffres;
+CREATE PROCEDURE `createRandomOffres`(IN count INT)
+BEGIN
+    FOR i IN 1..count DO
+            INSERT INTO Offre (DateOffre, DureeOffre, Remuneration, NbPlace, NomOffre, NiveauOffre, DescriptionOffre, IdSecteur, IdAdresse, IdEntreprise)
+            VALUES ((SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 200) DAY),FLOOR(RAND()*6+1),(4.35+ROUND(RAND()*2,2)),FLOOR(RAND()*5+1),CONCAT('Poste', LPAD(i, 2, '0')),FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent felis ex, dapibus sit amet efficitur at, porta vitae sem. Aenean augue nibh, sollicitudin eu sem quis, lobortis pretium sapien. Morbi quis nunc luctus, tempus quam fermentum, faucibus quam. Praesent ut mollis nunc, quis consequat diam. Nam condimentum urna vitae velit.',
+                    (SELECT IdSecteur FROM Secteur ORDER BY RAND() LIMIT 1),(SELECT IdAdresse FROM Adresse ORDER BY RAND() LIMIT 1),(SELECT IdEntreprise FROM Entreprise ORDER BY RAND() LIMIT 1));
+        END FOR;
+END;
+
+CALL createRandomOffres(50);
