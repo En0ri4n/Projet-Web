@@ -78,7 +78,7 @@ CREATE TABLE Offre
     IdOffre          INT AUTO_INCREMENT NOT NULL,
     DateOffre        DATE               NOT NULL,
     DureeOffre       INT                NOT NULL,
-    Remuneration     INT                NOT NULL,
+    Remuneration     FLOAT(8, 2)        NOT NULL,
     NbPlace          INT                NOT NULL,
     NomOffre         VARCHAR(64)        NOT NULL,
     NiveauOffre      INT,
