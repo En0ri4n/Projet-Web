@@ -1,6 +1,6 @@
 <footer id="footer">
     <button id="button_back">
-        <img src="assets/arrow_up.svg" alt="fleche haut">
+        <img src="/assets/arrow_up.svg" alt="fleche haut">
     </button>
     <div class="content">
         <div id="footer-links">
