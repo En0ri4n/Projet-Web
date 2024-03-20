@@ -130,8 +130,7 @@ main {
     flex-direction: column;
     align-items: center;
 }
-
-.liste-offres, .contact, .competence-demandees{
+.contact, .competence-demandees{
     background-color: white;
 }
 .competence-demandees{
@@ -555,7 +554,9 @@ iframe{
     margin-bottom: 50px;
     text-align: center;
 }
-
+.actions-offres{
+    background-color: white;
+}
 .actions-offres, .form-fiche-entreprise{
     display: flex;
     flex-direction: row;
