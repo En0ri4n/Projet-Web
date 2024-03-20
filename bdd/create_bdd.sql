@@ -32,13 +32,10 @@ CREATE TABLE Promotion
     DatePromotion           DATE               NOT NULL,
     NiveauPromotion         INT                NOT NULL,
     DuréePromotion          INT                NOT NULL,
-    TypeDureePromotion      VARCHAR(32)        NOT NULL,
     Centre                  VARCHAR(64),
-    AdministrateurPromotion VARCHAR(64),
     PilotePromotion         VARCHAR(64),
     PRIMARY KEY (IdPromotion),
-    FOREIGN KEY (PilotePromotion) REFERENCES Pilote (IdUtilisateur),
-    FOREIGN KEY (AdministrateurPromotion) REFERENCES Administrateur (IdUtilisateur)
+    FOREIGN KEY (PilotePromotion) REFERENCES Pilote (IdUtilisateur)
 );
 
 ALTER TABLE Administrateur
@@ -129,11 +126,9 @@ CREATE TABLE Candidature
     LettreMotivation         VARCHAR(50),
     StatutCandidature        VARCHAR(16),
     IdEtudiant               VARCHAR(64),
-    IdEtudiantAdministrateur VARCHAR(64),
     IdOffre                  INT                NOT NULL,
     PRIMARY KEY (IdCandidature),
     FOREIGN KEY (IdEtudiant) REFERENCES Etudiant (IdUtilisateur),
-    FOREIGN KEY (IdEtudiantAdministrateur) REFERENCES Administrateur (IdUtilisateur),
     FOREIGN KEY (IdOffre) REFERENCES Offre (IdOffre)
 );
 

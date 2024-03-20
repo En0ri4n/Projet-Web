@@ -35,21 +35,60 @@ DROP PROCEDURE IF EXISTS createRandomPromotions;
 CREATE PROCEDURE `createRandomPromotions`(IN count INT)
 BEGIN
     FOR i IN 1..count DO
-            INSERT INTO Promotion (NomPromotion, TypePromotion, DatePromotion, NiveauPromotion, DuréePromotion, TypeDureePromotion,
-                                   Centre, AdministrateurPromotion, PilotePromotion)
-            VALUES (CONCAT('Promotion ', LPAD(i, 2, '0')),
-                    (IF(RAND() > 0.5, 'BTP', 'Informatique')),
-                    DATE_ADD('2020-01-01', INTERVAL FLOOR(RAND() * 5) YEAR),
-                    (RAND() * 4 + 2),
-                    (RAND() * 9 + 1),
-                    (IF(RAND() > 0.5, 'Mois', 'Semaines')),
-                    (SELECT * FROM (VALUES ('Paris'), ('Lyon'), ('Strasbourg'), ('Toulouse'), ('Nantes'), ('Bordeaux'), ('Lille'), ('Marseille'), ('Rennes'), ('Nice')) AS NomCentreGenerated ORDER BY RAND() LIMIT 1),
-                    (SELECT IdUtilisateur
-                     FROM Administrateur
-                     ORDER BY RAND()
-                     LIMIT 1),
+        SET @annee = FLOOR(RAND() * 4 + 2);
+        SET @type = (SELECT * FROM (VALUES('BTP'), ('Informatique'),('Systèmes Embarqués'),('Généraliste')) AS type ORDER BY RAND() LIMIT 1);
+        SET @centre = (SELECT * FROM (VALUES ('Paris'), ('Lyon'), ('Strasbourg'), ('Toulouse'), ('Nantes'), ('Bordeaux'), ('Lille'), ('Marseille'), ('Rennes'), ('Nice')) AS NomCentreGenerated ORDER BY RAND() LIMIT 1);
+            INSERT INTO Promotion (NomPromotion, TypePromotion, DatePromotion, NiveauPromotion, DuréePromotion,
+                                   Centre, PilotePromotion)
+            VALUES (CONCAT('A', @annee, ' ', @type, ' ', @centre),
+                    @type,
+                    (SELECT * FROM (VALUES ('2024-04-08'),('2025-01-13'),('2024-09-16'),('2025-01-27')) AS dates ORDER BY RAND() LIMIT 1),
+                    @annee,
+                    FLOOR(RAND() * 6 + 1),
+                    @centre,
                     (SELECT IdUtilisateur
                      FROM Pilote
+                     ORDER BY RAND()
+                     LIMIT 1));
+        END FOR;
+END;
+
+DROP PROCEDURE IF EXISTS createRandomEvaluations;
+CREATE PROCEDURE `createRandomEvaluations`(IN count INT)
+BEGIN
+    FOR i IN 1..count DO
+            SET @user = (SELECT IdUtilisateur FROM Utilisateur ORDER BY RAND() LIMIT 1);
+            SET @entreprise = (SELECT IdEntreprise FROM Entreprise WHERE NOT EXISTS(SELECT IdEntreprise FROM Evaluation WHERE IdUtilisateur = @user AND Evaluation.IdEntreprise = Entreprise.IdEntreprise) ORDER BY RAND() LIMIT 1);
+            IF @entreprise IS NOT NULL THEN
+                INSERT INTO Evaluation(Note, Commentaire, IdUtilisateur, IdEntreprise)
+                VALUES (FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac.',@user,@entreprise);
+            END IF;
+        END FOR;
+END;
+
+DROP PROCEDURE IF EXISTS createRandomOffres;
+CREATE PROCEDURE `createRandomOffres`(IN count INT)
+BEGIN
+    FOR i IN 1..count DO
+            INSERT INTO Offre (DateOffre, DureeOffre, Remuneration, NbPlace, NomOffre, NiveauOffre, DescriptionOffre, IdSecteur, IdAdresse, IdEntreprise)
+            VALUES ((SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 200) DAY),FLOOR(RAND()*6+1),(4.35+ROUND(RAND()*2,2)),FLOOR(RAND()*5+1),CONCAT('Poste', LPAD(i, 2, '0')),FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent felis ex, dapibus sit amet efficitur at, porta vitae sem. Aenean augue nibh, sollicitudin eu sem quis, lobortis pretium sapien. Morbi quis nunc luctus, tempus quam fermentum, faucibus quam. Praesent ut mollis nunc, quis consequat diam. Nam condimentum urna vitae velit.',
+                    (SELECT IdSecteur FROM Secteur ORDER BY RAND() LIMIT 1),(SELECT IdAdresse FROM Adresse ORDER BY RAND() LIMIT 1),(SELECT IdEntreprise FROM Entreprise ORDER BY RAND() LIMIT 1));
+        END FOR;
+END;
+
+DROP PROCEDURE IF EXISTS createRandomCandidatures;
+CREATE PROCEDURE `createRandomCandidatures`(IN count INT)
+BEGIN
+    FOR i IN 1..count DO
+            INSERT INTO Candidature(CV, LettreMotivation, StatutCandidature, IdEtudiant, IdOffre)
+            VALUES ('/storage/cv_exemple.docx','/storage/lettre_de_motivation_exemple.docx',
+                    (SELECT * FROM (VALUES('Acceptée'), ('Refusée'),('En attente')) AS statut ORDER BY RAND() LIMIT 1),
+                    (SELECT IdUtilisateur
+                     FROM Etudiant
+                     ORDER BY RAND()
+                     LIMIT 1),
+                    (SELECT IdOffre
+                     FROM Offre
                      ORDER BY RAND()
                      LIMIT 1));
         END FOR;
@@ -90,32 +129,14 @@ VALUES ('IBM','https://www.ibm.com','International Business Machines Corporation
        ('Cherry Pick','https://app.cherry-pick.io','Cherry Pick a développé un véritable système de matching se basant sur les besoins de l’entreprise et les compétences de chaque talent (hard & soft skills).',
         'contact@cherry-pick.io','06 62 97 21 64','Disponible');
 
-DROP PROCEDURE IF EXISTS createRandomEvaluations;
-CREATE PROCEDURE `createRandomEvaluations`(IN count INT)
-BEGIN
-    FOR i IN 1..count DO
-            SET @user = (SELECT IdUtilisateur FROM Utilisateur ORDER BY RAND() LIMIT 1);
-            SET @entreprise = (SELECT IdEntreprise FROM Entreprise WHERE NOT EXISTS(SELECT IdEntreprise FROM Evaluation WHERE IdUtilisateur = @user AND Evaluation.IdEntreprise = Entreprise.IdEntreprise) ORDER BY RAND() LIMIT 1);
-            IF @entreprise IS NOT NULL THEN
-            INSERT INTO Evaluation(Note, Commentaire, IdUtilisateur, IdEntreprise)
-            VALUES (FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac.',@user,@entreprise);
-        END IF;
-            END FOR;
-END;
-
 CALL createRandomEvaluations(100);
 
 INSERT INTO Secteur (NomSecteur)
 VALUES ('Aérospatial'),('Aéronautique'),('Automobile'),('Métallurgie'),('Bâtiment'),('Electromécanique'),('Mécanique'),('Electronique'),('Electricité'),('Développement'),('Réseau'),('Cybersécurité'),('Web'),('Robotique');
 
-DROP PROCEDURE IF EXISTS createRandomOffres;
-CREATE PROCEDURE `createRandomOffres`(IN count INT)
-BEGIN
-    FOR i IN 1..count DO
-            INSERT INTO Offre (DateOffre, DureeOffre, Remuneration, NbPlace, NomOffre, NiveauOffre, DescriptionOffre, IdSecteur, IdAdresse, IdEntreprise)
-            VALUES ((SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 200) DAY),FLOOR(RAND()*6+1),(4.35+ROUND(RAND()*2,2)),FLOOR(RAND()*5+1),CONCAT('Poste', LPAD(i, 2, '0')),FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent felis ex, dapibus sit amet efficitur at, porta vitae sem. Aenean augue nibh, sollicitudin eu sem quis, lobortis pretium sapien. Morbi quis nunc luctus, tempus quam fermentum, faucibus quam. Praesent ut mollis nunc, quis consequat diam. Nam condimentum urna vitae velit.',
-                    (SELECT IdSecteur FROM Secteur ORDER BY RAND() LIMIT 1),(SELECT IdAdresse FROM Adresse ORDER BY RAND() LIMIT 1),(SELECT IdEntreprise FROM Entreprise ORDER BY RAND() LIMIT 1));
-        END FOR;
-END;
-
 CALL createRandomOffres(50);
+
+INSERT INTO Competence  (NomCompetence)
+VALUES ('Sérieux'),('Autonomie'),('Curiosité'),('Esprit d\'équipe'),('Flexibilité'),('Créativité'),('Communication'),('Organisation'),('Leadership'),('Concentration');
+
+CALL createRandomCandidatures(25);
