@@ -2,28 +2,28 @@
 <html lang="fr">
 <head>
     <title>Mentions Légales</title>
-    <?php include 'components/head.php'; ?>
+    <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 
 <main>
 <h1>Mentions Légales</h1>
 
     <p class="paragraphe">
-</br>
+<br>
     - StageFinder édité par Akoustik SAS-
-</br>
+<br>
     - N° SIRET : 90205742295236 - 
-</br>
+<br>
     - Capital de 37 000€ - 
-</br>
+<br>
     - Parc des Tanneries, 2 All. des Foulons, 67380 Lingolsheim - 
-</br>
+<br>
     - stagefinder@viacesi.fr -
-</br>
+<br>
 </p>
 </main>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 </html>
