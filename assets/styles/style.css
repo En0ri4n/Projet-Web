@@ -250,12 +250,12 @@ main {
 
     }
 
-    .skills-div {
+    .add-div {
         display: flex;
         flex-direction: column;
 
 
-        .skills-list {
+        .added-input-list {
             display: flex;
             flex-direction: row;
             margin-top: 10px;
@@ -555,7 +555,7 @@ iframe{
     text-align: center;
 }
 
-.actions-offres{
+.actions-offres, .form-fiche-entreprise{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -563,7 +563,7 @@ iframe{
     box-sizing: border-box;
     justify-content: space-evenly;
 
-    .button-action-offre {
+    .button-action-offre{
         margin: 10px 0 10px 0;
         padding: 10px 0 10px 0;
         border-radius: 3px;
@@ -579,4 +579,8 @@ iframe{
         background-color: white;
         border: 3px solid #82AEB1;
     }
+}
+
+.form-fiche-entreprise{
+    flex-wrap: nowrap;
 }

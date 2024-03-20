@@ -7,23 +7,34 @@
 <body>
 <?php require_once('components/header.php'); ?>
 <main>
-    <div class="poster" id="premiere_section"> Créer une fiche entreprise</div>
-    <div class="box">
-        <div class="box2">
-            <div class="box_div"><label>Nom de l'entreprise* </label> <input class="input_box" required></div>
-            <div class="box_div"><label>Site Web </label> <input class="input_box"></div>
-            <div class="box_div"><label>Adresse principale* </label> <input class="input_box" required></div>
-            <div class="box_div"><label>Domaine* </label> <input class="input_box" required></div>
-            <div class="box_div"><label>E-Mail </label> <input class="input_box"></div>
-            <div class="box_div"><label>Téléphone </label> <input class="input_box"></div>
-        </div>
-        <div class="box2">
-            <label for="entreprise-desc">Description de l'entreprise</label>
-            <textarea class="input_box_long" id="entreprise-desc" required=""></textarea>
-        </div>
+    <div class="form" id="premiere_section">
+        <h1>Créer une fiche entreprise</h1>
+        <form method="post" > 
+            <div class="form-fiche-entreprise">
+                <div class="form__inputs">
+                    <input class="form__input" placeholder="Nom de l'entreprise*" required>
+                    <input class="form__input" placeholder="Mail de l'entreprise">
+                    <input class="form__input" placeholder="Adresse Principale*" required>
+                    <div class="add-div">
+                        <input class="form-input"  id="input-skill" placeholder="Ajouter Adresse secondaire">
+                        <div class="added-input-list">
+                            <ul id="adresses">
+                                <li>Adresse 1<a>✕</a></li>
+                                <li>Adresse 2<a>✕</a></li>
+                                <li>Adresse 3<a>✕</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input class="form__input" placeholder="Domaine*" required>
+                    <input class="form__input" placeholder="E-mail">
+                    <input class="form__input" placeholder="Téléphone">
+                    <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" required=""></textarea>
+                </div>
+            </div>
+            <p>*Champs obligatoires</p>
+            <button type="submit" class="submit">Poster</button>
+        </form>
     </div>
-    <p class="marge">*Champs obligatoires</p>
-    <button type="submit" class="bouton">Poster</button>
 </main>
 <?php require_once('components/footer.php'); ?>
 </body>
