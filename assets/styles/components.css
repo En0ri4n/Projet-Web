@@ -217,8 +217,8 @@
     width: 3.5rem;
     border-radius:50%;
     border-width: 1px;
-    background-color: #CB7C8C;
-    border-color: #CB7C8C;
+    background-color: #D72483;
+    border-color: #D72483;
     align-items: center;
     justify-content: center;
     display: none;
@@ -228,6 +228,8 @@
 }
 #button_back:hover
 {
-    background-color: #D72483;
     cursor: pointer;
+    img{
+        width: 55%;
+    }
 }
