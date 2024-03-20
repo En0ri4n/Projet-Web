@@ -24,4 +24,4 @@
         </p>
     </div>-->
 </footer>
-<script type="module" src="scripts/footer.js"></script>
+<script type="module" src="/scripts/footer.js"></script>
