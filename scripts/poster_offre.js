@@ -1,4 +1,4 @@
-import { addEventTo, setCustomValidator } from "./main";
+import { addEventTo, setCustomValidator } from "./main.js";
 
 // Add event to the document when it is ready, to ensure that all the elements are loaded before doing anything
 addEventTo(document, 'DOMContentLoaded', onReady);

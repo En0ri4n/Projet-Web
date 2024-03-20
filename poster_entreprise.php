@@ -7,7 +7,7 @@
 <body>
 <?php require_once('components/header.php'); ?>
 <main>
-    <div class="poster"> Créer une fiche entreprise</div>
+    <div class="poster" id="premiere_section"> Créer une fiche entreprise</div>
     <div class="box">
         <div class="box2">
             <div class="box_div"><label>Nom de l'entreprise* </label> <input class="input_box" required></div>

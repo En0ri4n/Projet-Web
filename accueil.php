@@ -8,7 +8,7 @@
 <body>
 <?php require_once('components/header.php'); ?>
 <main>
-    <div class="presentation">
+    <div class="presentation" id="premiere_section">
         <article class="description">
             <h1>StageFinder</h1><br>
             <p>Trouvez un stage qui vous correspond.</p>

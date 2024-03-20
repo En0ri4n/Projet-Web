@@ -7,7 +7,7 @@
 <body>
 <?php require_once('components/header.php'); ?>
 <main>
-    <div class="form">
+    <div class="form" id="premiere_section">
         <h1> Poster une offre</h1>
         <form method="post">
             <div class="form__inputs">
