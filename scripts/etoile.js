@@ -1,3 +1,4 @@
+/* TODO: Re-faire fonctionner le script pour les étoiles */
 import {addEventsTo, addEventTo} from "./main.js";
 
 const allStars = document.querySelectorAll(".fa-star");

@@ -5,7 +5,7 @@
     <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 <main style="display: flex; flex-direction: column">
     <h1>Erreur 404 - Page non trouvée</h1>
     <br>
@@ -15,6 +15,6 @@
     <p><a href="/accueil.php">Retour à l'accueil</a></p>
 </main>
 <footer class="footer"></footer>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 </html>

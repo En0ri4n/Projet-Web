@@ -5,9 +5,9 @@
     <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 <main>
-    <div class="form">
+    <div class="form" id="premiere_section">
         <h1> Poster une offre</h1>
         <form method="post">
             <div class="form__inputs">
@@ -49,7 +49,7 @@
         </form>
     </div>
 </main>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 <script type="module" src="/scripts/poster_offre.js"></script>
 </body>
 </html>

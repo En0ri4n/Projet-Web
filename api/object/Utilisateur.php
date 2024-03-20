@@ -4,6 +4,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class Utilisateur
 {
+    public static Utilisateur $EMPTY_UTILISATEUR;
+
     protected string $id;
     protected string $nom;
     protected string $prenom;
@@ -20,7 +22,6 @@ class Utilisateur
         $this->motDePasse = $motDePasse;
         $this->telephone = $telephone;
     }
-
 
     public function getId(): string
     {
@@ -82,7 +83,7 @@ class Utilisateur
         $this->telephone = $telephone;
     }
 
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return $this->id === "" && $this->nom === "" && $this->prenom === "" && $this->email === "" && $this->motDePasse === "" && $this->telephone === "";
     }
@@ -109,5 +110,10 @@ class Utilisateur
             $array[UtilisateurTable::$PASSWORD_COLUMN],
             $array[UtilisateurTable::$TELEPHONE_COLUMN]
         );
+    }
+
+    public static function getEmpty(): Utilisateur
+    {
+        return $EMPTY_UTILISATEUR ?? ($EMPTY_UTILISATEUR = new Utilisateur("", "", "", "", "", ""));
     }
 }

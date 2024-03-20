@@ -11,7 +11,7 @@
 <body>
 <?php require_once('components/header.php');?>
 <main class="main">
-    <div class="form">
+    <div class="form" id="premiere_section">
         <h1>Inscription</h1>
         <form method="post" id="form_inscription">
             <div class="form__inputs">

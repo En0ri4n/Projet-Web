@@ -205,3 +205,31 @@
         }
     }
 }
+
+/*Bouton pour scroll en haut de la page*/
+#button_back 
+{
+    position:fixed;
+    font-size: 2rem;
+    bottom: 5vh;
+    right: 5vh;
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius:50%;
+    border-width: 1px;
+    background-color: #D72483;
+    border-color: #D72483;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    img{
+        width: 50%;
+    }
+}
+#button_back:hover
+{
+    cursor: pointer;
+    img{
+        width: 55%;
+    }
+}

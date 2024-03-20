@@ -17,6 +17,7 @@
             <div class="form__inputs">
                 <input type="text" id="identifiant" name="username" placeholder="Identifiant" required>
                 <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                <input type="hidden" id="token" name="token" value="">
             </div>
             <div>
                 <input type="submit" class="submit" id="connect-button" value="Connexion">

@@ -112,10 +112,10 @@ FOR i IN 1..10 DO
 
 CALL createRandomPromotions(10);
 
-CALL createAdministateur('Louise.Ley', SHA2('admin', 256), 'LEY', 'Louise', 'louise.ley@viacesi.fr', '0611111111');
-CALL createAdministateur('Cédric.Hoog', SHA2('admin', 256), 'HOOG', 'Cédric', 'cedric.hoog@viacesi.fr', '0622222222');
-CALL createAdministateur('Enorian.Rajoelisoa', SHA2('admin', 256), 'RAJOELISOA', 'Enorian', 'enorian.rajoelisoa@viacesi.fr', '0633333333');
-CALL createAdministateur('Laura.Giese', SHA2('admin', 256), 'GIESE', 'Laura', 'laura.giese@viacesi.fr', '0644444444');
+CALL createAdministateur('louise.ley', SHA2('admin', 256), 'LEY', 'Louise', 'louise.ley@viacesi.fr', '0611111111');
+CALL createAdministateur('cedric.hoog', SHA2('admin', 256), 'HOOG', 'Cédric', 'cedric.hoog@viacesi.fr', '0622222222');
+CALL createAdministateur('enorian.rajoelisoa', SHA2('admin', 256), 'RAJOELISOA', 'Enorian', 'enorian.rajoelisoa@viacesi.fr', '0633333333');
+CALL createAdministateur('laura.giese', SHA2('admin', 256), 'GIESE', 'Laura', 'laura.giese@viacesi.fr', '0644444444');
 
 INSERT INTO Entreprise(NomEntreprise, Site, DescriptionEntreprise, MailEntreprise, TelephoneEntreprise, Statut)
 VALUES ('IBM','https://www.ibm.com','International Business Machines Corporation, connue sous le sigle IBM, est une entreprise multinationale américaine présente dans les domaines du matériel informatique, du logiciel et des services informatiques.',

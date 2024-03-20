@@ -4,32 +4,34 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
 
 class Etudiant extends Utilisateur
 {
-    private string $idPromotion;
-    private string $idAdresse;
+    public static Etudiant $EMPTY_ETUDIANT;
 
-    public function __construct(string $id, string $nom, string $prenom, string $email, string $motDePasse, string $telephone, string $idPromotion, string $idAdresse)
+    private int $idPromotion;
+    private int $idAdresse;
+
+    public function __construct(string $id, string $nom, string $prenom, string $email, string $motDePasse, string $telephone, int $idPromotion, int $idAdresse)
     {
         parent::__construct($id, $nom, $prenom, $email, $motDePasse, $telephone);
         $this->idPromotion = $idPromotion;
         $this->idAdresse = $idAdresse;
     }
 
-    public function getIdPromotion(): string
+    public function getIdPromotion(): int
     {
         return $this->idPromotion;
     }
 
-    public function getIdAdresse(): string
+    public function getIdAdresse(): int
     {
         return $this->idAdresse;
     }
 
-    public function setIdPromotion(string $idPromotion): void
+    public function setIdPromotion(int $idPromotion): void
     {
         $this->idPromotion = $idPromotion;
     }
 
-    public function setIdAdresse(string $idAdresse): void
+    public function setIdAdresse(int $idAdresse): void
     {
         $this->idAdresse = $idAdresse;
     }
@@ -46,5 +48,10 @@ class Etudiant extends Utilisateur
         $etudiant->setIdPromotion($array[EtudiantTable::$PROMOTION_COLUMN]);
         $etudiant->setIdAdresse($array[EtudiantTable::$ADRESSE_COLUMN]);
         return $etudiant;
+    }
+
+    public static function getEmpty(): Etudiant
+    {
+        return $EMPTY_ETUDIANT ?? ($EMPTY_ETUDIANT = new Etudiant("", "", "", "", "", "", -1, -1));
     }
 }
