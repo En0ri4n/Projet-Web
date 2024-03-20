@@ -145,18 +145,21 @@ abstract class AbstractTable
     }
 
     /**
+     * @return PDO The database to use
+     */
+    protected function getDatabase(): PDO
+    {
+        return $this->db;
+    }
+
+    /**
      * Verify that the array passes the given check
      *
-     * @throws Exception
+     * @throws Exception if the array does not pass the check
      */
     protected function verifyArray(array $array, callable $lengthFunction, string $message): void
     {
         if($lengthFunction($array))
-            throw new Exception("Array is not validating the check");
-    }
-
-    protected function getDatabase(): PDO
-    {
-        return $this->db;
+            throw new Exception($message);
     }
 }
