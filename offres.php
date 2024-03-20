@@ -5,7 +5,7 @@
     <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 <main>
     <div class="filtres_box" id="premiere_section">
         <h1>Filtres</h1>
@@ -47,6 +47,6 @@
         </div>
     </div>
 </main>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 </html>

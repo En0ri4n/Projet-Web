@@ -5,7 +5,7 @@
     <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 <main>
     <p>Nous contacter</p>
     <div class="form">
@@ -27,6 +27,6 @@
         </form>
     </div>
 </main>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 </html>

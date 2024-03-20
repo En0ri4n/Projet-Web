@@ -8,6 +8,26 @@ class EtudiantTable extends UtilisateurTable
     public static string $ADRESSE_COLUMN = "IdAdresse";
 
     /**
+     * Select an etudiant from the database
+     *
+     * @param mixed $conditions Associative array of column keys and values to select
+     * @return Etudiant The etudiant selected or an empty etudiant if the query fails
+     */
+    public function selectEtudiant(mixed $conditions): Etudiant
+    {
+        try
+        {
+            $stmt = $this->select($conditions);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row ? Etudiant::fromArray($row) : Etudiant::getEmpty();
+        }
+        catch (Exception $e)
+        {
+            return Etudiant::getEmpty();
+        }
+    }
+
+    /**
      * Create a new etudiant in the database
      *
      * @param Etudiant $etudiant The etudiant to create

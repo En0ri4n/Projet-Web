@@ -5,7 +5,7 @@
     <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
+<?php require_once('components/header.php'); ?>
 <main>
     <div id="premiere_section">
         <img id="image_entreprise" width=100% src="/assets/logo.png" alt="">
@@ -100,7 +100,7 @@
         </div>
     </div>
 </main>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 <script type="module" src="/scripts/descriptions.js"></script>
 </html>

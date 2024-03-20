@@ -13,7 +13,7 @@ switch($method)
 {
     case 'POST':
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = $_POST['token'];
 
         try
         {

@@ -41,20 +41,20 @@ class UtilisateurTable extends AbstractTable
     /**
      * Select a utilisateur from the database
      *
-     * @param array $map Associative array of column keys and values to select
-     * @return Utilisateur The utilisateur selected
+     * @param array $conditions Associative array of column keys and values to select
+     * @return Utilisateur The utilisateur selected or an empty utilisateur if the query fails
      */
-    public function selectUtilisateur(array $map): Utilisateur
+    public function selectUtilisateur(array $conditions): Utilisateur
     {
         try
         {
-            $stmt = $this->select($map);
+            $stmt = $this->select($conditions);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $row ? Utilisateur::fromArray($row) : new Utilisateur("", "", "", "", "", "");
+            return $row ? Utilisateur::fromArray($row) : Utilisateur::getEmpty();
         }
         catch (Exception $e)
         {
-            return new Utilisateur("", "", "", "", "", "");
+            return Utilisateur::getEmpty();
         }
     }
 

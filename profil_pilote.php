@@ -5,27 +5,9 @@
     <?php require_once('components/head.php'); ?>
 </head>
 <body>
-<?php include 'components/header.php'; ?>
-<main class="main">
-    <div class="profil" id="premiere_section">
-        <div class="profil_form">
-            <h1>Profil</h1>
-            <br>
-            <form method="post">
-                <div class="form__inputs">
-                    <input type="text" id="nom" name="nom" placeholder="Nom">
-                    <input type="text" id="prenom" name="prenom" placeholder="Prénom">
-                    <input type="email" id="email" name="email" placeholder="E-mail">
-                    <input type="text" id="domaine" name="domaine" placeholder="Domaine">
-                    <input type="tel" id="telephone" name="telephone" placeholder="Téléphone">
-                    <input type="text" id="adresse" name="adresse" placeholder="Adresse">
-                    <input type="text" id="promo" name="promo" placeholder="Promotion à charge">
-                    <input type="submit" value="Appliquer les modifications">
-                </div>
-            </form>
-        </div>
-        <img src="/assets/logo.png" alt="Image de profil">
-    </div>
+<?php require_once('components/header.php'); ?>
+<main>
+    <?php require_once('components/profile.php'); ?>
     <div class="etudiants">
         <h1>Chercher un étudiant</h1>
         <form method="post">
@@ -139,7 +121,7 @@
     </div>
 </main>
 <button id="button_back" onclick="scrollToTop()"><img src="assets/arrow_up.svg" alt="fleche haut"></button>
-<?php include 'components/footer.php'; ?>
+<?php require_once('components/footer.php'); ?>
 </body>
 <script type="module" src="/scripts/tuteur_interne.js"></script>
 </html>
