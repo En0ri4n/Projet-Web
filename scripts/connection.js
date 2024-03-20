@@ -7,6 +7,7 @@ async function onSubmit(e)
     e.preventDefault();
     const passwordField = document.getElementById('password');
     Promise.all(await sha256(passwordField.value)
-        .then((hash) => passwordField.value = hash))
+        .then((hash) => document.getElementById('token').value = hash))
+        .then(() => passwordField.disabled = true)
         .then(() => this.submit());
 }
