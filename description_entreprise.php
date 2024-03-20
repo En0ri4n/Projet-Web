@@ -22,7 +22,7 @@ include 'components/header.php'; ?>
     </div>
     <div class="liste-offres">
     <h1>Offres de l'entreprise</h1>
-        <div class="offre">
+        <div class="offre" onclick="window.location.href='/description_offre.php';">
             <img src="/assets/poste.png" alt="Entreprise">
             <article>
                 <div class="c1">
