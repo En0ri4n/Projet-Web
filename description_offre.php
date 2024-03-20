@@ -7,7 +7,7 @@
 <body>
 <?php include 'components/header.php'; ?>
 <main>
-    <div>
+    <div id="premiere_section">
         <img id="image_entreprise" width=100% src="/assets/logo.png" alt="">
     </div>
     <div class="resume-entreprise">

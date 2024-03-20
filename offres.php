@@ -7,7 +7,7 @@
 <body>
 <?php include 'components/header.php'; ?>
 <main>
-    <div class="filtres_box">
+    <div class="filtres_box" id="premiere_section">
         <h1>Filtres</h1>
         <div class="filtres">
             <input type="text" id="filter-name" placeholder="Nom">

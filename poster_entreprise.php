@@ -6,7 +6,7 @@
 </head>
 <body>
 <?php include 'components/header.php'; ?>
-<div class="poster"> Créer une fiche entreprise</div>
+<div class="poster" id="premiere_section"> Créer une fiche entreprise</div>
 
 <div class="box">
     <div class="box2">
