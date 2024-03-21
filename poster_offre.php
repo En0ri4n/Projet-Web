@@ -34,9 +34,9 @@
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
                 <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" required>
                 <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">
-                <div class="skills-div">
+                <div class="add-div">
                     <input class="form-input"  id="input-skill" placeholder="Ajouter une compétence" required>
-                    <div class="skills-list">
+                    <div class="added-input-list">
                         <ul id="skills">
                             <li>Compétence 1<a>✕</a></li>
                             <li>Compétence 2<a>✕</a></li>

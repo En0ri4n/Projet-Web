@@ -19,15 +19,16 @@ switch($method)
         {
             $utilisateur = Tables::get()::$UTILISATEUR_TABLE->selectUtilisateur(array(UtilisateurTable::$ID_COLUMN => $username, UtilisateurTable::$PASSWORD_COLUMN => $password));
 
+            echo $_POST["redirect"] ?? $DEFAULT_PAGE;
             if(!$utilisateur->isEmpty())
             {
-                header("Location: $DEFAULT_PAGE");
+                header('Location: ' . $_POST["redirect"] ?? $DEFAULT_PAGE);
                 setcookie($USER_COOKIE_NAME, base64_encode(json_encode($utilisateur->toArray())), time() + 3600, '/');
                 echo json_encode(['authorized' => true, 'message' => 'User authentified', 'user' => $utilisateur->getId()]);
             }
             else
             {
-                header("Location: $CONNECTION_PAGE");
+                header("Location: $CONNECTION_PAGE?from=" . $_POST['redirect']);
                 echo json_encode(['authorized' => false, 'message' => 'Invalid username or password']);
             }
             return;

@@ -6,5 +6,5 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php'); ?>
             $user = Tables::get()::$UTILISATEUR_TABLE->selectUtilisateur([UtilisateurTable::$ID_COLUMN => $_COOKIE[$USER_COOKIE_NAME]]);
             echo $user->getPrenom() . ' ' . $user->getNom() ?></h1>
     </div>
-    <img src="/assets/profil.png" alt="Image de profil">
+    <img src="/assets/profil.png" width=100% alt="Image de profil">
 </div>

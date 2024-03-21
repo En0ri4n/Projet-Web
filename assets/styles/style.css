@@ -7,7 +7,8 @@
  * - assets/styles/inscription.css
  * - assets/styles/offres.css
  * - assets/styles/description.css
- * TODO: etudiant_interne.css, poster_entreprise.css, tuteur_interne.css
+ * - poster_entreprise.css
+ * TODO: etudiant_interne.css, tuteur_interne.css
  */
 
 * {
@@ -129,8 +130,7 @@ main {
     flex-direction: column;
     align-items: center;
 }
-
-.liste-offres, .contact, .competence-demandees{
+.contact, .competence-demandees{
     background-color: white;
 }
 .competence-demandees{
@@ -250,12 +250,12 @@ main {
 
     }
 
-    .skills-div {
+    .add-div {
         display: flex;
         flex-direction: column;
 
 
-        .skills-list {
+        .added-input-list {
             display: flex;
             flex-direction: row;
             margin-top: 10px;
@@ -554,8 +554,10 @@ iframe{
     margin-bottom: 50px;
     text-align: center;
 }
-
 .actions-offres{
+    background-color: white;
+}
+.actions-offres, .form-fiche-entreprise{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -563,7 +565,7 @@ iframe{
     box-sizing: border-box;
     justify-content: space-evenly;
 
-    .button-action-offre {
+    .button-action-offre{
         margin: 10px 0 10px 0;
         padding: 10px 0 10px 0;
         border-radius: 3px;
@@ -579,4 +581,8 @@ iframe{
         background-color: white;
         border: 3px solid #82AEB1;
     }
+}
+
+.form-fiche-entreprise{
+    flex-wrap: nowrap;
 }

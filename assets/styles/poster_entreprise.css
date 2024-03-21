@@ -28,6 +28,7 @@ img{
 
 .box{
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     margin-left: 3%;
     width: 94%;
@@ -82,10 +83,4 @@ img{
 .bouton:hover{
     background-color:#495867;
     color: #FFF1F3;;
-}
-
-@media (max-width: 800px) {
-    .box {
-        flex-direction: column;
-    }
 }
