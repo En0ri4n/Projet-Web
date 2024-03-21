@@ -1,4 +1,4 @@
-DELETE FROM AdminWishlist;
+
 
 DELETE FROM Candidature;
 

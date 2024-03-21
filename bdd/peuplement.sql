@@ -94,6 +94,35 @@ BEGIN
         END FOR;
 END;
 
+DROP PROCEDURE IF EXISTS createRandomCompetencesOffres;
+CREATE PROCEDURE `createRandomCompetencesOffres`(IN count INT)
+BEGIN
+FOR i IN 1..count DO
+        SET @nbCompetences=FLOOR(RAND()*3+1);
+        FOR j IN 1..@nbCompetences DO
+                SET @offre = (SELECT IdOffre FROM Offre ORDER BY RAND() LIMIT 1);
+                SET @competence = (SELECT IdCompetence FROM Competence WHERE NOT EXISTS(SELECT IdCompetence FROM Demander WHERE IdOffre = @offre AND Demander.IdCompetence = Competence.IdCompetence) ORDER BY RAND() LIMIT 1);
+                INSERT INTO Demander(IdOffre, IdCompetence)
+                VALUES (@offre,@competence);
+            END FOR;
+    END FOR;
+END;
+
+DROP PROCEDURE IF EXISTS createRandomWishlist;
+CREATE PROCEDURE `createRandomWishlist`(IN count INT)
+BEGIN
+    FOR i IN 1..count DO
+            SET @nbOffres=FLOOR(RAND()*5+1);
+            FOR j IN 1..@nbOffres DO
+                    SET @offre = (SELECT IdOffre FROM Offre ORDER BY RAND() LIMIT 1);
+                    SET @user = (SELECT IdUtilisateur FROM Etudiant WHERE NOT EXISTS(SELECT IdUtilisateur FROM Wishlist WHERE IdOffre = @offre AND Wishlist.IdUtilisateur = Etudiant.IdUtilisateur) ORDER BY RAND() LIMIT 1);
+                    INSERT INTO Wishlist(IdOffre, IdUtilisateur)
+                    VALUES (@offre,@user);
+                END FOR;
+        END FOR;
+END;
+
+
 FOR i IN 1..100 DO
         CALL createAdresse();
     END FOR;
@@ -140,3 +169,25 @@ INSERT INTO Competence  (NomCompetence)
 VALUES ('Sérieux'),('Autonomie'),('Curiosité'),('Esprit d\'équipe'),('Flexibilité'),('Créativité'),('Communication'),('Organisation'),('Leadership'),('Concentration');
 
 CALL createRandomCandidatures(25);
+
+FOR i IN 1..5 DO
+    SET @nbAdresses=FLOOR(RAND()*5+1);
+    FOR j IN 1..@nbAdresses DO
+        SET @adresse = (SELECT IdAdresse FROM Adresse WHERE NOT EXISTS(SELECT IdAdresse FROM Localiser WHERE IdEntreprise = i AND Localiser.IdAdresse = Adresse.IdAdresse) ORDER BY RAND() LIMIT 1);
+        INSERT INTO Localiser(idEntreprise, idAdresse)
+        VALUES (i,@adresse);
+        END FOR;
+    END FOR;
+
+CALL createRandomCompetencesOffres(40);
+
+CALL createRandomWishlist(50);
+
+FOR i IN 1..5 DO
+        SET @nbSecteurs=FLOOR(RAND()*5+1);
+        FOR j IN 1..@nbSecteurs DO
+                SET @secteur = (SELECT IdSecteur FROM Secteur WHERE NOT EXISTS(SELECT IdSecteur FROM Composer WHERE IdEntreprise = i AND Composer.IdSecteur = Secteur.IdSecteur) ORDER BY RAND() LIMIT 1);
+                INSERT INTO Composer(idEntreprise, IdSecteur)
+                VALUES (i,@secteur);
+            END FOR;
+    END FOR;

@@ -167,12 +167,3 @@ CREATE TABLE Composer
     FOREIGN KEY (IdEntreprise) REFERENCES Entreprise (IdEntreprise),
     FOREIGN KEY (IdSecteur) REFERENCES Secteur (IdSecteur)
 );
-
-CREATE TABLE AdminWishlist
-(
-    IdOffre       INT,
-    IdUtilisateur VARCHAR(64),
-    PRIMARY KEY (IdOffre, IdUtilisateur),
-    FOREIGN KEY (IdOffre) REFERENCES Offre (IdOffre),
-    FOREIGN KEY (IdUtilisateur) REFERENCES Administrateur (IdUtilisateur)
-);
