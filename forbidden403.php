@@ -1,3 +1,4 @@
+<?php global $FORBIDDEN_PAGE, $CONNECTION_PAGE; ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +13,7 @@
     <img src="https://http.dog/403.jpg" style="width: max(30vw, 400px);" alt="forbidden">
     <br>
     <p>Vous n'avez pas le droit d'accéder à cette page.</p>
-    <p><a href="/accueil.php">Retour à l'accueil</a></p>
+    <p><a href="<?= $CONNECTION_PAGE . '?' . $_SERVER['QUERY_STRING'] ?>">Connectez vous pour continuer</a></p>
 </main>
 <footer class="footer"></footer>
 <?php require_once('components/footer.php'); ?>
