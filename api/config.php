@@ -7,6 +7,7 @@ $PASSWORD = 'enow';
 $USER_COOKIE_NAME = 'user';
 $DEFAULT_PAGE = '/accueil.php';
 $CONNECTION_PAGE = '/connexion.php';
+$FORBIDDEN_PAGE = '/forbidden403.php';
 
 try
 {
