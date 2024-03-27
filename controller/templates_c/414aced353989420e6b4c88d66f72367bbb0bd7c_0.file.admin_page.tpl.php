@@ -1,13 +1,43 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 4.5.1, created on 2024-03-27 16:45:03
+  from 'C:\Users\MOI\Documents\cesi\A2\blocs\4web\projet\projet code\Projet-Web\view\admin_page.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.5.1',
+  'unifunc' => 'content_66043effbb09d5_59463502',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '414aced353989420e6b4c88d66f72367bbb0bd7c' => 
+    array (
+      0 => 'C:\\Users\\MOI\\Documents\\cesi\\A2\\blocs\\4web\\projet\\projet code\\Projet-Web\\view\\admin_page.tpl',
+      1 => 1711554301,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:components/head.tpl' => 1,
+    'file:components/header.tpl' => 1,
+    'file:components/profile.php' => 1,
+    'file:components/footer.tpl' => 1,
+  ),
+),false)) {
+function content_66043effbb09d5_59463502 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="fr">
 <head>
     <title>Profil Pilote</title>
-    {include file='components/head.tpl'}
+    <?php $_smarty_tpl->_subTemplateRender('file:components/head.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
 </head>
 <body>
-{include file='components/header.tpl'}
+<?php $_smarty_tpl->_subTemplateRender('file:components/header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
 <main>
-    {include file='components/profile.php'}
+    <?php $_smarty_tpl->_subTemplateRender('file:components/profile.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
 
     <!-- TODO: lien sur boutons modifier vers inscription etudiant --> 
     <div class="liste-etudiant">
@@ -180,7 +210,11 @@
 
 </main>
 <button id="button_back" onclick="scrollToTop()"><img src="../assets/arrow_up.svg" alt="fleche haut"></button>
-{include file='components/footer.tpl'}
+<?php $_smarty_tpl->_subTemplateRender('file:components/footer.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
 </body>
-<script type="module" src="/scripts/tuteur_interne.js"></script>
-</html>
+<?php echo '<script'; ?>
+ type="module" src="/scripts/tuteur_interne.js"><?php echo '</script'; ?>
+>
+</html><?php }
+}
