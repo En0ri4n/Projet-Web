@@ -7,7 +7,6 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <p>Nous contacter</p>
     <div class="form">
         <h1>Formulaire de contact</h1>
         <br>

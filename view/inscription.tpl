@@ -10,8 +10,8 @@
 </head>
 <body>
 {include file='components/header.tpl'}
-<main class="main">
-    <div class="form" id="premiere_section">
+<main>
+    <div class="form">
         <h1>Inscription</h1>
         <form method="post" id="form_inscription">
             <div class="form__inputs">

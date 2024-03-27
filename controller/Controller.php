@@ -14,6 +14,7 @@ class Controller
 
     private Smarty $smarty;
 
+    /*TODO Faire en sorte que les autorisations soient correctes à chaque changement de page*/
     public function homeController(): void
     {
         $this->setup(false);
@@ -68,11 +69,38 @@ class Controller
         $this->setup(false);
         $this->display('view/profil_pilote.tpl');
     }
-    
-    public function admin_pageController(): void
+
+    public function adminPageController(): void
     {
         $this->setup(false);
         $this->display('view/admin_page.tpl');
+    }
+
+    public function entrepriseController(): void
+    {
+        $this->setup(false);
+        $this->display('view/entreprise.tpl');
+    }
+
+    public function descriptionEntrepriseController(): void
+    {
+        $this->setup(false);
+        $this->display('view/description_entreprise.tpl');
+    }
+    public function descriptionOffreController(): void
+    {
+        $this->setup(false);
+        $this->display('view/description_offre.tpl');
+    }
+    public function inscriptionController(): void
+    {
+        $this->setup(false);
+        $this->display('view/inscription.tpl');
+    }
+    public function posterOffreController(): void
+    {
+        $this->setup(false);
+        $this->display('view/poster_offre.tpl');
     }
 
     public function profileController(): void
