@@ -20,31 +20,44 @@
             <button id="filter-button">Filtrer</button>
         </div>
     </div>
-    <div class="offres">
-        <div class="liste-offres">
-            <div class="offre">
-                <img src="/assets/poste.png" alt="Entreprise">
-                <article>
-                    <div class="c1">
-                        <span class="poste">Poste</span>
-                        <span class="entreprise">Entreprise</span>
-                        <span class="niveau">Niveau</span>
-                    </div>
-                    <div class="c2">
-                        <span class="domaine">Domaine</span>
-                        <span class="dates">Dates</span>
-                    </div>
-                    <div class="c3">
-                    </div>
-                    <div class="list-competences">
-                        <ul class="competences">Compétences :
-                            <li>competence 1</li>
-                            <li>competence 2</li>
-                        </ul>
-                    </div>
-                </article>
+    <div class="liste-offres">
+        <article class="offre">
+            <div class="c1">
+                <span class="poste">Poste1</span>
+                <span class="entreprise">Entreprise1</span>
+                <span class="niveau">Niveau1</span>
             </div>
-        </div>
+            <div class="c2">
+                <span class="domaine">Domaine1</span>
+                <span class="dates">Dates1</span>
+            </div>
+            <div class="c3">
+                <ul class="competences">Compétences :
+                    <li>competence A</li>
+                    <li>competence B</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="offre">
+            <div class="c1">
+                <span class="poste">Poste2</span>
+                <span class="entreprise">Entreprise2</span>
+                <span class="niveau">Niveau2</span>
+            </div>
+            <div class="c2">
+                <span class="domaine">Domaine2</span>
+                <span class="dates">Dates2</span>
+            </div>
+            <div class="c3">
+            </div>
+            <div class="list-competences">
+                <ul class="competences">Compétences :
+                    <li>competence A</li>
+                    <li>competence B</li>
+                </ul>
+            </div>
+        </article>  
     </div>
 </main>
 <?php require_once('components/footer.php'); ?>

@@ -8,104 +8,108 @@
 <?php require_once('components/header.php'); ?>
 <main>
     <?php require_once('components/profile.php'); ?>
-    <div class="etudiants">
-        <h1>Chercher un étudiant</h1>
+    <div class="liste-etudiant">
         <form method="post">
-            <div class="recherche">
-                <input type="search" placeholder="Rechercher un profil étudiant">
-                <input type="submit" value="Ajouter">
-            </div>
             <h1>Vos étudiants</h1>
+            <div class="search-by-name">
+                <input type="search" class="search-bar" placeholder="Rechercher un étudiant">
+                <input type="submit" class="submit-small" value="Rechercher">
+            </div>
             <div class="list_data">
                 <div class="contener_row">
-                    <div class="row_data">
-                        <img src="/assets/logo.png" alt="Etudiant">
-                        <article>
-                            <div class="c1">
-                                <span class="bold">NomEtudiant1</span>
-                                <span>Domaine1</span>
-                            </div>
-                            <div class="c2">
-                                <span class="bold">PrénomEtudiant1</span>
-                                <span>AnnéeEtudes1</span>
-                            </div>
-                        </article>
-                    </div>
+                    <article class="etudiant">
+                        <img src="/assets/profil.png" alt="Etudiant">
+                        <div class="c1">
+                            <span class="bold">NomEtudiant1</span>
+                            <span>Domaine1</span>
+                        </div>
+                        <div class="c2">
+                            <span class="bold">PrénomEtudiant1</span>
+                            <span>AnnéeEtudes1</span>
+                        </div>
+                    </article>
                     <button class="delete">Supprimer</button>
                 </div>
                 <div class="contener_row">
-                    <div class="row_data">
-                        <img src="/assets/logo.png" alt="Etudiant">
-                        <article>
-                            <div class="c1">
-                                <span class="bold">NomEtudiant2</span>
-                                <span>Domaine2</span>
-                            </div>
-                            <div class="c2">
-                                <span class="bold">PrénomEtudiant2</span>
-                                <span>AnnéeEtudes2</span>
-                            </div>
-                        </article>
-                    </div>
+                    <article class="etudiant">
+                        <img src="/assets/profil.png" alt="Etudiant">
+                        <div class="c1">
+                            <span class="bold">NomEtudiant2</span>
+                            <span>Domaine2</span>
+                        </div>
+                        <div class="c2">
+                            <span class="bold">PrénomEtudiant2</span>
+                            <span>AnnéeEtudes2</span>
+                        </div>
+                    </article>
                     <button class="delete">Supprimer</button>
                 </div>
             </div>
         </form>
     </div>
-    <div class="offres">
+    
+    <div>
         <form method="post">
-            <h1>Poster des offres</h1>
-            <div class="add">
-                <button class="new" onclick="window.location.href='poster_offre.php';">Poster une offre</button>
-                <button class="new" onclick="window.location.href='poster_entreprise.php';">Créer une fiche entreprise</button>
-            </div>
+            <div class="liste-offres">
             <h1>Offres postées</h1>
-            <div class="list_data">
-                <div class="parametres">
-                    <div class="mode"><a class="selected">Offres postées</a> | <a href="">Fiches entreprises</a></div>
-                    <button class="filtres">Filtrer ▼</button>
+            <!--TODO Faire en sorte que les liens fonctionnent-->
+                <div class="actions-offres">
+                    <button class="button-action-offre" onclick="window.location.href='poster_offre.php';">Poster une offre</button>
+                    <button class="button-action-offre" onclick="window.location.href='poster_entreprise.php';">Créer une fiche entreprise</button>
+                </div>
+                <div class="filtres_box">
+                    <div class="filtres">
+                        <input type="text" id="filter-name" placeholder="Nom">
+                        <select id="filter-entreprise"><option value="default">Entreprise...</option></select>
+                        <select id="filter-niveau"><option value="default">Niveau...</option></select>
+                        <input type="date" id="filter-date" placeholder="Date">
+                        <input type="number" id="duree" placeholder="Durée (Mois)" min="1">
+                        <select id="filter-location"><option value="default">Lieu...</option></select>
+                        <button id="reset-filter">Réinitiliaser</button>
+                        <button id="filter-button">Filtrer</button>
+                    </div>
                 </div>
                 <div class="contener_row">
-                        <article class="offre">
-                            <div class="c1">
-                                <span class="poste">Poste1</span>
-                                <span class="entreprise">Entreprise1</span>
-                                <span class="niveau">Niveau1</span>
-                            </div>
-                            <div class="c2">
-                                <span class="domaine">Domaine1</span>
-                                <span class="dates">Dates1</span>
-                            </div>
-                            <div class="c3">
-                                <ul class="competences">Compétences :
-                                    <li>competence A</li>
-                                    <li>competence B</li>
-                                </ul>
-                            </div>
-                        </article>
+                    <article class="offre">
+                        <div class="c1">
+                            <span class="poste">Poste1</span>
+                            <span class="entreprise">Entreprise1</span>
+                            <span class="niveau">Niveau1</span>
+                        </div>
+                        <div class="c2">
+                            <span class="domaine">Domaine1</span>
+                            <span class="dates">Dates1</span>
+                        </div>
+                        <div class="c3">
+                            <ul class="competences">Compétences :
+                                <li>competence A</li>
+                                <li>competence B</li>
+                            </ul>
+                        </div>
+                    </article>
                     <button class="delete">Supprimer</button>
                 </div>
 
                 <div class="contener_row">
-                        <article class="offre">
-                            <div class="c1">
-                                <span class="poste">Poste2</span>
-                                <span class="entreprise">Entreprise2</span>
-                                <span class="niveau">Niveau2</span>
-                            </div>
-                            <div class="c2">
-                                <span class="domaine">Domaine2</span>
-                                <span class="dates">Dates2</span>
-                            </div>
-                            <div class="c3">
-                            </div>
-                            <div class="list-competences">
-                                <ul class="competences">Compétences :
-                                    <li>competence A</li>
-                                    <li>competence B</li>
-                                </ul>
-                            </div>
-                        </article>
+                    <article class="offre">
+                        <div class="c1">
+                            <span class="poste">Poste2</span>
+                            <span class="entreprise">Entreprise2</span>
+                            <span class="niveau">Niveau2</span>
+                        </div>
+                        <div class="c2">
+                            <span class="domaine">Domaine2</span>
+                            <span class="dates">Dates2</span>
+                        </div>
+                        <div class="c3">
+                        </div>
+                        <div class="list-competences">
+                            <ul class="competences">Compétences :
+                                <li>competence A</li>
+                                <li>competence B</li>
+                            </ul>
+                        </div>
+                    </article>
                     <button class="delete">Supprimer</button>
                 </div>
             </div>
