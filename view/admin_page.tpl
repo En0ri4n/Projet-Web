@@ -8,6 +8,8 @@
 {include file='components/header.tpl'}
 <main>
     {include file='components/profile.php'}
+
+    <!-- TODO: lien sur boutons modifier vers inscription etudiant --> 
     <div class="liste-etudiant">
         <form method="post">
             <h1>Etudiants</h1>
@@ -52,6 +54,7 @@
         </form>
     </div>
     
+    <!-- TODO: lien sur boutons modifier vers poster offre --> 
     <div>
         <form method="post">
             <div class="liste-offres">
@@ -124,6 +127,7 @@
         </form>
     </div>
 
+    <!-- TODO: lien sur boutons modifier vers creer fiche entreprise --> 
     <div class="liste-entreprise">
         <form method="post">
             <h1>Entreprise</h1>
