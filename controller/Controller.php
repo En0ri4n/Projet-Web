@@ -68,6 +68,12 @@ class Controller
         $this->setup(false);
         $this->display('view/profil_pilote.tpl');
     }
+    
+    public function admin_pageController(): void
+    {
+        $this->setup(false);
+        $this->display('view/mentions.tpl');
+    }
 
     public function profileController(): void
     {

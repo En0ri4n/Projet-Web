@@ -39,6 +39,9 @@ else if(isset($_GET['view']))
         case 'profil-pilote':
             $controller->profilePiloteController();
             break;
+        case 'admin_page':
+            $controller->admin_pageController();
+            break;
         default:
             $controller->notFoundController();
             break;
