@@ -424,16 +424,17 @@ p {
             font-size: 20px;
             cursor: pointer;
         }
-        #reset-filter{
-            background-color: #CB7C8C;
+        .reset-filter{
+            background-color: #495867;
         }
-        #reset-filter:hover{
-            color: #FFF1F3;
+        .reset-filter:hover{
+            background-color: #FFF1F3;
+            color: #495867;
         }
 
         button:hover {
             background-color: #FFF1F3;
-            color: #495867;
+            color: #82AEB1;
         }
 
         &:last-child:after {

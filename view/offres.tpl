@@ -22,7 +22,7 @@
             <select id="filter-location">
                 <option value="null">Lieu...</option>
             </select>
-            <button id="reset-filter">Réinitiliaser</button>
+            <button class="reset-filter">Réinitiliaser</button>
             <button id="filter-button">Filtrer</button>
         </div>
     </div>

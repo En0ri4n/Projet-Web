@@ -65,7 +65,7 @@
                         <input type="date" id="filter-date" placeholder="Date">
                         <input type="number" id="duree" placeholder="Durée (Mois)" min="1">
                         <select id="filter-location"><option value="default">Lieu...</option></select>
-                        <button id="reset-filter">Réinitiliaser</button>
+                        <button class="reset-filter">Réinitiliaser</button>
                         <button id="filter-button">Filtrer</button>
                     </div>
                 </div>
