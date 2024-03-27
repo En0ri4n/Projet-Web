@@ -1,26 +1,30 @@
-/* TODO: Re-faire fonctionner le script pour les étoiles */
-import {addEventsTo, addEventTo} from "./main.js";
-
 const allStars = document.querySelectorAll(".fa-star");
-console.log("allStars", allStars);
+const rating = document.querySelector('.rating');
 
-addEventTo(document, "DOMContentLoaded", onReady);
+init();
 
-function onReady()
-{
-    addEventsTo(allStars, {'click': getRating, 'mouseover': addCSS, 'mouseleave': removeCSS});
+function init(){
+    allStars.forEach(star => {
+        star.addEventListener("click", saveRating);
+        star.addEventListener("mouseover", addCSS);
+        star.addEventListener("mouseleave", removeCSS);
+    })
 }
 
-function getRating(e)
-{
-    /*console.log(e, e.target);*/
-    /*console.dir(e.target);*/
-    console.log(e.target.dataset, e.target.nodeName, e.target.nodeType);
+function saveRating(e) {
+    removeEventListenerToAllStars();
+    rating.innerText = e.target.dataset.star;
 }
 
-function addCSS(e, css = "checked")
-{
-    //e.target.classList.add(css);
+function removeEventListenerToAllStars(){
+    allStars.forEach(star=>{
+        star.removeEventListener("click", saveRating);
+        star.removeEventListener("mouseover", addCSS);
+        star.removeEventListener("mouseleave", removeCSS);
+    })
+}
+
+function addCSS(e, css = "checked"){
     const overedStar = e.target;
     overedStar.classList.add(css);
     const previousSiblings = getPreviousSiblings(overedStar);
@@ -28,23 +32,21 @@ function addCSS(e, css = "checked")
     previousSiblings.forEach(elem => elem.classList.add(css));
 }
 
-function removeCSS(e, css = "checked")
-{
+function removeCSS(e, css="checked"){
     const overedStar = e.target;
-    overedStar.classList.remove(css);
+    e.target.classList.remove(css);
     const previousSiblings = getPreviousSiblings(overedStar);
     previousSiblings.forEach(elem => elem.classList.remove(css));
+
+
 }
 
-function getPreviousSiblings(elem)
-{
+function getPreviousSiblings(elem){
     console.log("elem.previousSibling", elem.previousSibling);
     let siblings = [];
     const spanNodeType = 1;
-    while(elem === elem.previousSibling)
-    {
-        if(elem.nodeType === spanNodeType)
-        {
+    while((elem = elem.previousSibling)){
+        if(elem.nodeType === spanNodeType){
             siblings = [elem, ...siblings];
         }
     }
