@@ -63,6 +63,12 @@ class Controller
         $this->display('view/mentions.tpl');
     }
 
+    public function admin_pageController(): void
+    {
+        $this->setup(false);
+        $this->display('view/mentions.tpl');
+    }
+
     public function profileController(): void
     {
         $this->setup(false);
