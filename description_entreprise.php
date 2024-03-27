@@ -3,7 +3,8 @@
 <head>
     <title>Description Entreprise</title>
     <?php require_once('components/head.php'); ?>
-    <link rel="stylesheet" href="etoile.css">
+    < !-- pas toucher -- >
+    <link rel="stylesheet" href="/assets/styles/etoile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <script src="etoile.js" defer></script>
 </head>
@@ -51,7 +52,7 @@
             <span class="fas fa-star" data-star="3"></span>
             <span class="fas fa-star" data-star="4"></span>
             <span class="fas fa-star" data-star="5"></span>
-            &nbsp; rating: <span class="rating">-</span>
+            &nbsp; Note : <span class="rating"></span>
         </div>
     </div>
     <div class="contact">

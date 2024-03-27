@@ -1,5 +1,5 @@
 const allStars = document.querySelectorAll(".fa-star");
-const rating = document.querySelector('.rating');
+const rating = document.querySelector('.rating'); //variable qui recupère la note en int entre 1 et 5
 
 init();
 
