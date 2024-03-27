@@ -36,6 +36,9 @@ else if(isset($_GET['view']))
         case 'accueil':
             $controller->homeController();
             break;
+        case 'profil-pilote':
+            $controller->profilePiloteController();
+            break;
         default:
             $controller->notFoundController();
             break;

@@ -424,6 +424,13 @@ p {
             font-size: 20px;
             cursor: pointer;
         }
+        #reset-filter{
+            background-color: #CB7C8C;
+        }
+        #reset-filter:hover{
+            color: #FFF1F3;
+        }
+
         button:hover {
             background-color: #FFF1F3;
             color: #495867;

@@ -10,14 +10,14 @@
     <div class="filtres_box" id="premiere_section">
         <h1>Filtres</h1>
         <div class="filtres">
-            <input type="text" id="filter-name" placeholder="Nom" value="null">
+            <input type="text" id="filter-name" placeholder="Nom">
             <select id="filter-entreprise">
                 <option value="null">Entreprise...</option>
             </select>
             <select id="filter-niveau">
                 <option value="null">Niveau...</option>
             </select>
-            <input type="date" id="filter-date" placeholder="Date" value="null">
+            <input type="date" id="filter-date" placeholder="Date">
             <input type="number" id="duree" placeholder="Durée (Mois)" min="1">
             <select id="filter-location">
                 <option value="null">Lieu...</option>
