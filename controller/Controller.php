@@ -72,7 +72,7 @@ class Controller
     public function admin_pageController(): void
     {
         $this->setup(false);
-        $this->display('view/mentions.tpl');
+        $this->display('view/admin_page.tpl');
     }
 
     public function profileController(): void
