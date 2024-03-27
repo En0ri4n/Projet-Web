@@ -1,13 +1,14 @@
 <?php
-global $DEFAULT_PAGE, $USER_COOKIE_NAME, $CONNECTION_PAGE;
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
+
+require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
+
 /**
  * TODO: Handle the disconnection of the user. delete the session and redirect to the home page.
  */
-if(isset($_COOKIE[$USER_COOKIE_NAME]))
+if(isset($_COOKIE[Controller::$USER_COOKIE_NAME]))
 {
-    unset($_COOKIE[$USER_COOKIE_NAME]);
-    setcookie($USER_COOKIE_NAME, '', time() - 3600, '/');
+    unset($_COOKIE[Controller::$USER_COOKIE_NAME]);
+    setcookie(Controller::$USER_COOKIE_NAME, '', time() - 3600, '/');
 }
 
-header("Location: $CONNECTION_PAGE");
+header("Location: " . Controller::$CONNECTION_PAGE);

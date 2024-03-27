@@ -122,6 +122,8 @@ BEGIN
         END FOR;
 END;
 
+CALL createRandomPromotions(10);
+
 
 FOR i IN 1..100 DO
         CALL createAdresse();
@@ -139,7 +141,6 @@ FOR i IN 1..10 DO
         CALL createAdministateur(CONCAT('admin', LPAD(i, 2, '0')), SHA2('admin', 256), CONCAT('Admin', LPAD(i, 2, '0')), 'Admin', CONCAT('admin', LPAD(i, 2, '0'), '@viacesi.fr'), CONCAT('06', LPAD(i, 8, '0')));
     END FOR;
 
-CALL createRandomPromotions(10);
 
 CALL createAdministateur('louise.ley', SHA2('admin', 256), 'LEY', 'Louise', 'louise.ley@viacesi.fr', '0611111111');
 CALL createAdministateur('cedric.hoog', SHA2('admin', 256), 'HOOG', 'Cédric', 'cedric.hoog@viacesi.fr', '0622222222');

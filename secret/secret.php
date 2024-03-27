@@ -10,7 +10,7 @@
     <br>
     <p>Vous avez trouvé la page secrète !</p>
     <p>Bravo !</p>
-    <p><a href="/accueil.php">Retour à l'accueil</a></p>
+    <p><a href="/index.php?view=accueil">Retour à l'accueil</a></p>
 </main>
 </body>
 </html>

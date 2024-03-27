@@ -1,13 +1,12 @@
 <?php
-global $pdo, $USER_COOKIE_NAME, $DEFAULT_PAGE, $CONNECTION_PAGE;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api/includes.php');
-
-// Set the content type to JSON
-header('Content-Type: application/json');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
+
+header('Content-Type: application/json');
 
 switch($method)
 {
@@ -17,22 +16,21 @@ switch($method)
 
         try
         {
-            $utilisateur = Tables::get()::$UTILISATEUR_TABLE->selectUtilisateur(array(UtilisateurTable::$ID_COLUMN => $username, UtilisateurTable::$PASSWORD_COLUMN => $password));
+            $utilisateur_table = new UtilisateurTable();
+            $utilisateur = $utilisateur_table->select(array(UtilisateurTable::$ID_COLUMN => $username, UtilisateurTable::$PASSWORD_COLUMN => $password));
 
-            echo $_POST["redirect"] ?? $DEFAULT_PAGE;
-            if(!$utilisateur->isEmpty())
+            if($utilisateur !== null)
             {
-                header('Location: ' . $_POST["redirect"] ?? $DEFAULT_PAGE);
-                setcookie($USER_COOKIE_NAME, base64_encode(json_encode($utilisateur->toArray())), time() + 3600, '/');
+                header('Location: ' . Controller::$DEFAULT_PAGE);
+                setcookie(Controller::$USER_COOKIE_NAME, base64_encode(json_encode($utilisateur->toArray())), time() + 3600, '/');
                 echo json_encode(['authorized' => true, 'message' => 'User authentified', 'user' => $utilisateur->getId()]);
             }
             else
             {
-                header("Location: $CONNECTION_PAGE?from=" . $_POST['redirect']);
+                header('Location: ' . Controller::$CONNECTION_PAGE);
                 echo json_encode(['authorized' => false, 'message' => 'Invalid username or password']);
             }
             return;
-
         }
         catch(Exception $e)
         {

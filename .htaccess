@@ -1,3 +1,8 @@
 RewriteEngine On
 
-RewriteRule ^users/([^/]+)$ /profil.php?userId=$1 [L,R] # L for Last and R for Redirect - Used to redirect GET requests (i.e. users/123 to profil.php?userId=123)
+# not assets files (css, js, images)
+RewriteCond %{REQUEST_FILENAME} !\.(css|js|png|svg|jpeg|jpg)$
+# not in the api folder
+RewriteCond %{REQUEST_URI} !^/api/
+# NC for No Case - Used to rewrite all other requests to index.php
+RewriteRule ^(.*)$ index.php?view=$1&%{QUERY_STRING} [L]

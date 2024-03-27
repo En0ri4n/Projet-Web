@@ -1,3 +1,4 @@
 RewriteEngine On
 RewriteRule ^login$ /api/login.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^logout$ /api/logout.php [L,NC] # [L] - last rule # [NC] - case insensitive
+RewriteRule ^offres$ /api/offres.php [L,NC] # [L] - last rule # [NC] - case insensitive
