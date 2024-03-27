@@ -21,9 +21,7 @@
     </div>
     <div class="liste-offres">
     <h1>Offres de l'entreprise</h1>
-        <div class="offre" onclick="window.location.href='/description_offre.php';">
-            <img src="/assets/poste.png" alt="Entreprise">
-            <article>
+            <article class="offre" onclick="window.location.href='/description_offre.php';">
                 <div class="c1">
                     <span class="poste">Poste</span>
                     <span>Entreprise</span>
@@ -34,15 +32,12 @@
                     <span class="dates">Dates</span>
                 </div>
                 <div class="c3">
-                </div>
-                <div class="list-competences">
                     <ul class="competences">Compétences :
                         <li>competence 1</li>
                         <li>competence 2</li>
                     </ul>
                 </div>
             </article>
-        </div>
     </div>
     <div class="evaluation">
     <h1 class="titre">Statistiques</h1>

@@ -22,9 +22,7 @@ function onReady()
 			const data = JSON.parse(xhr.responseText);
 			for (let i = 0; i < data["data"].length; i++)
 			{
-				html += `<div class="offre">`
-				html += 	`<img src="${data["data"][i]["avatar"]}" alt="Entreprise">`
-				html += 	`<article>`
+				html += 	`<article class="offre">`
 				html += 		`<div class="c1">`
 				html += 			`<span class="poste">${data["data"][i]["first_name"]}</span>`
 				html += 			`<span class="entreprise">${data["data"][i]["last_name"]}</span>`
@@ -32,18 +30,15 @@ function onReady()
 				html += 		`</div>`
 				html += 		`<div class="c2">`
 				html += 			`<span class="domaine">${data.data[i]["email"]}</span>`
-				html += 			`<span class="dates">Dates</span>`
+				html += 			`<span class="dates">01/01/2001</span>`
 				html += 		`</div>`
 				html += 		`<div class="c3">`
-				html += 		`</div>`
-				html += 		`<div class="list-competences">`
 				html += 			`<ul class="competences">Compétences :`
 				html += 				`<li>competence 1</li>`
 				html += 				`<li>competence 2</li>`
 				html += 			`</ul>`
 				html += 		`</div>`
 				html += 	`</article>`
-				html += `</div>`
 			}
 			
 			total_pages = data["total_pages"];

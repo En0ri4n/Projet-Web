@@ -21,9 +21,7 @@
             <button class="go-button" onclick="window.location.href='/offres.php';">Filtrer</button>
         </div>
         <div class="liste-offres">
-            <div class="offre">
-                <img src="/assets/poste.png" alt="Entreprise">
-                <article>
+                <article class="offre">
                     <div class="c1">
                         <span class="poste">Poste</span>
                         <span class="entreprise">Entreprise</span>
@@ -34,15 +32,12 @@
                         <span class="dates">Dates</span>
                     </div>
                     <div class="c3">
-                    </div>
-                    <div class="list-competences">
                         <ul class="competences">Compétences :
                             <li>competence 1</li>
                             <li>competence 2</li>
                         </ul>
                     </div>
                 </article>
-            </div>
         </div>
     </div>
 </main>

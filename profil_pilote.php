@@ -66,9 +66,7 @@
                     <button class="filtres">Filtrer ▼</button>
                 </div>
                 <div class="contener_row">
-                    <div class="row_data">
-                        <img src="/assets/logo.png" alt="Entreprise">
-                        <article>
+                        <article class="offre">
                             <div class="c1">
                                 <span class="poste">Poste1</span>
                                 <span class="entreprise">Entreprise1</span>
@@ -79,22 +77,17 @@
                                 <span class="dates">Dates1</span>
                             </div>
                             <div class="c3">
-                            </div>
-                            <div class="list-competences">
                                 <ul class="competences">Compétences :
                                     <li>competence A</li>
                                     <li>competence B</li>
                                 </ul>
                             </div>
                         </article>
-                    </div>
                     <button class="delete">Supprimer</button>
                 </div>
 
                 <div class="contener_row">
-                    <div class="row_data">
-                        <img src="/assets/logo.png" alt="Entreprise">
-                        <article>
+                        <article class="offre">
                             <div class="c1">
                                 <span class="poste">Poste2</span>
                                 <span class="entreprise">Entreprise2</span>
@@ -113,7 +106,6 @@
                                 </ul>
                             </div>
                         </article>
-                    </div>
                     <button class="delete">Supprimer</button>
                 </div>
             </div>
