@@ -1,3 +1,4 @@
+{* TODO: Style et tout *}
 <div class="profil">
     <div>
         {if $user_exists}
