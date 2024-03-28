@@ -54,7 +54,8 @@ CREATE TABLE Adresse
     IdAdresse  INT AUTO_INCREMENT NOT NULL,
     Rue        VARCHAR(92)        NOT NULL,
     Ville      VARCHAR(64)        NOT NULL,
-    CodePostal VARCHAR(16),
+    CodePostal VARCHAR(16)        NOT NULL,
+    Pays       VARCHAR(64)        NOT NULL,
     PRIMARY KEY (IdAdresse)
 );
 
