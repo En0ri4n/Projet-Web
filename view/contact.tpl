@@ -18,7 +18,7 @@
             <div class = "form__inputs">
                 <textarea id="commentaire" placeholder="Ecrivez votre demande"></textarea>
             </div>
-            </br>
+            <br>
             <div class="center">
                 <input class="submit" type="submit" value="Envoyer">
             </div>

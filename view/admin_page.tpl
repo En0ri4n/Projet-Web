@@ -7,7 +7,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    {include file='components/profile.php'}
+    {include file='components/profile.tpl'}
 
     <!-- TODO: lien sur boutons modifier vers inscription etudiant --> 
     <div class="liste-etudiant">

@@ -2,6 +2,9 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/libs/Smarty.class.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/PiloteTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AdministrateurTable.php');
 
 class Controller
 {
@@ -67,7 +70,7 @@ class Controller
     public function profilePiloteController(): void
     {
         $this->setup(false);
-        $this->display('view/profil_pilote.tpl');
+        $this->display('view/profil.tpl');
     }
 
     public function adminPageController(): void
@@ -87,16 +90,19 @@ class Controller
         $this->setup(false);
         $this->display('view/description_entreprise.tpl');
     }
+
     public function descriptionOffreController(): void
     {
         $this->setup(false);
         $this->display('view/description_offre.tpl');
     }
+
     public function inscriptionController(): void
     {
         $this->setup(false);
         $this->display('view/inscription.tpl');
     }
+
     public function posterOffreController(): void
     {
         $this->setup(false);
@@ -107,16 +113,41 @@ class Controller
     {
         $this->setup(false);
 
-        $this->smarty->assign('profile', true);
+        if(!isset($_GET['userId']))
+        {
+            $this->smarty->assign('user_exists', false);
+            $this->display('view/profil.tpl');
+            return;
+        }
 
-        $table = new EtudiantTable();
+        if(EtudiantTable::isEtudiant($_GET['userId']))
+        {
+            $table = new EtudiantTable();
 
-        $table = new UtilisateurTable();
-        $user = $table->select([UtilisateurTable::$ID_COLUMN => $_SERVER['QUERY_STRING']['userId']]);
+            $this->smarty->assign('user_type', 'etudiant');
+        }
+        else if(PiloteTable::isPilote($_GET['userId']))
+        {
+            $table = new PiloteTable();
+            $this->smarty->assign('user_type', 'pilote');
+        }
+        else if(AdministrateurTable::isAdministrateur($_GET['userId']))
+        {
+            $table = new AdministrateurTable();
+            $this->smarty->assign('user_type', 'administrateur');
+        }
+        else
+        {
+            $this->smarty->assign('user_exists', false);
+            $this->display('view/profil.tpl');
+            return;
+        }
+
+        $user = $table->select([$table->getIdColumn() => $_GET['userId']]);
 
         $this->smarty->assign('user', $user);
 
-        $this->smarty->assign('user_type', $user instanceof Etudiant ? 'pilote' : 'passager');
+        $this->smarty->assign('user_exists', true);
 
         $this->display('view/profil.tpl');
     }
@@ -173,7 +204,7 @@ class Controller
 
         if(!isset($_COOKIE[self::$USER_COOKIE_NAME]) && !$is_connection_page)
         {
-            $this->connexionController();
+            header('Location: ' . self::$CONNECTION_PAGE);
             exit();
         }
     }
