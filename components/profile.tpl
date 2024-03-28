@@ -27,6 +27,7 @@
                 <span class="soustitre-liste">Téléphone</span>  <span>{$user->getTelephone()}</span>
             </div>
             {if $user_type == "etudiant"}
+                <!--TODO: Faire en sorte d'obtenir l'adresse complete (N° + rue + Ville + Pays) ET le nom de promotion avec l'Id respectif-->
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
                 <span class="soustitre-liste">Promotion</span>  <span>{$user->getIdPromotion()}</span>

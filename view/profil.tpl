@@ -12,7 +12,7 @@
         {if $user_type == 'pilote'}
             <div class="liste-etudiant">
                 <form method="post">
-                    <h1>Vos étudiants</h1>
+                    <h1>Vos étudiants </h1>
                     <div class="search-by-name">
                         <input type="search" class="search-bar" placeholder="Rechercher un étudiant">
                         <input type="submit" class="submit-small" value="Rechercher">
@@ -30,7 +30,7 @@
                                     <span>AnnéeEtudes1</span>
                                 </div>
                             </article>
-                            <button class="delete">Supprimer</button>
+                        {if $current_user->getId() == $user->getId()}<button class="delete">Supprimer</button>{/if}
                         </div>
                         <div class="contener_row">
                             <article class="etudiant">
@@ -44,7 +44,7 @@
                                     <span>AnnéeEtudes2</span>
                                 </div>
                             </article>
-                            <button class="delete">Supprimer</button>
+                            {if $current_user->getId() == $user->getId()}<button class="delete">Supprimer</button>{/if}
                         </div>
                     </div>
                 </form>
@@ -69,7 +69,7 @@
                         </ul>
                     </div>
                 </article>
-                <button class="delete">Supprimer</button>
+                {if $current_user->getId() == $user->getId()}<button class="delete">Supprimer</button>{/if}
 
                 <article class="offre">
                     <div class="c1">
@@ -88,7 +88,7 @@
                         </ul>
                     </div>
                 </article>
-                <button class="delete">Supprimer</button>
+                {if $current_user->getId() == $user->getId()}<button class="delete">Supprimer</button>{/if}
             </div>
         {/if}
     {else}
