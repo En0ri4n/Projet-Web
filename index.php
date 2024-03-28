@@ -8,11 +8,10 @@ if(empty($_SERVER['QUERY_STRING']))
 {
     $controller->homeController();
 }
-else if(isset($_GET['view']))
+elseif(isset($_GET['view']))
 {
     switch($_GET['view'])
     {
-        
         case 'about':
             $controller->aboutController();
             break;
@@ -62,5 +61,5 @@ else if(isset($_GET['view']))
 }
 else
 {
-    $controller->notFoundController();
+    $controller->homeController();
 }
