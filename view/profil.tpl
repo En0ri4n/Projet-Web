@@ -49,6 +49,47 @@
                     </div>
                 </form>
             </div>
+        {elseif $user_type == 'etudiant'}
+            <h1>Wishlist</h1>
+            <div class="contener_row">
+                <article class="offre">
+                    <div class="c1">
+                        <span class="poste">Poste</span>
+                        <span class="entreprise">Entreprise</span>
+                        <span class="niveau">Niveau</span>
+                    </div>
+                    <div class="c2">
+                        <span class="domaine">Domaine</span>
+                        <span class="dates">Dates</span>
+                    </div>
+                    <div class="c3">
+                        <ul class="competences">Compétences :
+                            <li>competence A</li>
+                            <li>competence B</li>
+                        </ul>
+                    </div>
+                </article>
+                <button class="delete">Supprimer</button>
+
+                <article class="offre">
+                    <div class="c1">
+                        <span class="poste">Poste</span>
+                        <span class="entreprise">Entreprise</span>
+                        <span class="niveau">Niveau</span>
+                    </div>
+                    <div class="c2">
+                        <span class="domaine">Domaine</span>
+                        <span class="dates">Dates</span>
+                    </div>
+                    <div class="c3">
+                        <ul class="competences">Compétences :
+                            <li>competence A</li>
+                            <li>competence B</li>
+                        </ul>
+                    </div>
+                </article>
+                <button class="delete">Supprimer</button>
+            </div>
         {/if}
     {else}
         <h1>Cet utilisateur n'existe pas :/</h1>

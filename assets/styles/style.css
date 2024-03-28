@@ -103,7 +103,7 @@ main {
     border: 2px solid #3b4f50;
 }
 
-.liste-offres, .evaluation, .resume-offre {
+.liste-offres, .evaluation, .resume-offre, .profil {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -145,7 +145,7 @@ main {
     padding-top: 50px;
 }
 
-.box_competences, .liste-contact, .liste-info-offre {
+.box_competences, .liste-info {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -490,10 +490,10 @@ p {
     flex: 1 1 auto;
 }
 
-.liste-contact, .liste-info-offre {
+.liste-info {
     margin-bottom: 10px;
 }
-.soustitre-contact, .soustitre-offre{
+.soustitre-liste {
     font-weight: bold;
 }
 
@@ -553,6 +553,13 @@ iframe{
 .liste-etudiant{
     text-align: center;
 }
+
+.profil{
+    flex-direction: row-reverse;
+    justify-content:space-around;
+    width: 100%;
+}
+
 @media all and (max-width: 600px) {
     .form {
         border: none;
@@ -650,7 +657,10 @@ iframe{
             width: 100%;
         }
     }
-
+    .profil{
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
 .titre-link{

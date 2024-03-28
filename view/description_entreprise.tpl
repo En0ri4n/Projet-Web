@@ -58,19 +58,19 @@
     </div>
     <div class="contact">
         <h1>Contact</h1>
-        <div class="liste-contact">
-                <div>
-                    <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                    <span class="soustitre-contact">Adresse</span> <span>inserer adresse</span>
-                </div>
-                <div>
-                    <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                    <span class="soustitre-contact">Mail</span> <span>inserer mail</span>
-                </div>
-                <div>
-                    <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                    <span class="soustitre-contact">Telephone</span>  <span>inserer telephone</span>
-                </div>
+        <div class="liste-info">
+            <div>
+                <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
+                <span class="soustitre-liste">Adresse</span> <span>inserer adresse</span>
+            </div>
+            <div>
+                <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
+                <span class="soustitre-liste">Mail</span> <span>inserer mail</span>
+            </div>
+            <div>
+                <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
+                <span class="soustitre-liste">Telephone</span>  <span>inserer telephone</span>
+            </div>
         </div>
     </div>
 </main>
