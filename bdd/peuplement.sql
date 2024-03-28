@@ -1,8 +1,9 @@
 DROP PROCEDURE IF EXISTS createAdresse;
 CREATE PROCEDURE `createAdresse`()
 BEGIN
-    INSERT INTO Adresse (Rue, Ville, CodePostal, Pays)
-    VALUES (CONCAT(FLOOR(RAND() * 10000) + 1, ' ', (SELECT * FROM (VALUES ('Main Street'), ('Oak Avenue'), ('Sunset Boulevard'), ('Wall Street'), ('Broadway'), ('Fifth Avenue'), ('Madison Avenue'), ('Park Avenue'), ('Lexington Avenue'), ('Rodeo Drive')) AS NomRueGenerated ORDER BY RAND() LIMIT 1)),
+    INSERT INTO Adresse (Numero, Rue, Ville, CodePostal, Pays)
+    VALUES (FLOOR(RAND() * 499) + 1,
+            CONCAT(FLOOR(RAND() * 10000) + 1, ' ', (SELECT * FROM (VALUES ('Main Street'), ('Oak Avenue'), ('Sunset Boulevard'), ('Wall Street'), ('Broadway'), ('Fifth Avenue'), ('Madison Avenue'), ('Park Avenue'), ('Lexington Avenue'), ('Rodeo Drive')) AS NomRueGenerated ORDER BY RAND() LIMIT 1)),
             (SELECT * FROM (VALUES ('New York'), ('Los Angeles'), ('Chicago'), ('Houston'), ('Phoenix'), ('Philadelphia'), ('San Antonio'), ('San Diego'), ('Dallas'), ('San Jose')) AS NomVilleGenerated ORDER BY RAND() LIMIT 1),
             CONCAT(FLOOR(RAND() * 9000) * 10 + 10000),
             (SELECT * FROM (VALUES ('France'), ('Allemagne'), ('Espagne'), ('Italie'), ('Royaume-Uni'), ('Pays-Bas'), ('Belgique'), ('Suisse'), ('Portugal'), ('Suède')) AS NomPaysGenerated ORDER BY RAND() LIMIT 1));

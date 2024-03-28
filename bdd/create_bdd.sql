@@ -52,6 +52,7 @@ CREATE TABLE Entreprise
 CREATE TABLE Adresse
 (
     IdAdresse  INT AUTO_INCREMENT NOT NULL,
+    Numero     VARCHAR(16)        NOT NULL,
     Rue        VARCHAR(92)        NOT NULL,
     Ville      VARCHAR(64)        NOT NULL,
     CodePostal VARCHAR(16)        NOT NULL,
