@@ -30,7 +30,7 @@
                             <option value="mois">Mois</option>
                         </select>
                     </div>
-                <input type="text" class="form-input" id="location" placeholder="Lieu" required>
+                <input type="text" class="form-input" id="location" placeholder="Lieu" required> <!--TODO : Séparer les Adresses en Rue (n° + Nom)/Ville/Code Postal -->
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
                 <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" required>
                 <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">
