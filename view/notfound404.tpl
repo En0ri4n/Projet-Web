@@ -12,7 +12,7 @@
     <img src="https://http.cat/images/404.jpg" style="width: max(30vw, 400px);" alt="notfound">
     <br>
     <p>Je crois que vous vous êtes perdu.</p>
-    <p><a href="/index.php?view=accueil">Retour à l'accueil</a></p>
+    <p><a href="{$default_page}">Retour à l'accueil</a></p>
 </main>
 <footer class="footer"></footer>
 {include file='components/footer.tpl'}
