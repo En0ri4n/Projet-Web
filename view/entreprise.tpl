@@ -14,7 +14,7 @@
                 <div class="form__inputs">
                     <input class="form__input" placeholder="Nom de l'entreprise*" required>
                     <input class="form__input" placeholder="Mail de l'entreprise">
-                    <input class="form__input" placeholder="Adresse Principale*" required>
+                    <input class="form__input" placeholder="Adresse Principale*" required> <!--TODO : Séparer les Adresses en Rue (n° + Nom)/Ville/Code Postal -->
                     <div class="add-div">
                         <input class="form-input"  id="input-skill" placeholder="Ajouter Adresse secondaire">
                         <div class="added-input-list">
