@@ -5,7 +5,7 @@
     </div>-->
     <div class="login">
         {if $is_connected}
-            <a href="/profile?userId={$current_user->getId()}">{$current_user->getPrenom()} {$current_user->getNom()}</a>
+            <a href="/profil?userId={$current_user->getId()}">{$current_user->getPrenom()} {$current_user->getNom()}</a>
             <a href="/api/logout">Déconnexion</a>
         {/if}
     </div>
