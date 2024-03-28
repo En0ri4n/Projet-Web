@@ -1,5 +1,7 @@
 <?php
 
+namespace model\object;
+
 interface SerializableInterface
 {
     public function toArray(): array;

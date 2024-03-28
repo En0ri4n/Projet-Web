@@ -1,5 +1,9 @@
 <?php
 
+namespace model\object;
+
+use model\table\UtilisateurTable;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
 

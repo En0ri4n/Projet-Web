@@ -1,5 +1,10 @@
 <?php
 
+namespace model;
+
+use PDO;
+use PDOException;
+
 class Database
 {
     private static string $HOST = 'cesi-project-web.sitam.me:3306';

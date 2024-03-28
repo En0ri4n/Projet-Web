@@ -1,5 +1,9 @@
 <?php
 
+use model\table\AbstractTable;
+use model\object\Adresse;
+use model\object\SerializableInterface;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Adresse.php');
 
 class AdresseTable extends AbstractTable
@@ -18,7 +22,7 @@ class AdresseTable extends AbstractTable
 
     public function select(array $conditions): null|Adresse|array
     {
-        return $this->defaultSelect($conditions);
+        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Adresse::fromArray');
     }
 
     public function update(mixed $id, array $columns, array $values): bool

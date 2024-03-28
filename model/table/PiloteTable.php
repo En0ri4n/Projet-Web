@@ -1,5 +1,9 @@
 <?php
 
+use model\object\Pilote;
+use model\table\AbstractTable;
+use model\table\UtilisateurTable;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Pilote.php');
 
@@ -32,36 +36,7 @@ class PiloteTable extends AbstractTable
      */
     public function select(array $conditions): array|Pilote|null
     {
-        try
-        {
-            $query = "SELECT * FROM " . $this->getTableName() . " INNER JOIN Utilisateur ON Utilisateur.IdUtilisateur = Pilote.IdUtilisateur";
-
-            if(empty($conditions))
-            {
-                $stmt = $this->getDatabase()->query($query);
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                return array_map((fn($row) => Etudiant::fromArray($row)), $rows);
-            }
-
-            $query .= " WHERE " . implode(" AND ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
-
-            $stmt = $this->getDatabase()->prepare($query);
-            foreach($conditions as $key => $value)
-                $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
-            $stmt->execute();
-
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if(count($rows) == 1)
-                return Pilote::fromArray($rows[0]);
-            else if(count($rows) > 1)
-                return array_map((fn($row) => Pilote::fromArray($row)), $rows);
-        }
-        catch(Exception $e)
-        {
-        }
-        return null;
+        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, 'model\object\Pilote::fromArray');
     }
 
     public function update(mixed $id, array $columns, array $values): bool

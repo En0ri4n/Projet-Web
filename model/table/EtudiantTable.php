@@ -1,6 +1,10 @@
 <?php
 /** @noinspection DuplicatedCode */
 
+use model\object\Etudiant;
+use model\table\AbstractTable;
+use model\table\UtilisateurTable;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AbstractTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Etudiant.php');
 
@@ -20,36 +24,7 @@ class EtudiantTable extends AbstractTable
      */
     public function select(array $conditions): array|Etudiant|null
     {
-        try
-        {
-            $query = "SELECT * FROM " . $this->getTableName() . " INNER JOIN Utilisateur ON Utilisateur.IdUtilisateur = Etudiant.IdUtilisateur";
-
-            if(empty($conditions))
-            {
-                $stmt = $this->getDatabase()->query($query);
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                return array_map((fn($row) => Etudiant::fromArray($row)), $rows);
-            }
-
-            $query .= " WHERE " . implode(" AND ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
-
-            $stmt = $this->getDatabase()->prepare($query);
-            foreach($conditions as $key => $value)
-                $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
-            $stmt->execute();
-
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if(count($rows) == 1)
-                return Etudiant::fromArray($rows[0]);
-            else if(count($rows) > 1)
-                return array_map((fn($row) => Etudiant::fromArray($row)), $rows);
-        }
-        catch(Exception $e)
-        {
-        }
-        return null;
+        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, 'model\object\Etudiant::fromArray');
     }
 
     /**
@@ -63,11 +38,8 @@ class EtudiantTable extends AbstractTable
      */
     public function insert(mixed $obj): bool
     {
-        $created = Tables::get()::$UTILISATEUR_TABLE->insert($obj);
-
-        $created &= $this->insertWith([self::$ID_COLUMN, self::$PROMOTION_COLUMN, self::$ADRESSE_COLUMN], [$obj->getId(), $obj->getIdPromotion(), $obj->getIdAdresse()]);
-
-        return $created;
+        // TODO: Implement insert() method.
+        return false;
     }
 
     public function update(mixed $id, array $columns, array $values): bool

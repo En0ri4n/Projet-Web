@@ -1,5 +1,7 @@
 <?php
 
+namespace model\object;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 

@@ -1,7 +1,14 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api/config.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
+namespace model\table;
+
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/Database.php');
+
+use Exception;
+use model\object\SerializableInterface;
+use model\Database;
+use PDO;
+use PDOStatement;
 
 abstract class AbstractTable
 {
@@ -22,7 +29,7 @@ abstract class AbstractTable
      * @return bool True if the insert was successful, false otherwise
      * @throws Exception if the columns and values do not have the same length
      */
-    public abstract function insert(SerializableInterface $obj): bool;
+    abstract public function insert(SerializableInterface $obj): bool;
 
     /**
      * Insert a new row into the table with the given SerializableInterface object<br>
@@ -59,22 +66,25 @@ abstract class AbstractTable
      * @param array $conditions Associative array of column keys and values to select
      * @return mixed The result of the select (e.g. an object or an array of objects)
      */
-    public abstract function select(array $conditions): mixed;
+    abstract public function select(array $conditions): mixed;
 
     /**
      * Select rows from the table with the given column keys and values<br>
      * Default implementation
+     *
+     * @param array $conditions Associative array of column keys and values to select
+     * @param callable $fromArray The object to create from the row
      */
-    protected function defaultSelect(array $conditions): mixed
+    protected function defaultSelect(string $join_query, array $conditions, callable $fromArray): mixed
     {
         try
         {
-            $query = "SELECT * FROM " . $this->getTableName();
+            $query = "SELECT * FROM " . $this->getTableName() . ' ' . $join_query ?? "";
             if(empty($conditions))
             {
                 $stmt = $this->getDatabase()->query($query);
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                return array_map((fn($row) => $this->fromArray($row)), $rows);
+                return array_map((fn($row) => $fromArray($row)), $rows);
             }
             $query .= " WHERE " . implode(" AND ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
             $stmt = $this->getDatabase()->prepare($query);
@@ -87,9 +97,9 @@ abstract class AbstractTable
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if(count($rows) == 1)
-                return $this->fromArray($rows[0]);
-            else if(count($rows) > 1)
-                return array_map((fn($row) => $this->fromArray($row)), $rows);
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
         }
         catch(Exception $e)
         {
@@ -116,13 +126,13 @@ abstract class AbstractTable
      * @return bool True if the update was successful, false otherwise
      * @throws Exception if the columns and values do not have the same length
      */
-    public abstract function update(mixed $id, array $columns, array $values): bool;
+    abstract public function update(mixed $id, array $columns, array $values): bool;
 
     /**
      * Update the row with the given id<br>
      * Default implementation
      */
-    protected function defaultUpdate(mixed $id, array $columns, array $values)
+    protected function defaultUpdate(mixed $id, array $columns, array $values): bool
     {
         $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
@@ -184,5 +194,15 @@ abstract class AbstractTable
     protected function escape_and_lower(string $input): string
     {
         return $replace = strtolower(str_replace(".", "", $input));
+    }
+
+    protected static function inner_join(string $joined_table, string $column, string $joined_column): string
+    {
+        return "INNER JOIN " . $joined_table . " ON " . $column . " = " . $joined_column;
+    }
+
+    protected static function no_join(): string
+    {
+        return "";
     }
 }

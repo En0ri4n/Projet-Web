@@ -1,5 +1,9 @@
 <?php
 
+namespace model\object;
+
+use AdresseTable;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Adresse.php');
 
