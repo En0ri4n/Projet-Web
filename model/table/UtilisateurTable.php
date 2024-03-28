@@ -15,85 +15,24 @@ class UtilisateurTable extends AbstractTable
 
     public function __construct() { parent::__construct('Utilisateur'); }
 
-    /**
-     * @param mixed $obj
-     * @return bool
-     */
-    public function insert(mixed $obj): bool
+    public function insert(SerializableInterface $obj): bool
     {
-        $columns = array_keys($obj->fromArray());
-        $values = $obj->fromArray();
-
-        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $column), $columns)) . ")";
-        $stmt = $this->getDatabase()->prepare($query);
-        foreach($columns as $column)
-            $stmt->bindParam(':' . $column, $values[$column]);
-        if($stmt->execute())
-            return true;
-        return false;
+        return $this->defaultInsert($obj);
     }
 
     public function delete(mixed $id): bool
     {
-        $query = "DELETE FROM " . $this->getTableName() . " WHERE ". $this->getIdColumn() . " = :id";
-        $stmt = $this->getDatabase()->prepare($query);
-        $stmt->bindValue(':id', $id);
-        return $stmt->execute();
+        return $this->defaultDelete($id);
     }
 
     public function select(array $conditions): array|Utilisateur|null
     {
-        $query = "SELECT * FROM " . $this->getTableName();
-
-        if(empty($conditions))
-        {
-            $stmt = $this->getDatabase()->query($query);
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if(count($rows) == 1)
-                return Utilisateur::fromArray($rows[0]);
-            else if(count($rows) > 1)
-                return array_map((fn($row) => Utilisateur::fromArray($row)), $rows);
-
-            return null;
-        }
-
-        $query .= " WHERE " . implode(" AND ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
-
-        $stmt = $this->getDatabase()->prepare($query);
-
-        foreach($conditions as $key => $value)
-        {
-            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
-        }
-
-        $stmt->execute();
-
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if(count($rows) == 1)
-            return Utilisateur::fromArray($rows[0]);
-        else if(count($rows) > 1)
-            return array_map((fn($row) => Utilisateur::fromArray($row)), $rows);
-
-        return null;
+        return $this->defaultSelect($conditions);
     }
 
     public function update(mixed $id, array $columns, array $values): bool
     {
-        $this->verifyArray($columns, fn($array) => count($array) != count($values), "Columns and values do not have the same length");
-
-        $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
-        $stmt = $this->getDatabase()->prepare($query);
-        $stmt->bindParam(':id', $id);
-
-        foreach($columns as $column)
-            $stmt->bindValue(':' . $column, $values[$column]);
-
-        if($stmt->execute())
-            return true;
-
-        return false;
+        return $this->defaultUpdate($id, $columns, $values);
     }
 
     public function getIdColumn(): string

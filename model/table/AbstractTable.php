@@ -1,7 +1,7 @@
 <?php
-/** @noinspection ALL */
 
-include_once($_SERVER['DOCUMENT_ROOT'] . '/api/config.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api/config.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
 
 abstract class AbstractTable
 {
@@ -16,13 +16,26 @@ abstract class AbstractTable
     }
 
     /**
-     * Add a new row to the table
+     * Add a new row to the table with the given SerializableInterface object
      *
-     * @param mixed $obj The object to insert
+     * @param SerializableInterface $obj The object to insert
      * @return bool True if the insert was successful, false otherwise
      * @throws Exception if the columns and values do not have the same length
      */
-    public abstract function insert(mixed $obj): bool;
+    public abstract function insert(SerializableInterface $obj): bool;
+
+    /**
+     * Insert a new row into the table with the given SerializableInterface object<br>
+     * Default implementation
+     */
+    protected function defaultInsert(SerializableInterface $obj): bool
+    {
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", array_map((fn($key) => $key), array_keys($obj->toArray()))) . ") VALUES (:" . implode(", :", array_keys($obj->toArray())) . ")";
+        $stmt = $this->getDatabase()->prepare($query);
+        foreach($obj->toArray() as $key => $value)
+            $stmt->bindValue(':' . $key, $value);
+        return $stmt->execute();
+    }
 
     /**
      * Insert a new row into the table with the given columns and values
@@ -49,6 +62,42 @@ abstract class AbstractTable
     public abstract function select(array $conditions): mixed;
 
     /**
+     * Select rows from the table with the given column keys and values<br>
+     * Default implementation
+     */
+    protected function defaultSelect(array $conditions): mixed
+    {
+        try
+        {
+            $query = "SELECT * FROM " . $this->getTableName();
+            if(empty($conditions))
+            {
+                $stmt = $this->getDatabase()->query($query);
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return array_map((fn($row) => $this->fromArray($row)), $rows);
+            }
+            $query .= " WHERE " . implode(" AND ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
+            $stmt = $this->getDatabase()->prepare($query);
+
+            foreach($conditions as $key => $value)
+                $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+
+            $stmt->execute();
+
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $this->fromArray($rows[0]);
+            else if(count($rows) > 1)
+                return array_map((fn($row) => $this->fromArray($row)), $rows);
+        }
+        catch(Exception $e)
+        {
+        }
+        return null;
+    }
+
+    /**
      * Select from the table with special conditions
      *
      * @param array $columns The columns to select
@@ -70,12 +119,38 @@ abstract class AbstractTable
     public abstract function update(mixed $id, array $columns, array $values): bool;
 
     /**
+     * Update the row with the given id<br>
+     * Default implementation
+     */
+    protected function defaultUpdate(mixed $id, array $columns, array $values)
+    {
+        $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        foreach($columns as $column)
+            $stmt->bindParam(':' . $column, $values[$column]);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    /**
      * Delete the row with the given id
      *
      * @param mixed $id The id of the row to delete
      * @return bool True if deletion was successful, false otherwise
      */
     public abstract function delete(mixed $id): bool;
+
+    /**
+     * Delete the row with the given id<br>
+     * Default implementation
+     */
+    protected function defaultDelete(mixed $id): bool
+    {
+        $query = "DELETE FROM " . $this->getTableName() . " WHERE " . $this->getIdColumn() . " = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
 
     /**
      * @return string The name of the id column
