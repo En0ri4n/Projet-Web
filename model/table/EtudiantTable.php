@@ -82,13 +82,15 @@ class EtudiantTable extends AbstractTable
         return false;
     }
 
-    protected function getIdColumn(): string
+    public function getIdColumn(): string
     {
         return self::$ID_COLUMN;
     }
 
-    protected function getColumnCount(): int
+    public static function isEtudiant(mixed $userId): bool
     {
-        return 3;
+        $table = new EtudiantTable();
+        $etudiant = $table->select([self::$ID_COLUMN => $userId]);
+        return $etudiant !== null;
     }
 }

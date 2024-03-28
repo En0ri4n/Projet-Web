@@ -24,6 +24,13 @@ abstract class AbstractTable
      */
     public abstract function insert(mixed $obj): bool;
 
+    /**
+     * Insert a new row into the table with the given columns and values
+     *
+     * @param array $columns The columns to insert
+     * @param array $values The values to insert (in the same order as the columns)
+     * @return bool True if the insert was successful, false otherwise
+     */
     protected function insertWith(array $columns, array $values): bool
     {
         $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $column), $columns)) . ")";
@@ -79,11 +86,6 @@ abstract class AbstractTable
     {
         return $this->table_name;
     }
-
-    /**
-     * @return int The number of columns in the table (used for input verification)
-     */
-    abstract protected function getColumnCount(): int;
 
     /**
      * @return PDO The database to use
