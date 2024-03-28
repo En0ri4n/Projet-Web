@@ -52,10 +52,7 @@ else if(isset($_GET['view']))
         case 'poster-offre':
             $controller->posterOffreController();
             break;
-        case 'profil-pilote':
-            $controller->profilePiloteController();
-            break;
-        case 'profile':
+        case 'profil':
             $controller->profileController();
             break;
         default:
