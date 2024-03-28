@@ -1,5 +1,7 @@
 <?php
 
+use model\table\UtilisateurTable;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 
