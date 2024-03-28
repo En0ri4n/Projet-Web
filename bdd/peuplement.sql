@@ -20,8 +20,8 @@ CREATE PROCEDURE `createAdministateur`(IN userId VARCHAR(64), IN password VARCHA
 BEGIN
     INSERT INTO Utilisateur (IdUtilisateur, MotDePasse, Nom, Prenom, MailUtilisateur, TelephoneUtilisateur)
     VALUES (userId, password, nomP, prenomP, mail, telephone);
-    INSERT INTO Administrateur (IdUtilisateur, IdPromotion)
-    VALUES (userId, (SELECT IdPromotion FROM Promotion ORDER BY RAND() LIMIT 1));
+    INSERT INTO Administrateur (IdUtilisateur)
+    VALUES (userId);
 END;
 
 DROP PROCEDURE IF EXISTS createEtudiant;

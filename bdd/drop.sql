@@ -1,8 +1,3 @@
-drop table AdminWishlist;
-
-alter table Administrateur
-    drop foreign key Administrateur_ibfk_2;
-
 drop table Candidature;
 
 drop table Composer;

@@ -13,15 +13,14 @@ CREATE TABLE Pilote
 (
     IdUtilisateur VARCHAR(64) NOT NULL,
     PRIMARY KEY (IdUtilisateur),
-    FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur)
+    FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur) ON DELETE CASCADE
 );
 
 CREATE TABLE Administrateur
 (
     IdUtilisateur VARCHAR(64) NOT NULL,
-    IdPromotion   INT,
     PRIMARY KEY (IdUtilisateur),
-    FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur)
+    FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur (IdUtilisateur) ON DELETE CASCADE
 );
 
 CREATE TABLE Promotion
@@ -37,10 +36,6 @@ CREATE TABLE Promotion
     PRIMARY KEY (IdPromotion),
     FOREIGN KEY (PilotePromotion) REFERENCES Pilote (IdUtilisateur)
 );
-
-ALTER TABLE Administrateur
-    ADD CONSTRAINT FOREIGN KEY (IdPromotion) REFERENCES Promotion (IdPromotion); /* Add foreign key to Administrateur because we need promotion before */
-
 
 CREATE TABLE Entreprise
 (
