@@ -3,7 +3,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 
-class Etudiant extends Utilisateur
+class Etudiant extends Utilisateur implements SerializableInterface
 {
     private int $idPromotion;
     private int $idAdresse;

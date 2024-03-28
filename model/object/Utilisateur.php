@@ -1,8 +1,9 @@
 <?php
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
 
-class Utilisateur
+class Utilisateur implements SerializableInterface
 {
     protected string $id;
     protected string $nom;
@@ -49,41 +50,6 @@ class Utilisateur
     public function getTelephone(): string
     {
         return $this->telephone;
-    }
-
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function setNom(string $nom): void
-    {
-        $this->nom = $nom;
-    }
-
-    public function setPrenom(string $prenom): void
-    {
-        $this->prenom = $prenom;
-    }
-
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    public function setPassword(string $motDePasse): void
-    {
-        $this->motDePasse = $motDePasse;
-    }
-
-    public function setTelephone(string $telephone): void
-    {
-        $this->telephone = $telephone;
-    }
-
-    public function isEmpty(): bool
-    {
-        return $this->id === "" && $this->nom === "" && $this->prenom === "" && $this->email === "" && $this->motDePasse === "" && $this->telephone === "";
     }
 
     public function toArray(): array
