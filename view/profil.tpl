@@ -7,7 +7,6 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    {$user_type}
     {if $user_exists}
         {include file='components/profile.tpl'}
         {if $user_type == 'pilote'}
