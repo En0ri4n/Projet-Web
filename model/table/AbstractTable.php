@@ -205,4 +205,11 @@ abstract class AbstractTable
     {
         return "";
     }
+
+    protected function getLastInsertId(): mixed
+    {
+        $query = "SELECT LAST_INSERT_ID();";
+        $stmt = $this->getDatabase()->prepare($query);
+        return $stmt->execute();
+    }
 }
