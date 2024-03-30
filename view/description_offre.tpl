@@ -32,18 +32,18 @@
     </div>
     <div class="resume-offre">
         <h1>Offre</h1>
-        <div class="liste-info-offre">
+        <div class="liste-info">
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-offre">Titre du Poste</span> <span>inserer nom</span>
+                <span class="soustitre-liste">Titre du Poste</span> <span>inserer nom</span>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-offre">Niveau demandé</span> <span>inserer niveau</span>
+                <span class="soustitre-liste">Niveau demandé</span> <span>inserer niveau</span>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-offre">Domaine</span>  <span>inserer domaine</span>
+                <span class="soustitre-liste">Domaine</span>  <span>inserer domaine</span>
             </div>
         </div>
     </div>
@@ -83,18 +83,18 @@
     </div>
     <div class="contact">
         <h1>Contact</h1>
-        <div class="liste-contact">
+        <div class="liste-info">
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-contact">Adresse</span> <span>inserer adresse</span>
+                <span class="soustitre-liste">Adresse</span> <span>inserer adresse</span>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-contact">Mail</span> <span>inserer mail</span>
+                <span class="soustitre-liste">Mail</span> <span>inserer mail</span>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-contact">Telephone</span>  <span>inserer telephone</span>
+                <span class="soustitre-liste">Telephone</span>  <span>inserer telephone</span>
             </div>
         </div>
     </div>
