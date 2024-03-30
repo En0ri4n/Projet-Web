@@ -363,7 +363,7 @@ p {
     margin-top: 10px;
     margin-bottom: 10px;
 
-    width: min(500px, 100%);
+    width: min(500px, 50%);
 
     background-color: #FFF1F3;
     border: 5px solid #82AEB1;
