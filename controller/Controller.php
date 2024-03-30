@@ -69,12 +69,6 @@ class Controller
         $this->display('view/mentions.tpl');
     }
 
-    public function profilePiloteController(): void
-    {
-        $this->setup(false);
-        $this->display('view/profil.tpl');
-    }
-
     public function adminPageController(): void
     {
         $this->setup(false);
@@ -118,7 +112,7 @@ class Controller
         if(!isset($_GET['userId']))
         {
             $this->smarty->assign('user_exists', false);
-            $this->display('view/profil.tpl');
+            $this->display('view/profil_utilisateur.tpl');
             return;
         }
 
@@ -128,12 +122,12 @@ class Controller
 
             $this->smarty->assign('user_type', 'etudiant');
         }
-        else if(PiloteTable::isPilote($_GET['userId']))
+        elseif(PiloteTable::isPilote($_GET['userId']))
         {
             $table = new PiloteTable();
             $this->smarty->assign('user_type', 'pilote');
         }
-        else if(AdministrateurTable::isAdministrateur($_GET['userId']))
+        elseif(AdministrateurTable::isAdministrateur($_GET['userId']))
         {
             $table = new AdministrateurTable();
             $this->smarty->assign('user_type', 'administrateur');
@@ -141,7 +135,7 @@ class Controller
         else
         {
             $this->smarty->assign('user_exists', false);
-            $this->display('view/profil.tpl');
+            $this->display('view/profil_utilisateur.tpl');
             return;
         }
 
@@ -151,7 +145,7 @@ class Controller
 
         $this->smarty->assign('user_exists', true);
 
-        $this->display('view/profil.tpl');
+        $this->display('view/profil_utilisateur.tpl');
     }
 
     /**
