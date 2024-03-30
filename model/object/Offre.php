@@ -5,7 +5,7 @@ namespace model\object;
 use model\table\OffreTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/OffreTable.php');
-class Offre implements SerializableInterface, \JsonSerializable
+class Offre implements SerializableInterface
 {
     private int $id;
     private string $name;
@@ -15,10 +15,10 @@ class Offre implements SerializableInterface, \JsonSerializable
     private int $nbPlaces;
     private int $level;
     private string $description;
-    private int $sector; /* TODO: Set real objects */
+    private int $id_secteur;
 
-    private int $address; /* TODO: Set real objects */
-    private int $company; /* TODO: Set real objects */
+    private int $id_adresse;
+    private int $id_company;
 
     public function __construct(int $id, string $name, string $date, int $duration, float $compensation, int $nbPlaces,
                                 int $level, string $description, int $sector, int $address, int $company)
@@ -31,9 +31,9 @@ class Offre implements SerializableInterface, \JsonSerializable
         $this->nbPlaces = $nbPlaces;
         $this->level = $level;
         $this->description = $description;
-        $this->sector = $sector;
-        $this->address = $address;
-        $this->company = $company;
+        $this->id_secteur = $sector;
+        $this->id_adresse = $address;
+        $this->id_company = $company;
     }
 
     public function getId(): string
@@ -76,19 +76,19 @@ class Offre implements SerializableInterface, \JsonSerializable
         return $this->description;
     }
 
-    public function getSector(): string
+    public function getIdSecteur(): string
     {
-        return $this->sector;
+        return $this->id_secteur;
     }
 
-    public function getAddress(): string
+    public function getIdAdresse(): string
     {
-        return $this->address;
+        return $this->id_adresse;
     }
 
-    public function getCompany(): string
+    public function getIdCompany(): string
     {
-        return $this->company;
+        return $this->id_company;
     }
 
     public function toArray(): array
@@ -101,9 +101,14 @@ class Offre implements SerializableInterface, \JsonSerializable
             explode('.', OffreTable::$NBPLACE_COLUMN)[1] => $this->nbPlaces,
             explode('.', OffreTable::$LEVEL_COLUMN)[1] => $this->level,
             explode('.', OffreTable::$DESCRIPTION_COLUMN)[1] => $this->description,
-            explode('.', OffreTable::$SECTOR_COLUMN)[1] => $this->sector,
-            explode('.', OffreTable::$ADDRESS_COLUMN)[1] => $this->address,
-            explode('.', OffreTable::$COMPANY_COLUMN)[1] => $this->company);
+            explode('.', OffreTable::$SECTOR_COLUMN)[1] => $this->id_secteur,
+            explode('.', OffreTable::$ADDRESS_COLUMN)[1] => $this->id_adresse,
+            explode('.', OffreTable::$COMPANY_COLUMN)[1] => $this->id_company);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 
     public static function fromArray(array $array): Offre
@@ -119,10 +124,5 @@ class Offre implements SerializableInterface, \JsonSerializable
             $array[explode('.', OffreTable::$SECTOR_COLUMN)[1]],
             $array[explode('.', OffreTable::$ADDRESS_COLUMN)[1]],
             $array[explode('.', OffreTable::$COMPANY_COLUMN)[1]],);
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 }

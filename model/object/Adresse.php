@@ -68,6 +68,11 @@ class Adresse implements SerializableInterface
         ];
     }
 
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
     public static function fromArray(array $array): Adresse
     {
         return new Adresse(

@@ -61,6 +61,11 @@ class Utilisateur implements SerializableInterface
         return array(explode('.', UtilisateurTable::$ID_COLUMN)[1] => $this->id, explode('.', UtilisateurTable::$NOM_COLUMN)[1] => $this->nom, explode('.', UtilisateurTable::$PRENOM_COLUMN)[1] => $this->prenom, explode('.', UtilisateurTable::$EMAIL_COLUMN)[1] => $this->email, explode('.', UtilisateurTable::$PASSWORD_COLUMN)[1] => $this->motDePasse, explode('.', UtilisateurTable::$TELEPHONE_COLUMN)[1] => $this->telephone);
     }
 
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
     public static function fromArray(array $array): Utilisateur
     {
         return new Utilisateur($array[explode('.', UtilisateurTable::$ID_COLUMN)[1]], $array[explode('.', UtilisateurTable::$NOM_COLUMN)[1]], $array[explode('.', UtilisateurTable::$PRENOM_COLUMN)[1]], $array[explode('.', UtilisateurTable::$EMAIL_COLUMN)[1]], $array[explode('.', UtilisateurTable::$PASSWORD_COLUMN)[1]], $array[explode('.', UtilisateurTable::$TELEPHONE_COLUMN)[1]]);
