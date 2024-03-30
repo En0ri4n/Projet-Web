@@ -19,7 +19,7 @@ class Controller
 
     private Smarty $smarty;
 
-    /*TODO Faire en sorte que les autorisations soient correctes à chaque changement de page*/
+    /*TODO Vérifier que les autorisations soient correctes à chaque changement de page*/
     public function homeController(): void
     {
         $this->setup(false);

@@ -14,7 +14,7 @@
         </div>
         <button id="button-menu-burger"><img id="menu-burger-icon" src="/assets/bars_menu.svg"></button>
     </div>
-    <div id="header-bottom"> <!--TODO: erreur d'affichage si on passe de taille tel à pc, problématique ?-->
+    <div id="header-bottom">
         <div class="search"  id="search-burger">
             <input type="text" id="search-input" placeholder="Type to search"> <!--TODO: Make searchbar work-->
             <img id="search-icon" src="/assets/magnifying_glass.svg">
