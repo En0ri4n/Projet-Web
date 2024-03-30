@@ -180,20 +180,9 @@ abstract class AbstractTable
         return Database::getDatabase();
     }
 
-    /**
-     * Verify that the array passes the given check
-     *
-     * @throws Exception if the array does not pass the check
-     */
-    protected function verifyArray(array $array, callable $lengthFunction, string $message): void
-    {
-        if($lengthFunction($array))
-            throw new Exception($message);
-    }
-
     protected function escape_and_lower(string $input): string
     {
-        return $replace = strtolower(str_replace(".", "", $input));
+        return strtolower(str_replace(".", "", $input));
     }
 
     protected static function inner_join(string $joined_table, string $column, string $joined_column): string
