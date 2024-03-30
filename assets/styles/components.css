@@ -10,33 +10,76 @@
     background-color: #CB7C8C;
     height: 10vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     position: fixed;
     width: 100%;
     box-shadow: 0 1px 5px 0 black;
 
-    
+    #header-top{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
-    img {
+        #logo {
         cursor: pointer;
         padding-left: 5px;
         height: 90%;
     }
+    }
+    #header-bottom {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        flex: 0 0 auto;
+        background-color: #FFF1F3;
+
+        a{
+            text-decoration: none;
+            color: #152c44;
+
+            &:active {
+                color: #D72483;
+                text-decoration: underline;
+            }
+        }
+
+        .search{
+            width: 100%;
+            img{
+                width: 1em;
+            }
+            input {
+                background-color: white;
+            }
+        }
+    }
+    
+
+    
+
+    #search-icon{
+        height: 1.5em;
+    }
+    
 
     .search {
-        background-color: #FFF1F3;
-        color: #82AEB1;
-        border-radius: 10px;
+        
         display: flex;
         align-items: center;
         padding: 5px;
+        justify-content: center;
+        width: 60%;
 
         input {
-            background: none;
-            border: none;
-            width: 25vw;
-            font-size: 18px;
+            background-color: #FFF1F3;
+            color: #82AEB1;
+            border-radius: 10px;
+            margin-right: 5%;
+            font-size: 1em;
+            width: 60%;
         }
 
         button {
@@ -62,6 +105,9 @@
             text-decoration: underline;
         }
     }
+    #button-menu-burger{
+        display: none;
+    }
 }
 
 /* Search bar */
@@ -77,13 +123,6 @@
     height: 20px;
 }
 /* End of search bar */
-
-#header-below {
-    display: block;
-    height: 10vh;
-
-    flex: 0 0 auto;
-}
 
 #footer {
     display: flex;
@@ -153,6 +192,7 @@
     }
 }
 
+
 /*affichage mobile*/
 @media screen and (max-width: 600px) {
     #header {
@@ -169,29 +209,17 @@
             height: 100%;
         }
 
-        .search {
-            background-color: #FFF1F3;
-            color: #82AEB1;
-            border-radius: 10px;
+        #button-menu-burger{
             display: flex;
-            align-items: center;
-            padding: 5px;
+            justify-self:left;
+            height: 2em;
+            width: 3em;
+            background: none;
+            border: none;
+        }
 
-            input {
-                background: none;
-                border: none;
-                width: 25vw;
-                font-size: 18px;
-            }
-
-            button {
-                background: none;
-                border: none;
-                outline: none;
-                box-shadow: none;
-                cursor: pointer;
-                font-size: 18px;
-            }
+        #search-header {
+            display: none;
         }
 
         .login {
@@ -204,6 +232,7 @@
             }
         }
     }
+    
 }
 
 /*Bouton pour scroll en haut de la page*/
