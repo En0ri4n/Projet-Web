@@ -5,7 +5,7 @@ namespace model\object;
 use model\table\OffreTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/OffreTable.php');
-class Offre implements SerializableInterface
+class Offre extends SerializableObject
 {
     private int $id;
     private string $name;
@@ -93,36 +93,32 @@ class Offre implements SerializableInterface
 
     public function toArray(): array
     {
-        return array(explode('.', OffreTable::$ID_COLUMN)[1] => $this->id,
-            explode('.', OffreTable::$NAME_COLUMN)[1] => $this->name,
-            explode('.', OffreTable::$DATE_COLUMN)[1] => $this->date,
-            explode('.', OffreTable::$DURATION_COLUMN)[1] => $this->duration,
-            explode('.', OffreTable::$COMPENSATION_COLUMN)[1] => $this->compensation,
-            explode('.', OffreTable::$NBPLACE_COLUMN)[1] => $this->nbPlaces,
-            explode('.', OffreTable::$LEVEL_COLUMN)[1] => $this->level,
-            explode('.', OffreTable::$DESCRIPTION_COLUMN)[1] => $this->description,
-            explode('.', OffreTable::$SECTOR_COLUMN)[1] => $this->id_secteur,
-            explode('.', OffreTable::$ADDRESS_COLUMN)[1] => $this->id_adresse,
-            explode('.', OffreTable::$COMPANY_COLUMN)[1] => $this->id_company);
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
+        return array(self::getColumnName(OffreTable::$ID_COLUMN) => $this->id,
+            self::getColumnName(OffreTable::$NAME_COLUMN) => $this->name,
+            self::getColumnName(OffreTable::$DATE_COLUMN) => $this->date,
+            self::getColumnName(OffreTable::$DURATION_COLUMN) => $this->duration,
+            self::getColumnName(OffreTable::$COMPENSATION_COLUMN) => $this->compensation,
+            self::getColumnName(OffreTable::$NBPLACE_COLUMN) => $this->nbPlaces,
+            self::getColumnName(OffreTable::$LEVEL_COLUMN) => $this->level,
+            self::getColumnName(OffreTable::$DESCRIPTION_COLUMN) => $this->description,
+            self::getColumnName(OffreTable::$SECTOR_COLUMN) => $this->id_secteur,
+            self::getColumnName(OffreTable::$ADDRESS_COLUMN) => $this->id_adresse,
+            self::getColumnName(OffreTable::$COMPANY_COLUMN) => $this->id_company);
     }
 
     public static function fromArray(array $array): Offre
     {
-        return new Offre($array[explode('.', OffreTable::$ID_COLUMN)[1]],
-            $array[explode('.', OffreTable::$NAME_COLUMN)[1]],
-            $array[explode('.', OffreTable::$DATE_COLUMN)[1]],
-            $array[explode('.', OffreTable::$DURATION_COLUMN)[1]],
-            $array[explode('.', OffreTable::$COMPENSATION_COLUMN)[1]],
-            $array[explode('.', OffreTable::$NBPLACE_COLUMN)[1]],
-            $array[explode('.', OffreTable::$LEVEL_COLUMN)[1]],
-            $array[explode('.', OffreTable::$DESCRIPTION_COLUMN)[1]],
-            $array[explode('.', OffreTable::$SECTOR_COLUMN)[1]],
-            $array[explode('.', OffreTable::$ADDRESS_COLUMN)[1]],
-            $array[explode('.', OffreTable::$COMPANY_COLUMN)[1]],);
+        return new Offre($array[self::getColumnName(OffreTable::$ID_COLUMN)],
+            $array[self::getColumnName(OffreTable::$NAME_COLUMN)],
+            $array[self::getColumnName(OffreTable::$DATE_COLUMN)],
+            $array[self::getColumnName(OffreTable::$DURATION_COLUMN)],
+            $array[self::getColumnName(OffreTable::$COMPENSATION_COLUMN)],
+            $array[self::getColumnName(OffreTable::$NBPLACE_COLUMN)],
+            $array[self::getColumnName(OffreTable::$LEVEL_COLUMN)],
+            $array[self::getColumnName(OffreTable::$DESCRIPTION_COLUMN)],
+            $array[self::getColumnName(OffreTable::$SECTOR_COLUMN)],
+            $array[self::getColumnName(OffreTable::$ADDRESS_COLUMN)],
+            $array[self::getColumnName(OffreTable::$COMPANY_COLUMN)]
+        );
     }
 }

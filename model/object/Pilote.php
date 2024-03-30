@@ -4,18 +4,13 @@ namespace model\object;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 
-class Pilote extends Utilisateur implements SerializableInterface
+class Pilote extends Utilisateur
 {
     public static string $ID_COLUMN = "Pilote.IdUtilisateur";
 
     public function __construct($id, $nom, $prenom, $email, $password, $telephone)
     {
         parent::__construct($id, $nom, $prenom, $email, $password, $telephone);
-    }
-
-    public function toArray(): array
-    {
-        return parent::toArray();
     }
 
     public static function fromArray(array $array): Pilote

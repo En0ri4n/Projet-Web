@@ -3,6 +3,7 @@
 use model\object\Administrateur;
 use model\table\AbstractTable;
 use model\table\UtilisateurTable;
+use model\object\SerializableObject;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AbstractTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Administrateur.php');
@@ -16,27 +17,24 @@ class AdministrateurTable extends AbstractTable
         parent::__construct('Administrateur');
     }
 
-    public function insert(mixed $obj): bool
-    {
-        // TODO: Implement insert() method.
-        return false;
-    }
-
     public function select(array $conditions): null|array|Administrateur
     {
         return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, 'model\object\Administrateur::fromArray');
     }
 
+    public function insert(SerializableObject $obj): bool
+    {
+        return $this->defaultInsert($obj);
+    }
+
     public function update(mixed $id, array $columns, array $values): bool
     {
-        // TODO: Implement update() method.
-        return false;
+        return $this->defaultUpdate($id, $columns, $values);
     }
 
     public function delete(mixed $id): bool
     {
-        // TODO: Implement delete() method.
-        return false;
+        return $this->defaultDelete($id);
     }
 
     public function getIdColumn(): string

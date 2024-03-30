@@ -7,6 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/Database.php');
 use Exception;
 use model\object\SerializableInterface;
 use model\Database;
+use model\object\SerializableObject;
 use PDO;
 use PDOStatement;
 
@@ -25,17 +26,17 @@ abstract class AbstractTable
     /**
      * Add a new row to the table with the given SerializableInterface object
      *
-     * @param SerializableInterface $obj The object to insert
+     * @param SerializableObject $obj The object to insert
      * @return bool True if the insert was successful, false otherwise
      * @throws Exception if the columns and values do not have the same length
      */
-    abstract public function insert(SerializableInterface $obj): bool;
+    abstract public function insert(SerializableObject $obj): bool;
 
     /**
-     * Insert a new row into the table with the given SerializableInterface object<br>
+     * Insert a new row into the table with the given SerializableObject object<br>
      * Default implementation
      */
-    protected function defaultInsert(SerializableInterface $obj): bool
+    protected function defaultInsert(SerializableObject $obj): bool
     {
         $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", array_map((fn($key) => $key), array_keys($obj->toArray()))) . ") VALUES (:" . implode(", :", array_keys($obj->toArray())) . ")";
         $stmt = $this->getDatabase()->prepare($query);
@@ -195,9 +196,9 @@ abstract class AbstractTable
         return "";
     }
 
-    protected function getLastInsertId(): mixed
+    protected function getLastInsertId(): bool
     {
-        $query = "SELECT LAST_INSERT_ID();";
+        $query = "SELECT LAST_INSERT_ID() FROM " . $this->getTableName() . " LIMIT 1";
         $stmt = $this->getDatabase()->prepare($query);
         return $stmt->execute();
     }

@@ -7,7 +7,7 @@ use EtudiantTable;
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 
-class Etudiant extends Utilisateur implements SerializableInterface
+class Etudiant extends Utilisateur
 {
     private int $idPromotion;
     private int $idAdresse;
@@ -41,12 +41,12 @@ class Etudiant extends Utilisateur implements SerializableInterface
 
     public function toArray(): array
     {
-        return parent::toArray() + array(explode('.', EtudiantTable::$PROMOTION_COLUMN)[1] => $this->idPromotion, explode('.', EtudiantTable::$ADRESSE_COLUMN)[1] => $this->idAdresse);
+        return parent::toArray() + array(self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
     }
 
     public static function fromArray(array $array): Etudiant
     {
-        return self::from(Utilisateur::fromArray($array), $array[explode('.', EtudiantTable::$PROMOTION_COLUMN)[1]], $array[explode('.', EtudiantTable::$ADRESSE_COLUMN)[1]]);
+        return self::from(Utilisateur::fromArray($array), $array[self::getColumnName(EtudiantTable::$PROMOTION_COLUMN)], $array[self::getColumnName(EtudiantTable::$ADRESSE_COLUMN)]);
     }
 
     private static function from(Utilisateur $utilisateur, ?int $idPromotion, ?int $idAdresse): Etudiant

@@ -5,9 +5,10 @@ namespace model\object;
 use model\table\UtilisateurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableObject.php');
 
-class Utilisateur implements SerializableInterface
+
+class Utilisateur extends SerializableObject
 {
     protected string $id;
     protected string $nom;
@@ -58,16 +59,25 @@ class Utilisateur implements SerializableInterface
 
     public function toArray(): array
     {
-        return array(explode('.', UtilisateurTable::$ID_COLUMN)[1] => $this->id, explode('.', UtilisateurTable::$NOM_COLUMN)[1] => $this->nom, explode('.', UtilisateurTable::$PRENOM_COLUMN)[1] => $this->prenom, explode('.', UtilisateurTable::$EMAIL_COLUMN)[1] => $this->email, explode('.', UtilisateurTable::$PASSWORD_COLUMN)[1] => $this->motDePasse, explode('.', UtilisateurTable::$TELEPHONE_COLUMN)[1] => $this->telephone);
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
+        return array(
+            self::getColumnName(UtilisateurTable::$ID_COLUMN) => $this->id,
+            self::getColumnName(UtilisateurTable::$NOM_COLUMN) => $this->nom,
+            self::getColumnName(UtilisateurTable::$PRENOM_COLUMN) => $this->prenom,
+            self::getColumnName(UtilisateurTable::$EMAIL_COLUMN) => $this->email,
+            self::getColumnName(UtilisateurTable::$PASSWORD_COLUMN) => $this->motDePasse,
+            self::getColumnName(UtilisateurTable::$TELEPHONE_COLUMN) => $this->telephone
+        );
     }
 
     public static function fromArray(array $array): Utilisateur
     {
-        return new Utilisateur($array[explode('.', UtilisateurTable::$ID_COLUMN)[1]], $array[explode('.', UtilisateurTable::$NOM_COLUMN)[1]], $array[explode('.', UtilisateurTable::$PRENOM_COLUMN)[1]], $array[explode('.', UtilisateurTable::$EMAIL_COLUMN)[1]], $array[explode('.', UtilisateurTable::$PASSWORD_COLUMN)[1]], $array[explode('.', UtilisateurTable::$TELEPHONE_COLUMN)[1]]);
+        return new Utilisateur(
+            $array[self::getColumnName(UtilisateurTable::$ID_COLUMN)],
+            $array[self::getColumnName(UtilisateurTable::$NOM_COLUMN)],
+            $array[self::getColumnName(UtilisateurTable::$PRENOM_COLUMN)],
+            $array[self::getColumnName(UtilisateurTable::$EMAIL_COLUMN)],
+            $array[self::getColumnName(UtilisateurTable::$PASSWORD_COLUMN)],
+            $array[self::getColumnName(UtilisateurTable::$TELEPHONE_COLUMN)]
+        );
     }
 }

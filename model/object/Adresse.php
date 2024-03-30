@@ -2,12 +2,12 @@
 
 namespace model\object;
 
-use AdresseTable;
+use model\table\AdresseTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Adresse.php');
 
-class Adresse implements SerializableInterface
+class Adresse extends SerializableObject
 {
     private int $id;
     private int $numero;
@@ -59,28 +59,23 @@ class Adresse implements SerializableInterface
     public function toArray(): array
     {
         return [
-            explode('.', AdresseTable::$ID_COLUMN)[1] => $this->id,
-            explode('.', AdresseTable::$NUMERO_COLUMN)[1] => $this->numero,
-            explode('.', AdresseTable::$RUE_COLUMN)[1] => $this->rue,
-            explode('.', AdresseTable::$VILLE_COLUMN)[1] => $this->ville,
-            explode('.', AdresseTable::$CODE_POSTAL_COLUMN)[1] => $this->codePostal,
-            explode('.', AdresseTable::$PAYS_COLUMN)[1] => $this->pays
+            self::getColumnName(AdresseTable::$ID_COLUMN) => $this->id,
+            self::getColumnName(AdresseTable::$NUMERO_COLUMN) => $this->numero,
+            self::getColumnName(AdresseTable::$RUE_COLUMN) => $this->rue,
+            self::getColumnName(AdresseTable::$VILLE_COLUMN) => $this->ville,
+            self::getColumnName(AdresseTable::$CODE_POSTAL_COLUMN) => $this->codePostal,
+            self::getColumnName(AdresseTable::$PAYS_COLUMN) => $this->pays
         ];
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 
     public static function fromArray(array $array): Adresse
     {
         return new Adresse(
-            $array[explode('.', AdresseTable::$ID_COLUMN)[1]],
-            $array[explode('.', AdresseTable::$NUMERO_COLUMN)[1]],
-            $array[explode('.', AdresseTable::$RUE_COLUMN)[1]],
-            $array[explode('.', AdresseTable::$VILLE_COLUMN)[1]],
-            $array[explode('.', AdresseTable::$CODE_POSTAL_COLUMN)[1]],
-            $array[explode('.', AdresseTable::$PAYS_COLUMN)[1]]);
+            $array[self::getColumnName(AdresseTable::$ID_COLUMN)],
+            $array[self::getColumnName(AdresseTable::$NUMERO_COLUMN)],
+            $array[self::getColumnName(AdresseTable::$RUE_COLUMN)],
+            $array[self::getColumnName(AdresseTable::$VILLE_COLUMN)],
+            $array[self::getColumnName(AdresseTable::$CODE_POSTAL_COLUMN)],
+            $array[self::getColumnName(AdresseTable::$PAYS_COLUMN)]);
     }
 }

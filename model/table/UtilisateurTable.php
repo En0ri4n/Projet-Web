@@ -1,10 +1,9 @@
 <?php
-/** @noinspection DuplicatedCode */
 
 namespace model\table;
 
+use model\object\SerializableObject;
 use model\object\Utilisateur;
-use model\object\SerializableInterface;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AbstractTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
@@ -22,7 +21,7 @@ class UtilisateurTable extends AbstractTable
 
     public function __construct() { parent::__construct(self::$TABLE_NAME); }
 
-    public function insert(SerializableInterface $obj): bool
+    public function insert(SerializableObject $obj): bool
     {
         return $this->defaultInsert($obj);
     }

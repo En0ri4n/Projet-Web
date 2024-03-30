@@ -1,6 +1,7 @@
 <?php
 /** @noinspection DuplicatedCode */
 
+use model\object\Adresse;
 use model\object\Etudiant;
 use model\table\AbstractTable;
 use model\table\UtilisateurTable;
@@ -47,19 +48,18 @@ class EtudiantTable extends AbstractTable
 
     public function update(mixed $id, array $columns, array $values): bool
     {
-        $this->verifyArray($columns, fn($array) => count($array) != count($values), "Columns and values do not have the same length");
-
         $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindParam(':id', $id);
 
         $conditions_adresse = array();
-        $adresseEtudiantTable = new AdressTable();
+        $adresseEtudiantTable = new AdresseTable();
 
-        foreach($columns as $column){
-            switch ($column)
+        foreach($columns as $column)
+        {
+            switch($column)
             {
-                /*les données liées à l'adresse sont mises à part*/ 
+                /*les données liées à l'adresse sont mises à part*/
                 case "Numero":
                 case "Rue":
                 case "Ville":
@@ -74,23 +74,25 @@ class EtudiantTable extends AbstractTable
                 }
             }
         }
-        if (count($conditions_adresse) != 0){
+        if(count($conditions_adresse) != 0)
+        {
             /*Si il y a des données d'adresse*/
             /*Selection des données pour vérifier si elles sont déjà dans la BDD*/
-            $IdAdresse = $adresseEtudiantTable->defaultSelect(self::no_join(), $conditions_adresse, 'model\object\Adresse::fromArray')
-            if($IdAdresse != null){
+            $adresse = $adresseEtudiantTable->select($conditions_adresse);
+            if($adresse != null)
+            {
                 /*Si l'adresse existe on prend son l'Id et on le met dans  la requete Etudiant*/
-                $stmt->bindValue(':IdAdresse',$IdAdresse["Id"])
+                $stmt->bindValue(':IdAdresse', $adresse->getId());
             }
-            else{
+            else
+            {
                 /*Sinon, on l'insere et on prend l'Id de la donnée inserée pour la requete Etudiant*/
-                $adresseEtudiant = new Adresse;
-                $adresseEtudiant->fromArray($conditions_adresse)
-                $adresseEtudiantTable->defaultInsert($adresseEtudiant)
-                $stmt->bindValue(':IdAdresse',$adresseEtudiant->getLastInsertId())
+                $adresseEtudiant = Adresse::fromArray($conditions_adresse);
+                $adresseEtudiantTable->defaultInsert($adresseEtudiant);
+                $stmt->bindValue(':IdAdresse', $adresseEtudiantTable->getLastInsertId());
             }
         }
-        
+
         if($stmt->execute())
             return true;
         return false;

@@ -2,7 +2,7 @@
 
 namespace model\object;
 
-interface SerializableInterface extends \JsonSerializable
+interface SerializableInterface
 {
     public function toArray(): array;
 

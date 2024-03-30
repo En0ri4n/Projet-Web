@@ -1,8 +1,9 @@
 <?php
 
-use model\table\AbstractTable;
+namespace model\table;
+
 use model\object\Adresse;
-use model\object\SerializableInterface;
+use model\object\SerializableObject;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Adresse.php');
 
@@ -15,7 +16,12 @@ class AdresseTable extends AbstractTable
     public static string $CODE_POSTAL_COLUMN = 'Adresse.CodePostal';
     public static string $PAYS_COLUMN = 'Adresse.Pays';
 
-    public function insert(SerializableInterface $obj): bool
+    public function __construct()
+    {
+        parent::__construct('Adresse');
+    }
+
+    public function insert(SerializableObject $obj): bool
     {
         return $this->defaultInsert($obj);
     }

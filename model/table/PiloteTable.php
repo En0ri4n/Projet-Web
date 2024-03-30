@@ -41,19 +41,16 @@ class PiloteTable extends AbstractTable
 
     public function update(mixed $id, array $columns, array $values): bool
     {
-        // TODO: Implement update() method.
-        return false;
+        return $this->defaultUpdate($id, $columns, $values);
     }
 
     public function delete(mixed $id): bool
     {
-        // TODO: Implement delete() method.
-        return false;
+        return $this->defaultDelete($id);
     }
 
     public function getIdColumn(): string
     {
-        // TODO: Implement getIdColumn() method.
         return self::$ID_COLUMN;
     }
 
