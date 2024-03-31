@@ -7,10 +7,10 @@
             <h1>Liens</h1>
             <ul>
                 <li><a href="{$default_page}">Accueil</a></li>
-                <li><a href="{$index_page}?view=offres">Offres</a></li>
-                <li><a href="{$index_page}?view=about">À propos de nous</a></li>
-                <li><a href="{$index_page}?view=contact">Contact</a></li>
-                <li><a href="{$index_page}?view=mentions">Mentions Légales</a></li>
+                <li><a href="/offres">Offres</a></li>
+                <li><a href="/about">À propos de nous</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/mentions">Mentions Légales</a></li>
             </ul>
         </div>
     </div>
