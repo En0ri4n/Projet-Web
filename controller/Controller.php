@@ -105,6 +105,18 @@ class Controller
         $this->display('view/poster_offre.tpl');
     }
 
+    public function entreprisesController(): void
+    {
+        $this->setup(false);
+        $this->display('view/entreprises.tpl');
+    }
+
+    public function utilisateursController(): void
+    {
+        $this->setup(false);
+        $this->display('view/utilisateurs.tpl');
+    }
+
     public function profileController(): void
     {
         $this->setup(false);

@@ -14,28 +14,12 @@
         </article>
         <img src="/assets/stage.jpg" alt="Presentation">
     </div>
-    <div class="accueil-offres">
-        <div class="space-between-two">
-            <button class="go-button" onclick="window.location.href='/offres';">Filtrer</button>
-        </div>
-        <div class="liste-offres">
-                <article class="offre">
-                    <div class="c1">
-                        <span class="poste">Poste</span>
-                        <span class="entreprise">Entreprise</span>
-                        <span class="niveau">Niveau</span>
-                    </div>
-                    <div class="c2">
-                        <span class="domaine">Domaine</span>
-                        <span class="dates">Dates</span>
-                    </div>
-                    <div class="c3">
-                        <ul class="competences">Compétences :
-                            <li>competence 1</li>
-                            <li>competence 2</li>
-                        </ul>
-                    </div>
-                </article>
+    <div class="accueil-boutons">
+        <h1>Vous cherchez....</h1>
+        <div class="liste-boutons-accueil">
+            <button class="go-button" onclick="window.location.href='/entreprises';">Une Entreprise</button>
+            <button class="go-button" onclick="window.location.href='/offres';">Une Offre de stage</button>
+            <button class="go-button" onclick="window.location.href='/utilisateurs';">Un Utilisateur</button>
         </div>
     </div>
 </main>

@@ -54,6 +54,12 @@ elseif(isset($_GET['view']))
         case 'profil':
             $controller->profileController();
             break;
+        case 'entreprises':
+            $controller->entreprisesController();
+            break;
+        case 'utilisateurs':
+            $controller->utilisateursController();
+            break;
         default:
             $controller->notFoundController();
             break;
