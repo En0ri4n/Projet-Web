@@ -27,9 +27,11 @@
                     <label for="student-account">Élève</label>
                 </div>
                 <div>
-                    <input type="radio" id="pilote-account" name="account-type" value="tuteur" required>
-                    <label for="pilote-account">Tuteur</label>
+                    <input type="radio" id="pilote-account" name="account-type" value="pilote" required>
+                    <label for="pilote-account">Pilote</label>
                 </div>
+            </div>
+            <div class="form__inputs" id="promotion-tuteur">
             </div>
             <div class="center">
                 <input class="submit" type="submit" value="Confirmer l'inscription">
