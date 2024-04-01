@@ -1,12 +1,24 @@
 <?php
 
 use model\object\Utilisateur;
+use model\table\AdresseTable;
+use model\table\CompetenceTable;
+use model\table\EntrepriseTable;
+use model\table\LinkTable;
+use model\table\OffreTable;
+use model\table\SecteurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/libs/Smarty.class.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/PiloteTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AdministrateurTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/OffreTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EntrepriseTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AdresseTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/LinkTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/CompetenceTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/SecteurTable.php');
 
 class Controller
 {
@@ -90,6 +102,62 @@ class Controller
     public function descriptionOffreController(): void
     {
         $this->setup(false);
+
+
+        if(!isset($_GET['offreId']))
+        {
+            $this->smarty->assign('offre_exists', false);
+            $this->display('view/description_offre.tpl');
+            return;
+        }
+
+        $this->smarty->assign('offre_exists', true);
+
+        $table = new OffreTable();
+        $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['offreId']]);
+
+        if($offre == null)
+        {
+            $this->smarty->assign('offre_exists', false);
+            $this->display('view/description_offre.tpl');
+            return;
+        }
+
+        $this->smarty->assign('offre', $offre);
+
+        $table = new SecteurTable();
+        $secteur = $table->select([SecteurTable::$ID_COLUMN => $offre->getIdSecteur()]);
+        $this->smarty->assign('secteur', $secteur);
+
+        $table = new EntrepriseTable();
+        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $offre->getIdCompany()]);
+        $this->smarty->assign('entreprise', $entreprise);
+
+        $table = new AdresseTable();
+        $adresse = $table->select([AdresseTable::$ID_COLUMN => $offre->getIdAdresse()]);
+        $this->smarty->assign('adresse', $adresse);
+
+        $table = LinkTable::getOffreToCompetence();
+        $links_competences = $table->select([LinkTable::getOffreToCompetence()->getIdFromColumn() => $offre->getId()]);
+        $table = new CompetenceTable();
+        $q = array();
+
+        if(is_array($links_competences))
+        {
+            foreach($links_competences as $link)
+                array_merge($q, [CompetenceTable::$ID_COLUMN => $link->getIdTo()]);
+            $competences[] = $table->selectOr($q); // TODO: Error here when multiples competences
+        }
+        else
+        {
+            $competences[] = $table->select([CompetenceTable::$ID_COLUMN => $links_competences->getIdTo()]);
+        }
+
+        var_dump($competences);
+
+        $this->smarty->assign('competences', $competences);
+
+
         $this->display('view/description_offre.tpl');
     }
 
@@ -196,7 +264,7 @@ class Controller
             $this->smarty->setCacheDir($_SERVER['DOCUMENT_ROOT'] . '/controller/cache');
         }
 
-        $this->addComponentController();
+        $this->assignBasicComponents();
         $this->checkConnection($is_connection_page);
     }
 
@@ -222,12 +290,20 @@ class Controller
      *
      * @return void
      */
-    private function addComponentController(): void
+    private function assignBasicComponents(): void
     {
         $current_user = isset($_COOKIE[self::$USER_COOKIE_NAME]) ? Utilisateur::fromArray(json_decode(base64_decode($_COOKIE[self::$USER_COOKIE_NAME]), true)) : null;
 
         $this->smarty->assign('user_cookie_name', self::$USER_COOKIE_NAME);
         $this->smarty->assign('current_user', $current_user);
+
+        if($current_user !== null)
+        if(EtudiantTable::isEtudiant($current_user->getId()))
+            $this->smarty->assign('current_user_type', 'etudiant');
+        elseif(PiloteTable::isPilote($current_user->getId()))
+            $this->smarty->assign('current_user_type', 'pilote');
+        elseif(AdministrateurTable::isAdministrateur($current_user->getId()))
+            $this->smarty->assign('current_user_type', 'administrateur');
 
         $links = [
             'Accueil' => self::$DEFAULT_PAGE,
