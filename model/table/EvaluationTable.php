@@ -25,7 +25,7 @@ class EvaluationTable extends AbstractTable
 
     public function select(array $conditions): null|array|Evaluation
     {
-        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Evaluation::fromArray');
+        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Evaluation::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

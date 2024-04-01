@@ -26,7 +26,7 @@ class CandidatureTable extends AbstractTable
 
     public function select(array $conditions): array|null|Candidature
     {
-        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Candidature::fromArray');
+        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Candidature::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

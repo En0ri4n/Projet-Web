@@ -5,6 +5,8 @@ namespace model\table;
 use model\object\Link;
 use model\object\SerializableObject;
 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Link.php');
+
 class LinkTable extends AbstractTable
 {
     private string $id_from_column;
@@ -34,7 +36,7 @@ class LinkTable extends AbstractTable
 
     public function select(array $conditions): null|array|Link
     {
-        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Link::fromArray');
+        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Link::linkFromArray($this, $a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

@@ -19,7 +19,7 @@ class AdministrateurTable extends AbstractTable
 
     public function select(array $conditions): null|array|Administrateur
     {
-        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, 'model\object\Administrateur::fromArray');
+        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, fn($a) => Administrateur::fromArray($a));
     }
 
     public function insert(SerializableObject $obj): bool

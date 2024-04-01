@@ -24,7 +24,7 @@ class WishlistTable extends AbstractTable
 
     public function select(array $conditions): null|array|Wishlist
     {
-        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Wishlist::fromArray');
+        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Wishlist::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

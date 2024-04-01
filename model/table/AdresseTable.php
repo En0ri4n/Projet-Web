@@ -28,7 +28,7 @@ class AdresseTable extends AbstractTable
 
     public function select(array $conditions): null|Adresse|array
     {
-        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Adresse::fromArray');
+        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Adresse::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

@@ -36,7 +36,7 @@ class PiloteTable extends AbstractTable
      */
     public function select(array $conditions): array|Pilote|null
     {
-        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, 'model\object\Pilote::fromArray');
+        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, fn($a) => Pilote::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

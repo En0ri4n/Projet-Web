@@ -26,7 +26,7 @@ class EtudiantTable extends AbstractTable
      */
     public function select(array $conditions): array|Etudiant|null
     {
-        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, 'model\object\Etudiant::fromArray');
+        return $this->defaultSelect(self::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, self::$ID_COLUMN), $conditions, fn($a) => Etudiant::fromArray($a));
     }
 
     /**

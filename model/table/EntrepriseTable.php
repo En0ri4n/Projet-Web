@@ -5,6 +5,8 @@ namespace model\table;
 use model\object\Entreprise;
 use model\object\SerializableObject;
 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Entreprise.php');
+
 class EntrepriseTable extends AbstractTable
 {
     public static string $ID_COLUMN = 'Entreprise.IdEntreprise';
@@ -13,7 +15,7 @@ class EntrepriseTable extends AbstractTable
     public static string $DESCRIPTION_COLUMN = 'Entreprise.DescriptionEntreprise';
     public static string $EMAIL_COLUMN = 'Entreprise.MailEntreprise';
     public static string $TELEPHONE_COLUMN = 'Entreprise.TelephoneEntreprise';
-    public static string $STATUS_COLUMN = 'Entreprise.Status';
+    public static string $STATUS_COLUMN = 'Entreprise.Statut';
 
     public function __construct()
     {
@@ -27,7 +29,7 @@ class EntrepriseTable extends AbstractTable
 
     public function select(array $conditions): null|array|Entreprise
     {
-        return $this->defaultSelect(self::no_join(), $conditions, 'model\object\Entreprise::fromArray');
+        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Entreprise::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool
