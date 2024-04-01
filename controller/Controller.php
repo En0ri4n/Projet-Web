@@ -226,14 +226,25 @@ class Controller
     {
         $current_user = isset($_COOKIE[self::$USER_COOKIE_NAME]) ? Utilisateur::fromArray(json_decode(base64_decode($_COOKIE[self::$USER_COOKIE_NAME]), true)) : null;
 
+        $this->smarty->assign('user_cookie_name', self::$USER_COOKIE_NAME);
+        $this->smarty->assign('current_user', $current_user);
+
+        $links = [
+            'Accueil' => self::$DEFAULT_PAGE,
+            'Entreprises' => '/entreprises',
+            'Offres' => '/offres',
+            'Utilisateurs' => '/utilisateurs',
+            'Contact' => '/contact',
+            'À propos' => '/about',
+            'Mentions légales' => '/mentions'
+        ];
+
+        $this->smarty->assign('links', $links);
+
         $this->smarty->assign('index_page', self::$INDEX_PAGE);
 
         $this->smarty->assign('default_page', self::$DEFAULT_PAGE);
         $this->smarty->assign('connection_page', self::$CONNECTION_PAGE);
         $this->smarty->assign('forbidden_page', self::$FORBIDDEN_PAGE);
-
-        $this->smarty->assign('user_cookie_name', self::$USER_COOKIE_NAME);
-
-        $this->smarty->assign('current_user', $current_user);
     }
 }

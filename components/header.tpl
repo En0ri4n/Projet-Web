@@ -4,12 +4,9 @@
         {if $is_connected}
         <nav class="navbar">
             <ul>
-                <li><a href="{$default_page}">Accueil</a></li>
-                <li><a href="/profil?userId={$current_user->getId()}">Profil</a></li>
-                <li><a href="/offres">Offres</a></li>
-                <li><a href="/about">À propos de nous</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/mentions">Mentions Légales</a></li>
+                {foreach $links as $name => $link}
+                <li><a href="{$link}">{$name}</a></li>
+                {/foreach}
             </ul>
         </nav>
         <div class="login">
@@ -21,11 +18,9 @@
     </div>
     <div id="header-bottom">
         <ul>
-            <li><a href="{$default_page}">Accueil</a></li>
-            <li><a href="/offres">Offres</a></li>
-            <li><a href="/about">À propos de nous</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/mentions">Mentions Légales</a></li>
+            {foreach $links as $name => $link}
+                <li><a href="{$link}">{$name}</a></li>
+            {/foreach}
         </ul>
     </div>
 </header>
