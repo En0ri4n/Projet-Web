@@ -124,9 +124,6 @@ BEGIN
         END FOR;
 END;
 
-CALL createRandomPromotions(10);
-
-
 FOR i IN 1..100 DO
         CALL createAdresse();
     END FOR;
@@ -134,6 +131,8 @@ FOR i IN 1..100 DO
 FOR i IN 1..10 DO
         CALL createPilote(CONCAT('pilote', LPAD(i, 2, '0')), SHA2('pilote', 256), CONCAT('Pilote', LPAD(i, 2, '0')), 'Pilote', CONCAT('pilote', LPAD(i, 2, '0'), '@viacesi.fr'), CONCAT('06', LPAD(i, 8, '0')));
     END FOR;
+
+CALL createRandomPromotions(10);
 
 FOR i IN 1..10 DO
         CALL createEtudiant(CONCAT('etudiant', LPAD(i, 2, '0')), SHA2('etudiant', 256), CONCAT('Etudiant', LPAD(i, 2, '0')), 'Etudiant', CONCAT('etudiant', LPAD(i, 2, '0'), '@viacesi.fr'), CONCAT('06', LPAD(i, 8, '0')), (SELECT IdPromotion FROM Promotion ORDER BY RAND() LIMIT 1), (SELECT IdAdresse FROM Adresse ORDER BY RAND() LIMIT 1));
