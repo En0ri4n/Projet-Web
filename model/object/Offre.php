@@ -16,7 +16,6 @@ class Offre extends SerializableObject
     private int $level;
     private string $description;
     private int $id_secteur;
-
     private int $id_adresse;
     private int $id_company;
 
