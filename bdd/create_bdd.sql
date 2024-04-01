@@ -30,7 +30,7 @@ CREATE TABLE Promotion
     TypePromotion           VARCHAR(64)        NOT NULL,
     DatePromotion           DATE               NOT NULL,
     NiveauPromotion         INT                NOT NULL,
-    DuréePromotion          INT                NOT NULL,
+    DureePromotion          INT                NOT NULL,
     Centre                  VARCHAR(64),
     PilotePromotion         VARCHAR(64),
     PRIMARY KEY (IdPromotion),

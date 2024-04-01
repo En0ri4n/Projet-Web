@@ -40,7 +40,7 @@ BEGIN
         SET @annee = FLOOR(RAND() * 4 + 2);
         SET @type = (SELECT * FROM (VALUES('BTP'), ('Informatique'),('Systèmes Embarqués'),('Généraliste')) AS type ORDER BY RAND() LIMIT 1);
         SET @centre = (SELECT * FROM (VALUES ('Paris'), ('Lyon'), ('Strasbourg'), ('Toulouse'), ('Nantes'), ('Bordeaux'), ('Lille'), ('Marseille'), ('Rennes'), ('Nice')) AS NomCentreGenerated ORDER BY RAND() LIMIT 1);
-            INSERT INTO Promotion (NomPromotion, TypePromotion, DatePromotion, NiveauPromotion, DuréePromotion,
+            INSERT INTO Promotion (NomPromotion, TypePromotion, DatePromotion, NiveauPromotion, DureePromotion,
                                    Centre, PilotePromotion)
             VALUES (CONCAT('A', @annee, ' ', @type, ' ', @centre),
                     @type,
