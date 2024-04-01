@@ -21,6 +21,8 @@
         justify-content: space-between;
         align-items: center;
 
+        height: 100%;
+
         #logo {
             cursor: pointer;
             padding-left: 5px;
@@ -61,6 +63,8 @@
         }
     }
 
+
+
     #header-bottom {
         display: none;
         flex-direction: column;
@@ -70,25 +74,29 @@
         flex: 0 0 auto;
         background-color: #FFF1F3;
 
-        a {
-            text-decoration: none;
-            color: #152c44;
+        ul {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 10px;
 
-            &:active {
-                color: #D72483;
-                text-decoration: underline;
-            }
-        }
+            li {
+                border-bottom: 1px solid #152c44;
 
-        .search {
-            width: 100%;
+                a {
+                    text-decoration: none;
 
-            img {
-                width: 1em;
-            }
+                    &:hover {
+                        color: #D72483;
+                    }
+                }
 
-            input {
-                background-color: white;
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
             }
         }
     }
@@ -210,26 +218,29 @@
 /*affichage mobile*/
 @media screen and (max-width: 600px) {
     #header {
-        background-color: #CB7C8C;
-        height: 10vh;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: fixed;
-        width: 100%;
+        justify-content: space-evenly;
 
-        img {
-            width: 20vh;
-            height: 100%;
-        }
+        #header-top {
+            .navbar {
+                display: none;
+            }
 
-        #button-menu-burger {
-            display: flex;
-            justify-self: left;
-            height: 2em;
-            width: 3em;
-            background: none;
-            border: none;
+            #button-menu-burger {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 10vh;
+                width: 10vh;
+                justify-self: left;
+                background: none;
+                border: none;
+
+                #menu-burger-icon {
+                    height: 70%;
+                    width: 70%;
+
+                }
+            }
         }
 
         #search-header {
@@ -237,36 +248,23 @@
         }
 
         .login {
-            color: #495867;
-            padding-right: 20px;
-
-            a {
-                color: #495867;
-                text-decoration: none;
-            }
+            display: none;
         }
     }
 
     #footer {
         .content {
             #footer-links {
+
                 ul {
-                    list-style: disc;
+                    list-style: none;
                     flex-direction: column;
 
                     li {
                         display: block;
 
                         &:not(:last-child):after {
-                            content: " •";
-                        }
-
-                        &:last-child:after {
-                            content: " •";
-                        }
-
-                        &:before {
-                            content: "• ";
+                            content: "";
                         }
                     }
                 }
