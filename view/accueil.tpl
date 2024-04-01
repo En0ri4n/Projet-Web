@@ -24,6 +24,5 @@
     </div>
 </main>
 {include file='components/footer.tpl'}
-<script type="module" src="/scripts/accueil.js"></script>
 </body>
 </html>
