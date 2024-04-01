@@ -108,6 +108,74 @@ abstract class AbstractTable
         return null;
     }
 
+    protected function defaultSelectOr(string $join_query, array $conditions, callable $fromArray): mixed
+    {
+        try
+        {
+            $query = "SELECT * FROM " . $this->getTableName() . ' ' . $join_query ?? "";
+            if(empty($conditions))
+            {
+                $stmt = $this->getDatabase()->query($query);
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return array_map((fn($row) => $fromArray($row)), $rows);
+            }
+            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
+            $stmt = $this->getDatabase()->prepare($query);
+
+            foreach($conditions as $key => $value)
+                $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+
+            $stmt->execute();
+
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+        }
+        catch(Exception $e)
+        {
+        }
+        return null;
+    }
+
+    public function selectLike(array $conditions, callable $fromArray): mixed
+    {
+        $query = "SELECT * FROM " . $this->getTableName();
+
+        if(empty($conditions))
+        {
+            $stmt = $this->getDatabase()->query($query);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+
+            return null;
+        }
+
+        $query .= " WHERE " . implode(" AND ", array_map((fn($key) => $key . " LIKE :" . $this->escape_and_lower($key)), array_keys($conditions)));
+
+        $stmt = $this->getDatabase()->prepare($query);
+
+        foreach($conditions as $key => $value)
+            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($rows) == 1)
+            return $fromArray($rows[0]);
+        elseif(count($rows) > 1)
+            return array_map((fn($row) => $fromArray($row)), $rows);
+
+        return null;
+    }
+
     /**
      * Select from the table with special conditions
      *
