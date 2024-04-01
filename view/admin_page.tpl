@@ -57,7 +57,7 @@
     <div>
         <form method="post">
             <div class="liste-offres">
-            
+                <h1>Offres</h1>
                 <div class="filtres_box">
                     <div class="filtres">
                         <input type="text" id="filter-name" placeholder="Nom">
@@ -165,15 +165,15 @@
                     </article>
                     <button class="delete">Supprimer</button>
                     <button class="delete">Modifier</button>
+                </div>
             </div>
             <h1>Ajouter</h1>
             <!--TODO Faire en sorte que les liens fonctionnent-->
-                <div class="actions-offres">
-                    <button class="button-action-offre" onclick="window.location.href='poster_offre.php';">Poster une offre</button>
-                    <button class="button-action-offre" onclick="window.location.href='poster_entreprise.php';">Créer une fiche entreprise</button>
-                    <button class="button-action-offre" onclick="window.location.href='inscription.php';">Ajouter un étudiant</button>
-
-                </div>
+            <div class="actions-offres">
+                <button class="button-action-offre" onclick="window.location.href='poster_offre.php';">Poster une offre</button>
+                <button class="button-action-offre" onclick="window.location.href='poster_entreprise.php';">Créer une fiche entreprise</button>
+                <button class="button-action-offre" onclick="window.location.href='inscription.php';">Ajouter un étudiant</button>
+            </div>
         </form>
     </div>
 

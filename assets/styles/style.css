@@ -62,14 +62,14 @@ main {
     }
 }
 
-.space-between-two {
+.liste-boutons-accueil {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     box-sizing: border-box;
 }
 
-.accueil-offres {
+.accueil-boutons {
     padding: 50px 20px 50px 20px;
     display: flex;
     flex-direction: column;
@@ -95,6 +95,7 @@ main {
 
 .go-button {
     padding: 5px 10px 5px 10px;
+    margin: 10px 10px;
     border-radius: 3px;
     color: rgba(3, 49, 33, 0.72);
     font-weight: bold;
@@ -155,7 +156,7 @@ main {
     background-color: #FFF1F3;
 }
 
-.offre, .etudiant {
+.offre, .etudiant, .pilote {
     display: flex;
     background-color: #82AEB1;
     border-radius: 30px 30px 30px 30px;
@@ -194,7 +195,7 @@ main {
         }
     }
 
-.etudiant{
+.etudiant, .pilote{
     img{
         width: auto;
         height: 40%;
@@ -204,6 +205,10 @@ main {
         justify-content: space-between;
         box-sizing: border-box;
     }
+}
+
+.pilote{
+    background-color: #495867;
 }
 
 .form {
@@ -551,8 +556,9 @@ iframe{
     align-items: center;
     padding-top: 10px;
 }
-.liste-etudiant{
+.liste-etudiant, .liste-utilisateur, .liste-entreprise{
     text-align: center;
+    margin: 20px;
 }
 
 .profil{
@@ -586,10 +592,10 @@ iframe{
         width: 100%;
     }
 
-    .accueil-offres {
+    .accueil-boutons {
         padding: 50px 20px 50px 20px;
         width: 100%;
-        box-sizing: border-box;
+        box-sizing: border-box; 
     }
 
     .c1, .c2, .c3 {
@@ -600,7 +606,7 @@ iframe{
         font-size: 1em;
     }
 
-    .offre, .etudiant {
+    .offre, .etudiant, .pilote {
         padding: 15px 10px 10px 10px;
         justify-content: center;
         border-radius: 10px 10px 10px 10px;
@@ -617,7 +623,7 @@ iframe{
             font-weight: bold;
         }
     }
-    .etudiant{
+    .etudiant, .pilote{
         img{
             width: 20%;
             height: auto;
@@ -629,9 +635,10 @@ iframe{
         }
     }
 
-    .space-between-two {
+    .liste-boutons-accueil {
         padding-left: 20px;
         padding-right: 20px;
+        flex-direction: column;
     }
 
     .filtres_box{
