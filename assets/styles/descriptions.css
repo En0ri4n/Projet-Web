@@ -1,0 +1,547 @@
+/*affichage pc*/
+@media screen and (min-width: 600px){
+body{
+    display: flex;
+    flex-direction: column;
+    margin:0px;
+    padding: 0px;
+    background-color: #FFF1F3;
+    color: #495867;
+}
+
+.checked{
+    color: #D72483;
+}
+
+.offre {
+    display: flex;
+    background-color: #82AEB1;
+    border-radius: 30px 30px 30px 30px;
+    width: 900px;
+    height: 200px;
+    align-items: center;
+    cursor: pointer;
+
+    img {
+        height: 170px;
+        width: 170px;
+        border: solid #495867;
+        margin-left: 15px;
+    }
+
+    article {
+        box-sizing: border-box;
+        height: 100%;
+        width: 90%;
+        padding: 20px 60px 40px 20px;
+        flex-direction: row;
+        row-gap: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: start;
+        color: white;
+        font-size: 1.4em;
+
+        .poste {
+            font-size: 1.5em;
+        }
+
+        ul {
+            list-style-type: none;
+
+            li {
+                display: inline;
+            }
+
+            li:not(:last-child):after {
+                content: ', ';
+            }
+        }
+    }
+}
+
+.c1, .c2 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    row-gap: 30px;
+}
+
+.list-competences {
+    width: 100%;
+}
+
+#image_entreprise{
+    width:100%;
+}
+
+#image_entreprise_offre{
+    width:50%;
+}
+.contact img{
+    width: 20%;
+}
+
+.titre{
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.entreprise{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    height:250px;
+    padding-top: 10vh;
+}
+.description_entreprise{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width:50%;
+    height:100%;
+}
+.paragraphe{
+   overflow: hidden;
+   height:70%;
+   padding-bottom: 10px;
+}
+
+.description_entreprise a:link{
+    color: #82AEB1;   
+}
+.description_entreprise a:visited{
+    color: #82AEB1;
+}
+.description_entreprise a:hover{
+    color: #82AEB1;
+}
+#postuler {
+    background-color: #495867;
+    color: #FFF1F3;
+    border-radius: 5px;
+    border-color: #CB7C8C;
+    margin-left: 10px;
+}
+#wishlist{
+    background-color:white;
+    color: #495867;
+    border-radius: 5px;
+    border-color: #495867;
+}
+.titres{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    gap:50px
+}
+
+.titres #Nom{
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 10px;
+}
+.titres #NivEtds{
+
+}
+.titres #Domaine{
+    background-color: #82AEB1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.description{
+    text-align: start;
+    margin:20px;
+}
+
+.box_offres{
+    background-color:white;
+    text-align: center;
+}
+
+.box_competences{
+    background-color: white;
+    padding:10px;
+    text-align: center;
+}
+.div_competences{
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+}
+.competence{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+#statistiques{
+
+}
+
+#offres{
+
+}
+footer{
+    background-color: #CB7C8C;
+}
+.div{
+    background-color: #CB7C8C;
+    height:20px;
+}
+#evaluation{
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    background-color: #FFF1F3;
+    padding:10px;
+}
+.etoile{
+    width:60px;
+    filter:invert(75%);
+    cursor: pointer;
+    margin-left:1%;
+}
+.active{
+    filter: invert(0%);
+}
+.contact{
+    display: flex;
+    flex-direction: row;
+    background-color: #FFF1F3;
+}
+.contacts{
+    margin-left: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width:50%;
+}
+.contacts .titres{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.map{
+    width:50%;
+}
+
+iframe{
+    margin-top:0px;
+    padding:0px;
+    height:100%;
+    width:100%;
+}
+}
+
+
+
+
+
+/*affichage mobile*/
+@media screen and (max-width: 599px) {
+    body{
+        display: flex;
+        flex-direction: column;
+        margin:0px;
+        padding: 0px;
+        background-color: #FFF1F3;
+        color: #495867;
+    }
+
+    .checked{
+        color: #D72483;
+    }
+
+    .offre {
+        display: flex;
+        background-color: #82AEB1;
+        border-radius: 30px 30px 30px 30px;
+        width: 900px;
+        height: 200px;
+        align-items: center;
+        cursor: pointer;
+    
+        img {
+            height: 20%;
+            width: 20%;
+            border: solid #495867;
+            margin-left: 15px;
+        }
+    
+        article {
+            box-sizing: border-box;
+            height: 100%;
+            width: 90%;
+            padding: 20px 60px 40px 20px;
+            flex-direction: row;
+            row-gap: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: start;
+            color: white;
+            font-size: 1.4em;
+    
+            .poste {
+                font-size: 1.5em;
+            }
+    
+            ul {
+                list-style-type: none;
+    
+                li {
+                    display: inline;
+                }
+    
+                li:not(:last-child):after {
+                    content: ', ';
+                }
+            }
+        }
+    }
+    
+    .c1, .c2 {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+        row-gap: 30px;
+    }
+    
+    .list-competences {
+        width: 100%;
+    }
+
+    #image_entreprise{
+        width:100%;
+        height:200px;
+    }
+    #image_entreprise_offre{
+        width:50%;
+    }
+    .contact img{
+        width: 10%;
+    }
+
+    .titre{
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .entreprise{
+        display: flex;
+        flex-direction: row;
+        background-color: white;
+        height:250px;
+        padding-top: 10vh;
+    }
+    .description_entreprise{
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        width:50%;
+        height:100%;
+    }
+    .paragraphe{
+       overflow: hidden;
+       height:70%;
+       padding-bottom: 10px;
+    }
+
+    
+
+    .description{
+        text-align: start;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+
+    }
+    .description_entreprise a:link{
+        color: #82AEB1;   
+    }
+    .description_entreprise a:visited{
+        color: #82AEB1;
+    }
+    .description_entreprise a:hover{
+        color: #82AEB1;
+    }
+    #postuler {
+        background-color: #495867;
+        color: #FFF1F3;
+        border-radius: 5px;
+        border-color: #CB7C8C;
+        margin-left: 10px;
+    }
+    #wishlist{
+        background-color: white;
+        color: #495867;
+        border-radius: 5px;
+        border-color: #495867;
+    }
+    .titres{
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        gap:50px
+    }
+
+    .titres #Nom{
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 10px;
+    }
+    .titres #NivEtds{
+
+    }
+    .titres #Domaine{
+        background-color: #82AEB1;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .box_competences{
+        background-color: white;
+        padding:10px;
+    }
+
+    .box_offres{
+        background-color: white;
+        text-align: center;
+    }
+
+    .offre {
+        display: flex;
+        background-color: #82AEB1;
+        border-radius: 30px 30px 30px 30px;
+        width: 80%;
+        height: 100%;
+        align-items: center;
+        cursor: pointer;
+    
+        img {
+            height: 170px;
+            width: 170px;
+            border: solid #495867;
+            margin-left: 15px;
+        }
+    
+        article {
+            box-sizing: border-box;
+            height: 100%;
+            width: 90%;
+            padding: 20px 60px 40px 20px;
+            flex-direction: row;
+            row-gap: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: start;
+            color: white;
+            font-size: 1.4em;
+    
+            .poste {
+                font-size: 1.5em;
+            }
+    
+            ul {
+                list-style-type: none;
+    
+                li {
+                    display: inline;
+                }
+    
+                li:not(:last-child):after {
+                    content: ', ';
+                }
+            }
+        }
+    }
+    
+    .c1, .c2 {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+        row-gap: 30px;
+    }
+    
+    .list-competences {
+        width: 100%;
+    }
+
+    .div_competences{
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+    }
+    .competence{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 10px;
+    }
+
+    #statistiques{
+
+    }
+
+    #offres{
+
+    }
+
+    
+
+    footer{
+        background-color: #CB7C8C;
+    }
+    .div{
+        background-color: #CB7C8C;
+        margin: 10px;
+    }
+    #evaluation{
+        display: flex;
+        flex-direction: row;
+        gap:10px;
+        background-color: #FFF1F3;
+        padding:10px;
+    }
+    .etoile{
+        width:60px;
+        filter:invert(75%);
+        cursor:pointer;
+        margin-left:1%;
+    }
+    .active{
+        filter: invert(0%);
+    }
+    .contact{
+        display: flex;
+        flex-direction: row;
+        background-color: #FFF1F3;
+    }
+    .contacts{
+        margin-right: 10px;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        width:50%;
+    }
+    .contacts .titres{
+        display: flex;
+        flex-direction: row;
+    }
+    
+    iframe{
+        margin-left:50px;
+        margin-top:0px;
+        padding:0px;
+        width:100%;
+        height:180px;
+    }
+}

@@ -1,0 +1,765 @@
+
+* {
+    font-family: 'Century Gothic', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding-top: 10vh;
+
+    background-color: #FFF1F3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.presentation {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    img {
+        width: 35vw;
+        height: 35vw;
+        flex: 1 1 auto;
+        border: solid #495867;
+        margin: 20px;
+    }
+
+    .description {
+        flex: 1 1 auto;
+        justify-content: center;
+        align-items: center;
+        padding: 5%;
+        box-sizing: border-box;
+
+        h1 {
+            color: #495867;
+            font-size: 5vw;
+        }
+
+        p {
+            color: #82AEB1;
+            font-size: 2vw;
+        }
+    }
+}
+
+.liste-boutons-accueil {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+.accueil-boutons {
+    padding: 50px 20px 50px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.mode-accueil {
+    color: #495867;
+    font-weight: bold;
+    font-size: 1.3em;
+
+    .selected {
+        border-radius: 2px;
+        border: solid #82AEB1;
+    }
+
+    a {
+        color: #495867;
+        text-decoration: none;
+        padding: 5px 5px 5px 5px;
+    }
+}
+
+.go-button {
+    padding: 5px 10px 5px 10px;
+    margin: 10px 10px;
+    border-radius: 3px;
+    color: rgba(3, 49, 33, 0.72);
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+    border: 2px solid #3b4f50;
+}
+
+.liste-offres, .evaluation, .resume-offre, .profil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+    padding-bottom: 50px;
+}
+
+.evaluation {
+    padding-top: 50px;
+}
+
+.liste-offres, .resume-offre{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.liste-offres {
+    background-color: white;
+    padding-top: 50px;
+    gap: 20px;
+}
+
+.resume-offre{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+.contact, .competence-demandees{
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.competence-demandees{
+    background-color: white;
+    padding-top: 50px;
+}
+
+.box_competences, .liste-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact {
+    background-color: #FFF1F3;
+}
+
+.offre, .etudiant, .pilote, .administrateur {
+    display: flex;
+    background-color: #82AEB1;
+    border-radius: 30px 30px 30px 30px;
+    margin: 10px 0;
+    width: 900px;
+    height: 200px;
+    max-width: 70vw;
+    align-items: start;
+    cursor: pointer;
+        padding: 30px 60px 40px 60px;
+        flex-direction: column;
+        row-gap: 30px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        color: white;
+        font-size: 1.4em;
+    .c1,.c2,.c3 {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
+    }
+        .poste {
+            font-size: 1.5em;
+        }
+
+        ul {
+            list-style-type: none;
+
+            li {
+                display: inline;
+            }
+
+            li:not(:last-child):after {
+                content: ', ';
+            }
+        }
+    }
+
+.etudiant, .pilote, .administrateur{
+    img{
+        width: auto;
+        height: 40%;
+    }
+    .c1,.c2 {
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+    }
+}
+
+.pilote{
+    background-color: #495867;
+}
+
+.administrateur {
+    background-color: #a51550;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    width: min(500px, 100%);
+
+    background-color: #FFF1F3;
+    border: 5px solid #82AEB1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+    padding: 20px 0 20px 0;
+}
+
+.form__inputs {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    input {
+        margin: 10px 0 0 0;
+        padding: 8px 0 8px 8px;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
+
+        &:focus {
+            border: 3px solid #78a2a4;
+            outline-width: 0;
+        }
+    }
+
+    .form-input, textarea, select {
+        box-sizing: border-box;
+        margin: 10px 0 0 0;
+        padding: 8px 0 8px 8px;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    textarea{
+        resize: vertical;
+    }
+
+    #duree {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        column-gap: 5px;
+            .form-input {
+                width: 90%;
+            }
+
+    }
+
+    .add-div {
+        display: flex;
+        flex-direction: column;
+
+
+        .added-input-list {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+            gap: 10px;
+
+            ul {
+                padding: 5px;
+                width: 100%;
+                background-color: yellow;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            ul li {
+                font-family: "Century Gothic", sans-serif;
+                font-weight: bold;
+                font-size: 1em;
+                /* display: inline-block; */
+                border: 1px solid black;
+                cursor: pointer;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 3px 0 3px;
+
+                border-radius: 3px;
+
+                &:before {
+                    content: "•";
+                }
+
+                &:hover {
+                    background-color: #82AEB1;
+                }
+            }
+        }
+    }
+
+    label {
+        font-family: "Century Gothic", sans-serif;
+        font-weight: bold;
+    }
+}
+
+p {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.star-bullet-point{
+    height: 1em;
+}
+
+.submit {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+    border-radius: 3px;
+    border: 3px solid #3b4f50;
+    background-color: #82AEB1;
+    color: rgba(3, 49, 33, 0.72);
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+}
+
+.texte_form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: start;
+}
+
+.paragraphe{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    width: min(500px, 50%);
+
+    background-color: #FFF1F3;
+    border: 5px solid #82AEB1;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+    padding: 50px;
+}
+
+#valowont{
+    align-items: center;
+}
+
+.filtres_box {
+    height: 10vh;
+    /* background-color: red; */
+    background-color: #00000020;
+    box-shadow: 0 0 10px 0 #00000020;
+
+    box-sizing: border-box;
+    flex: 0 1 30%;
+
+    padding: 3px 3px 3px 3px;
+    margin: 20px;
+    border-radius: 10px;
+
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .filtres {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+
+        input, select {
+            box-sizing: border-box;
+            margin: 5px;
+            width: 80%;
+            padding: 5px 0 5px 5px;
+            border-radius: 5px;
+            border: none;
+
+        }
+
+        button {
+            margin: 5px;
+            width: 80%;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #82AEB1;
+            color: #FFF1F3;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .reset-filter{
+            background-color: #495867;
+        }
+        .reset-filter:hover{
+            background-color: #FFF1F3;
+            color: #495867;
+        }
+
+        button:hover {
+            background-color: #FFF1F3;
+            color: #82AEB1;
+        }
+
+        &:last-child:after {
+            content: '';
+            display: block;
+            height: 10px;
+        }
+    }
+}
+
+.list-offres {
+
+    margin: 10px 5px 5px 5px;
+    border-radius: 10px;
+
+    background-color: #00000030;
+
+    flex: 1 1 auto;
+
+    height: 200vh;
+}
+
+.delete, .button-poster {
+    margin: 5px;
+    width: 40%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: #495867;
+    color: #FFF1F3;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.entete-entreprise{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    gap: 20px;
+}
+.entete-entreprise #Domaine{
+    background-color: #82AEB1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.contact, .competence-demandees {
+    width: -webkit-fill-available;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.liste-info {
+    margin-bottom: 10px;
+}
+.soustitre-liste {
+    font-weight: bold;
+}
+
+.map {
+    width: -webkit-fill-available;
+}
+
+iframe{
+    width: -webkit-fill-available;
+    height: 300px;
+}
+
+.search-by-name{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: space-around;
+
+    .search-bar{
+        padding: 7px 0 7px 7px;
+        border-radius: 3px;
+        width: 70%;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .submit-small{
+        margin: 10px 0 10px 0;
+        padding: 10px 0 10px 0;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        background-color: #82AEB1;
+        color: rgba(3, 49, 33, 0.72);
+        font-weight: bold;
+        cursor: pointer;
+        width: 20%;
+        font-size: 1em;
+    }
+    .submit-small:hover{
+        background-color: white;
+        border: 3px solid #82AEB1;
+    }
+}
+
+
+#premiere_section { 
+    box-sizing: border-box;
+}
+
+.contener_row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.liste-etudiant, .liste-utilisateur, .liste-entreprise{
+    width: 80%;
+    text-align: center;
+    margin: 20px;
+}
+
+.profil{
+    margin-top: 10px;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+
+
+    & > div {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-around;
+
+        width: 60%;
+    }
+}
+
+.list_data{
+    margin-bottom: 10px;
+}
+
+.pagination{
+    margin-bottom: 20px;
+    a{
+        margin: 10px 0 10px 0;
+        padding: 10px 20px;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        background-color: #82AEB1;
+        color: rgba(3, 49, 33, 0.72);
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1em; 
+    }
+    a:hover{
+        background-color: white;
+        border: 3px solid #82AEB1;
+    }
+
+    #pageActuelle{
+        border-color:#3b4f50;
+        background-color:white;
+        pointer-events: none;
+    }
+
+}
+
+@media all and (max-width: 600px) {
+    .form {
+        border: none;
+        box-shadow: none;
+    }
+
+    #dates {
+        flex-direction: column;
+    }
+
+    .presentation {
+        .description {
+            h1{
+                font-size: 1.2em;
+            }
+            p {
+                font-size: 0.8em;
+            }
+        }
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .accueil-boutons {
+        padding: 50px 20px 50px 20px;
+        width: 100%;
+        box-sizing: border-box; 
+    }
+
+    .c1, .c2, .c3 {
+        row-gap: 10px;
+    }
+
+    .mode-accueil {
+        font-size: 1em;
+    }
+
+    .offre, .etudiant, .pilote, .administrateur {
+        padding: 15px 10px 10px 10px;
+        justify-content: center;
+        border-radius: 10px 10px 10px 10px;
+
+        width: 90%;
+
+        height: 100%;
+
+        font-size: 0.8em;
+        row-gap: 10px;
+
+        .poste {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    }
+    .etudiant, .pilote, .administrateur {
+        img{
+            width: 20%;
+            height: auto;
+        }
+        .c1,.c2 {
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+    }
+
+    .liste-boutons-accueil {
+        padding-left: 20px;
+        padding-right: 20px;
+        flex-direction: column;
+    }
+
+    .filtres_box{
+        .filtres{
+            flex-wrap:wrap;
+            justify-content: space-between;
+            input, select {
+                width: 45%;
+            }
+            button{
+                width: -webkit-fill-available;
+            }
+        }
+    }
+
+    .search-by-name{
+        flex-direction: column;
+    
+        .search-bar{
+            width: 100%;
+        }
+    
+        .submit-small{
+            width: 100%;
+        }
+    }
+    .profil{
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.titre-link{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.resume-entreprise, .description-offre{
+    padding-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.actions-offres{
+    background-color: white;
+    padding-bottom: 50px;
+}
+.actions-offres, .form-fiche-entreprise{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+
+    .button-action-offre{
+        margin: 10px 0 10px 0;
+        padding: 10px 0 10px 0;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        background-color: #82AEB1;
+        color: rgba(3, 49, 33, 0.72);
+        font-weight: bold;
+        cursor: pointer;
+        width: min(40%,300px);
+        font-size: 1em;
+    }
+    .button-action-offre:hover{
+        background-color: white;
+        border: 3px solid #82AEB1;
+    }
+}
+
+.form-fiche-entreprise{
+    flex-wrap: nowrap;
+}
+

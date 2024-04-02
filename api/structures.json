@@ -1,0 +1,109 @@
+[
+  {
+    "name": "POST-users",
+    "_comment": "Create a new user",
+    "template-etudiant": {
+      "id": "john.doe",
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "SHA-256:123456",
+      "phone": "+1 234 567 890",
+      "type": "etudiant",
+      "data": {
+        "id_promo": "1",
+        "adresse": {
+          "numero": "1",
+          "rue": "rue de la paix",
+          "ville": "Paris",
+          "code_postal": "75000",
+          "pays": "France"
+        }
+      }
+    },
+    "template-pilote": {
+      "id": "john.doe",
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "SHA-256:123456",
+      "phone": "+1 234 567 890",
+      "type": "pilote",
+      "data": {
+        "nom": "A5 Strasbourg",
+        "type": "Informatique",
+        "date": "2022-09-24",
+        "niveau": "4",
+        "duree": "4 mois",
+        "centre": "Strasbourg"
+      }
+    },
+    "template-admin": {
+      "id": "john.doe",
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "SHA-256:123456",
+      "phone": "+1 234 567 890",
+      "type": "pilote",
+      "data": {
+      }
+    }
+  },
+  {
+    "name": "POST-offres",
+    "_comment": "Create a new offre",
+    "template": {
+      "date": "2018-05-18",
+      "duree": "6 mois",
+      "remuneration": "1000€/mois",
+      "nb_places": "1",
+      "nom": "Offre de stage",
+      "description": "Offre de stage pour un étudiant en informatique",
+      "niveau": "3",
+      "competences": [
+        "Java",
+        "HTML",
+        "CSS"
+      ],
+      "secteurs": [
+        "Informatique",
+        "Web"
+      ],
+      "adresse": "257",
+      "id_entreprise": "1"
+    }
+  },
+  {
+    "name": "POST-entreprises",
+    "_comment": "Create a new entreprise",
+    "template": {
+      "nom": "Entreprise",
+      "site": "www.mon-entreprise.fr",
+      "description": "Entreprise spécialisée dans le développement web",
+      "email": "mon-entreprise@pro.fr",
+      "phone": "+1 234 567 890",
+      "adresses": [
+        {
+          "numero": "1",
+          "rue": "rue de la paix",
+          "ville": "Paris",
+          "code_postal": "75000",
+          "pays": "France"
+        },
+        {
+          "numero": "2",
+          "rue": "rue de la liberté",
+          "ville": "Lyon",
+          "code_postal": "69000",
+          "pays": "France"
+        }
+      ],
+      "status": "Disponible",
+      "secteurs": [
+        "Informatique",
+        "Web"
+      ]
+    }
+  }
+]
