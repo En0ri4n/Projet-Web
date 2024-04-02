@@ -2,7 +2,12 @@
 
 namespace model\object;
 
+use AdministrateurTable;
+use EtudiantTable;
+use model\table\AdresseTable;
+use model\table\PromotionTable;
 use model\table\UtilisateurTable;
+use PiloteTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableObject.php');
@@ -67,6 +72,39 @@ class Utilisateur extends SerializableObject
             self::getColumnName(UtilisateurTable::$PASSWORD_COLUMN) => $this->motDePasse,
             self::getColumnName(UtilisateurTable::$TELEPHONE_COLUMN) => $this->telephone
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        $a = parent::jsonSerialize();
+
+        if(EtudiantTable::isEtudiant($this->id))
+        {
+            $a['user_type'] = 'etudiant';
+
+            $table = new EtudiantTable();
+            $etudiant = $table->select([EtudiantTable::$ID_COLUMN => $this->id]);
+
+            $table = new AdresseTable();
+            $a['adresse'] = $table->select([AdresseTable::$ID_COLUMN => $etudiant->getIdAdresse()])->jsonSerialize();
+        }
+        elseif(AdministrateurTable::isAdministrateur($this->id))
+        {
+            $a['user_type'] = 'administrateur';
+        }
+        elseif(PiloteTable::isPilote($this->id))
+        {
+            $a['user_type'] = 'pilote';
+
+            $table = new PiloteTable();
+            $pilote = $table->select([PiloteTable::$ID_COLUMN => $this->id]);
+
+            $table = new PromotionTable();
+            $promos = $table->select([PromotionTable::$PILOT_COLUMN => $pilote->getId()]);
+            $a['promotions'] = is_array($promos) ? $promos : [$promos];
+        }
+
+        return $a;
     }
 
     public static function fromArray(array $array): Utilisateur

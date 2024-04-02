@@ -2,7 +2,10 @@
 
 namespace model\object;
 
+use model\table\AdresseTable;
 use model\table\EntrepriseTable;
+use model\table\LinkTable;
+use model\table\SecteurTable;
 
 class Entreprise extends SerializableObject
 {
@@ -58,6 +61,25 @@ class Entreprise extends SerializableObject
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $a = parent::jsonSerialize();
+
+        $table = LinkTable::getEntrepriseToAdresse();
+        $links_entreprise_adresse = $table->select([LinkTable::getEntrepriseToAdresse()->getIdFromColumn() => $this->getId()]);
+        $table = new AdresseTable();
+        $adresses = \Controller::fromLinks($links_entreprise_adresse, AdresseTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([AdresseTable::$ID_COLUMN => $a->getIdTo()]));
+        $a['adresses'] = $adresses;
+
+        $table = LinkTable::getEntrepriseToSecteur();
+        $links_entreprise_secteur = $table->select([LinkTable::getEntrepriseToSecteur()->getIdFromColumn() => $this->getId()]);
+        $table = new SecteurTable();
+        $secteurs = \Controller::fromLinks($links_entreprise_secteur, SecteurTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([SecteurTable::$ID_COLUMN => $a->getIdTo()]));
+        $a['secteurs'] = $secteurs;
+
+        return $a;
     }
 
     public function toArray(): array

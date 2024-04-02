@@ -2,7 +2,10 @@
 
 namespace model\object;
 
+use model\table\AdresseTable;
+use model\table\EntrepriseTable;
 use model\table\OffreTable;
+use model\table\SecteurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/OffreTable.php');
 class Offre extends SerializableObject
@@ -88,6 +91,25 @@ class Offre extends SerializableObject
     public function getIdCompany(): string
     {
         return $this->id_company;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $a = parent::jsonSerialize();
+
+        unset($a[self::getColumnName(OffreTable::$SECTOR_COLUMN)]); // Remove 'IdSecteur'
+        $table = new SecteurTable();
+        $a['secteur'] = $table->select([SecteurTable::$ID_COLUMN => $this->getIdSecteur()]);
+
+        unset($a[self::getColumnName(OffreTable::$ADDRESS_COLUMN)]); // Remove 'IdAdresse'
+        $table = new AdresseTable();
+        $a['adresse'] = $table->select([AdresseTable::$ID_COLUMN => $this->getIdAdresse()]);
+
+        unset($a[self::getColumnName(OffreTable::$COMPANY_COLUMN)]); // Remove 'IdEntreprise'
+        $table = new EntrepriseTable();
+        $a['entreprise'] = $table->select([EntrepriseTable::$ID_COLUMN => $this->getIdCompany()]);
+
+        return $a;
     }
 
     public function toArray(): array
