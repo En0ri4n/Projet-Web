@@ -242,6 +242,7 @@ abstract class AbstractTable
 
         if(empty($conditions))
         {
+            $query .= " " . $parameters;
             $stmt = $this->getDatabase()->query($query);
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -256,8 +257,6 @@ abstract class AbstractTable
         $query .= " WHERE " . implode(" AND ", $conditions);
 
         $query .= " " . $parameters;
-
-        var_dump($query);
 
         $stmt = $this->getDatabase()->prepare($query);
 
@@ -316,6 +315,11 @@ abstract class AbstractTable
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
+    }
+
+    public function getRowCount(): int
+    {
+        return count($this->select([]));
     }
 
     /**
