@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Profil Pilote</title>
+    <title>Profil {if $user_exists}de {$user->getPrenom()} {$user->getNom()} {else} non trouvé {/if}</title>
     {include file='components/head.tpl'}
 </head>
 <body>
