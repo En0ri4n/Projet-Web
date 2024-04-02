@@ -220,12 +220,27 @@
     #header {
         justify-content: space-evenly;
 
-        #header-top {
-            .navbar {
+        #header-top{
+            width: 100%;
+            justify-content: space-between;
+            .navbar{
+                display: none;
+            }
+            .login{
+                display: none;
+            }
+        }
+
+            #header-top{
+            width: 100%;
+            justify-content: space-between;
+            .navbar{
+                display: none;
+            }
+            .login{
                 display: none;
             }
 
-<<<<<<< Updated upstream
             #button-menu-burger {
                 display: flex;
                 justify-content: center;
@@ -242,27 +257,8 @@
 
                 }
             }
-=======
-        #header-top{
-            width: 100%;
-            justify-content: space-between;
-            .navbar{
-                display: none;
-            }
-            .login{
-                display: none;
-            }
         }
-
-        #button-menu-burger {
-            display: flex;
-            justify-self: left;
-            height: 2em;
-            width: 3em;
-            background: none;
-            border: none;
->>>>>>> Stashed changes
-        }
+    }
 
         #search-header {
             display: none;
@@ -271,7 +267,6 @@
         .login {
             display: none;
         }
-    }
 
     #footer {
         .content {
