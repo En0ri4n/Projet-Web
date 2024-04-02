@@ -7,6 +7,7 @@ use model\table\CompetenceTable;
 use model\table\EntrepriseTable;
 use model\table\LinkTable;
 use model\table\OffreTable;
+use model\table\PromotionTable;
 use model\table\SecteurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/libs/Smarty.class.php');
@@ -20,6 +21,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AdresseTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/LinkTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/CompetenceTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/SecteurTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/PromotionTable.php');
 
 class Controller
 {
@@ -127,8 +129,6 @@ class Controller
         $links_entreprise_adresses = $entreprise_to_adresse_table->select([LinkTable::getEntrepriseToAdresse()->getIdFromColumn() => $entreprise->getId()]);
         $entreprise_adresses = $this->fromLinks($links_entreprise_adresses, AdresseTable::$ID_COLUMN, fn($q) => $adresse_table->selectOr($q), fn($a) => $adresse_table->select([AdresseTable::$ID_COLUMN => $a->getIdTo()]));
         $this->smarty->assign('entreprise_adresses', $entreprise_adresses);
-
-        // TODO: Listes des offres d'une entreprise - Non, c'est fetch avec le javascript
 
         $this->display('view/description_entreprise.tpl');
     }
@@ -241,11 +241,28 @@ class Controller
             return;
         }
 
+        $this->smarty->assign('user_exists', true);
         $user = $table->select([$table->getIdColumn() => $_GET['userId']]);
-
         $this->smarty->assign('user', $user);
 
-        $this->smarty->assign('user_exists', true);
+        if(EtudiantTable::isEtudiant($user->getId()))
+        {
+            $adresse_table = new AdresseTable();
+            $promotion_table = new PromotionTable();
+
+            $adresse = $adresse_table->select([AdresseTable::$ID_COLUMN => $user->getIdAdresse()]);
+            $this->smarty->assign('adresse', $adresse);
+
+            $promotion = $promotion_table->select([PromotionTable::$ID_COLUMN => $user->getIdPromotion()]);
+            $this->smarty->assign('promotion', $promotion);
+        }
+        elseif(PiloteTable::isPilote($user->getId()))
+        {
+            $promotion_table = new PromotionTable();
+
+            $promotions = $promotion_table->select([PromotionTable::$PILOT_COLUMN => $user->getId()]);
+            $this->smarty->assign('promotions', is_array($promotions) ? $promotions : [$promotions]);
+        }
 
         $this->display('view/profil_utilisateur.tpl');
     }
@@ -275,7 +292,7 @@ class Controller
      * @param callable $single Function to call when the array contains only one element
      * @return array Array of objects
      */
-    public function fromLinks(array|Link $a, string $col, callable $array, callable $single): array
+    public static function fromLinks(array|Link $a, string $col, callable $array, callable $single): array
     {
         if (is_array($a)) {
             $q = array();
