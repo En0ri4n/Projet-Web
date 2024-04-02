@@ -17,9 +17,9 @@
     <div class="accueil-boutons">
         <h1>Vous cherchez....</h1>
         <div class="liste-boutons-accueil">
-            <button class="go-button" onclick="window.location.href='/entreprises';">Une Entreprise</button>
-            <button class="go-button" onclick="window.location.href='/offres';">Une Offre de stage</button>
-            <button class="go-button" onclick="window.location.href='/utilisateurs';">Un Utilisateur</button>
+            <button class="go-button" onclick="window.location.href='/entreprises';">Une Entreprise ?</button>
+            <button class="go-button" onclick="window.location.href='/offres';">Une Offre de stage ?</button>
+            <button class="go-button" onclick="window.location.href='/utilisateurs';">Un Utilisateur ?</button>
         </div>
     </div>
 </main>
