@@ -14,12 +14,14 @@
                 <a href="/api/logout">Déconnexion</a>
             </div>
         {/if}
-        <button id="button-menu-burger"><img id="menu-burger-icon" alt="menu" src="/assets/bars_menu.svg"></button>
+        <button id="button-menu-burger" ><img id="menu-burger-icon" alt="menu" src="/assets/bars_menu.svg"></button>
     </div>
     <div id="header-bottom">
         <ul>
-            <li><a href="/profil?userId={$current_user->getId()}">{$current_user->getPrenom()} {$current_user->getNom()}</a></li>
-            <li><a href="/api/logout">Déconnexion</a></li>
+            {if $is_connected}
+                <li><a href="/profil?userId={$current_user->getId()}">{$current_user->getPrenom()} {$current_user->getNom()}</a></li>
+                <li><a href="/api/logout">Déconnexion</a></li>
+            {/if}
             {foreach $links as $name => $link}
                 <li><a href="{$link}">{$name}</a></li>
             {/foreach}
