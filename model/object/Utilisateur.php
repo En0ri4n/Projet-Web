@@ -78,6 +78,8 @@ class Utilisateur extends SerializableObject
     {
         $a = parent::jsonSerialize();
 
+        unset($a[self::getColumnName(UtilisateurTable::$PASSWORD_COLUMN)]);
+
         if(EtudiantTable::isEtudiant($this->id))
         {
             $a['user_type'] = 'etudiant';
