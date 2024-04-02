@@ -8,6 +8,37 @@ function addIfSet(array &$array, array $get_array, string $key, string $column):
         $array[$column] = $get_array[$key];
 }
 
+function addIfSetSpecial(array &$array, array $get_array, string $key, callable $condition): void
+{
+    if(isset($get_array[$key]))
+        $array[] = $condition($get_array[$key]);
+}
+
+function like(string $column): callable
+{
+    return fn($value) => $column . " LIKE %" . $value . "%";
+}
+
+function dateSup(string $column): callable
+{
+    return fn($value) => $column . " BETWEEN '" . $value . "' AND '2100-01-01'";
+}
+
+function sup(string $column): callable
+{
+    return fn($value) => $column . " >= " . $value;
+}
+
+function inf(string $column): callable
+{
+    return fn($value) => $column . " <= " . $value;
+}
+
+function eq(string $column): callable
+{
+    return fn($value) => $column . " = " . $value;
+}
+
 function addIfSetLike(array &$array, array $get_array, string $key, string $column): void
 {
     if(isset($get_array[$key]))
