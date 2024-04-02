@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
-check_connection();
+checkConnection();
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
@@ -23,7 +23,7 @@ switch($method)
         addIfSetLike($parameters, $_GET, 'lastname', UtilisateurTable::$NOM_COLUMN);
 
         $table = new UtilisateurTable();
-        $utilisateurs = $table->selectLike($parameters);
+        $utilisateurs = $table->selectLike($parameters, fn($a) => Utilisateur::fromArray($a));
 
         echo json_encode($utilisateurs ?? []);
         exit();
@@ -33,8 +33,6 @@ switch($method)
         exit();
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
-
-
 
         if(!isset($data['id']) || !isset($data['firstname']) || !isset($data['lastname']) || !isset($data['email']) || !isset($data['password']) || !isset($data['phone']))
         {
