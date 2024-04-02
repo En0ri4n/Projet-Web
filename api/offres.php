@@ -1,5 +1,6 @@
 <?php
 
+use model\object\Offre;
 use model\table\OffreTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
@@ -11,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 header('Content-Type: application/json');
 
-switch($method) {
+switch ($method) {
     case 'GET':
         $parameters = [];
         addIfSetSpecial($parameters, $_GET, 'name', like(OffreTable::$NAME_COLUMN));
@@ -26,19 +27,20 @@ switch($method) {
         addIfSetSpecial($parameters, $_GET, 'company', eq(OffreTable::$COMPANY_COLUMN));
 
         try {
-
             $offre_table = new OffreTable();
-            $offres = $offre_table->selectSpecialConditions($parameters, fn($a) => \model\object\Offre::fromArray($a));
+            $offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)) , fn($a) => Offre::fromArray($a));
+
+            $json = setupPages(count($offres));
+            $json['offres'] = $offres === null ? [] : $offres;
 
             if ($offres === null) {
-                echo json_encode([]);
+                echo json_encode($json);
                 exit();
             }
-            echo json_encode($offres);
+            echo json_encode($json);
         }
-        catch (Exception $e)
-        {
+        catch (Exception $e) {
             http_response_code(500);
             echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
-        }
+}
