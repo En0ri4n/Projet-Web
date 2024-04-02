@@ -69,12 +69,12 @@ function checkAdminConnection()
     }
 }
 
-function setupPages(int $result_count): array
+function setupPages(AbstractTable $table): array
 {
     $json = [];
     $json['per_page'] = getPerPage();
     $json['page'] = getPage();
-    $json['total_pages'] = ceil($result_count / getPerPage());
+    $json['total_pages'] = ceil($table->getRowCount() / getPerPage());
     return $json;
 }
 
