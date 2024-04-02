@@ -24,6 +24,11 @@ class SecteurTable extends AbstractTable
         return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Secteur::fromArray($a));
     }
 
+    public function selectOr(array $conditions): array|Secteur|null
+    {
+        return parent::defaultSelectOr(self::no_join(), $conditions, fn($a) => Secteur::fromArray($a));
+    }
+
     public function update(mixed $id, array $columns, array $values): bool
     {
         return $this->defaultUpdate($id, $columns, $values);
@@ -33,6 +38,7 @@ class SecteurTable extends AbstractTable
     {
         return $this->defaultDelete($id);
     }
+
 
     protected function getIdColumn(): string
     {
