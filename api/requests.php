@@ -1,5 +1,7 @@
 <?php
 
+use model\table\AbstractTable;
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 
 function addIfSet(array &$array, array $get_array, string $key, string $column): void
@@ -65,6 +67,35 @@ function checkAdminConnection()
         echo json_encode(['error' => 'Vous devez être administrateur pour effectuer cette action']);
         exit();
     }
+}
+
+function setupPages(int $result_count): array
+{
+    $json = [];
+    $json['per_page'] = getPerPage();
+    $json['page'] = getPage();
+    $json['total_pages'] = ceil($result_count / getPerPage());
+    return $json;
+}
+
+function getPerPage(): int
+{
+    if(isset($_GET['per_page']) && is_numeric($_GET['per_page']))
+    {
+        return intval($_GET['per_page']);
+    }
+
+    return 10;
+}
+
+function getPage(): int
+{
+    if(isset($_GET['page']) && is_numeric($_GET['page']))
+    {
+        return intval($_GET['page']);
+    }
+
+    return 1;
 }
 
 function url_decode_and_percent(string $s): string
