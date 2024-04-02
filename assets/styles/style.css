@@ -160,6 +160,7 @@ main {
     display: flex;
     background-color: #82AEB1;
     border-radius: 30px 30px 30px 30px;
+    margin: 10px 0;
     width: 900px;
     height: 200px;
     max-width: 70vw;
@@ -545,8 +546,7 @@ iframe{
 }
 
 
-#premiere_section {
-    width: 100%;
+#premiere_section { 
     box-sizing: border-box;
 }
 
@@ -554,9 +554,10 @@ iframe{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
 }
+
 .liste-etudiant, .liste-utilisateur, .liste-entreprise{
+    width: 80%;
     text-align: center;
     margin: 20px;
 }
@@ -565,6 +566,10 @@ iframe{
     flex-direction: row-reverse;
     justify-content:space-around;
     width: 100%;
+}
+
+.list_data{
+    margin-bottom: 10px;
 }
 
 @media all and (max-width: 600px) {

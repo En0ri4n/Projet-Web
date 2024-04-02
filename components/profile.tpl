@@ -2,7 +2,7 @@
 <h1>Profil de {$user->getPrenom()} {$user->getNom()}</h1>
 <div class="profil">
     <div>
-        <img src="/assets/profil.png" width=512 alt="Image de profil">
+        <img src="/assets/profil.png" width=128 alt="Image de profil">
     </div>
     <div class="liste-info">
         <div>
