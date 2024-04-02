@@ -202,9 +202,6 @@ abstract class AbstractTable
 
         $stmt = $this->getDatabase()->prepare($query);
 
-        foreach($conditions as $key => $value)
-            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
-
         $stmt->execute();
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

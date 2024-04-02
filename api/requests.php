@@ -16,7 +16,7 @@ function addIfSetSpecial(array &$array, array $get_array, string $key, callable 
 
 function like(string $column): callable
 {
-    return fn($value) => $column . " LIKE %" . $value . "%";
+    return fn($value) => $column . " LIKE '%" . $value . "%'";
 }
 
 function dateSup(string $column): callable
