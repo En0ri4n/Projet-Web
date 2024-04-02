@@ -53,11 +53,21 @@ class Candidature extends SerializableObject
         return $this->id_offre;
     }
 
-
     public function toArray(): array
     {
         return [
             CandidatureTable::$ID_COLUMN => $this->id,
+            CandidatureTable::$CV_PATH_COLUMN => $this->cv_path,
+            CandidatureTable::$COVER_LETTER_PATH_COLUMN => $this->cover_letter_path,
+            CandidatureTable::$STATUS_COLUMN => $this->status,
+            CandidatureTable::$ID_ETUDIANT_COLUMN => $this->id_etudiant,
+            CandidatureTable::$ID_OFFRE_COLUMN => $this->id_offre
+        ];
+    }
+
+    public function toInsertArray(): array
+    {
+        return [
             CandidatureTable::$CV_PATH_COLUMN => $this->cv_path,
             CandidatureTable::$COVER_LETTER_PATH_COLUMN => $this->cover_letter_path,
             CandidatureTable::$STATUS_COLUMN => $this->status,

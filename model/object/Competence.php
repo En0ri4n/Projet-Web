@@ -25,6 +25,13 @@ class Competence extends SerializableObject
         return $this->nom;
     }
 
+    public function toInsertArray(): array
+    {
+        return [
+            self::getColumnName(CompetenceTable::$NOM_COLUMN) => $this->nom
+        ];
+    }
+
     public function toArray(): array
     {
        return [

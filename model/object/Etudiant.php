@@ -45,6 +45,11 @@ class Etudiant extends Utilisateur
         return parent::toArray() + array(self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
     }
 
+    public function toInsertArray(): array
+    {
+        return parent::toInsertArray() + array(self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
+    }
+
     public static function fromArray(array $array): Etudiant
     {
         return self::from(Utilisateur::fromArray($array), $array[self::getColumnName(EtudiantTable::$PROMOTION_COLUMN)], $array[self::getColumnName(EtudiantTable::$ADRESSE_COLUMN)]);

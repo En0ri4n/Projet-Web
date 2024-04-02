@@ -17,10 +17,15 @@ class Wishlist extends SerializableObject
         $this->offres = $offres;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
+    {
+        return [
+            self::getColumnName(WishlistTable::$ID_UTILISATEUR_COLUMN) => $this->id_utilisateur,
+            self::getColumnName(WishlistTable::$ID_OFFRE_COLUMN) => $this->offres
+        ];
+    }
+
+    public function toInsertArray(): array
     {
         return [
             self::getColumnName(WishlistTable::$ID_UTILISATEUR_COLUMN) => $this->id_utilisateur,

@@ -16,7 +16,7 @@ header('Content-Type: application/json');
 
 switch($method)
 {
-    case 'GET': //TODO: date supérieure ou égale//
+    case 'GET':
         $parameters = [];
 
         addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$PRENOM_COLUMN));

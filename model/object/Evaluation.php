@@ -57,6 +57,16 @@ class Evaluation extends SerializableObject
         ];
     }
 
+    public function toInsertArray(): array
+    {
+        return [
+            self::getColumnName(EvaluationTable::$NOTE_COLUMN) => $this->note,
+            self::getColumnName(EvaluationTable::$COMMENTAIRE_COLUMN) => $this->commentaire,
+            self::getColumnName(EvaluationTable::$ID_UTILISATEUR_COLUMN) => $this->id_utilisateur,
+            self::getColumnName(EvaluationTable::$ID_ENTREPRISE_COLUMN) => $this->id_entreprise
+        ];
+    }
+
     public static function fromArray(array $array): Evaluation
     {
         return new Evaluation(

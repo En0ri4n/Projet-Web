@@ -95,6 +95,18 @@ class Entreprise extends SerializableObject
         ];
     }
 
+    public function toInsertArray()
+    {
+        return [
+        self::getColumnName(EntrepriseTable::$NOM_COLUMN) => $this->nom,
+        self::getColumnName(EntrepriseTable::$SITE_COLUMN) => $this->site,
+        self::getColumnName(EntrepriseTable::$DESCRIPTION_COLUMN) => $this->description,
+        self::getColumnName(EntrepriseTable::$EMAIL_COLUMN) => $this->email,
+        self::getColumnName(EntrepriseTable::$TELEPHONE_COLUMN) => $this->telephone,
+        self::getColumnName(EntrepriseTable::$STATUS_COLUMN) => $this->status
+    ];
+    }
+
     public static function fromArray(array $array): Entreprise
     {
         return new Entreprise(
