@@ -19,13 +19,17 @@ switch($method)
     case 'GET': //TODO: date supérieure ou égale//
         $parameters = [];
 
-        addIfSetLike($parameters, $_GET, 'firstname', UtilisateurTable::$PRENOM_COLUMN);
-        addIfSetLike($parameters, $_GET, 'lastname', UtilisateurTable::$NOM_COLUMN);
+        addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$PRENOM_COLUMN));
+        addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$NOM_COLUMN));
 
         $table = new UtilisateurTable();
-        $utilisateurs = $table->selectLike($parameters, fn($a) => Utilisateur::fromArray($a));
+        $json = setupPages($table);
 
-        echo json_encode($utilisateurs ?? []);
+        $utilisateurs = $table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Utilisateur::fromArray($a));
+
+        $json['users'] = $utilisateurs ?? [];
+
+        echo json_encode($json);
         exit();
     default:
         http_response_code(405);
