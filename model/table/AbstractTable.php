@@ -119,11 +119,9 @@ abstract class AbstractTable
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return array_map((fn($row) => $fromArray($row)), $rows);
             }
-            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
-            $stmt = $this->getDatabase()->prepare($query);
+            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $key . " = " . $conditions[$key]), array_keys($conditions)));
 
-            foreach($conditions as $key => $value)
-                $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+            $stmt = $this->getDatabase()->query($query);
 
             $stmt->execute();
 
@@ -179,12 +177,45 @@ abstract class AbstractTable
     /**
      * Select from the table with special conditions
      *
-     * @param array $columns The columns to select
      * @param array $conditions The conditions to apply to the select (e.g. "id = 1")
      * @return PDOStatement|null The result of the select
      * @throws Exception if the function is not implemented
      */
-    public function selectSpecialConditions(array $columns, array $conditions): mixed { throw new Exception("Not Implemented"); }
+    public function selectSpecialConditions(array $conditions, callable $fromArray): mixed
+    {
+        $query = "SELECT * FROM " . $this->getTableName();
+
+        if(empty($conditions))
+        {
+            $stmt = $this->getDatabase()->query($query);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+
+            return null;
+        }
+
+        $query .= " WHERE " . implode(" AND ", $conditions);
+
+        $stmt = $this->getDatabase()->prepare($query);
+
+        foreach($conditions as $key => $value)
+            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($rows) == 1)
+            return $fromArray($rows[0]);
+        elseif(count($rows) > 1)
+            return array_map((fn($row) => $fromArray($row)), $rows);
+
+        return null;
+    }
 
     /**
      * Update the row with the given id

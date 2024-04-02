@@ -8,15 +8,14 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/PromotionTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Promotion.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
-check_connection();
+checkConnection();
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
 
 header('Content-Type: application/json');
 
-switch($method)
-{
+switch ($method) {
     case 'GET':
         $parameters = [];
 

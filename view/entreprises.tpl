@@ -8,13 +8,14 @@
 {include file='components/header.tpl'}
 <main>
     <div class="liste-utilisateur">
-        <form method="post">
-            <h1>Entreprise</h1>
-            <div class="search-by-name">
-                <input type="search" class="search-bar" placeholder="Rechercher une entreprise">
-                <input type="submit" class="submit-small" value="Rechercher">
-            </div>
-        </form>
+            <form method="post">
+                <h1>Entreprise</h1>
+                <div class="search-by-name">
+                    <input type="search" class="search-bar" placeholder="Rechercher une entreprise">
+                    <input type="submit" class="submit-small" value="Rechercher">
+                </div>
+            </form>
+        </div>
         <div class="list_data">
             <div class="contener_row">
                 <article class="etudiant">

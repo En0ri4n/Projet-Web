@@ -31,6 +31,11 @@ class AdresseTable extends AbstractTable
         return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Adresse::fromArray($a));
     }
 
+    public function selectOr(array $conditions): mixed
+    {
+        return parent::defaultSelectOr(self::no_join(), $conditions, fn($a) => Adresse::fromArray($a));
+    }
+
     public function update(mixed $id, array $columns, array $values): bool
     {
         return $this->defaultUpdate($id, $columns, $values);

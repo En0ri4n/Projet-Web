@@ -15,8 +15,12 @@
     </div>
     <div class="resume-entreprise">
         <div class="entete-entreprise">
-            <h1><a class="titre-link" href="description_entreprise.tpl">{$entreprise->getNom()}</a></h1>
-            <span id="Domaine">Domaines de l'entreprise</span>
+            <h1><a class="titre-link" href="/description-entreprise?entrepriseId={$entreprise->getId()}">{$entreprise->getNom()}</a></h1>
+            <span id="Domaine">
+                {foreach $entreprise_secteurs as $secteur}
+                    {$secteur->getNom()}
+                {/foreach}
+            </span>
         </div>
         <p class="description">
             {$entreprise->getDescription()}
@@ -65,7 +69,8 @@
         <div class="liste-info">
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-liste">Adresse</span> <span>inserer adresse</span> {* TODO: adresse *}
+                <span class="soustitre-liste">Adresse</span>
+                <span>{$entreprise_adresses[0]->getNumero()} {$entreprise_adresses[0]->getRue()} {$entreprise_adresses[0]->getVille()} {$entreprise_adresses[0]->getCodePostal()}</span>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
