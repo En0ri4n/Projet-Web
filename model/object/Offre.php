@@ -3,7 +3,9 @@
 namespace model\object;
 
 use model\table\AdresseTable;
+use model\table\CompetenceTable;
 use model\table\EntrepriseTable;
+use model\table\LinkTable;
 use model\table\OffreTable;
 use model\table\SecteurTable;
 
@@ -109,6 +111,12 @@ class Offre extends SerializableObject
         unset($a[self::getColumnName(OffreTable::$COMPANY_COLUMN)]); // Remove 'IdEntreprise'
         $table = new EntrepriseTable();
         $a['entreprise'] = $table->select([EntrepriseTable::$ID_COLUMN => $this->getIdCompany()]);
+
+        $table = LinkTable::getOffreToCompetence();
+        $links_offre_competence = $table->select([$table->getIdFromColumn() => $this->getId()]);
+        $table = new CompetenceTable();
+        $competences = \Controller::fromLinks($links_offre_competence ?? [], CompetenceTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $a['competences'] = $competences;
 
         return $a;
     }
