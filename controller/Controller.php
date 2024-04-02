@@ -96,6 +96,61 @@ class Controller
     public function descriptionEntrepriseController(): void
     {
         $this->setup(false);
+		
+		if(!isset($_GET['entrepriseId']))
+        {
+            $this->smarty->assign('entreprise_exists', false);
+            $this->display('view/description_entreprise.tpl');
+            return;
+        }
+		
+		$this->smarty->assign('entreprise_exists', true);
+		$table = new EntrepriseTable();
+        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['entrepriseId']]);
+		
+		if($entreprise == null)
+        {
+            $this->smarty->assign('entreprise_exists', false);
+            $this->display('view/description_entreprise.tpl');
+            return;
+        }
+        $this->smarty->assign('entreprise', $entreprise);
+
+        // TODO: Copier les changements des compétences d'une entreprise ici
+        $table = LinkTable::getEntrepriseToSecteur();
+        $links_secteurs = $table->select([LinkTable::getEntrepriseToSecteur()->getIdFromColumn() => $entreprise->getId()]);
+        $table = new SecteurTable();
+        $q = array();
+
+        if(is_array($links_secteurs))
+        {
+            foreach($links_secteurs as $link)
+                array_merge($q, [SecteurTable::$ID_COLUMN => $link->getIdTo()]);
+            $secteurs[] = $table->selectOr($q); 
+        }
+        else
+        {
+            $secteurs[] = $table->select([SecteurTable::$ID_COLUMN => $links_secteurs->getIdTo()]);
+        }
+
+        $table = LinkTable::getEntrepriseToAdresse();
+        $links_adresses = $table->select([LinkTable::getEntrepriseToAdresse()->getIdFromColumn() => $entreprise->getId()]);
+        $table = new AdresseTable();
+        $q = array();
+
+        if(is_array($links_adresses))
+        {
+            foreach($links_adresses as $link)
+                array_merge($q, [AdresseTable::$ID_COLUMN => $link->getIdTo()]);
+            $adresses[] = $table->selectOr($q); 
+        }
+        else
+        {
+            $adresses[] = $table->select([AdresseTable::$ID_COLUMN => $links_adresses->getIdTo()]);
+        }
+
+        // TODO: Listes des offres d'une entreprise
+		
         $this->display('view/description_entreprise.tpl');
     }
 

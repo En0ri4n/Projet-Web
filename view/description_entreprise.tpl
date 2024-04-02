@@ -53,7 +53,6 @@
             <span class="fas fa-star" data-star="3"></span>
             <span class="fas fa-star" data-star="4"></span>
             <span class="fas fa-star" data-star="5"></span>
-            &nbsp; Note : <span class="rating"></span>
         </div>
     </div>
     <div class="contact">
