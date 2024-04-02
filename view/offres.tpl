@@ -26,7 +26,7 @@
             <button id="filter-button">Filtrer</button>
         </div>
     </div>
-    <div class="liste-offres">
+    <div class="liste-offres" id="liste-offres">
         <article class="offre">
             <div class="c1">
                 <span class="poste">Poste1</span>
@@ -44,7 +44,6 @@
                 </ul>
             </div>
         </article>
-
         <article class="offre">
             <div class="c1">
                 <span class="poste">Poste2</span>

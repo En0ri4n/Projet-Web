@@ -15,7 +15,7 @@
                 <input type="submit" class="submit-small" value="Rechercher">
             </div>
         </form>
-        <div class="list_data">
+        <div class="list_data" id="liste-utilisateurs">
             <div class="contener_row">
                 <article class="etudiant">
                     <img src="/assets/profil.png" alt="Etudiant">
@@ -59,5 +59,5 @@
 </main>
 {include file='components/footer.tpl'}
 </body>
-<script type="module" src="/scripts/utilisateurs.js"></script>  <!-- TODO Créer le bon script-->
+<script type="module" src="/scripts/users.js"></script>  <!-- TODO Créer le bon script-->
 </html>
