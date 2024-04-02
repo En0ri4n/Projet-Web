@@ -33,7 +33,7 @@ switch($method)
             $offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Offre::fromArray($a));
 
             $json = setupPages($offre_table);
-            $json['offres'] = $offres === null ? [] : $offres;
+            $json['offres'] = $offres === null ? [] : (is_array($offres) ? $offres : [$offres]);
 
             if($offres === null)
             {
