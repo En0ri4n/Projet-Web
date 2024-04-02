@@ -261,6 +261,7 @@ class Controller
             $promotion_table = new PromotionTable();
 
             $promotions = $promotion_table->select([PromotionTable::$PILOT_COLUMN => $user->getId()]);
+            $this->smarty->assign('has_promotion', $promotions != null);
             $this->smarty->assign('promotions', is_array($promotions) ? $promotions : [$promotions]);
         }
 
