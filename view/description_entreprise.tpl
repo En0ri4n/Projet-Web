@@ -6,48 +6,62 @@
     <!-- pas toucher -->
     <link rel="stylesheet" href="/assets/styles/etoile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
     <script src="etoile.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+     <style>
+        #map {height: 500px; width:500px}
+     </style>
 </head>
 <body>
+
 {include file='components/header.tpl'}
 <main>
+    {if $entreprise_exists}
     <div id="premiere_section">
         <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d206142.40185708913!2d7.438217952285873!3d48.6633638245937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47942e6e169737ed%3A0xb799f7853b7d739!2sPompes%20Funebres%20du%20Pays%20De%20Bitches!5e0!3m2!1sfr!2sfr!4v1708078412049!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
     <div class="resume-entreprise">
         <div class="entete-entreprise">
-            <h1>NomEntreprise</h1>
-            <span id="Domaine">Domaine</span>
+            <h1>{$entreprise->getNom()}</h1>
+            <span id="Domaine">
+                {foreach $entreprise_secteurs as $secteur}
+                    {$secteur->getNom()}
+                {/foreach}
+            </span>
         </div>
         <p class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi eget mauris pharetra et. Neque aliquam vestibulum morbi blandit cursus risus at. Et malesuada fames ac turpis. Proin fermentum leo vel orci porta non pulvinar. Tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. At urna condimentum mattis pellentesque id nibh. Porta lorem mollis aliquam ut porttitor leo a. Et leo duis ut diam quam nulla porttitor. Quis risus sed vulputate odio ut enim blandit. Duis convallis convallis tellus id interdum velit laoreet id donec. Et molestie ac feugiat sed lectus vestibulum. Sapien nec sagittis aliquam malesuada bibendum. Rutrum quisque non tellus orci ac auctor augue mauris. Tortor posuere ac ut consequat semper viverra nam libero. Ante in nibh mauris cursus mattis molestie. Faucibus turpis in eu mi bibendum.
+            {$entreprise->getDescription()}
         </p>
     </div>
     <div class="liste-offres">
-    <h1>Offres de l'entreprise</h1>
-            <article class="offre" onclick="window.location.href='/description_offre.tpl';">
-                <div class="c1">
-                    <span class="poste">Poste</span>
-                    <span>Entreprise</span>
-                    <span class="niveau">Niveau</span>
-                </div>
-                <div class="c2">
-                    <span class="domaine">Domaine</span>
-                    <span class="dates">Dates</span>
-                </div>
-                <div class="c3">
-                    <ul class="competences">Compétences :
-                        <li>competence 1</li>
-                        <li>competence 2</li>
-                    </ul>
-                </div>
-            </article>
+        <h1>Offres de l'entreprise</h1>
+        <article class="offre" onclick="window.location.href='{$default_page}';">
+            <div class="c1">
+                <span class="poste">Poste</span>
+                <span>Entreprise</span>
+                <span class="niveau">Niveau</span>
+            </div>
+            <div class="c2">
+                <span class="domaine">Domaine</span>
+                <span class="dates">Dates</span>
+            </div>
+            <div class="c3">
+                <ul class="competences">Compétences :
+                    <li>competence 1</li>
+                    <li>competence 2</li>
+                </ul>
+            </div>
+        </article>
     </div>
     <div class="evaluation">
+        <h2>Laisser une évaluation</h2>
         <div class="note-etoiles">
-            Laisser une évaluation
             <span class="fas fa-star" data-star="1"></span>
             <span class="fas fa-star" data-star="2"></span>
             <span class="fas fa-star" data-star="3"></span>
@@ -60,20 +74,57 @@
         <div class="liste-info">
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-liste">Adresse</span> <span>inserer adresse</span>
+                <span class="soustitre-liste">Adresse</span>
+                <ul>
+                    {foreach $entreprise_adresses as $adresse}
+                        <li>{$adresse->getNumero()} {$adresse->getRue()} {$adresse->getVille()} {$adresse->getCodePostal()}</li>
+                    {/foreach}
+                </ul>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-liste">Mail</span> <span>inserer mail</span>
+                <span class="soustitre-liste">Mail</span> <span><a href="mailto:{$entreprise->getEmail()}">{$entreprise->getEmail()}</a></span>
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-liste">Telephone</span>  <span>inserer telephone</span>
+                <span class="soustitre-liste">Telephone</span> <span><a href="tel:{$entreprise->getTelephone()}">{$entreprise->getTelephone()}</span>
             </div>
         </div>
     </div>
+    {else}
+        <h1>L'entreprise n'existe pas :/</h1>
+    {/if}
 </main>
 {include file='components/footer.tpl'}
 </body>
 <script type="module" src="/scripts/etoile.js"></script>
+<script>
+
+var map = L.map('map');
+    map.setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+let apiKey = "8b0b65847e964e828fb065d72b3a57b4";
+
+const address = 'Baldersgade 3B, 2200 Copenhagen, Denmark';
+
+fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=8b0b65847e964e828fb065d72b3a57b4`)
+.then(resp => resp.json())
+.then((geocodingResult) => {
+	console.log(geocodingResult);
+});
+
+addressurl = "https://api.geoapify.com/v1/geocode/search?housenumber=11&street=Rue%20Grenette&postcode=69002&city=Lyon&country=France&apiKey=8b0b65847e964e828fb065d72b3a57b4";
+
+/*navigator.geolocation.watchPosition(success, error);*/
+
+let marker;
+
+marker = L.marker([lat, lon]).addTo(map);
+map.setView([address.lat, address.lon], 17);
+</script>
 </html>

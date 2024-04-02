@@ -17,7 +17,7 @@ function onReady() {
         }
     }).then(data => {
         console.log(data);
-        const offres = document.getElementById('offres');
+        const offres = document.getElementById('liste-offres');
         data.forEach(offre => {
             const div = document.createElement('article');
             div.classList.add('offre');
@@ -25,7 +25,7 @@ function onReady() {
                 <div class="c1">
                     <span class="poste">` + offre["NomOffre"] + `</span>
                     <span class="entreprise">` + offre["NomOffre"] + `</span>
-                    <span class="niveau">` + offre["NomOffre"] + `</span>
+                    <span class="niveau">` + offre["NiveauOffre"] + `</span>
                 </div>
                 <div class="c2">
                     <span class="domaine">` + offre["NomOffre"] + `</span>

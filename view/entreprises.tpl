@@ -53,5 +53,5 @@
 </main>
 {include file='components/footer.tpl'}
 </body>
-<script type="module" src="/scripts/offres.js"></script> <!-- TODO Créer le bon script-->
+<script type="module" src="/scripts/entreprises.js"></script> <!-- TODO Créer le bon script-->
 </html>

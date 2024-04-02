@@ -108,6 +108,16 @@ abstract class AbstractTable
         return null;
     }
 
+    /**
+     * Select one or more rows from the table with the given column keys and values with an OR condition<br>
+     * Default implementation<br>
+     * WARNING: The values must be the column name (e.g. ["1" => "id"]) to search multiple values for the same column
+     *
+     * @param string $join_query The join query to use
+     * @param array $conditions Associative array of column keys and values to select. WARNING: The values must be the column name
+     * @param callable $fromArray The object to create from the row
+     * @return mixed The result of the select (e.g. an object or an array of objects)
+     */
     protected function defaultSelectOr(string $join_query, array $conditions, callable $fromArray): mixed
     {
         try
@@ -119,7 +129,9 @@ abstract class AbstractTable
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return array_map((fn($row) => $fromArray($row)), $rows);
             }
-            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $key . " = " . $conditions[$key]), array_keys($conditions)));
+
+            // We use the inverse of the conditions beacause we have ["1" => "id"] to have ["id" => "1"]
+            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $conditions[$key] . " = " . $key), array_keys($conditions)));
 
             $stmt = $this->getDatabase()->query($query);
 
@@ -202,6 +214,52 @@ abstract class AbstractTable
 
         $stmt = $this->getDatabase()->prepare($query);
 
+        foreach($conditions as $key => $value)
+            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($rows) == 1)
+            return $fromArray($rows[0]);
+        elseif(count($rows) > 1)
+            return array_map((fn($row) => $fromArray($row)), $rows);
+
+        return null;
+    }
+
+    /**
+     * Select from the table with special conditions
+     *
+     * @param array $conditions The conditions to apply to the select (e.g. "id = 1")
+     * @return PDOStatement|null The result of the select
+     * @throws Exception if the function is not implemented
+     */
+    public function selectSpecialConditionsAndParameters(array $conditions, string $parameters, callable $fromArray): mixed
+    {
+        $query = "SELECT * FROM " . $this->getTableName();
+
+        if(empty($conditions))
+        {
+            $query .= " " . $parameters;
+            $stmt = $this->getDatabase()->query($query);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+
+            return null;
+        }
+
+        $query .= " WHERE " . implode(" AND ", $conditions);
+
+        $query .= " " . $parameters;
+
+        $stmt = $this->getDatabase()->prepare($query);
+
         $stmt->execute();
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -257,6 +315,11 @@ abstract class AbstractTable
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
+    }
+
+    public function getRowCount(): int
+    {
+        return count($this->select([]));
     }
 
     /**
