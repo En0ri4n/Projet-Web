@@ -6,6 +6,7 @@ use model\object\Promotion;
 use model\object\SerializableObject;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/AbstractTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Promotion.php');
 
 class PromotionTable extends AbstractTable
 {
