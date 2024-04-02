@@ -12,7 +12,8 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 header('Content-Type: application/json');
 
-switch ($method) {
+switch($method)
+{
     case 'GET':
         $parameters = [];
         addIfSetSpecial($parameters, $_GET, 'name', like(OffreTable::$NAME_COLUMN));
@@ -26,21 +27,60 @@ switch ($method) {
         addIfSetSpecial($parameters, $_GET, 'address', eq(OffreTable::$ADDRESS_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'company', eq(OffreTable::$COMPANY_COLUMN));
 
-        try {
+        try
+        {
             $offre_table = new OffreTable();
-            $offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)) , fn($a) => Offre::fromArray($a));
+            $offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Offre::fromArray($a));
 
-            $json = setupPages(count($offres));
+            $json = setupPages($offre_table);
             $json['offres'] = $offres === null ? [] : $offres;
 
-            if ($offres === null) {
+            if($offres === null)
+            {
                 echo json_encode($json);
-                exit();
+                exit;
             }
             echo json_encode($json);
         }
-        catch (Exception $e) {
+        catch(Exception $e)
+        {
             http_response_code(500);
             echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
+        exit;
+    case 'POST':
+        $data = json_decode(file_get_contents('php://input'), true);
+        if($data === null)
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Données invalides']);
+            exit;
+        }
+
+        $offre = Offre::fromArray($data);
+
+        if($offre === null)
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Données invalides']);
+            exit;
+        }
+
+        try
+        {
+            $offre_table = new OffreTable();
+            $offre_table->insert($offre);
+            http_response_code(201);
+            echo json_encode(['id' => $offre->getId()]);
+        }
+        catch(Exception $e)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+        }
+        exit;
+    default:
+        http_response_code(500);
+        echo json_encode(['error' => 'Méthode non supportée']);
+        exit;
 }
