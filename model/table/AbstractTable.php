@@ -119,11 +119,9 @@ abstract class AbstractTable
                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return array_map((fn($row) => $fromArray($row)), $rows);
             }
-            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $key . " = :" . $this->escape_and_lower($key)), array_keys($conditions)));
-            $stmt = $this->getDatabase()->prepare($query);
+            $query .= " WHERE " . implode(" OR ", array_map((fn($key) => $key . " = " . $conditions[$key]), array_keys($conditions)));
 
-            foreach($conditions as $key => $value)
-                $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
+            $stmt = $this->getDatabase()->query($query);
 
             $stmt->execute();
 

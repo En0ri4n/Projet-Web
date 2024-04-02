@@ -213,6 +213,7 @@
         padding-bottom: 5px;
     }
 }
+
 /*affichage petit ecran pour header*/
 @media screen and (max-width: 1130px) {
     #header {
@@ -235,7 +236,7 @@
                 justify-self: left;
                 background: none;
                 border: none;
-    
+
                 #menu-burger-icon {
                     height: 70%;
                     width: 70%;
