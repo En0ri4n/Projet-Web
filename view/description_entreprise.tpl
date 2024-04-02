@@ -6,17 +6,24 @@
     <!-- pas toucher -->
     <link rel="stylesheet" href="/assets/styles/etoile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
     <script src="etoile.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+     <style>
+        #map {height: 500px; width:500px}
+     </style>
 </head>
 <body>
+
 {include file='components/header.tpl'}
 <main>
     {if $entreprise_exists}
     <div id="premiere_section">
         <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d206142.40185708913!2d7.438217952285873!3d48.6633638245937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47942e6e169737ed%3A0xb799f7853b7d739!2sPompes%20Funebres%20du%20Pays%20De%20Bitches!5e0!3m2!1sfr!2sfr!4v1708078412049!5m2!1sfr!2sfr"
-                    style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
     <div class="resume-entreprise">
@@ -91,4 +98,33 @@
 {include file='components/footer.tpl'}
 </body>
 <script type="module" src="/scripts/etoile.js"></script>
+<script>
+
+var map = L.map('map');
+    map.setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+let apiKey = "8b0b65847e964e828fb065d72b3a57b4";
+
+const address = 'Baldersgade 3B, 2200 Copenhagen, Denmark';
+
+fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=8b0b65847e964e828fb065d72b3a57b4`)
+.then(resp => resp.json())
+.then((geocodingResult) => {
+	console.log(geocodingResult);
+});
+
+addressurl = "https://api.geoapify.com/v1/geocode/search?housenumber=11&street=Rue%20Grenette&postcode=69002&city=Lyon&country=France&apiKey=8b0b65847e964e828fb065d72b3a57b4";
+
+/*navigator.geolocation.watchPosition(success, error);*/
+
+let marker;
+
+marker = L.marker([lat, lon]).addTo(map);
+map.setView([address.lat, address.lon], 17);
+</script>
 </html>
