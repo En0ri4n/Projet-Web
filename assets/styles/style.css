@@ -557,6 +557,7 @@ iframe{
     padding-top: 10px;
 }
 .liste-etudiant, .liste-utilisateur, .liste-entreprise{
+    width: 80%;
     text-align: center;
     margin: 20px;
 }
