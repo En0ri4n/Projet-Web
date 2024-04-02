@@ -18,9 +18,18 @@
     </div>
     <div id="header-bottom">
         <ul>
+<<<<<<< Updated upstream
             {foreach $links as $name => $link}
                 <li><a href="{$link}">{$name}</a></li>
             {/foreach}
+=======
+            <li><a href="/profil?userId={$current_user->getId()}">Mon Profil</a></li>
+            <li><a href="/api/logout">Déconnexion</a></li>
+            <li><a href="/offres">Offres</a></li>
+            <li><a href="/about">À propos de nous</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/mentions">Mentions Légales</a></li>
+>>>>>>> Stashed changes
         </ul>
     </div>
 </header>
