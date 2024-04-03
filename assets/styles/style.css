@@ -653,6 +653,10 @@ iframe{
     margin-left: 2em;
 }
 
+.checked{
+    color: #D72483;
+}
+
 @media all and (max-width: 600px) {
     .form, .offre-resume {
         border: none;
