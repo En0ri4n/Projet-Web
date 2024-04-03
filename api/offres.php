@@ -10,6 +10,10 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
 
+checkConnection();
+
+ob_start('ob_gzhandler');
+
 header('Content-Type: application/json');
 
 switch($method)
@@ -30,9 +34,12 @@ switch($method)
         try
         {
             $offre_table = new OffreTable();
+
+            $total_offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "", fn($a) => Offre::fromArray($a));
+
             $offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Offre::fromArray($a));
 
-            $json = setupPages($offre_table);
+            $json = setupPages(count(is_array($total_offres) ? $total_offres : ($total_offres === null ? [] : [$total_offres])));
             $json['offres'] = $offres === null ? [] : (is_array($offres) ? $offres : [$offres]);
 
             if($offres === null)
