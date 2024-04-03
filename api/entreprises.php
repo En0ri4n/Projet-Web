@@ -77,6 +77,30 @@ switch($method)
             echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
+
+    case 'PUT':
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['id']))
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            exit();
+        }
+
+        $entrepriseTable = new EntrepriseTable();
+        $id = array_shift($data);
+        try {
+            $entrepriseTable->defaultJoinUpdate($id, '', $data);
+            echo json_encode(['success' => 'Entreprise mise à jour', 'entreprise' => $id]);
+        }
+        catch(Exception $e)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+        }
+        exit();
+
     default:
         http_response_code(500);
         echo json_encode(['error' => 'Méthode non supportée']);

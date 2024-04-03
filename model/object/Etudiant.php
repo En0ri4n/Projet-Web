@@ -10,12 +10,14 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 
 class Etudiant extends Utilisateur
 {
+    protected string $id;
     private int $idPromotion;
     private int $idAdresse;
 
     public function __construct(string $id, string $nom, string $prenom, string $email, string $motDePasse, string $telephone, int $idPromotion, int $idAdresse)
     {
         parent::__construct($id, $nom, $prenom, $email, $motDePasse, $telephone);
+        $this->id = $id;
         $this->idPromotion = $idPromotion;
         $this->idAdresse = $idAdresse;
     }
@@ -47,7 +49,7 @@ class Etudiant extends Utilisateur
 
     public function toInsertArray(): array
     {
-        return parent::toInsertArray() + array(self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
+        return array(self::getColumnName(\EtudiantTable::$ID_COLUMN) => $this->id, self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
     }
 
     public static function fromArray(array $array): Etudiant
