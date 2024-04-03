@@ -2,22 +2,22 @@
 getCoordinates();
 function getCoordinates(){
     url = new URL(window.location.href);
-    let id = url.searchParams.get("entrepriseId");
+    let id = url.searchParams.get("offreId");
 
-    fetch('/api/entreprises?IdEntreprise=' +id, { // TODO: mettre à jour tout ça bien
+    fetch('/api/offres?IdOffres=' +id, { // TODO: mettre à jour tout ça bien
         method: 'GET', headers: {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json()).then( (data) =>
     {
         console.log(data)
-        data['entreprises'].forEach(entreprises =>{
-            console.log(entreprises)
-            let num = entreprises['adresses'][0]['Numero'];
-            let rue = entreprises['adresses'][0]['Rue'];
-            let ville = entreprises['adresses'][0]['Ville'];
-            let cp = entreprises['adresses'][0]['CodePostal'];
-            let pays = entreprises['adresses'][0]['Pays'];
+        data['offres'].forEach(offres =>{
+            console.log(offres)
+            let num = offres['adresses'][0]['Numero'];
+            let rue = offres['adresses'][0]['Rue'];
+            let ville = offres['adresses'][0]['Ville'];
+            let cp = offres['adresses'][0]['CodePostal'];
+            let pays = offres['adresses'][0]['Pays'];
             fetch('https://api.geoapify.com/v1/geocode/search?housenumber='+num+'&street='+rue+'&postcode='+cp+'&city='+ville+'&country='+pays+'&apiKey=8b0b65847e964e828fb065d72b3a57b4', {
                 method: 'GET', headers: {
                     'Content-Type': 'application/json'
