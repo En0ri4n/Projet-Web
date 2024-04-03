@@ -3,6 +3,7 @@
 <head>
     <title>Description Entreprise</title>
     {include file='components/head.tpl'}
+
     <!-- pas toucher -->
     <!-- etoiles -->
     <link rel="stylesheet" href="/assets/styles/etoile.css">
@@ -90,7 +91,7 @@
             </div>
             <div>
                 <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
-                <span class="soustitre-liste">Telephone</span> <span><a href="tel:{$entreprise->getTelephone()}">{$entreprise->getTelephone()}</span>
+                <span class="soustitre-liste">Telephone</span> <span><a href="tel:{$entreprise->getTelephone()}">{$entreprise->getTelephone()}</a></span>
             </div>
         </div>
     </div>
