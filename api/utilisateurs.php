@@ -9,7 +9,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
-checkConnection();
+//checkConnection();
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
@@ -29,7 +29,18 @@ switch($method)
 
         $utilisateurs = $table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Utilisateur::fromArray($a));
 
-        $json['users'] = $utilisateurs ?? [];
+        /*TODO : Fix*/
+        if (isset($_GET['promotion'])) {
+            $a = [];
+            foreach ($utilisateurs as $u) {
+                if ($u->jsonSerialize()["user_type"] == "etudiant") {
+                    if ($u->jsonSerialize()['promotion'] == $_GET['promotion']) {
+                        $a[] = $u;
+                    }
+                }
+            }
+        }
+        $json['users'] = $a ?? $utilisateurs;
 
         echo json_encode($json);
         exit();
@@ -69,7 +80,7 @@ switch($method)
                     exit();
                 }
 
-                $address = new \model\object\Adresse(null, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
+                $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
                 $etudiant = new Etudiant($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone'], $data['idPromo'], $address->getId()); /*TODO : eventuellement changer le constructeur pour prendre en param un objet Utilisateur*/
                 $tableAddress = new \model\table\AdresseTable();
                 $tableStudent = new EtudiantTable();
@@ -94,7 +105,7 @@ switch($method)
                     exit();
                 }
                 $pilote = new \model\object\Pilote($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
-                $promotion = new \model\object\Promotion(null,$data['namePromo'], $data['typePromo'], $data['datePromo'], $data['lvlPromo'], $data['durationPromo'], $data['center'], $pilote->getId());
+                $promotion = new \model\object\Promotion(-1,$data['namePromo'], $data['typePromo'], $data['datePromo'], $data['lvlPromo'], $data['durationPromo'], $data['center'], $pilote->getId());
                 $tablePilote = new PiloteTable();
                 $tablePromotion = new \model\table\PromotionTable();
                 try

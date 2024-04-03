@@ -101,6 +101,9 @@ class Utilisateur extends SerializableObject
 
             $table = new AdresseTable();
             $a['adresse'] = $table->select([AdresseTable::$ID_COLUMN => $etudiant->getIdAdresse()])->jsonSerialize();
+
+            $table = new PromotionTable();
+            $a['promotion'] = $table->select([PromotionTable::$ID_COLUMN => $etudiant->getIdPromotion()])->jsonSerialize();
         }
         elseif(AdministrateurTable::isAdministrateur($this->id))
         {

@@ -49,21 +49,19 @@ switch($method)
             exit;
         }
 
-        $offre = Offre::fromArray($data);
-
-        if($offre === null)
-        {
+        if(!isset($data['name']) || !isset($data['site']) || !isset($data['description']) || !isset($data['email']) || !isset($data['phone']) || !isset($data['status'])){
             http_response_code(400);
-            echo json_encode(['error' => 'Données invalides']);
-            exit;
+            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['name', 'site', 'description', 'email', 'phone', 'status'], 'received' => array_keys($data ?? [])]);
+            exit();
         }
 
         try
         {
-            $entreprise_table = new OffreTable();
-            $entreprise_table->insert($offre);
+            $entreprise = new Entreprise(-1, $data['name'], $data['site'], $data['description'], $data['email'], $data['phone'], $data['status']);
+            $entreprise_table = new EntrepriseTable();
+            $entreprise_table->insert($entreprise);
             http_response_code(201);
-            echo json_encode(['id' => $offre->getId()]);
+            echo json_encode(['id' => $entreprise_table->getLastInsertId()]);
         }
         catch(Exception $e)
         {
