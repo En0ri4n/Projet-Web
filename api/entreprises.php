@@ -8,6 +8,10 @@ use model\table\OffreTable;
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
+checkConnection();
+
+ob_start('ob_gzhandler');
+
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -23,9 +27,12 @@ switch($method)
         try
         {
             $entreprise_table = new EntrepriseTable();
+
+            $total_entreprises = $entreprise_table->selectSpecialConditionsAndParameters($parameters, "", fn($a) => Entreprise::fromArray($a));
+
             $entreprises = $entreprise_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Entreprise::fromArray($a));
 
-            $json = setupPages($entreprise_table);
+            $json = setupPages(count(is_array($total_entreprises) ? $total_entreprises : ($total_entreprises === null ? [] : [$total_entreprises])));
             $json['entreprises'] = $entreprises === null ? [] : (is_array($entreprises) ? $entreprises : [$entreprises]);
 
             if($entreprises === null)
