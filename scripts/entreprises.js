@@ -1,7 +1,7 @@
 import {addEventTo} from "./main.js";
 import {currentPage, initPagination, reloadPagination, setTotalPages} from "./pagination.js";
 
-addEventTo(document, 'DOMContentLoaded', onReady);
+addEventTo(document, 'DOMContentLoaded', onReady); // TODO: Tout à faire, remplacer les valeurs
 
 async function onReady()
 {
