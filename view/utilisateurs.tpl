@@ -10,7 +10,7 @@
     <div class="liste-utilisateur">
         <form method="post">
             <h1>Utilisateurs</h1>
-            <div class="search-by-name">
+            <div class="search-by-name" id="premiere_section">
                 <input type="search" class="search-bar" placeholder="Rechercher un étudiant">
                 <input type="submit" class="submit-small" value="Rechercher">
             </div>

@@ -643,6 +643,11 @@ iframe{
     }
 }
 
+.image-error-page{
+    width: max(30vw, 400px);
+    margin: 10px;
+}
+
 @media all and (max-width: 600px) {
     .form, .offre-resume {
         border: none;

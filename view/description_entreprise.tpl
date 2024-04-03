@@ -27,9 +27,7 @@
 <main>
     {if $entreprise_exists}
     <div id="premiere_section">
-
         <div class="map" id="map"></div>
-        
     </div>
     <div class="resume-entreprise">
         <div class="entete-entreprise">
