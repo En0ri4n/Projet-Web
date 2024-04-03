@@ -216,7 +216,7 @@ main {
     background-color: #a51550;
 }
 
-.form {
+.form, .offre-resume {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -612,8 +612,35 @@ iframe{
 
 }
 
+.form__file{
+    display: flex;
+    flex-direction: column;
+    width: min(90vw,350px);
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    input {
+        margin: 10px 0 0 0;
+        padding: 8px 0 8px 8px;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
+
+        &:focus {
+            border: 3px solid #78a2a4;
+            outline-width: 0;
+        }
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+}
+
 @media all and (max-width: 600px) {
-    .form {
+    .form, .offre-resume {
         border: none;
         box-shadow: none;
     }
