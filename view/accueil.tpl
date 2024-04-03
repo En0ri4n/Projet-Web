@@ -24,5 +24,6 @@
     </div>
 </main>
 {include file='components/footer.tpl'}
+<script src="/scripts/sw.js"></script>
 </body>
 </html>
