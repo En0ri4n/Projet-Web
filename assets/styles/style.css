@@ -593,7 +593,7 @@ iframe{
 
 .pagination{
     margin-bottom: 20px;
-    a{
+    button{
         margin: 10px 0 10px 0;
         padding: 10px 20px;
         border-radius: 3px;
@@ -604,7 +604,7 @@ iframe{
         cursor: pointer;
         font-size: 1em; 
     }
-    a:hover{
+    button:hover{
         background-color: white;
         border: 3px solid #82AEB1;
     }
