@@ -56,6 +56,7 @@
             </div>
         </div>
     </div>
+    {include file='components/pagination.tpl'}
 </main>
 {include file='components/footer.tpl'}
 </body>
