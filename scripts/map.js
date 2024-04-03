@@ -1,6 +1,5 @@
 /*set map*/
-viewMap(latitude, longitude);
-
+getCoordinates();
 function getCoordinates(){
     url = new URL(window.location.href);
     let id = url.searchParams.get("entrepriseId");
@@ -32,7 +31,7 @@ function getCoordinates(){
                 let longitude = features['properties']['lon'];
                 JSON.stringify(latitude);
                 JSON.stringify(longitude); 
-                alert(latitude, longitude);
+                viewMap(latitude, longitude);
 
                 }) 
             })
