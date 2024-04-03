@@ -11,7 +11,7 @@ export function setTotalPages(total){
 }
 
 
-export function initPagination(onChange) {
+export function initPagination(onWait, onChange) {
 
     onChangeFunction = onChange;
 
@@ -22,12 +22,14 @@ export function initPagination(onChange) {
 
     addEventTo(firstPageElement, 'click', () =>
     {
+        onWait();
         currentPage = 1;
         checkButtons();
         onChange();
     });
     addEventTo(previousPageElement, 'click', () =>
     {
+        onWait();
         currentPage = currentPage > 1 ? currentPage - 1 : currentPage
         checkButtons();
         onChange();
@@ -35,12 +37,14 @@ export function initPagination(onChange) {
 
     addEventTo(nextPageElement, 'click', () =>
     {
+        onWait();
         currentPage = currentPage < totalPages ? currentPage + 1 : currentPage;
         checkButtons();
         onChange();
     });
     addEventTo(lastPageElement, 'click', () =>
     {
+        onWait();
         currentPage = totalPages;
         checkButtons();
         onChange();
