@@ -42,7 +42,7 @@
                     <img src="/assets/star.svg" class="star-bullet-point" alt="small star">
                     <span class="soustitre-liste">Promotion(s) à charge </span>
                     {if $has_promotion}
-                        <ul>
+                        <ul id="list-promo">
                             {foreach $promotions as $promo}
                                 <li>{$promo->getNom()}</li>
                             {/foreach}
