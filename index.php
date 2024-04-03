@@ -39,8 +39,11 @@ elseif(isset($_GET['view']))
         case 'forbidden':
             $controller->forbiddenController();
             break;
-        case 'inscription':
+        case 'creer-profil':
             $controller->inscriptionController();
+            break;
+        case 'modifier-profil':
+            $controller->modifierProfilController();
             break;
         case 'mentions':
             $controller->mentionsController();
@@ -50,6 +53,9 @@ elseif(isset($_GET['view']))
             break;
         case 'poster-offre':
             $controller->posterOffreController();
+            break;
+        case 'modifier-offre':
+            $controller->modifierOffreController();
             break;
         case 'profil':
             $controller->profileController();
