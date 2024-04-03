@@ -9,7 +9,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
-//checkConnection();
+checkConnection();
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
