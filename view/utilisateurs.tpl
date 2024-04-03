@@ -11,8 +11,8 @@
         <form method="post">
             <h1>Utilisateurs</h1>
             <div class="search-by-name" id="premiere_section">
-                <input type="search" class="search-bar" placeholder="Rechercher un étudiant">
-                <input type="submit" class="submit-small" value="Rechercher">
+                <input type="search" class="search-bar" id="filter-nom" placeholder="Rechercher un étudiant">
+                <button class="submit-small" id="search-button">Rechercher</button>
             </div>
         </form>
         <div class="list_data" id="liste-utilisateurs">

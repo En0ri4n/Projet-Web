@@ -37,9 +37,12 @@ switch($method)
         addIfSetSpecial($parameters, $_GET, 'Nom', like(UtilisateurTable::$NOM_COLUMN));
 
         $table = new UtilisateurTable();
-        $json = setupPages($table);
 
-        $utilisateurs = $table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Utilisateur::fromArray($a));
+        $total_users = $table->selectOrSpecialConditionsAndParameters($parameters, "", fn($a) => Utilisateur::fromArray($a));
+
+        $utilisateurs = $table->selectOrSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Utilisateur::fromArray($a));
+
+        $json = setupPages(count(is_array($total_users) ? $total_users : ($total_users === null ? [] : [$total_users])));
 
         /*TODO : Fix*/
         if (isset($_GET['promotion'])) {
@@ -52,7 +55,13 @@ switch($method)
                 }
             }
         }
-        $json['users'] = $a ?? $utilisateurs;
+
+        if(!isset($a))
+        {
+            $a = $utilisateurs;
+        }
+
+        $json['users'] = $a === null ? [] : (is_array($a) ? $a : [$a]);
 
         echo json_encode($json);
         exit();
