@@ -3,54 +3,81 @@ import {initPagination, setTotalPages, currentPage, reloadPagination} from "./pa
 
 addEventTo(document, 'DOMContentLoaded', onReady);
 
-function populateFilters()
+async function populateFilters()
 {
-    fetch('/api/offres?per_page=1000', { // TODO: mettre à jour tout ça bien
+    let entrepriseResponse = await fetch('/api/entreprises?per_page=1000', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let promotionResponse = await fetch('/api/promos?per_page=1000', { // TODO: mettre à jour tout ça bien
         method: 'GET', headers: {
             'Content-Type': 'application/json'
         }
-    }).then(response =>
-            {
-                if(response.ok)
-                {
-                    return response.json();
-                }
-                else
-                {
-                    throw new Error('Erreur lors de la récupération des filtres');
-                }
-            }).then(data =>
-                    {
-                        let niveaux = [];
-                        data['offres'].forEach(offre =>
-                                               {
-                                                   niveaux.push(offre['NiveauOffre']);
-                                               });
+    });
 
-                        document.getElementById('filter-niveau').innerHTML += Array.from(new Set(niveaux)).sort().map(niveau => { return `<option value="${niveau}">${niveau}</option>` }).join('');
-                    });
+    let entrepriseData = await entrepriseResponse.json();
+    let promotionData = await promotionResponse.json();
+
+    console.log(entrepriseData)
+    console.log(promotionData)
+
+    let niveaux = [];
+    let entreprises = [];
+    let lieux = [];
+
+    for(let i = 0; i < entrepriseData['entreprises'].length; i++)
+    {
+        const entreprise = entrepriseData['entreprises'][i];
+        entreprises.push(entreprise['NomEntreprise']);
+        entreprise['adresses'].forEach(adresse => lieux.push(adresse['Ville']));
+    }
+
+    for(let i = 0; i < promotionData['promotions'].length; i++)
+    {
+        const promotion = promotionData['promotions'][i];
+        niveaux.push(promotion['NiveauPromotion']);
+    }
+
+    document.getElementById('filter-niveau').innerHTML += Array.from(new Set(niveaux)).sort().map(niveau => { return `<option value="${niveau}">${niveau}</option>` }).join('');
+    document.getElementById('filter-entreprise').innerHTML += Array.from(new Set(entreprises)).sort().map(entreprise => { return `<option value="${entreprise}">${entreprise}</option>` }).join('');
+    document.getElementById('filter-location').innerHTML += Array.from(new Set(lieux)).sort().map(lieu => { return `<option value="${lieu}">${lieu}</option>` }).join('');
 }
 
 function onReady()
 {
     populateFilters();
 
-    initPagination(filterOffres);
+    initPagination(() => document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterOffres);
 
     reloadPagination();
 }
+
+addEventTo(document.getElementById('search-button'), 'click', (e) =>
+{
+    e.preventDefault();
+
+    document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
+
+    filterOffres();
+});
 
 async function filterOffres()
 {
     let baseUrl = '/api/offres?page=' + currentPage + '&per_page=10';
 
-    let niveau = document.getElementById('filter-niveau').value;
+    let nom = document.getElementById('filter-name').value;
     let entreprise = document.getElementById('filter-entreprise').value;
+    let niveau = document.getElementById('filter-niveau').value;
+    let date = document.getElementById('filter-date').value;
     let duree = document.getElementById('filter-duree').value;
 
-    console.log(niveau, entreprise, duree);
 
-    let response = await fetch('/api/offres?page=' + currentPage + '&per_page=10', {
+    console.log(nom, entreprise, niveau, date, duree);
+
+    let response = await fetch(baseUrl, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -67,10 +94,11 @@ async function filterOffres()
 
     setTotalPages(data['total_pages'])
 
-    data['offres'].forEach(offre => {
-        const div = document.createElement('article');
-        div.classList.add('offre');
-        div.innerHTML = `
+    data['offres'].forEach(offre =>
+                           {
+                               const div = document.createElement('article');
+                               div.classList.add('offre');
+                               div.innerHTML = `
                 <div class="c1">
                     <span class="poste">` + offre["NomOffre"] + `</span>
                     <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
@@ -84,14 +112,14 @@ async function filterOffres()
                 </div>
                 <div class="list-competences">
                     <ul class="competences">Compétences : ` +
-            (offre["competences"].length > 0 ?
-                offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
-                'Non défini') +`
+                                   (offre["competences"].length > 0 ?
+                                       offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
+                                       'Non défini') + `
                     </ul>
                 </div>
             `;
-        offres.appendChild(div);
+                               offres.appendChild(div);
 
-        addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
-    })
+                               addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
+                           })
 }
