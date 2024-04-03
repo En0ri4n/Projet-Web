@@ -11,6 +11,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
 //checkConnection();
 
+ob_start('ob_gzhandler');
+
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
 
