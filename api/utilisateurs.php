@@ -21,6 +21,12 @@ switch($method)
     case 'GET':
         $parameters = [];
 
+        if(isset($_GET['self']))
+        {
+            echo base64_decode($_COOKIE[Controller::$USER_COOKIE_NAME]);
+            exit();
+        }
+
         addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$PRENOM_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$NOM_COLUMN));
 
