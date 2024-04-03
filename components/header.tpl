@@ -22,7 +22,7 @@
                 <li><a href="/profil?userId={$current_user->getId()}">{$current_user->getPrenom()} {$current_user->getNom()}</a></li>
                 <li><a href="/api/logout">Déconnexion</a></li>
             {/if}
-            {foreach $links as $name => $link}
+            {foreach $header_links as $name => $link}
                 <li><a href="{$link}">{$name}</a></li>
             {/foreach}
         </ul>
