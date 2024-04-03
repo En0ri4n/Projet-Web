@@ -649,6 +649,10 @@ iframe{
     margin: 10px;
 }
 
+#list-promo>li{
+    margin-left: 2em;
+}
+
 @media all and (max-width: 600px) {
     .form, .offre-resume {
         border: none;

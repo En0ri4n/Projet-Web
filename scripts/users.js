@@ -3,25 +3,32 @@ import {currentPage, initPagination, reloadPagination, setTotalPages} from "./pa
 
 addEventTo(document, 'DOMContentLoaded', onReady);
 
-function onReady() {
+function onReady()
+{
 
     initPagination(filterUsers);
 
     reloadPagination();
 }
 
+addEventTo(document.getElementById('search-button'), 'click', (e) =>
+{
+    e.preventDefault();
+    filterUsers();
+});
+
 async function filterUsers()
 {
     let baseUrl = '/api/users?page=' + currentPage + '&per_page=10';
 
     let nom = document.getElementById('filter-nom').value;
-    let prenom = document.getElementById('filter-prenom').value;
-    let email = document.getElementById('filter-email').value;
-    let role = document.getElementById('filter-role').value;
 
-    console.log(nom, prenom, email, role);
+    if(nom !== '')
+        baseUrl += '&Nom=' + nom;
 
-    let response = await fetch('/api/users?page=' + currentPage + '&per_page=10', { // TODO: Mettre à jour tout ça bien
+    // console.log(baseUrl);
+
+    let response = await fetch(baseUrl, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -30,37 +37,39 @@ async function filterUsers()
 
     let data = await response.json();
 
-    // console.log(data);
+    console.log(data);
 
     const utilisateurs = document.getElementById('liste-utilisateurs');
     utilisateurs.innerHTML = '';
 
     setTotalPages(data['total_pages'])
 
-    data['users'].forEach(utilisateur =>
-                          {
-                              const div = document.createElement('div');
-                              div.classList.add("contener_row");
-                              div.innerHTML = `
+    for(let i = 0; i < data['users'].length; i++)
+    {
+        const utilisateur = data['users'][i];
+
+        const div = document.createElement('div');
+        div.classList.add("contener_row");
+        div.innerHTML = `
                 <article class="` + utilisateur['user_type'] + `">
                     <img src="/assets/profil.png" alt="Etudiant">
                     <div class="c1">
                         <span class="bold">` + utilisateur['Nom'] + `</span>
-                        <span>Domaine2</span>
+                        ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Domaine : `+ utilisateur['promotion']['TypePromotion'] + `</span>` : '') + `
                     </div>
                     <div class="c2">
                         <span class="bold">` + utilisateur['Prenom'] + `</span>
-                        <span>AnnéeEtudes2</span>
+                        ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : `+ utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
                     </div>
                 </article>
             `;
 
-                              addEventTo(div, 'click', () =>
-                              {
-                                  window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
-                              });
+        addEventTo(div, 'click', () =>
+        {
+            window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
+        });
 
-                              utilisateurs.appendChild(div);
-                          });
+        utilisateurs.appendChild(div);
+    }
 }
 
