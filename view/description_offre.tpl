@@ -61,7 +61,7 @@
         </div>
 </div>
     <div class="actions-offres">
-        <button class="button-action-offre" id="postuler">Postuler</button> {* TODO: Page postuler *}
+        <button class="button-action-offre"id="postuler" onclick="window.location.href='/candidature?offreId={$offre->getId()}'">Postuler</button> {* TODO: Page postuler *}
         <button class="button-action-offre" id="wishlist">Wishlist</button> {* TODO: requête wishlist *}
     </div>
     <div class="contact">

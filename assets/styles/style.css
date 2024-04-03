@@ -356,6 +356,10 @@ p {
     width: 100%;
     font-size: 1em;
 }
+.submit:hover{
+    background-color: white;
+    border: 3px solid #82AEB1;
+}
 
 .texte_form {
     display: flex;
