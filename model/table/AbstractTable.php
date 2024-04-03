@@ -304,7 +304,7 @@ abstract class AbstractTable
      * @param mixed $id The id of the row to delete
      * @return bool True if deletion was successful, false otherwise
      */
-    public abstract function delete(mixed $id): bool;
+    abstract public function delete(mixed $id): bool;
 
     /**
      * Delete the row with the given id<br>
@@ -320,7 +320,9 @@ abstract class AbstractTable
 
     public function getRowCount(): int
     {
-        return count($this->select([]));
+        $query = 'SELECT COUNT(*) AS rowCount FROM ' . $this->getTableName();
+        $stmt = $this->getDatabase()->query($query);
+        return intval($stmt->fetch()['rowCount']);
     }
 
     /**
