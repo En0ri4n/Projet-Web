@@ -75,14 +75,14 @@ switch($method)
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if(!isset($data['id']) || !isset($data['firstname']) || !isset($data['lastname']) || !isset($data['email']) || !isset($data['password']) || !isset($data['phone']))
+        if(!isset($data['IdUtilisateur']) || !isset($data['Prenom']) || !isset($data['Nom']) || !isset($data['MailUtilisateur']) || !isset($data['MotDePasse']) || !isset($data['TelephoneUtilisateur']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['id', 'firstname', 'lastname', 'email', 'password', 'phone'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
-        $utilisateur = new Utilisateur($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
+        $utilisateur = new Utilisateur($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur']);
         $table = new UtilisateurTable();
         try
         {
@@ -103,9 +103,9 @@ switch($method)
                     echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['noAddress', 'street', 'city', 'pc', 'country', 'idPromo'], 'received' => array_keys($data ?? [])]);
                     exit();
                 }
-
+                /*TODO:verifier création d'étudiant/pilote avec adresse/promotion*/
                 $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
-                $etudiant = new Etudiant($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone'], $data['idPromo'], $address->getId()); /*TODO : eventuellement changer le constructeur pour prendre en param un objet Utilisateur*/
+                $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], $data['idPromo'], $address->getId()); /*TODO : eventuellement changer le constructeur pour prendre en param un objet Utilisateur*/
                 $tableAddress = new \model\table\AdresseTable();
                 $tableStudent = new EtudiantTable();
                 try
@@ -128,7 +128,7 @@ switch($method)
                     echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['namePromo', 'typePromo', 'datePromo', 'lvlPromo', 'durationPromo', 'center'], 'received' => array_keys($data ?? [])]);
                     exit();
                 }
-                $pilote = new \model\object\Pilote($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
+                $pilote = new \model\object\Pilote($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur']);
                 $promotion = new \model\object\Promotion(-1,$data['namePromo'], $data['typePromo'], $data['datePromo'], $data['lvlPromo'], $data['durationPromo'], $data['center'], $pilote->getId());
                 $tablePilote = new PiloteTable();
                 $tablePromotion = new \model\table\PromotionTable();
@@ -146,7 +146,7 @@ switch($method)
                 }
             }
             if($data['type']==='administrateur'){
-                $administrateur = new \model\object\Administrateur($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
+                $administrateur = new \model\object\Administrateur($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur']);
                 $tableAdmin = new AdministrateurTable();
                 try{
                     $tableAdmin->insert($administrateur);
@@ -214,6 +214,28 @@ switch($method)
                 echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
         }
-
         exit();
+
+    case 'DELETE':
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['id']))
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            exit();
+        }
+
+        $utilisateurTable = new UtilisateurTable();
+
+            try {
+                $utilisateurTable->delete($data['id']);
+                echo json_encode(['success' => 'Utilisateur supprimé', 'utilisateur' => $data['id']]);
+            }
+            catch(Exception $e)
+            {
+                http_response_code(500);
+                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            }
+
 }

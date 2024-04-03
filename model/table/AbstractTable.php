@@ -40,11 +40,13 @@ abstract class AbstractTable
     {
         $keys = array_keys($obj->toInsertArray());
         $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $keys) . ") VALUES (:" . implode(", :", array_map(fn($key) => $this->escape_and_lower($key), $keys)) . ")";
+        var_dump($query);
         $stmt = $this->getDatabase()->prepare($query);
         foreach($obj->toInsertArray() as $key => $value)
-            $stmt->bindValue(':' . $key, $value);
+            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
         return $stmt->execute();
     }
+
 
     /**
      * Insert a new row into the table with the given columns and values
@@ -350,11 +352,9 @@ abstract class AbstractTable
      */
     public function defaultJoinUpdate(mixed $id, string $join_query, array $data): bool
     {
-        var_dump($data);
         $columns = array_keys($data);
         $query = "UPDATE " . $this->getTableName() . " " . $join_query . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $this->escape_and_lower($column)), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
-        var_dump($query);
         foreach($data as $column => $value)
             $stmt->bindValue(':' . $this->escape_and_lower($column), $value);
         $stmt->bindValue(':id', $id);
