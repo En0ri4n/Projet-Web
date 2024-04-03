@@ -16,44 +16,7 @@
             </div>
         </form>
         <div class="list_data" id="liste-utilisateurs">
-            <div class="contener_row">
-                <article class="etudiant">
-                    <img src="/assets/profil.png" alt="Etudiant">
-                    <div class="c1">
-                        <span class="bold">NomEtudiant1</span>
-                        <span>Promotion1</span>
-                    </div>
-                    <div class="c2">
-                        <span class="bold">PrénomEtudiant1</span>
-                        <span>AnnéeEtudes1</span>
-                    </div>
-                </article>
-            </div>
-            <div class="contener_row">
-                <article class="etudiant">
-                    <img src="/assets/profil.png" alt="Etudiant">
-                    <div class="c1">
-                        <span class="bold">NomEtudiant2</span>
-                        <span>Domaine2</span>
-                    </div>
-                    <div class="c2">
-                        <span class="bold">PrénomEtudiant2</span>
-                        <span>AnnéeEtudes2</span>
-                    </div>
-                </article>
-            </div>
-            <div class="contener_row">
-                <article class="pilote">
-                    <img src="/assets/profil.png" alt="Pilote">
-                    <div class="c1">
-                        <span class="bold">NomPilote</span>
-                        <span>Pilote</span>
-                    </div>
-                    <div class="c2">
-                        <span class="bold">PrénomPilote</span>
-                    </div>
-                </article>
-            </div>
+            <img src="/assets/loading.gif" alt="loading" id="loading"/>
         </div>
     </div>
     {include file='components/pagination.tpl'}
