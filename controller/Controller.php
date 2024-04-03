@@ -195,11 +195,19 @@ class Controller
         $this->display('view/inscription.tpl');
     }
 
+    public function modifierProfilController(): void
+    {
+        $this->setup(false);
+        $this->display('view/modifier_profil.tpl');
+    }
+
     public function posterOffreController(): void
     {
         $this->setup(false);
         $this->display('view/poster_offre.tpl');
     }
+
+    public function modifierOffreController() {}
 
     public function entreprisesController(): void
     {
