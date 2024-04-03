@@ -14,6 +14,7 @@ let apiKey = "8b0b65847e964e828fb065d72b3a57b4";
 url = new URL(window.location.href);
 let id = url.searchParams.get("entrepriseId");
 
+
 /**/
 fetch('/api/entreprises?IdEntreprise=' +id, { // TODO: mettre à jour tout ça bien
     method: 'GET', headers: {
@@ -23,24 +24,40 @@ fetch('/api/entreprises?IdEntreprise=' +id, { // TODO: mettre à jour tout ça b
 {
     console.log(data)
     data['entreprises'].forEach(entreprises =>{
-        let num = entreprises['adresses']['Numero'];
-        let rue = entreprises['adresses']['Rue'];
-        let ville = entreprises['adresses']['Ville'];
-        let cp = entreprises['adresses']['CodePostal'];
-        let pays = entreprises['adresses']['Pays'];
-        alert(num);
+        console.log(entreprises)
+        let num = entreprises['adresses'][0]['Numero'];
+        let rue = entreprises['adresses'][0]['Rue'];
+        let ville = entreprises['adresses'][0]['Ville'];
+        let cp = entreprises['adresses'][0]['CodePostal'];
+        let pays = entreprises['adresses'][0]['Pays'];
+        fetch('https://api.geoapify.com/v1/geocode/search?housenumber='+num+'&street='+rue+'&postcode='+cp+'&city='+ville+'&country='+pays+'&apiKey=8b0b65847e964e828fb065d72b3a57b4', {
+            method: 'GET', headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(resp => resp.json()).then( (data2)=>
+{
+    console.log(data2)
+    data2['features'].forEach(features =>{
+        console.log(features)
+        let latitude = features['properties']['lat'];
+        let longitude = features['properties']['lon'];
+        
+    })
+})
+})});
 
-    })});
+
+/*https://api.geoapify.com/v1/geocode/search?housenumber='+num+'&street=Rue%20'+rue+'&postcode='+cp+'city='+ville+'&country='+pays+'&apiKey=8b0b65847e964e828fb065d72b3a57b4*/
+/*https://api.geoapify.com/v1/geocode/search?text=38%20Upper%20Montagu%20Street%2C%20Westminster%20W1H%201LJ%2C%20United%20Kingdom&apiKey=8b0b65847e964e828fb065d72b3a57b4*/
+
+/*features['properties']['lon']
+features['properties']['lat']
+
+/*https://api.geoapify.com/v1/geocode/search?housenumber=11&street=Rue%20Grenette&postcode=69002&city=Lyon&country=France&apiKey=YOUR_API_KEY*/
 
 
 
-
-/*const address = 'Baldersgade 3B, 2200 Copenhagen, Denmark';
-
-
-
-
-fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=8b0b65847e964e828fb065d72b3a57b4`)
+/*fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=8b0b65847e964e828fb065d72b3a57b4`)
 .then(resp => resp.json())
 .then((geocodingResult) => {
 	console.log(geocodingResult);
