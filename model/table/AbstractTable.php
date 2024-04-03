@@ -356,7 +356,7 @@ abstract class AbstractTable
         return "";
     }
 
-    protected function getLastInsertId(): bool
+    public function getLastInsertId(): bool
     {
         $query = "SELECT LAST_INSERT_ID() FROM " . $this->getTableName() . " LIMIT 1";
         $stmt = $this->getDatabase()->prepare($query);
