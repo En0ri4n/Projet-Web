@@ -60,6 +60,9 @@ elseif(isset($_GET['view']))
         case 'utilisateurs':
             $controller->utilisateursController();
             break;
+        case 'candidature':
+            $controller->candidatureController();
+            break;
         default:
             $controller->notFoundController();
             break;
