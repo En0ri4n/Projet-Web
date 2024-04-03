@@ -35,28 +35,42 @@ function onReady()
 {
     populateFilters();
 
-    initPagination(async () => {
-        let response = await fetch('/api/offres?page=' + currentPage + '&per_page=10', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+    initPagination(filterOffres);
 
-        let data = await response.json();
+    reloadPagination();
+}
 
-        console.log(data)
+async function filterOffres()
+{
+    let baseUrl = '/api/offres?page=' + currentPage + '&per_page=10';
 
-        const offres = document.getElementById('liste-offres');
+    let niveau = document.getElementById('filter-niveau').value;
+    let entreprise = document.getElementById('filter-entreprise').value;
+    let duree = document.getElementById('filter-duree').value;
 
-        offres.innerHTML = '';
+    console.log(niveau, entreprise, duree);
 
-        setTotalPages(data['total_pages'])
+    let response = await fetch('/api/offres?page=' + currentPage + '&per_page=10', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 
-        data['offres'].forEach(offre => {
-            const div = document.createElement('article');
-            div.classList.add('offre');
-            div.innerHTML = `
+    let data = await response.json();
+
+    console.log(data)
+
+    const offres = document.getElementById('liste-offres');
+
+    offres.innerHTML = '';
+
+    setTotalPages(data['total_pages'])
+
+    data['offres'].forEach(offre => {
+        const div = document.createElement('article');
+        div.classList.add('offre');
+        div.innerHTML = `
                 <div class="c1">
                     <span class="poste">` + offre["NomOffre"] + `</span>
                     <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
@@ -70,17 +84,14 @@ function onReady()
                 </div>
                 <div class="list-competences">
                     <ul class="competences">Compétences : ` +
-                (offre["competences"].length > 0 ?
-            offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
+            (offre["competences"].length > 0 ?
+                offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
                 'Non défini') +`
                     </ul>
                 </div>
             `;
-            offres.appendChild(div);
+        offres.appendChild(div);
 
-            addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
-        })
-    });
-
-    reloadPagination();
+        addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
+    })
 }
