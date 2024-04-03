@@ -9,7 +9,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
-checkConnection();
+//checkConnection();
 
 // Handle HTTP methods
 $method = $_SERVER['REQUEST_METHOD'];
@@ -69,6 +69,7 @@ switch($method)
         http_response_code(405);
         echo json_encode(['error' => 'Méthode non autorisée']);
         exit();
+
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -154,6 +155,61 @@ switch($method)
                     http_response_code(500);
                     echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
                 }
+            }
+        }
+        exit();
+
+    case 'PUT':
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['id']))
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            exit();
+        }
+
+        $etudiantTable = new EtudiantTable();
+        $piloteTable = new PiloteTable();
+        $adminTable = new AdministrateurTable();
+
+        $id = array_shift($data);
+
+
+        if ($etudiantTable->isEtudiant($id)){
+            try {
+                $etudiantTable->update($id, array_keys($data), array_values($data));
+                echo json_encode(['success' => 'Etudiant mis à jour', 'etudiant' => $id]);
+            }
+            catch(Exception $e)
+            {
+                http_response_code(500);
+                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            }
+        }
+
+        if ($piloteTable->isPilote($id)){
+            try {
+                $piloteTable->update($id, array_keys($data), array_values($data));
+                echo json_encode(['success' => 'Pilote mis à jour', 'pilote' => $id]);
+            }
+            catch(Exception $e)
+            {
+                http_response_code(500);
+                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            }
+        }
+
+        if ($adminTable->isAdministrateur($id)){
+            try {
+                var_dump($data);
+                $adminTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, AdministrateurTable::$ID_COLUMN), $data);
+                echo json_encode(['success' => 'Administrateur mis à jour', 'administrateur' => $id]);
+            }
+            catch(Exception $e)
+            {
+                http_response_code(500);
+                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
         }
 

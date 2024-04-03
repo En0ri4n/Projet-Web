@@ -3,7 +3,7 @@ import {currentPage, initPagination, reloadPagination, setTotalPages} from "./pa
 
 addEventTo(document, 'DOMContentLoaded', onReady);
 
-function onReady()
+async function onReady()
 {
 
     initPagination(filterUsers);
@@ -19,6 +19,17 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 
 async function filterUsers()
 {
+
+    let self_response = await fetch('/api/users?self', {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+
+    let account = await self_response.json();
+
+
     let baseUrl = '/api/users?page=' + currentPage + '&per_page=10';
 
     let nom = document.getElementById('filter-nom').value;
@@ -42,6 +53,10 @@ async function filterUsers()
     const utilisateurs = document.getElementById('liste-utilisateurs');
     utilisateurs.innerHTML = '';
 
+    if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+        utilisateurs.innerHTML = `<button class="add">Ajouter</button>`
+    }
+
     setTotalPages(data['total_pages'])
 
     for(let i = 0; i < data['users'].length; i++)
@@ -50,24 +65,30 @@ async function filterUsers()
 
         const div = document.createElement('div');
         div.classList.add("contener_row");
-        div.innerHTML = `
-                <article class="` + utilisateur['user_type'] + `">
-                    <img src="/assets/profil.png" alt="Etudiant">
-                    <div class="c1">
-                        <span class="bold">` + utilisateur['Nom'] + `</span>
-                        ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Domaine : `+ utilisateur['promotion']['TypePromotion'] + `</span>` : '') + `
-                    </div>
-                    <div class="c2">
-                        <span class="bold">` + utilisateur['Prenom'] + `</span>
-                        ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : `+ utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
-                    </div>
-                </article>
-            `;
+        let html = `
+                                                    <article class="` + utilisateur['user_type'] + `">
+                                                        <img src="/assets/profil.png" alt="Etudiant">
+                                                        <div class="c1">
+                                                            <span class="bold">` + utilisateur['Nom'] + `</span>
+                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Domaine : `+ utilisateur['promotion']['TypePromotion'] + `</span>` : '') + `
+                                                        </div>
+                                                        <div class="c2">
+                                                            <span class="bold">` + utilisateur['Prenom'] + `</span>
+                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : `+ utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
+                                                        </div>
+                                                    </article>
+                                                `;
 
-        addEventTo(div, 'click', () =>
-        {
-            window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
-        });
+        if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+                                  html += `<button class="delete">Supprimer</button>
+                                            <button class="update">Modifier</button>`
+                              }
+                              div.innerHTML = html;
+
+                              addEventTo(div, 'click', () =>
+                              {
+                                  window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
+                              });
 
         utilisateurs.appendChild(div);
     }

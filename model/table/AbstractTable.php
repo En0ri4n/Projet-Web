@@ -337,8 +337,25 @@ abstract class AbstractTable
     {
         $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
+        var_dump($query);
         foreach($columns as $column)
             $stmt->bindParam(':' . $column, $values[$column]);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    /**
+     * Update the row with the given id<br>
+     * Default implementation
+     */
+    public function defaultJoinUpdate(mixed $id, string $join_query, array $data): bool
+    {
+        $columns = array_keys($data);
+        $query = "UPDATE " . $this->getTableName() . " " . $join_query . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        var_dump($query);
+        foreach($data as $column => $value)
+            $stmt->bindParam(':' . $column, $value);
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
@@ -393,12 +410,12 @@ abstract class AbstractTable
         return strtolower(str_replace(".", "", $input));
     }
 
-    protected static function inner_join(string $joined_table, string $column, string $joined_column): string
+    public static function inner_join(string $joined_table, string $column, string $joined_column): string
     {
         return "INNER JOIN " . $joined_table . " ON " . $column . " = " . $joined_column;
     }
 
-    protected static function no_join(): string
+    public static function no_join(): string
     {
         return "";
     }

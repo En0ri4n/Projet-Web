@@ -472,7 +472,7 @@ p {
     height: 200vh;
 }
 
-.delete, .button-poster {
+.delete, .button-poster, .update, .add {
     margin: 5px;
     width: 40%;
     padding: 5px;
