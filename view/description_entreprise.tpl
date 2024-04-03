@@ -4,18 +4,22 @@
     <title>Description Entreprise</title>
     {include file='components/head.tpl'}
     <!-- pas toucher -->
+    <!-- etoiles -->
     <link rel="stylesheet" href="/assets/styles/etoile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="scripts/etoile.js" defer></script>
+
+    <!-- map -->
+    <link rel="stylesheet" href="/assets/styles/map.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
-    <script src="etoile.js" defer></script>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-     <style>
-        #map {height: 500px; width:500px}
-     </style>
+    <script src="scripts/map.js" defer></script>
+
 </head>
 <body>
 
@@ -23,8 +27,9 @@
 <main>
     {if $entreprise_exists}
     <div id="premiere_section">
-        <div class="map">
-        </div>
+
+        <div class="map" id="map"></div>
+        
     </div>
     <div class="resume-entreprise">
         <div class="entete-entreprise">
@@ -98,33 +103,4 @@
 {include file='components/footer.tpl'}
 </body>
 <script type="module" src="/scripts/etoile.js"></script>
-<script>
-
-var map = L.map('map');
-    map.setView([51.505, -0.09], 13);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
-let apiKey = "8b0b65847e964e828fb065d72b3a57b4";
-
-const address = 'Baldersgade 3B, 2200 Copenhagen, Denmark';
-
-fetch(`https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=8b0b65847e964e828fb065d72b3a57b4`)
-.then(resp => resp.json())
-.then((geocodingResult) => {
-	console.log(geocodingResult);
-});
-
-addressurl = "https://api.geoapify.com/v1/geocode/search?housenumber=11&street=Rue%20Grenette&postcode=69002&city=Lyon&country=France&apiKey=8b0b65847e964e828fb065d72b3a57b4";
-
-/*navigator.geolocation.watchPosition(success, error);*/
-
-let marker;
-
-marker = L.marker([lat, lon]).addTo(map);
-map.setView([address.lat, address.lon], 17);
-</script>
 </html>

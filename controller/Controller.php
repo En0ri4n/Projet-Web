@@ -268,6 +268,49 @@ class Controller
         $this->display('view/profil_utilisateur.tpl');
     }
 
+    public function candidatureController(): void
+    {
+        $this->setup(false);
+
+        if (!isset($_GET['offreId'])) {
+            $this->smarty->assign('offre_exists', false);
+            $this->display('view/candidature.tpl');
+            return;
+        }
+
+        $this->smarty->assign('offre_exists', true);
+
+        $table = new OffreTable();
+        $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['offreId']]);
+
+        if ($offre == null) {
+            $this->smarty->assign('offre_exists', false);
+            $this->display('view/candidature.tpl');
+            return;
+        }
+
+        $this->smarty->assign('offre', $offre);
+
+        $secteur_table = new SecteurTable();
+        $entreprise_table = new EntrepriseTable();
+        $offre_to_competence_table = LinkTable::getOffreToCompetence();
+        $offre_to_competence_table = LinkTable::getOffreToCompetence();
+        $competence_table = new CompetenceTable();
+
+        $secteur = $secteur_table->select([SecteurTable::$ID_COLUMN => $offre->getIdSecteur()]);
+        $this->smarty->assign('secteur', $secteur);
+        
+        $entreprise = $entreprise_table->select([EntrepriseTable::$ID_COLUMN => $offre->getIdCompany()]);
+        $this->smarty->assign('entreprise', $entreprise);
+
+        $links_competences = $offre_to_competence_table->select([LinkTable::getOffreToCompetence()->getIdFromColumn() => $offre->getId()]);
+        $competences = $this->fromLinks($links_competences, CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $this->smarty->assign('competences', $competences);
+
+
+        $this->display('view/candidature.tpl');
+    }
+
     /**
      * Display the page with the given name
      *
