@@ -58,7 +58,7 @@ abstract class AbstractTable
         $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $column), $columns)) . ")";
         $stmt = $this->getDatabase()->prepare($query);
         foreach($columns as $column)
-            $stmt->bindParam(':' . $column, $values[$column]);
+            $stmt->bindValue(':' . $column, $values[$column]);
         return $stmt->execute();
     }
 
@@ -339,8 +339,8 @@ abstract class AbstractTable
         $stmt = $this->getDatabase()->prepare($query);
         var_dump($query);
         foreach($columns as $column)
-            $stmt->bindParam(':' . $column, $values[$column]);
-        $stmt->bindParam(':id', $id);
+            $stmt->bindValue(':' . $column, $values[$column]);
+        $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 
@@ -350,13 +350,14 @@ abstract class AbstractTable
      */
     public function defaultJoinUpdate(mixed $id, string $join_query, array $data): bool
     {
+        var_dump($data);
         $columns = array_keys($data);
-        $query = "UPDATE " . $this->getTableName() . " " . $join_query . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
+        $query = "UPDATE " . $this->getTableName() . " " . $join_query . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $this->escape_and_lower($column)), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
         var_dump($query);
         foreach($data as $column => $value)
-            $stmt->bindParam(':' . $column, $value);
-        $stmt->bindParam(':id', $id);
+            $stmt->bindValue(':' . $this->escape_and_lower($column), $value);
+        $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 
@@ -376,7 +377,7 @@ abstract class AbstractTable
     {
         $query = "DELETE FROM " . $this->getTableName() . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 

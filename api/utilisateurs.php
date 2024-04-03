@@ -180,7 +180,7 @@ switch($method)
 
         if ($etudiantTable->isEtudiant($id)){
             try {
-                $etudiantTable->update($id, array_keys($data), array_values($data));
+                $etudiantTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, EtudiantTable::$ID_COLUMN), $data);
                 echo json_encode(['success' => 'Etudiant mis à jour', 'etudiant' => $id]);
             }
             catch(Exception $e)
@@ -192,7 +192,7 @@ switch($method)
 
         if ($piloteTable->isPilote($id)){
             try {
-                $piloteTable->update($id, array_keys($data), array_values($data));
+                $piloteTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, PiloteTable::$ID_COLUMN), $data);
                 echo json_encode(['success' => 'Pilote mis à jour', 'pilote' => $id]);
             }
             catch(Exception $e)
