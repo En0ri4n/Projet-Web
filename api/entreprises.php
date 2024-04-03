@@ -17,6 +17,7 @@ switch($method)
 {
     case 'GET':
         $parameters = [];
+        addIfSetSpecial($parameters, $_GET, 'id', eq(EntrepriseTable::$ID_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'name', like(EntrepriseTable::$NOM_COLUMN));
 
         try
