@@ -5,3 +5,4 @@
     <button id="pageSuivante">></button>
     <button id="pageFin">>></button>
 </div>
+<script type="module" src="/scripts/pagination.js"></script>
