@@ -23,12 +23,18 @@ switch($method)
 
         if(isset($_GET['self']))
         {
-            echo base64_decode($_COOKIE[Controller::$USER_COOKIE_NAME]);
+            $self = json_decode(base64_decode($_COOKIE[Controller::$USER_COOKIE_NAME]), true);
+            $id = $self['IdUtilisateur'];
+
+            $table = new UtilisateurTable();
+            $utilisateur = $table->select([UtilisateurTable::$ID_COLUMN => $id]);
+
+            echo json_encode($utilisateur);
             exit();
         }
 
-        addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$PRENOM_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$NOM_COLUMN));
+        addIfSetSpecial($parameters, $_GET, 'Nom', like(UtilisateurTable::$PRENOM_COLUMN));
+        addIfSetSpecial($parameters, $_GET, 'Nom', like(UtilisateurTable::$NOM_COLUMN));
 
         $table = new UtilisateurTable();
         $json = setupPages($table);
