@@ -214,7 +214,7 @@
                     }
 
                     &:not(:last-child):after {
-                        content: " | ";
+                        content: "|";
                         color: #152c44;
                     }
                 }
