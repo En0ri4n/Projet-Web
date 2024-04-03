@@ -12,7 +12,7 @@
         <form method="post">
             <div class="form__inputs">
                 <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
-                <textarea id="description" placeholder="Description du poste" required></textarea>
+                <textarea id="description" placeholder="Description du poste" maxlength=512 required></textarea>
                 <select class="form-input" id="entreprise" required>
                     <option value="entreprise 1">Entreprise 1</option>
                     <option value="entreprise 2">Entreprise 2</option>

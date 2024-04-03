@@ -28,7 +28,7 @@
                     <input class="form__input" placeholder="Domaine*" required>
                     <input class="form__input" placeholder="E-mail">
                     <input class="form__input" placeholder="Téléphone">
-                    <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" required=""></textarea>
+                    <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" maxlength=512 required=""></textarea>
                 </div>
             </div>
             <p>*Champs obligatoires</p>
