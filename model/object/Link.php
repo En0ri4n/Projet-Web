@@ -33,6 +33,11 @@ class Link extends SerializableObject
         ];
     }
 
+    public function toInsertArray(): array
+    {
+        return array();
+    }
+
     public static function linkFromArray(LinkTable $table, array $array): Link
     {
         return new Link($array[$table->getIdFromColumn()], $array[$table->getIdToColumn()]);

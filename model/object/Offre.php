@@ -2,9 +2,15 @@
 
 namespace model\object;
 
+use model\table\AdresseTable;
+use model\table\CompetenceTable;
+use model\table\EntrepriseTable;
+use model\table\LinkTable;
 use model\table\OffreTable;
+use model\table\SecteurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/OffreTable.php');
+
 class Offre extends SerializableObject
 {
     private int $id;
@@ -90,9 +96,35 @@ class Offre extends SerializableObject
         return $this->id_company;
     }
 
+    public function jsonSerialize(): array
+    {
+        $a = parent::jsonSerialize();
+
+        unset($a[self::getColumnName(OffreTable::$SECTOR_COLUMN)]); // Remove 'IdSecteur'
+        $table = new SecteurTable();
+        $a['secteur'] = $table->select([SecteurTable::$ID_COLUMN => $this->getIdSecteur()]);
+
+        unset($a[self::getColumnName(OffreTable::$ADDRESS_COLUMN)]); // Remove 'IdAdresse'
+        $table = new AdresseTable();
+        $a['adresse'] = $table->select([AdresseTable::$ID_COLUMN => $this->getIdAdresse()]);
+
+        unset($a[self::getColumnName(OffreTable::$COMPANY_COLUMN)]); // Remove 'IdEntreprise'
+        $table = new EntrepriseTable();
+        $a['entreprise'] = $table->select([EntrepriseTable::$ID_COLUMN => $this->getIdCompany()]);
+
+        $table = LinkTable::getOffreToCompetence();
+        $links_offre_competence = $table->select([$table->getIdFromColumn() => $this->getId()]);
+        $table = new CompetenceTable();
+        $competences = \Controller::fromLinks($links_offre_competence ?? [], CompetenceTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $a['competences'] = $competences;
+
+        return $a;
+    }
+
     public function toArray(): array
     {
-        return array(self::getColumnName(OffreTable::$ID_COLUMN) => $this->id,
+        return array(
+            self::getColumnName(OffreTable::$ID_COLUMN) => $this->id,
             self::getColumnName(OffreTable::$NAME_COLUMN) => $this->name,
             self::getColumnName(OffreTable::$DATE_COLUMN) => $this->date,
             self::getColumnName(OffreTable::$DURATION_COLUMN) => $this->duration,
@@ -102,7 +134,24 @@ class Offre extends SerializableObject
             self::getColumnName(OffreTable::$DESCRIPTION_COLUMN) => $this->description,
             self::getColumnName(OffreTable::$SECTOR_COLUMN) => $this->id_secteur,
             self::getColumnName(OffreTable::$ADDRESS_COLUMN) => $this->id_adresse,
-            self::getColumnName(OffreTable::$COMPANY_COLUMN) => $this->id_company);
+            self::getColumnName(OffreTable::$COMPANY_COLUMN) => $this->id_company
+        );
+    }
+
+    public function toInsertArray(): array
+    {
+        return array(
+            self::getColumnName(OffreTable::$NAME_COLUMN) => $this->name,
+            self::getColumnName(OffreTable::$DATE_COLUMN) => $this->date,
+            self::getColumnName(OffreTable::$DURATION_COLUMN) => $this->duration,
+            self::getColumnName(OffreTable::$COMPENSATION_COLUMN) => $this->compensation,
+            self::getColumnName(OffreTable::$NBPLACE_COLUMN) => $this->nbPlaces,
+            self::getColumnName(OffreTable::$LEVEL_COLUMN) => $this->level,
+            self::getColumnName(OffreTable::$DESCRIPTION_COLUMN) => $this->description,
+            self::getColumnName(OffreTable::$SECTOR_COLUMN) => $this->id_secteur,
+            self::getColumnName(OffreTable::$ADDRESS_COLUMN) => $this->id_adresse,
+            self::getColumnName(OffreTable::$COMPANY_COLUMN) => $this->id_company
+        );
     }
 
     public static function fromArray(array $array): Offre

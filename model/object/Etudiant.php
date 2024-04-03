@@ -3,6 +3,7 @@
 namespace model\object;
 
 use EtudiantTable;
+use model\table\AdresseTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
@@ -42,6 +43,11 @@ class Etudiant extends Utilisateur
     public function toArray(): array
     {
         return parent::toArray() + array(self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
+    }
+
+    public function toInsertArray(): array
+    {
+        return parent::toInsertArray() + array(self::getColumnName(EtudiantTable::$PROMOTION_COLUMN) => $this->idPromotion, self::getColumnName(EtudiantTable::$ADRESSE_COLUMN) => $this->idAdresse);
     }
 
     public static function fromArray(array $array): Etudiant

@@ -1,24 +1,73 @@
-/*Fonction a appeler pour générer une div de pagination*/
-function getPagination(nom_page,current_page,max_page) {
-    div =`<div class="pagination">`;
-    if (current_page == 1){
-        div += `<a id="pageDebut"><<</a>
-        <a id="pagePrecedent"><</a> 
-        <a id="pageActuelle">x</a>`;
-    }
-    else{
-        div += `<a id="pageDebut" href="/`+nom_page+`?page=1"><<</a>
-        <a id="pagePrecedent" href="/`+nom_page+`?page=`+(current_page-1)+`><</a> 
-        <a id="pageActuelle">x</a>`;
-    }
+import { addEventTo, scrollToTop } from "./main.js";
 
-    if (current_page == max_page){
-        div +=`<a id="pageSuivant">></a>
-        <a id="pageFin">>></a></div>`;
-    }
-    else{
-        div +=`<a id="pageSuivant" href="/entreprises?page=`+(current_page+1)+`>></a>
-        <a id="pageFin" href="/entreprises?page=`+(max_page)+`>>></a></div>`;
-    }
-    return div;
+export let currentPage = 1;
+export let totalPages = 1;
+
+let onChangeFunction = () => {};
+
+export function setTotalPages(total){
+    totalPages = total;
+    checkButtons();
+}
+
+
+export function initPagination(onChange) {
+
+    onChangeFunction = onChange;
+
+    const firstPageElement = document.getElementById('pageDebut');
+    const previousPageElement = document.getElementById('pagePrecedente');
+    const nextPageElement = document.getElementById('pageSuivante');
+    const lastPageElement = document.getElementById('pageFin');
+
+    addEventTo(firstPageElement, 'click', () =>
+    {
+        currentPage = 1;
+        checkButtons();
+        onChange();
+    });
+    addEventTo(previousPageElement, 'click', () =>
+    {
+        currentPage = currentPage > 1 ? currentPage - 1 : currentPage
+        checkButtons();
+        onChange();
+    });
+
+    addEventTo(nextPageElement, 'click', () =>
+    {
+        currentPage = currentPage < totalPages ? currentPage + 1 : currentPage;
+        checkButtons();
+        onChange();
+    });
+    addEventTo(lastPageElement, 'click', () =>
+    {
+        currentPage = totalPages;
+        checkButtons();
+        onChange();
+    });
+
+    checkButtons();
+}
+
+function checkButtons()
+{
+    const firstPageElement = document.getElementById('pageDebut');
+    const previousPageElement = document.getElementById('pagePrecedente');
+    const currentPageElement = document.getElementById('pageActuelle');
+    const nextPageElement = document.getElementById('pageSuivante');
+    const lastPageElement = document.getElementById('pageFin');
+
+    firstPageElement.disabled = currentPage === 1;
+    previousPageElement.disabled = currentPage === 1;
+    nextPageElement.disabled = currentPage === totalPages;
+    lastPageElement.disabled = currentPage === totalPages;
+
+    currentPageElement.innerHTML = currentPage + ' / ' + totalPages;
+
+    scrollToTop();
+}
+
+export function reloadPagination()
+{
+    onChangeFunction();
 }

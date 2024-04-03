@@ -38,9 +38,10 @@ abstract class AbstractTable
      */
     protected function defaultInsert(SerializableObject $obj): bool
     {
-        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", array_map((fn($key) => $key), array_keys($obj->toArray()))) . ") VALUES (:" . implode(", :", array_keys($obj->toArray())) . ")";
+        $keys = array_keys($obj->toInsertArray());
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $keys) . ") VALUES (:" . implode(", :", array_map(fn($key) => $this->escape_and_lower($key), $keys)) . ")";
         $stmt = $this->getDatabase()->prepare($query);
-        foreach($obj->toArray() as $key => $value)
+        foreach($obj->toInsertArray() as $key => $value)
             $stmt->bindValue(':' . $key, $value);
         return $stmt->execute();
     }

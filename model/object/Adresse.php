@@ -68,6 +68,17 @@ class Adresse extends SerializableObject
         ];
     }
 
+    public function toInsertArray(): array
+    {
+        return [
+            self::getColumnName(AdresseTable::$NUMERO_COLUMN) => $this->numero,
+            self::getColumnName(AdresseTable::$RUE_COLUMN) => $this->rue,
+            self::getColumnName(AdresseTable::$VILLE_COLUMN) => $this->ville,
+            self::getColumnName(AdresseTable::$CODE_POSTAL_COLUMN) => $this->codePostal,
+            self::getColumnName(AdresseTable::$PAYS_COLUMN) => $this->pays
+        ];
+    }
+
     public static function fromArray(array $array): Adresse
     {
         return new Adresse(

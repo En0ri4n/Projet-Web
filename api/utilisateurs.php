@@ -2,9 +2,11 @@
 
 use model\table\UtilisateurTable;
 use model\object\Utilisateur;
+use model\object\Etudiant;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
 checkConnection();
@@ -16,16 +18,20 @@ header('Content-Type: application/json');
 
 switch($method)
 {
-    case 'GET': //TODO: date supérieure ou égale//
+    case 'GET':
         $parameters = [];
 
-        addIfSetLike($parameters, $_GET, 'firstname', UtilisateurTable::$PRENOM_COLUMN);
-        addIfSetLike($parameters, $_GET, 'lastname', UtilisateurTable::$NOM_COLUMN);
+        addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$PRENOM_COLUMN));
+        addIfSetSpecial($parameters, $_GET, 'name', like(UtilisateurTable::$NOM_COLUMN));
 
         $table = new UtilisateurTable();
-        $utilisateurs = $table->selectLike($parameters, fn($a) => Utilisateur::fromArray($a));
+        $json = setupPages($table);
 
-        echo json_encode($utilisateurs ?? []);
+        $utilisateurs = $table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Utilisateur::fromArray($a));
+
+        $json['users'] = $utilisateurs ?? [];
+
+        echo json_encode($json);
         exit();
     default:
         http_response_code(405);
@@ -41,7 +47,7 @@ switch($method)
             exit();
         }
 
-        $utilisateur = new Utilisateur($data['id'], $data['firstname'], $data['lastname'], $data['email'], $data['password'], $data['phone']);
+        $utilisateur = new Utilisateur($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
         $table = new UtilisateurTable();
         try
         {
@@ -53,5 +59,71 @@ switch($method)
             http_response_code(500);
             echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
+
+        if(isset($data['type']))
+        {
+            if($data['type']==='etudiant'){
+                if(!isset($data['noAddress']) || !isset($data['street']) || !isset($data['city']) || !isset($data['pc']) || !isset($data['country']) || !isset($data['idPromo'])){
+                    http_response_code(400);
+                    echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['noAddress', 'street', 'city', 'pc', 'country', 'idPromo'], 'received' => array_keys($data ?? [])]);
+                    exit();
+                }
+
+                $address = new \model\object\Adresse(null, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
+                $etudiant = new Etudiant($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone'], $data['idPromo'], $address->getId()); /*TODO : eventuellement changer le constructeur pour prendre en param un objet Utilisateur*/
+                $tableAddress = new \model\table\AdresseTable();
+                $tableStudent = new EtudiantTable();
+                try
+                {
+                    $tableAddress->insert($address);
+                    echo json_encode(['success' => 'Addresse ajoutée', 'adresse' => $address]);
+                    $tableStudent->insert($etudiant);
+                    echo json_encode(['success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);
+                }
+                catch(Exception $e)
+                {
+                    http_response_code(500);
+                    echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                }
+            }
+            /*TODO : créer plusieurs promo par pilote*/
+            if($data['type']==='pilote'){
+                if(!isset($data['namePromo']) || !isset($data['typePromo']) || !isset($data['datePromo']) || !isset($data['lvlPromo']) || !isset($data['durationPromo']) || !isset($data['center'])){
+                    http_response_code(400);
+                    echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['namePromo', 'typePromo', 'datePromo', 'lvlPromo', 'durationPromo', 'center'], 'received' => array_keys($data ?? [])]);
+                    exit();
+                }
+                $pilote = new \model\object\Pilote($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
+                $promotion = new \model\object\Promotion(null,$data['namePromo'], $data['typePromo'], $data['datePromo'], $data['lvlPromo'], $data['durationPromo'], $data['center'], $pilote->getId());
+                $tablePilote = new PiloteTable();
+                $tablePromotion = new \model\table\PromotionTable();
+                try
+                {
+                    $tablePilote->insert($pilote);
+                    echo json_encode(['success' => 'Pilote ajouté', 'pilote' => $pilote]);
+                    $tablePromotion->insert($promotion);
+                    echo json_encode(['success' => 'Promotion ajoutée', 'promotion' => $promotion]);
+                }
+                catch(Exception $e)
+                {
+                    http_response_code(500);
+                    echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                }
+            }
+            if($data['type']==='administrateur'){
+                $administrateur = new \model\object\Administrateur($data['id'], $data['lastname'], $data['firstname'], $data['email'], $data['password'], $data['phone']);
+                $tableAdmin = new AdministrateurTable();
+                try{
+                    $tableAdmin->insert($administrateur);
+                    echo json_encode(['success' => 'Administrateur ajouté', 'administrateur' => $administrateur]);
+                }
+                catch(Exception $e)
+                {
+                    http_response_code(500);
+                    echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                }
+            }
+        }
+
         exit();
 }

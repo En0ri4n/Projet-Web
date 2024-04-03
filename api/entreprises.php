@@ -1,10 +1,11 @@
 <?php
 
+use model\object\Entreprise;
 use model\object\Offre;
+use model\table\EntrepriseTable;
 use model\table\OffreTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/OffreTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
 // Handle HTTP methods
@@ -16,26 +17,17 @@ switch($method)
 {
     case 'GET':
         $parameters = [];
-        addIfSetSpecial($parameters, $_GET, 'name', like(OffreTable::$NAME_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'date', dateSup(OffreTable::$DATE_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'duration', sup(OffreTable::$DURATION_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'compensation', sup(OffreTable::$COMPENSATION_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'nbPlaces', sup(OffreTable::$NBPLACE_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'level', inf(OffreTable::$LEVEL_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'description', like(OffreTable::$DESCRIPTION_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'sector', eq(OffreTable::$SECTOR_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'address', eq(OffreTable::$ADDRESS_COLUMN));
-        addIfSetSpecial($parameters, $_GET, 'company', eq(OffreTable::$COMPANY_COLUMN));
+        addIfSetSpecial($parameters, $_GET, 'name', like(EntrepriseTable::$NOM_COLUMN));
 
         try
         {
-            $offre_table = new OffreTable();
-            $offres = $offre_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Offre::fromArray($a));
+            $entreprise_table = new EntrepriseTable();
+            $entreprises = $entreprise_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Entreprise::fromArray($a));
 
-            $json = setupPages($offre_table);
-            $json['offres'] = $offres === null ? [] : (is_array($offres) ? $offres : [$offres]);
+            $json = setupPages($entreprise_table);
+            $json['entreprises'] = $entreprises === null ? [] : $entreprises;
 
-            if($offres === null)
+            if($entreprises === null)
             {
                 echo json_encode($json);
                 exit;
@@ -68,8 +60,8 @@ switch($method)
 
         try
         {
-            $offre_table = new OffreTable();
-            $offre_table->insert($offre);
+            $entreprise_table = new OffreTable();
+            $entreprise_table->insert($offre);
             http_response_code(201);
             echo json_encode(['id' => $offre->getId()]);
         }

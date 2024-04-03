@@ -81,6 +81,19 @@ class Promotion extends SerializableObject
         ];
     }
 
+    public function toInsertArray(): array
+    {
+        return [
+            self::getColumnName(PromotionTable::$NAME_COLUMN) => $this->nom,
+            self::getColumnName(PromotionTable::$TYPE_COLUMN) => $this->type,
+            self::getColumnName(PromotionTable::$DATE_COLUMN) => $this->date_debut,
+            self::getColumnName(PromotionTable::$LEVEL_COLUMN) => $this->niveau,
+            self::getColumnName(PromotionTable::$DURATION_COLUMN) => $this->duree,
+            self::getColumnName(PromotionTable::$CENTER_COLUMN) => $this->centre,
+            self::getColumnName(PromotionTable::$PILOT_COLUMN) => $this->id_pilote
+        ];
+    }
+
     public static function fromArray(array $array): Promotion
     {
         return new Promotion(
