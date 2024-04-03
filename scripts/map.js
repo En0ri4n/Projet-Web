@@ -28,7 +28,7 @@ fetch('/api/entreprises?IdEntreprise=' +id, { // TODO: mettre à jour tout ça b
         let ville = entreprises['adresses']['Ville'];
         let cp = entreprises['adresses']['CodePostal'];
         let pays = entreprises['adresses']['Pays'];
-        alert("hello");
+        alert(num);
 
     })});
 
