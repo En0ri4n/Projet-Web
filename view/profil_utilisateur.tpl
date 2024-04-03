@@ -12,7 +12,7 @@
         {if $user_type == 'pilote'}
             <div class="liste-etudiant">
                 <form method="post">
-                    <h1>Vos étudiants </h1>
+                    <h1 id="premiere_section">Vos étudiants </h1>
                     <div class="search-by-name">
                         <input type="search" class="search-bar" placeholder="Rechercher un étudiant">
                         <input type="submit" class="submit-small" value="Rechercher">
@@ -50,7 +50,7 @@
                 </form>
             </div>
         {elseif $user_type == 'etudiant'}
-            <h1>Wishlist</h1>
+            <h1 id="premiere_section">Wishlist</h1>
             <div class="contener_row">
                 <article class="offre">
                     <div class="c1">

@@ -26,7 +26,7 @@ switch($method)
             $entreprises = $entreprise_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Entreprise::fromArray($a));
 
             $json = setupPages($entreprise_table);
-            $json['entreprises'] = $entreprises === null ? [] : $entreprises;
+            $json['entreprises'] = $entreprises === null ? [] : (is_array($entreprises) ? $entreprises : [$entreprises]);
 
             if($entreprises === null)
             {
