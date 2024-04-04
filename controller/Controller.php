@@ -427,17 +427,22 @@ class Controller
             }
         }
 
-        $links = [
+        $header_links = [
             'Accueil' => self::$DEFAULT_PAGE,
             'Entreprises' => '/entreprises',
             'Offres' => '/offres',
-            'Utilisateurs' => '/utilisateurs',
+            'Utilisateurs' => '/utilisateurs'
+        ];
+
+        $footer_links = [
+            'Accueil' => self::$DEFAULT_PAGE,
             'Contact' => '/contact',
             'À propos' => '/about',
             'Mentions légales' => '/mentions'
         ];
 
-        $this->smarty->assign('links', $links);
+        $this->smarty->assign('links', $header_links);
+        $this->smarty->assign('footer_links', $footer_links);
 
         $this->smarty->assign('index_page', self::$INDEX_PAGE);
 
