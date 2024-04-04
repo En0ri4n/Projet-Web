@@ -34,7 +34,6 @@ class OffreTable extends AbstractTable
     public function delete(mixed $id): bool
     {
         $query = "DELETE " . $this->getTableName() . ", Wishlist FROM " . $this->getTableName() . " LEFT JOIN Wishlist ON Wishlist.IdOffre = " . $this->getIdColumn() . " WHERE " . $this->getIdColumn() . " = :id";
-        var_dump($query);
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindValue(':id', $id);
         /* Candidatures à l'offre */
