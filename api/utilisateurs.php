@@ -106,14 +106,13 @@ switch($method)
                     echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['noAddress', 'street', 'city', 'pc', 'country', 'idPromo'], 'received' => array_keys($data ?? [])]);
                     exit();
                 }
-                /*TODO:verifier création d'étudiant/pilote avec adresse/promotion*/
                 $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
                 $tableAddress = new \model\table\AdresseTable();
                 $tableStudent = new EtudiantTable();
                 try
                 {
                     $tableAddress->insert($address);
-                    echo json_encode(['success' => 'Addresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
+                    echo json_encode(['success' => 'Adresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
                     $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], $data['idPromo'], $tableAddress->getLastInsertId());
                     $tableStudent->insert($etudiant);
                     echo json_encode(['success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);

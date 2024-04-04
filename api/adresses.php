@@ -92,6 +92,33 @@ switch($method) {
 
         echo json_encode(['error' => 'Paramètres invalides']);
         break;
+
+    case 'POST':
+        $data = json_decode(file_get_contents('php://input'), true);
+        if($data === null)
+
+            if(!isset($data['noAddress']) || !isset($data['street']) || !isset($data['city']) || !isset($data['pc']) || !isset($data['country']))
+            {
+                http_response_code(400);
+                echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['noAddress', 'street', 'city', 'pc', 'country'], 'received' => array_keys($data ?? [])]);
+                exit();
+            }
+        $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
+        $tableAddress = new \model\table\AdresseTable();
+
+        try
+        {
+            $tableAddress->insert($address);
+            echo json_encode(['success' => 'Adresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
+            http_response_code(201);
+        }
+        catch(Exception $e)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+        }
+        exit;
+
     default:
         http_response_code(500);
         echo json_encode(['error' => 'Méthode non supportée']);
