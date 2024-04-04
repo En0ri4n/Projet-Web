@@ -23,6 +23,8 @@ switch($method)
     case 'GET':
         $parameters = [];
 
+        checkIfGetColumn(new UtilisateurTable());
+
         if(isset($_GET['self']))
         {
             $self = json_decode(base64_decode($_COOKIE[Controller::$USER_COOKIE_NAME]), true);

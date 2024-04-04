@@ -93,7 +93,7 @@ main {
     }
 }
 
-.go-button {
+.go-button, .adresse-button {
     padding: 5px 10px 5px 10px;
     margin: 10px 10px;
     border-radius: 3px;
@@ -240,6 +240,14 @@ main {
     width: 300px;
     margin-top: 15px;
     margin-bottom: 15px;
+
+    .adresse-input{
+        padding: 10px;
+
+        input{
+            border-color:#5d8b8f;
+        }
+    }
 
     input {
         margin: 10px 0 0 0;

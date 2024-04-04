@@ -21,6 +21,8 @@ switch($method)
 {
     /*TODO : get statut et secteur*/
     case 'GET':
+        checkIfGetColumn(new EntrepriseTable());
+
         $parameters = [];
         addIfSetSpecial($parameters, $_GET, 'IdEntreprise', eq(EntrepriseTable::$ID_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'name', like(EntrepriseTable::$NOM_COLUMN));

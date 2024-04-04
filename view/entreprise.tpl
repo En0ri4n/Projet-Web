@@ -14,16 +14,19 @@
                 <div class="form__inputs">
                     <input class="form__input" placeholder="Nom de l'entreprise*" required>
                     <input class="form__input" placeholder="Mail de l'entreprise">
-                    <input class="form__input" placeholder="Adresse Principale*" required> <!--TODO : Séparer les Adresses en Rue (n° + Nom)/Ville/Code Postal -->
-                    <div class="add-div">
-                        <input class="form-input"  id="input-skill" placeholder="Ajouter Adresse secondaire">
-                        <div class="added-input-list">
-                            <ul id="adresses">
-                                <li>Adresse 1<a>✕</a></li>
-                                <li>Adresse 2<a>✕</a></li>
-                                <li>Adresse 3<a>✕</a></li>
-                            </ul>
-                        </div>
+                    <div class="adresse-input">
+                        <label for="location-numero">Adresse Principale</label>
+                        <input type="text" class="form-input" id="location-numero" placeholder="N°" required>
+                        <input type="text" class="form-input" id="location-rue" placeholder="Rue" required>
+                        <input type="text" class="form-input" id="location-ville" placeholder="Ville" required>
+                        <input type="text" class="form-input" id="location-cp" placeholder="Code Postal" required>
+                        <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
+                    </div>
+
+                    <button type="button" class="adresse-button" id="button-add-adress" onclick="addSecondaryAdress()">Ajouter une adresse secondaire</button>
+                    <button type="button" class="adresse-button" id="button-remove-adress" onclick="removeSecondaryAdress()">Retirer une adresse secondaire</button>
+                    <div id="secondary-adresses">
+
                     </div>
                     <input class="form__input" placeholder="Domaine*" required>
                     <input class="form__input" placeholder="E-mail">
