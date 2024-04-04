@@ -55,7 +55,7 @@ function addSecondaryAdress()
     label.innerHTML = "Adresse Secondaire n° " + nbrAdressesSecondaire;
 
     let inputNumero = document.createElement("input");
-    inputNumero.setAttribute("type", "text");
+    inputNumero.setAttribute("type", "number");
     inputNumero.setAttribute("class", "form-input");
     inputNumero.setAttribute("id", "location" + nbrAdressesSecondaire + "-numero");
     inputNumero.setAttribute("placeholder", "N°");

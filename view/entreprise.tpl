@@ -16,7 +16,7 @@
                     <input class="form__input" placeholder="Mail de l'entreprise">
                     <div class="adresse-input">
                         <label for="location-numero">Adresse Principale</label>
-                        <input type="text" class="form-input" id="location-numero" placeholder="N°" required>
+                        <input type="number" class="form-input" id="location-numero" placeholder="N°" required>
                         <input type="text" class="form-input" id="location-rue" placeholder="Rue" required>
                         <select class="form-input" id="location-ville" required>
                             <option value="" disabled selected>Ville</option>
