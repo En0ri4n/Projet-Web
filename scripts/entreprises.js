@@ -22,7 +22,6 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 
 async function filterEntreprises()
 {
-
     let self_response = await fetch('/api/users?self', {
         method: 'GET',
         headers: {
@@ -31,7 +30,6 @@ async function filterEntreprises()
     });
 
     let account = await self_response.json();
-
 
     let baseUrl = '/api/entreprises?page=' + currentPage + '&per_page=10';
 
@@ -56,12 +54,12 @@ async function filterEntreprises()
     const entreprises = document.getElementById('liste-entreprises');
     entreprises.innerHTML = '';
 
-    if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+    if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
+    {
         let add = document.createElement('button');
-        add.classList.add('add');
-        add.innerHTML = 'Ajouter';
-        addEventTo(add, 'click', () => window.location.href = '/creer-profil');
-        utilisateurs.appendChild(add);
+        add.setAttribute('class', 'add');
+        add.innerHTML = 'Ajouter une entreprise';
+        addEventTo(add, 'click', () => window.location.href = '/poster_entreprise');
     }
 
     setTotalPages(data['total_pages'])
@@ -70,10 +68,13 @@ async function filterEntreprises()
     {
         const entreprise = data['entreprises'][i];
 
-        const div = document.createElement('div');
-        div.classList.add("contener_row");
-        let html = `
-        <article class="offre">
+        const contener = document.createElement('div');
+        contener.classList.add("contener_row");
+
+        let article = document.createElement('article');
+        article.classList.add('offre');
+
+        article.innerHTML = `
                         <div class="c1">
                             <span class="poste">` + entreprise["NomEntreprise"] + `</span>
                             <span class="niveau">` + entreprise["Statut"] + `</span>
@@ -85,31 +86,41 @@ async function filterEntreprises()
                         <div class="c3">
                             <span class="dates">` + entreprise["TelephoneEntreprise"] + `</span>
                         </div>
-                    </article>
                                                 `;
 
-        if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-                                  
-                                            let supprimer = document.createElement('button1');
-                                            supprimer.classList.add('supprimer');
-                                            supprimer.innerHTML = 'Supprimer';
-                                            addEventTo(supprimer, 'click', () => window.location.href = '/creer-profil');//TODO : remplacer 'creer-profil' par une requete SQL
-                                            utilisateurs.appendChild(supprimer);
 
-                                            let modifier = document.createElement('button2');
-                                            modifier.classList.add('modifier');
-                                            modifier.innerHTML = 'Modifier';
-                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-entreprise');
-                                            utilisateurs.appendChild(modifier);
-                              }
-                              div.innerHTML = html;
+        addEventTo(article, 'click', () => window.location.href = '/description-entreprise?IdEntreprise=' + entreprise["IdEntreprise"]);
 
-                              addEventTo(div, 'click', () =>
-                              {
-                                  window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
-                              });
+        contener.appendChild(article);
 
-        entreprises.appendChild(div);
+        if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
+        {
+            let deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete');
+            deleteButton.innerHTML = 'Supprimer';
+            addEventTo(deleteButton, 'click', () =>
+            {
+                fetch('/api/entreprises', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        IdEntreprise: entreprise["IdEntreprise"]
+                    })
+                }).then(() => filterEntreprises());
+            });
+
+            contener.appendChild(deleteButton);
+
+            let updateButton = document.createElement('button');
+            updateButton.classList.add('update');
+            updateButton.innerHTML = 'Modifier';
+            addEventTo(updateButton, 'click', () => window.location.href = '/modifier-entreprise?IdEntreprise=' + entreprise["IdEntreprise"]);
+            contener.appendChild(updateButton);
+        }
+
+        entreprises.appendChild(contener);
     }
 }
 

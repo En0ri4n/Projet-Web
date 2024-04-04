@@ -71,10 +71,12 @@ async function filterUsers()
     {
         const utilisateur = data['users'][i];
 
-        const div = document.createElement('div');
-        div.classList.add("contener_row");
-        let html = `
-                                                    <article class="` + utilisateur['user_type'] + `">
+        const contener = document.createElement('div');
+        contener.classList.add("contener_row");
+
+        let article = document.createElement('article');
+        article.classList.add(utilisateur['user_type']);
+        article.innerHTML = `
                                                         <img src="/assets/profil.png" alt="Etudiant">
                                                         <div class="c1">
                                                             <span class="bold">` + utilisateur['Nom'] + `</span>
@@ -84,47 +86,39 @@ async function filterUsers()
                                                             <span class="bold">` + utilisateur['Prenom'] + `</span>
                                                             ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : ` + utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
                                                         </div>
-                                                    </article>
                                                 `;
 
-        if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-                                  
-                                            let supprimer = document.createElement('button1');
-                                            supprimer.classList.add('supprimer');
-                                            supprimer.innerHTML = 'Supprimer';
-                                            addEventTo(supprimer, 'click', () => window.location.href = '/creer-profil');//TODO : remplacer 'creer-profil' par une requete SQL
-                                            utilisateurs.appendChild(supprimer);
+        addEventTo(article, 'click', () => window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"]);
 
-                                            let modifier = document.createElement('button2');
-                                            modifier.classList.add('modifier');
-                                            modifier.innerHTML = 'Supprimer';
-                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-entreprise');
-                                            utilisateurs.appendChild(modifier);
+        contener.appendChild(article);
 
-                              }
-                              div.innerHTML = html;
         if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
         {
-            html += `<button class="delete">Supprimer</button>
-                                            <button class="update">Modifier</button>`
+            let supprimer = document.createElement('button');
+            supprimer.classList.add('delete');
+            supprimer.innerHTML = 'Supprimer';
+            addEventTo(supprimer, 'click', () =>
+            {
+                fetch('/api/users', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({IdUtilisateur: utilisateur["IdUtilisateur"]})
+                }).then(() => window.location.reload());
+
+            }); // TODO: replace with actual delete function
+            contener.appendChild(supprimer);
+
+            let modifier = document.createElement('button');
+            modifier.classList.add('update');
+            modifier.innerHTML = 'Modifier';
+            addEventTo(modifier, 'click', () => window.location.href = '/modifier-profil?userId=' + utilisateur["IdUtilisateur"]);
+            contener.appendChild(modifier);
         }
-        div.innerHTML = html;
-
-        addEventTo(div, 'click', () =>
-        {
-            window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
-        });
-
-                              addEventTo(button1, 'clic', () =>{
-
-                              });
-                              addEventTo(button2, 'clic', () =>{
-
-                              });
 
 
-
-        utilisateurs.appendChild(div);
+        utilisateurs.appendChild(contener);
     }
 }
 

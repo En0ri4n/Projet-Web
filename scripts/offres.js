@@ -42,17 +42,33 @@ function onReady()
 {
     populateFilters();
 
-    initPagination(() => document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterOffres);
+    initPagination(onWait, filterOffres);
 
     reloadPagination();
 }
+
+function onWait()
+{
+    document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
+}
+
+addEventTo(document.getElementById('reset-filter'), 'click', () =>
+{
+    document.getElementById('filter-name').value = '';
+    document.getElementById('filter-entreprise').value = '';
+    document.getElementById('filter-niveau').value = '';
+    document.getElementById('filter-date').value = '';
+    document.getElementById('filter-duree').value = '';
+
+    onWait();
+    filterOffres();
+});
 
 addEventTo(document.getElementById('search-button'), 'click', (e) =>
 {
     e.preventDefault();
 
-    document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
-
+    onWait();
     filterOffres();
 });
 
@@ -90,24 +106,28 @@ async function filterOffres()
     const offres = document.getElementById('liste-offres');
     offres.innerHTML = '';
 
-    if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+    if (account['user_type']==='administrateur' || account['user_type']==='pilote')
+    {
         let add = document.createElement('button');
         add.classList.add('add');
         add.innerHTML = 'Ajouter';
         addEventTo(add, 'click', () => window.location.href = '/creer-offre');
-        utilisateurs.appendChild(add);
+        offres.appendChild(add);
     }
 
     setTotalPages(data['total_pages'])
 
-    data['offres'].forEach(offre =>
-                           {
-                               const div = document.createElement('div');
-                               div.classList.add('contener_row');
-                               
-                let html = `
-                
-                <article class="offre">
+    for(let i = 0; i < data['offres'].length; i++)
+    {
+        const offre = data['offres'][i];
+
+        const contener = document.createElement('div');
+        contener.classList.add('contener_row');
+
+        let article = document.createElement('article');
+        article.classList.add('offre');
+
+        article.innerHTML = `
                         <div class="c1">
                             <span class="poste">` + offre["NomOffre"] + `</span>
                             <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
@@ -119,33 +139,41 @@ async function filterOffres()
                         </div>
                         <div class="c3">
                             <ul class="competences">Compétences : ` +
-                            (offre["competences"].length > 0 ?
-                                offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
-                                'Non défini') + `
+            (offre["competences"].length > 0 ?
+                offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
+                'Non défini') + `
                             </ul>
                         </div>
-                </article>
-               
             `;
-            if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-                
-                                            let supprimer = document.createElement('button1');
-                                            supprimer.classList.add('supprimer');
-                                            supprimer.innerHTML = 'Supprimer';
-                                            addEventTo(supprimer, 'click', () => window.location.href = '/creer-profil');//TODO : remplacer 'creer-profil' par une requete SQL
-                                            utilisateurs.appendChild(supprimer);
 
-                                            let modifier = document.createElement('button2');
-                                            modifier.classList.add('modifier');
-                                            modifier.innerHTML = 'Modifier';
-                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-offre');
-                                            utilisateurs.appendChild(modifier);
-            }
-            div.innerHTML = html;
-                           offres.appendChild(div);
+        addEventTo(article, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
 
+        contener.appendChild(article);
 
-                               addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
-                           })
+        if (account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
+        {
+            let deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete');
+            deleteButton.innerHTML = 'Supprimer';
+            addEventTo(deleteButton, 'click', () => {
+                fetch('/api/offres', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({IdOffre: offre["IdOffre"]})
+                }).then(() => filterOffres());
+            });
+            contener.appendChild(deleteButton);
+
+            let updateButton = document.createElement('button');
+            updateButton.classList.add('update');
+            updateButton.innerHTML = 'Modifier';
+            addEventTo(updateButton, 'click', () => window.location.href = '/modifier-offre?IdOffre=' + offre["IdOffre"]);
+            contener.appendChild(updateButton);
+        }
+
+        offres.appendChild(contener);
+    }
 
 }
