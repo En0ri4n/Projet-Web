@@ -66,6 +66,14 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 
 async function filterOffres()
 {
+    let self_response = await fetch('/api/users?self', {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    let account = await self_response.json();
+
     let baseUrl = '/api/offres?page=' + currentPage + '&per_page=10';
 
     let nom = document.getElementById('filter-name').value;
@@ -89,16 +97,21 @@ async function filterOffres()
     console.log(data)
 
     const offres = document.getElementById('liste-offres');
-
     offres.innerHTML = '';
+
+    if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+        offres.innerHTML = `<button class="add">Ajouter</button>`
+    }
 
     setTotalPages(data['total_pages'])
 
     data['offres'].forEach(offre =>
                            {
-                               const div = document.createElement('article');
-                               div.classList.add('offre');
-                               div.innerHTML = `
+                               const div = document.createElement('div');
+                               div.classList.add('contener_row');
+                               
+                let html = `
+                
                 <div class="c1">
                     <span class="poste">` + offre["NomOffre"] + `</span>
                     <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
@@ -117,9 +130,17 @@ async function filterOffres()
                                        'Non défini') + `
                     </ul>
                 </div>
+               
             `;
-                               offres.appendChild(div);
+            if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+                html += `<button class="delete">Supprimer</button>
+                          <button class="update">Modifier</button>`
+            }
+            div.innerHTML = html;
+                           offres.appendChild(div);
+
 
                                addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
                            })
+
 }
