@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>entreprises</title>
+    <title>Entreprises</title>
     {include file='components/head.tpl'}
 </head>
 <body>
