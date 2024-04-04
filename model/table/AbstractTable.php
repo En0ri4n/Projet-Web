@@ -54,7 +54,7 @@ abstract class AbstractTable
      * @param array $values The values to insert (in the same order as the columns)
      * @return bool True if the insert was successful, false otherwise
      */
-    protected function insertWith(array $columns, array $values): bool
+    public function insertWith(array $columns, array $values): bool
     {
         $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $column), $columns)) . ")";
         $stmt = $this->getDatabase()->prepare($query);
@@ -324,9 +324,30 @@ abstract class AbstractTable
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    public function selectColumnsValues(array $columns): array
+    {
+        $query = "SELECT " . implode(', ', $columns) . " FROM " . $this->getTableName() . " GROUP BY " . $columns[0] . " ORDER BY " . $columns[0] . " ASC";
+        $stmt = $this->getDatabase()->query($query);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $values = [];
+
+        foreach($data as $row)
+            $values[] = array_map((fn($column) => $row[$column]), $columns);
+
+        return $values;
+    }
+
     public function selectColumnNames(): array
     {
         $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $this->getTableName() . "'";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function selectJoinedColumnNames(string... $tables): array
+    {
+        $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $this->getTableName() . "' OR " . implode(" OR ", array_map((fn($table) => "TABLE_NAME = '" . $table . "'"), $tables));
         $stmt = $this->getDatabase()->query($query);
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
@@ -368,6 +389,7 @@ abstract class AbstractTable
         foreach($data as $column => $value)
             $stmt->bindValue(':' . $this->escape_and_lower($column), $value);
         $stmt->bindValue(':id', $id);
+
         return $stmt->execute();
     }
 
