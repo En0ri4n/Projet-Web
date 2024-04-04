@@ -19,6 +19,8 @@ header('Content-Type: application/json');
 switch($method)
 {
     case 'GET':
+        checkIfGetColumn(new OffreTable());
+
         $parameters = [];
         addIfSetSpecial($parameters, $_GET, 'name', like(OffreTable::$NAME_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'date', dateSup(OffreTable::$DATE_COLUMN));
