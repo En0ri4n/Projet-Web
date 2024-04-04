@@ -24,16 +24,17 @@
                 <span class="soustitre-liste">Domaine</span>  <span>{$secteur->getNom()}</span>
             </div>
         </div>
-        <form method="post" id="form_inscription">
+        <form method="post" id="form_inscription" action="/api/candidatures" enctype="multipart/form-data">
             <div class="form__file">
                 <div>
                     <label for="file">CV</label>
-                    <input type="file" accept=".docx,.pdf" required>
+                    <input type="file" name="cv" accept=".docx,.pdf" required>
                 </div>
                 <div>
                     <label for="file">Lettre de motivation</label>
-                    <input type="file" accept=".docx,.pdf" required>
+                    <input type="file" name="motivation" accept=".docx,.pdf" required>
                 </div>
+                <input name="IdOffre" id="IdOffre" type="hidden" value="{$offre->getId()}">
             </div>
             <div class="center">
                 <input class="submit" type="submit" value="Candidater">
@@ -47,4 +48,5 @@
 {include file='components/footer.tpl'}
 </body>
 <script type="module" src="/scripts/descriptions.js"></script>
+<script type="module" src="/scripts/candidature.js"></script>
 </html>

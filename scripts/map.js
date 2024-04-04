@@ -2,7 +2,7 @@
 getCoordinates();
 function getCoordinates(){
     url = new URL(window.location.href);
-    let id = url.searchParams.get("entrepriseId");
+    let id = url.searchParams.get("IdEntreprise");
 
     fetch('/api/entreprises?IdEntreprise=' +id, { // TODO: mettre à jour tout ça bien
         method: 'GET', headers: {

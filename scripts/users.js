@@ -51,8 +51,8 @@ async function filterUsers()
 
     console.log(data);
 
-    const utilisateurs = document.getElementById('liste-utilisateurs');
-    utilisateurs.innerHTML = '';
+    const listeUtilisateurElement = document.getElementById('liste-utilisateurs');
+    listeUtilisateurElement.innerHTML = '';
 
     if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
     {
@@ -60,7 +60,14 @@ async function filterUsers()
         add.classList.add('add');
         add.innerHTML = 'Ajouter';
         addEventTo(add, 'click', () => window.location.href = '/creer-profil');
-        utilisateurs.appendChild(add);
+        listeUtilisateurElement.appendChild(add);
+    }
+
+    if(data['users'].length === 0)
+    {
+        const h1 = document.createElement('h1');
+        h1.innerHTML = 'Aucun utilisateur trouvé :(';
+        listeUtilisateurElement.appendChild(h1);
     }
 
     setTotalPages(data['total_pages'])
@@ -119,7 +126,7 @@ async function filterUsers()
         }
 
 
-        utilisateurs.appendChild(contener);
+        listeUtilisateurElement.appendChild(contener);
     }
 }
 

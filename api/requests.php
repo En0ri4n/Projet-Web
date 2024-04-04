@@ -86,7 +86,7 @@ function addIfSetLike(array &$array, array $get_array, string $key, string $colu
         $array[$column] = url_decode_and_percent($get_array[$key]);
 }
 
-function checkConnection(): void
+function checkUserConnection(): void
 {
     if(!isset($_COOKIE[Controller::$USER_COOKIE_NAME]))
     {
@@ -94,7 +94,11 @@ function checkConnection(): void
         echo json_encode(['error' => 'Vous devez être connecté pour effectuer cette action']);
         exit();
     }
+}
 
+function checkConnection(): void
+{
+    checkUserConnection();
 
     if(in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE']))
     {

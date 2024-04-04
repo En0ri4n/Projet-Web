@@ -28,7 +28,7 @@ function addCSS(e, css = "checked"){
     const overedStar = e.target;
     overedStar.classList.add(css);
     const previousSiblings = getPreviousSiblings(overedStar);
-    console.log("previousSiblings", previousSiblings);
+    // console.log("previousSiblings", previousSiblings);
     previousSiblings.forEach(elem => elem.classList.add(css));
 }
 
