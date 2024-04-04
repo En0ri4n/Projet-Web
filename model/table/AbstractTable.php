@@ -275,8 +275,6 @@ abstract class AbstractTable
         return null;
     }
 
-
-
     /**
      * Select from the table with special conditions
      *
@@ -318,6 +316,20 @@ abstract class AbstractTable
             return array_map((fn($row) => $fromArray($row)), $rows);
 
         return null;
+    }
+
+    public function selectColumnValues(string $columnName): array
+    {
+        $query = "SELECT " . $columnName . " FROM " . $this->getTableName() . " GROUP BY " . $columnName . " ORDER BY " . $columnName . " ASC";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function selectColumnNames(): array
+    {
+        $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $this->getTableName() . "'";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     /**
