@@ -119,8 +119,8 @@ CREATE TABLE Etudiant
 CREATE TABLE Candidature
 (
     IdCandidature            INT AUTO_INCREMENT NOT NULL,
-    CV                       VARCHAR(64),
-    LettreMotivation         VARCHAR(50),
+    CV                       VARCHAR(128),
+    LettreMotivation         VARCHAR(128),
     StatutCandidature        VARCHAR(16),
     IdEtudiant               VARCHAR(64),
     IdOffre                  INT                NOT NULL,
