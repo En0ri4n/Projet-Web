@@ -1,12 +1,12 @@
 import {addEventTo} from "./main.js";
 import {currentPage, initPagination, reloadPagination, setTotalPages} from "./pagination.js";
 
-addEventTo(document, 'DOMContentLoaded', onReady); // TODO: Tout à faire, remplacer les valeurs
+addEventTo(document, 'DOMContentLoaded', onReady);
 
 async function onReady()
 {
 
-    initPagination(() => document.getElementById('liste-utilisateurs').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterUsers);
+    initPagination(() => document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterUsers);
 
     reloadPagination();
 }
@@ -15,7 +15,7 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 {
     e.preventDefault();
 
-    document.getElementById('liste-utilisateurs').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
+    document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
 
     filterUsers();
 });
@@ -33,7 +33,7 @@ async function filterUsers()
     let account = await self_response.json();
 
 
-    let baseUrl = '/api/users?page=' + currentPage + '&per_page=10';
+    let baseUrl = '/api/entreprises?page=' + currentPage + '&per_page=10';
 
     let nom = document.getElementById('filter-nom').value;
 
@@ -53,33 +53,35 @@ async function filterUsers()
 
     console.log(data);
 
-    const utilisateurs = document.getElementById('liste-utilisateurs');
-    utilisateurs.innerHTML = '';
+    const entreprises = document.getElementById('liste-entreprises');
+    entreprises.innerHTML = '';
 
     if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-        utilisateurs.innerHTML = `<button class="add">Ajouter</button>`
+        entreprises.innerHTML = `<button class="add">Ajouter</button>`
     }
 
     setTotalPages(data['total_pages'])
 
-    for(let i = 0; i < data['users'].length; i++)
+    for(let i = 0; i < data['entreprises'].length; i++)
     {
-        const utilisateur = data['users'][i];
+        const entreprise = data['entreprises'][i];
 
         const div = document.createElement('div');
         div.classList.add("contener_row");
         let html = `
-                                                    <article class="` + utilisateur['user_type'] + `">
-                                                        <img src="/assets/profil.png" alt="Etudiant">
-                                                        <div class="c1">
-                                                            <span class="bold">` + utilisateur['Nom'] + `</span>
-                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Domaine : `+ utilisateur['promotion']['TypePromotion'] + `</span>` : '') + `
-                                                        </div>
-                                                        <div class="c2">
-                                                            <span class="bold">` + utilisateur['Prenom'] + `</span>
-                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : `+ utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
-                                                        </div>
-                                                    </article>
+        <article class="offre">
+                        <div class="c1">
+                            <span class="poste">` + entreprise["NomEntreprise"] + `</span>
+                            <span class="niveau">` + entreprise["Statut"] + `</span>
+                        </div>
+                        <div class="c2">
+                            <span class="domaine">` + entreprise["MailEntreprise"] + `</span>
+                            <span class="dates">` + entreprise["TelephoneEntreprise"] + `</span>
+                        </div>
+                        <div class="c3">
+                            <span class="dates">` + entreprise["TelephoneEntreprise"] + `</span>
+                        </div>
+                    </article>
                                                 `;
 
         if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
@@ -93,7 +95,7 @@ async function filterUsers()
                                   window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
                               });
 
-        utilisateurs.appendChild(div);
+        entreprises.appendChild(div);
     }
 }
 
