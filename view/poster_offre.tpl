@@ -35,7 +35,6 @@
                 </div>
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
                 <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" min="0" required>
-                <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">
                 <input type="hidden" id="nombre-skills" value=1>
                 <input class="form-input" id="skill1" placeholder="Compétence*" required>
                 <button type="button" class="add-form-data-button" id="button-add-skill">Ajouter une compétence</button>
