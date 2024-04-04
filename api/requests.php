@@ -41,6 +41,24 @@ function eq(string $column): callable
     return fn($value) => $column . " = " . $value;
 }
 
+function checkIfGetColumn(AbstractTable $table): void
+{
+    if(isset($_GET['column']))
+    {
+        if(!in_array($_GET['column'], $table->selectColumnNames()))
+        {
+            http_response_code(400);
+            echo json_encode(['column' => $_GET['column'], 'error' => 'La colonne demandée n\'existe pas', 'count' => 0, 'values' => []]);
+            exit();
+        }
+
+        $values = $table->selectColumnValues($_GET['column']);
+
+        echo json_encode(['column' => $_GET['column'], 'count' => count($values), 'values' => $values]);
+        exit();
+    }
+}
+
 function addIfSetLike(array &$array, array $get_array, string $key, string $column): void
 {
     if(isset($get_array[$key]))
@@ -101,4 +119,9 @@ function getPage(): int
 function url_decode_and_percent(string $s): string
 {
     return '%' . urldecode($s) . '%';
+}
+
+function fromColumn(string $col)
+{
+    return explode('.', $col)[1];
 }

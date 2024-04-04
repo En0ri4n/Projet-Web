@@ -19,6 +19,8 @@ header('Content-Type: application/json');
 
 switch ($method) {
     case 'GET':
+        checkIfGetColumn(new PromotionTable());
+
         $parameters = [];
 
         addIfSetLike($parameters, $_GET, 'nom', PromotionTable::$NAME_COLUMN);
