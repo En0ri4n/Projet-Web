@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Utilisateurs</title>
+    <title>Admin Page</title>
     {include file='components/head.tpl'}
 </head>
 <body>
