@@ -24,6 +24,7 @@ function addSecondaryAdress(){
                         <input type="text" class="form-input" id="location`+nbrAdressesSecondaire+`-cp" placeholder="Code Postal" required>
                         <input type="text" class="form-input" id="location`+nbrAdressesSecondaire+`-pays" placeholder="Pays" required>
                     </div>`;
+    document.getElementById("nombre-adresse-secondaires").value++;
 }
 
 document.getElementById("button-remove-adress").addEventListener("click",removeSecondaryAdress)
@@ -31,6 +32,7 @@ function removeSecondaryAdress(){
     if (nbrAdressesSecondaire > 0){
     document.getElementById("adresse-secondaire"+nbrAdressesSecondaire).remove();
     nbrAdressesSecondaire--;
+    document.getElementById("nombre-adresse-secondaires").value--;
     }
 }
 
@@ -39,6 +41,7 @@ document.getElementById("button-add-domain").addEventListener("click",addDomain)
 function addDomain(){
     nbrDomaines++;
     document.getElementById("domaines").innerHTML +=`<input class="form-input" id="domaine`+nbrDomaines+`" placeholder="Domaine n°`+nbrDomaines+`">`;
+    document.getElementById("nombre-domaines").value++;
 }
 
 document.getElementById("button-remove-domain").addEventListener("click",removeDomain)
@@ -46,5 +49,6 @@ function removeDomain(){
     if (nbrDomaines > 1){
     document.getElementById("domaine"+nbrDomaines).remove();
     nbrDomaines--;
+    document.getElementById("nombre-domaines").value--;
     }
 }
