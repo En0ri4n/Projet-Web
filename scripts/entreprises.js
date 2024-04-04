@@ -60,7 +60,7 @@ async function filterEntreprises()
         let add = document.createElement('button');
         add.classList.add('add');
         add.innerHTML = 'Ajouter';
-        addEventTo(add, 'click', () => window.location.href = '/creer-profil');
+        addEventTo(add, 'click', () => window.location.href = '/creer-entreprise');
         utilisateurs.appendChild(add);
     }
 
