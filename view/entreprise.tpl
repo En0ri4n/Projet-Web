@@ -23,18 +23,11 @@
                         <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                     </div>
 
-                    <!-- TODO : Pouvoir ajouter des entreprises secondaires 
-                    <button >Ajouter une adresse secondaire</button>
-                    <div class="add-div">
-                        <input class="form-input"  id="input-skill" placeholder="Ajouter Adresse secondaire">
-                        <div class="added-input-list">
-                            <ul id="adresses">
-                                <li>Adresse 1<a>✕</a></li>
-                                <li>Adresse 2<a>✕</a></li>
-                                <li>Adresse 3<a>✕</a></li>
-                            </ul>
-                        </div>
-                    </div>-->
+                    <button type="button" class="adresse-button" id="button-add-adress" onclick="addSecondaryAdress()">Ajouter une adresse secondaire</button>
+                    <button type="button" class="adresse-button" id="button-remove-adress" onclick="removeSecondaryAdress()">Retirer une adresse secondaire</button>
+                    <div id="secondary-adresses">
+
+                    </div>
                     <input class="form__input" placeholder="Domaine*" required>
                     <input class="form__input" placeholder="E-mail">
                     <input class="form__input" placeholder="Téléphone">
