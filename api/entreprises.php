@@ -19,6 +19,7 @@ header('Content-Type: application/json');
 
 switch($method)
 {
+    /*TODO : get statut et secteur*/
     case 'GET':
         $parameters = [];
         addIfSetSpecial($parameters, $_GET, 'IdEntreprise', eq(EntrepriseTable::$ID_COLUMN));
@@ -48,6 +49,8 @@ switch($method)
             echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
+
+        /*TODO : secteur et adresse*/
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
         if($data === null)
@@ -93,6 +96,29 @@ switch($method)
         try {
             $entrepriseTable->defaultJoinUpdate($id, '', $data);
             echo json_encode(['success' => 'Entreprise mise à jour', 'entreprise' => $id]);
+        }
+        catch(Exception $e)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+        }
+        exit();
+
+    case 'DELETE':
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['IdEntreprise']))
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['IdEntreprise'], 'received' => array_keys($data ?? [])]);
+            exit();
+        }
+
+        $entrepriseTable = new EntrepriseTable();
+
+        try {
+            $entrepriseTable->defaultJoinUpdate($data['IdEntreprise'], '', ['Statut'=>'Indisponible']);
+            echo json_encode(['success' => 'Entreprise archivée', 'entreprise' => $data['IdEntreprise']]);
         }
         catch(Exception $e)
         {

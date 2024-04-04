@@ -19,18 +19,26 @@
                 </select>
                 <input type="text" class="form-input" id="level" placeholder="Niveau d'études demandé" required>
                 <br>
-                    <div>
-                        <label for="start-date">Date début</label>
-                        <input class="form-input" type="date" id="start-date" required>
-                    </div>
-                    <div id="duree">
-                        <input class="form-input" type="number" id="nb-duree" min="1" max="20" placeholder="Durée" required>
-                        <select class="form-input" id="type-duree" required>
-                            <option value="semaines">Semaines</option>
-                            <option value="mois">Mois</option>
-                        </select>
-                    </div>
-                <input type="text" class="form-input" id="location" placeholder="Lieu" required> <!--TODO : Séparer les Adresses en Rue (n° + Nom)/Ville/Code Postal -->
+                <div>
+                    <label for="start-date">Date début</label>
+                    <input class="form-input" type="date" id="start-date" required>
+                </div>
+                <div id="duree">
+                    <input class="form-input" type="number" id="nb-duree" min="1" max="20" placeholder="Durée" required>
+                    <select class="form-input" id="type-duree" required>
+                        <option value="semaines">Semaines</option>
+                        <option value="mois">Mois</option>
+                    </select>
+                </div>
+                <br>
+                <div class="adresse-input">
+                    <label for="location-numero">Adresse du stage</label>
+                    <input type="text" class="form-input" id="location-numero" placeholder="N°" required>
+                    <input type="text" class="form-input" id="location-rue" placeholder="Rue" required>
+                    <input type="text" class="form-input" id="location-ville" placeholder="Ville" required>
+                    <input type="text" class="form-input" id="location-cp" placeholder="Code Postal" required>
+                    <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
+                </div>
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
                 <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" required>
                 <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">

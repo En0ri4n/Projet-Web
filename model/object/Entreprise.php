@@ -70,13 +70,13 @@ class Entreprise extends SerializableObject
         $table = LinkTable::getEntrepriseToAdresse();
         $links_entreprise_adresse = $table->select([LinkTable::getEntrepriseToAdresse()->getIdFromColumn() => $this->getId()]);
         $table = new AdresseTable();
-        $adresses = \Controller::fromLinks($links_entreprise_adresse, AdresseTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([AdresseTable::$ID_COLUMN => $a->getIdTo()]));
+        $adresses = $links_entreprise_adresse === null ? [] : \Controller::fromLinks($links_entreprise_adresse, AdresseTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([AdresseTable::$ID_COLUMN => $a->getIdTo()]));
         $a['adresses'] = $adresses;
 
         $table = LinkTable::getEntrepriseToSecteur();
         $links_entreprise_secteur = $table->select([LinkTable::getEntrepriseToSecteur()->getIdFromColumn() => $this->getId()]);
         $table = new SecteurTable();
-        $secteurs = \Controller::fromLinks($links_entreprise_secteur, SecteurTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([SecteurTable::$ID_COLUMN => $a->getIdTo()]));
+        $secteurs = $links_entreprise_secteur === null ? [] : \Controller::fromLinks($links_entreprise_secteur, SecteurTable::$ID_COLUMN, fn($q) => $table->selectOr($q), fn($a) => $table->select([SecteurTable::$ID_COLUMN => $a->getIdTo()]));
         $a['secteurs'] = $secteurs;
 
         return $a;

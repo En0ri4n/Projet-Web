@@ -14,7 +14,17 @@
                 <div class="form__inputs">
                     <input class="form__input" placeholder="Nom de l'entreprise*" required>
                     <input class="form__input" placeholder="Mail de l'entreprise">
-                    <input class="form__input" placeholder="Adresse Principale*" required> <!--TODO : Séparer les Adresses en Rue (n° + Nom)/Ville/Code Postal -->
+                    <div class="adresse-input">
+                        <label for="location-numero">Adresse Principale</label>
+                        <input type="text" class="form-input" id="location-numero" placeholder="N°" required>
+                        <input type="text" class="form-input" id="location-rue" placeholder="Rue" required>
+                        <input type="text" class="form-input" id="location-ville" placeholder="Ville" required>
+                        <input type="text" class="form-input" id="location-cp" placeholder="Code Postal" required>
+                        <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
+                    </div>
+
+                    <!-- TODO : Pouvoir ajouter des entreprises secondaires 
+                    <button >Ajouter une adresse secondaire</button>
                     <div class="add-div">
                         <input class="form-input"  id="input-skill" placeholder="Ajouter Adresse secondaire">
                         <div class="added-input-list">
@@ -24,7 +34,7 @@
                                 <li>Adresse 3<a>✕</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                     <input class="form__input" placeholder="Domaine*" required>
                     <input class="form__input" placeholder="E-mail">
                     <input class="form__input" placeholder="Téléphone">

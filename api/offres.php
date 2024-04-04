@@ -55,28 +55,25 @@ switch($method)
             echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
+
+        /*TODO : Changer directement l'adresse et demander (lien offre-competences)*/
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
         if($data === null)
+
+        if(!isset($data['NomOffre']) || !isset($data['DateOffre']) || !isset($data['DureeOffre']) || !isset($data['Remuneration']) || !isset($data['NbPlace']) || !isset($data['NiveauOffre']) || !isset($data['DescriptionOffre']) || !isset($data['IdSecteur']) || !isset($data['IdAdresse']) || !isset($data['IdEntreprise']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Données invalides']);
-            exit;
+            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur'], 'received' => array_keys($data ?? [])]);
+            exit();
         }
 
-        $offre = Offre::fromArray($data);
-
-        if($offre === null)
-        {
-            http_response_code(400);
-            echo json_encode(['error' => 'Données invalides']);
-            exit;
-        }
+        $offre = new Offre(-1, $data['NomOffre'], $data['DateOffre'], $data['DureeOffre'], $data['Remuneration'], $data['NbPlace'], $data['NiveauOffre'], $data['DescriptionOffre'], $data['IdSecteur'], $data['IdAdresse'], $data['IdEntreprise']);
+        $table = new OffreTable();
 
         try
         {
-            $offre_table = new OffreTable();
-            $offre_table->insert($offre);
+            $table->insert($offre);
             http_response_code(201);
             echo json_encode(['id' => $offre->getId()]);
         }
@@ -110,6 +107,29 @@ switch($method)
             }
 
 
+        exit();
+
+    case 'DELETE':
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['id']))
+        {
+            http_response_code(400);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            exit();
+        }
+
+        $offreTable = new OffreTable();
+
+        try {
+            $offreTable->delete($data['id']);
+            echo json_encode(['success' => 'Offre supprimée', 'offre' => $data['id']]);
+        }
+        catch(Exception $e)
+        {
+            http_response_code(500);
+            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+        }
         exit();
 
     default:

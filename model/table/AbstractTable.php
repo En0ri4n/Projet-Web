@@ -421,10 +421,10 @@ abstract class AbstractTable
         return "";
     }
 
-    public function getLastInsertId(): bool
+    public function getLastInsertId(): int
     {
-        $query = "SELECT LAST_INSERT_ID() FROM " . $this->getTableName() . " LIMIT 1";
-        $stmt = $this->getDatabase()->prepare($query);
-        return $stmt->execute();
+        $query = "SELECT LAST_INSERT_ID() AS id FROM " . $this->getTableName() . " LIMIT 1";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetch()['id'];
     }
 }

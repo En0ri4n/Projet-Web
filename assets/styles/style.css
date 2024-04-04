@@ -241,6 +241,14 @@ main {
     margin-top: 15px;
     margin-bottom: 15px;
 
+    .adresse-input{
+        padding: 10px;
+
+        input{
+            border-color:#5d8b8f;
+        }
+    }
+
     input {
         margin: 10px 0 0 0;
         padding: 8px 0 8px 8px;

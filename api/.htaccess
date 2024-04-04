@@ -5,3 +5,4 @@ RewriteRule ^offres$ /api/offres.php [L,NC] # [L] - last rule # [NC] - case inse
 RewriteRule ^users$ /api/utilisateurs.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^promos$ /api/promotions.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^entreprises$ /api/entreprises.php [L,NC] # [L] - last rule # [NC] - case insensitive
+RewriteRule ^adresses$ /api/adresses.php [L,NC] # [L] - last rule # [NC] - case insensitive
