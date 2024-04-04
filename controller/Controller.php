@@ -105,7 +105,7 @@ class Controller
         $this->setup(false);
         $this->smarty->assign('entreprise_exists', false);
 
-        if (!isset($_GET['entrepriseId'])) {
+        if (!isset($_GET['IdEntreprise'])) {
             $this->display('view/description_entreprise.tpl');
             return;
         }
@@ -116,7 +116,7 @@ class Controller
         $entreprise_to_secteur_table = LinkTable::getEntrepriseToSecteur();
         $entreprise_to_adresse_table = LinkTable::getEntrepriseToAdresse();
 
-        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['entrepriseId']]);
+        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['IdEntreprise']]);
 
         if ($entreprise == null) {
             $this->display('view/description_entreprise.tpl');
