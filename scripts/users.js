@@ -98,7 +98,7 @@ async function filterUsers()
                                             let modifier = document.createElement('button2');
                                             modifier.classList.add('modifier');
                                             modifier.innerHTML = 'Supprimer';
-                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-entreprise');
+                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-profil');
                                             utilisateurs.appendChild(modifier);
 
                               }
