@@ -75,7 +75,7 @@ switch($method)
         exit();
 
     case 'POST':
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $_POST;
 
         if(!isset($data['IdUtilisateur']) || !isset($data['Prenom']) || !isset($data['Nom']) || !isset($data['MailUtilisateur']) || !isset($data['MotDePasse']) || !isset($data['TelephoneUtilisateur']))
         {
@@ -116,6 +116,7 @@ switch($method)
                     $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], $data['idPromo'], $tableAddress->getLastInsertId());
                     $tableStudent->insert($etudiant);
                     echo json_encode(['success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);
+                    header('Location: /profil?userId=' . $etudiant->getId());
                 }
                 catch(Exception $e)
                 {
