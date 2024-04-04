@@ -91,7 +91,11 @@ async function filterOffres()
     offres.innerHTML = '';
 
     if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-        offres.innerHTML = `<button class="add">Ajouter</button>`
+        let add = document.createElement('button');
+        add.classList.add('add');
+        add.innerHTML = 'Ajouter';
+        addEventTo(add, 'click', () => window.location.href = '/creer-offre');
+        utilisateurs.appendChild(add);
     }
 
     setTotalPages(data['total_pages'])
@@ -124,8 +128,18 @@ async function filterOffres()
                
             `;
             if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-                html += `<button class="delete">Supprimer</button>
-                          <button class="update">Modifier</button>`
+                
+                                            let supprimer = document.createElement('button1');
+                                            supprimer.classList.add('supprimer');
+                                            supprimer.innerHTML = 'Supprimer';
+                                            addEventTo(supprimer, 'click', () => window.location.href = '/creer-profil');//TODO : remplacer 'creer-profil' par une requete SQL
+                                            utilisateurs.appendChild(supprimer);
+
+                                            let modifier = document.createElement('button2');
+                                            modifier.classList.add('modifier');
+                                            modifier.innerHTML = 'Modifier';
+                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-offre');
+                                            utilisateurs.appendChild(modifier);
             }
             div.innerHTML = html;
                            offres.appendChild(div);

@@ -88,17 +88,18 @@ async function filterUsers()
                                                 `;
 
         if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-                                  html += `<button class="delete">Supprimer</button>
-                                            <button class="update">Modifier</button>`;
-                                            const button1 = document.createElement('button');
-                                            button1.setAttribute('class', 'delete');
-                                            button1.innerHTML('supprimer');
-                                            utilisateur.appendChild(button1);
+                                  
+                                            let supprimer = document.createElement('button1');
+                                            supprimer.classList.add('supprimer');
+                                            supprimer.innerHTML = 'Supprimer';
+                                            addEventTo(supprimer, 'click', () => window.location.href = '/creer-profil');//TODO : remplacer 'creer-profil' par une requete SQL
+                                            utilisateurs.appendChild(supprimer);
 
-                                            const button2 = document.createElement('button');
-                                            button2.setAttribute('class', 'update');
-                                            button2.innerHTML('modifier');
-                                            utilisateur.appendChild(button2);
+                                            let modifier = document.createElement('button2');
+                                            modifier.classList.add('modifier');
+                                            modifier.innerHTML = 'Supprimer';
+                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-entreprise');
+                                            utilisateurs.appendChild(modifier);
 
                               }
                               div.innerHTML = html;
