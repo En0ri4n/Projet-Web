@@ -5,41 +5,33 @@ addEventTo(document, 'DOMContentLoaded', onReady);
 
 async function populateFilters()
 {
-    let entrepriseResponse = await fetch('/api/entreprises?per_page=1000', {
+    let entrepriseResponse = await fetch('/api/entreprises?column=NomEntreprise', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
     });
 
-    let promotionResponse = await fetch('/api/promos?per_page=1000', { // TODO: mettre à jour tout ça bien
+    let adresseResponse = await fetch('/api/adresses?column=Ville', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let promotionResponse = await fetch('/api/promos?column=NiveauPromotion', {
         method: 'GET', headers: {
             'Content-Type': 'application/json'
         }
     });
 
     let entrepriseData = await entrepriseResponse.json();
+    let adresseData = await adresseResponse.json();
     let promotionData = await promotionResponse.json();
 
-    console.log(entrepriseData)
-    console.log(promotionData)
-
-    let niveaux = [];
-    let entreprises = [];
-    let lieux = [];
-
-    for(let i = 0; i < entrepriseData['entreprises'].length; i++)
-    {
-        const entreprise = entrepriseData['entreprises'][i];
-        entreprises.push(entreprise['NomEntreprise']);
-        entreprise['adresses'].forEach(adresse => lieux.push(adresse['Ville']));
-    }
-
-    for(let i = 0; i < promotionData['promotions'].length; i++)
-    {
-        const promotion = promotionData['promotions'][i];
-        niveaux.push(promotion['NiveauPromotion']);
-    }
+    let lieux = adresseData['values'];
+    let entreprises = entrepriseData['values'];
+    let niveaux = promotionData['values'];
 
     document.getElementById('filter-niveau').innerHTML += Array.from(new Set(niveaux)).sort().map(niveau => { return `<option value="${niveau}">${niveau}</option>` }).join('');
     document.getElementById('filter-entreprise').innerHTML += Array.from(new Set(entreprises)).sort().map(entreprise => { return `<option value="${entreprise}">${entreprise}</option>` }).join('');
@@ -74,7 +66,6 @@ async function filterOffres()
     let date = document.getElementById('filter-date').value;
     let duree = document.getElementById('filter-duree').value;
 
-
     console.log(nom, entreprise, niveau, date, duree);
 
     let response = await fetch(baseUrl, {
@@ -94,11 +85,12 @@ async function filterOffres()
 
     setTotalPages(data['total_pages'])
 
-    data['offres'].forEach(offre =>
-                           {
-                               const div = document.createElement('article');
-                               div.classList.add('offre');
-                               div.innerHTML = `
+    for(let i = 0; i < data['offres'].length; i++)
+    {
+        let offre = data['offres'][i];
+        const div = document.createElement('article');
+        div.classList.add('offre');
+        div.innerHTML = `
                 <div class="c1">
                     <span class="poste">` + offre["NomOffre"] + `</span>
                     <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
@@ -112,14 +104,12 @@ async function filterOffres()
                 </div>
                 <div class="list-competences">
                     <ul class="competences">Compétences : ` +
-                                   (offre["competences"].length > 0 ?
-                                       offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
-                                       'Non défini') + `
+            (offre["competences"].length > 0 ? offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') : 'Non défini') + `
                     </ul>
                 </div>
             `;
-                               offres.appendChild(div);
+        offres.appendChild(div);
 
-                               addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
-                           })
+        addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
+    }
 }

@@ -115,21 +115,27 @@ function onReady()
     setCustomConditionValidator(document.getElementById('password-confirm'), (value) => value === document.getElementById('password').value, 'Les mots de passe ne correspondent pas');
     // setCustomValidator(document.getElementById('account'), )
 
-    fetch('/api/promos', {
+    fetchPromotions();
+}
+
+async function fetchPromotions()
+{
+    let res = await fetch('/api/promos?column=NomPromotion', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
-    })
-        .then(response => response.json())
-        .then(data =>
-              {
-                  // Nom de la promotion
-                  let html = '';
-                  for(let i = 0; i < data.length; i++)
-                      html += `<option value="${data[i]['IdPromotion']}">${data[i]['NomPromotion']}</option>`;
-                  document.getElementById('promotion').innerHTML = html;
-              });
+    });
+
+    let promotionData = await res.json();
+
+    console.log(promotionData);
+
+    // Nom de la promotion
+    let html = '';
+    for(let i = 0; i < promotionData['count']; i++)
+        html += `<option value="${promotionData['values'][i]}">${promotionData['values'][i]}</option>`;
+    document.getElementById('promotion').innerHTML = html;
 }
 
 addEventTo(document.getElementById("account"), "change", () =>
@@ -156,7 +162,7 @@ addEventTo(document.getElementById("account"), "change", () =>
     }
 });
 
-addEventTo(document.getElementsByName('code-postal')[0], 'change', (e) =>
+addEventTo(document.getElementById('code-postal'), 'change', (e) =>
 {
     let codePostal = e.target.value;
     if(codePostal.length === 5)
@@ -181,17 +187,4 @@ addEventTo(document.getElementsByTagName('form')[0], 'submit', (e) =>
     e.preventDefault();
 
     let form = e.target;
-
-    console.log(convertFormToJson(form, dict));
-
-    // TODO: send data
-    fetch('/api/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': "application/json"
-        }
-    }).then(res => res.json())
-        .then(data => {
-
-        })
 });
