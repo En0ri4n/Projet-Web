@@ -9,7 +9,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/EtudiantTable.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
 
-//checkConnection();
+checkConnection();
 
 ob_start('ob_gzhandler');
 
@@ -36,6 +36,8 @@ switch($method)
             echo json_encode($utilisateur);
             exit();
         }
+
+        addIfSetSpecial($parameters, $_GET, 'IdUtilisateur', eq(UtilisateurTable::$ID_COLUMN));
 
         addIfSetSpecial($parameters, $_GET, 'Nom', like(UtilisateurTable::$PRENOM_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'Nom', like(UtilisateurTable::$NOM_COLUMN));
@@ -75,7 +77,7 @@ switch($method)
         exit();
 
     case 'POST':
-        $data = $_POST;
+        $data = json_decode(file_get_contents('php://input'), true);
 
         if(!isset($data['IdUtilisateur']) || !isset($data['Prenom']) || !isset($data['Nom']) || !isset($data['MailUtilisateur']) || !isset($data['MotDePasse']) || !isset($data['TelephoneUtilisateur']))
         {
@@ -101,22 +103,21 @@ switch($method)
         if(isset($data['type']))
         {
             if($data['type']==='etudiant'){
-                if(!isset($data['noAddress']) || !isset($data['street']) || !isset($data['city']) || !isset($data['pc']) || !isset($data['country']) || !isset($data['idPromo'])){
+                if(!isset($data['Numero']) || !isset($data['Rue']) || !isset($data['Ville']) || !isset($data['CodePostal']) || !isset($data['Pays']) || !isset($data['idPromo'])){
                     http_response_code(400);
-                    echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['noAddress', 'street', 'city', 'pc', 'country', 'idPromo'], 'received' => array_keys($data ?? [])]);
+                    echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['Numero', 'Rue', 'Ville', 'CodePostal', 'Pays', 'idPromo'], 'received' => array_keys($data ?? [])]);
                     exit();
                 }
-                $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
+                $address = new \model\object\Adresse(-1, $data['Numero'], $data['Rue'], $data['Ville'], $data['CodePostal'], $data['Pays']);
                 $tableAddress = new \model\table\AdresseTable();
                 $tableStudent = new EtudiantTable();
                 try
                 {
                     $tableAddress->insert($address);
                     echo json_encode(['success' => 'Adresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
-                    $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], $data['idPromo'], $tableAddress->getLastInsertId());
+                    $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], intval($data['idPromo'])  , $tableAddress->getLastInsertId());
                     $tableStudent->insert($etudiant);
                     echo json_encode(['success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);
-                    header('Location: /profil?userId=' . $etudiant->getId());
                 }
                 catch(Exception $e)
                 {
@@ -167,23 +168,52 @@ switch($method)
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (!isset($data['id']))
+        if (!isset($data['IdUtilisateur']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['IdUtilisateur'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
         $etudiantTable = new EtudiantTable();
         $piloteTable = new PiloteTable();
         $adminTable = new AdministrateurTable();
+        $adresseTable = new \model\table\AdresseTable();
+        $utilisateurTable = new UtilisateurTable();
+
+        $etudiant = $etudiantTable->select([EtudiantTable::$ID_COLUMN => $data['IdUtilisateur']]);
 
         $id = array_shift($data);
 
+        $s = array();
+        $cols = $etudiantTable->selectJoinedColumnNames($utilisateurTable->getTableName(), $adresseTable->getTableName());
+
+        foreach ($data as $key => $value) {
+            if (in_array($key, $cols)) {
+                $s[$key] = $value;
+            }
+        }
+
+        if (isset($s['Numero']) && isset($s['Rue']) && isset($s['Ville']) && isset($s['CodePostal']) && isset($s['Pays'])) {
+
+            $adresse = new \model\object\Adresse(-1, $s['Numero'], $s['Rue'], $s['Ville'], $s['CodePostal'], $s['Pays']);
+            unset($s['Numero']);
+            unset($s['Rue']);
+            unset($s['Ville']);
+            unset($s['CodePostal']);
+            unset($s['Pays']);
+            $adresseTable->insertWith(array_keys($adresse->toInsertArray()), $adresse->toInsertArray());
+
+            $s['IdAdresse'] = $adresseTable->getLastInsertId();
+        }
+
+        $data = $s;
 
         if ($etudiantTable->isEtudiant($id)){
+
             try {
                 $etudiantTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, EtudiantTable::$ID_COLUMN), $data);
+                $adresseTable->delete($etudiant->getIdAdresse());
                 echo json_encode(['success' => 'Etudiant mis à jour', 'etudiant' => $id]);
             }
             catch(Exception $e)
@@ -207,7 +237,6 @@ switch($method)
 
         if ($adminTable->isAdministrateur($id)){
             try {
-                var_dump($data);
                 $adminTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, AdministrateurTable::$ID_COLUMN), $data);
                 echo json_encode(['success' => 'Administrateur mis à jour', 'administrateur' => $id]);
             }
