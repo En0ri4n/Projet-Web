@@ -46,7 +46,6 @@ abstract class AbstractTable
         return $stmt->execute();
     }
 
-
     /**
      * Insert a new row into the table with the given columns and values
      *
@@ -56,10 +55,25 @@ abstract class AbstractTable
      */
     public function insertWith(array $columns, array $values): bool
     {
-        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $column), $columns)) . ")";
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $this->escape_and_lower($column)), $columns)) . ")";
         $stmt = $this->getDatabase()->prepare($query);
         foreach($columns as $column)
             $stmt->bindValue(':' . $column, $values[$column]);
+        return $stmt->execute();
+    }
+
+    /**
+     * Insert a new row into the table with the given associative array of columns and values
+     *
+     * @param array $data Associative array of columns and values to insert
+     * @return bool True if the insert was successful, false otherwise
+     */
+    public function insertWithArray(array $data): bool
+    {
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", array_keys($data)) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $this->escape_and_lower($column)), array_keys($data))) . ")";
+        $stmt = $this->getDatabase()->prepare($query);
+        foreach(array_keys($data) as $column)
+            $stmt->bindValue(':' . $this->escape_and_lower($column), $data[$column]);
         return $stmt->execute();
     }
 
