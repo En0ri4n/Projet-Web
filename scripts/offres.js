@@ -112,24 +112,23 @@ async function filterOffres()
                                
                 let html = `
                 
-                <div class="c1">
-                    <span class="poste">` + offre["NomOffre"] + `</span>
-                    <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
-                    <span class="niveau">A` + offre["NiveauOffre"] + `</span>
-                </div>
-                <div class="c2">
-                    <span class="domaine">` + offre["secteur"]["NomSecteur"] + `</span>
-                    <span class="dates">` + offre["DateOffre"] + `</span>
-                </div>
-                <div class="c3">
-                </div>
-                <div class="list-competences">
-                    <ul class="competences">Compétences : ` +
-                                   (offre["competences"].length > 0 ?
-                                       offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
-                                       'Non défini') + `
-                    </ul>
-                </div>
+                <article class="offre">
+                        <div class="c1">
+                            <span class="poste">Poste1</span>
+                            <span class="entreprise">Entreprise1</span>
+                            <span class="niveau">Niveau1</span>
+                        </div>
+                        <div class="c2">
+                            <span class="domaine">Domaine1</span>
+                            <span class="dates">Dates1</span>
+                        </div>
+                        <div class="c3">
+                            <ul class="competences">Compétences :
+                                <li>competence A</li>
+                                <li>competence B</li>
+                            </ul>
+                        </div>
+                </article>
                
             `;
             if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
