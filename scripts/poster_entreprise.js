@@ -33,3 +33,18 @@ function removeSecondaryAdress(){
     nbrAdressesSecondaire--;
     }
 }
+
+let nbrDomaines = 1;
+document.getElementById("button-add-domain").addEventListener("click",addDomain)
+function addDomain(){
+    nbrDomaines++;
+    document.getElementById("domaines").innerHTML +=`<input class="form-input" id="domaine`+nbrDomaines+`" placeholder="Domaine n°`+nbrDomaines+`">`;
+}
+
+document.getElementById("button-remove-domain").addEventListener("click",removeDomain)
+function removeDomain(){
+    if (nbrDomaines > 1){
+    document.getElementById("domaine"+nbrDomaines).remove();
+    nbrDomaines--;
+    }
+}

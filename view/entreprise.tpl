@@ -23,12 +23,19 @@
                         <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                     </div>
 
-                    <button type="button" class="adresse-button" id="button-add-adress" onclick="addSecondaryAdress()">Ajouter une adresse secondaire</button>
-                    <button type="button" class="adresse-button" id="button-remove-adress" onclick="removeSecondaryAdress()">Retirer une adresse secondaire</button>
+                    <button type="button" class="add-form-data-button" id="button-add-adress" onclick="addSecondaryAdress()">Ajouter une adresse secondaire</button>
+                    <button type="button" class="add-form-data-button" id="button-remove-adress" onclick="removeSecondaryAdress()">Retirer une adresse secondaire</button>
                     <div id="secondary-adresses">
 
                     </div>
-                    <input class="form__input" placeholder="Domaine*" required>
+
+                    <input class="form-input" id="domaine1" placeholder="Domaine*" required>
+                    <button type="button" class="add-form-data-button" id="button-add-domain" onclick="addSecondaryAdress()">Ajouter une domaine</button>
+                    <button type="button" class="add-form-data-button" id="button-remove-domain" onclick="removeSecondaryAdress()">Retirer une domaine</button>
+                    <div class="added-domain-input" id="domaines">
+
+                    </div>
+
                     <input class="form__input" placeholder="E-mail">
                     <input class="form__input" placeholder="Téléphone">
                     <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" maxlength=512 required=""></textarea>
