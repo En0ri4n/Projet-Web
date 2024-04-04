@@ -187,7 +187,7 @@ class Controller
         $this->smarty->assign('adresse', $adresse);
 
         $links_competences = $offre_to_competence_table->select([LinkTable::getOffreToCompetence()->getIdFromColumn() => $offre->getId()]);
-        $competences = $this->fromLinks($links_competences, CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $competences = $this->fromLinks($links_competences ?? [], CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
         $this->smarty->assign('competences', $competences);
 
         $this->display('view/description_offre.tpl');
@@ -362,7 +362,7 @@ class Controller
         $this->smarty->assign('entreprise', $entreprise);
 
         $links_competences = $offre_to_competence_table->select([LinkTable::getOffreToCompetence()->getIdFromColumn() => $offre->getId()]);
-        $competences = $this->fromLinks($links_competences, CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $competences = $this->fromLinks($links_competences ?? [], CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
         $this->smarty->assign('competences', $competences);
 
 
