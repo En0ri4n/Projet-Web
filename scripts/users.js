@@ -56,8 +56,13 @@ async function filterUsers()
     const utilisateurs = document.getElementById('liste-utilisateurs');
     utilisateurs.innerHTML = '';
 
-    if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
-        utilisateurs.innerHTML = `<button class="add">Ajouter</button>`
+    if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
+    {
+        let add = document.createElement('button');
+        add.classList.add('add');
+        add.innerHTML = 'Ajouter';
+        addEventTo(add, 'click', () => window.location.href = '/creer-profil');
+        utilisateurs.appendChild(add);
     }
 
     setTotalPages(data['total_pages'])
@@ -73,11 +78,11 @@ async function filterUsers()
                                                         <img src="/assets/profil.png" alt="Etudiant">
                                                         <div class="c1">
                                                             <span class="bold">` + utilisateur['Nom'] + `</span>
-                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Domaine : `+ utilisateur['promotion']['TypePromotion'] + `</span>` : '') + `
+                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Domaine : ` + utilisateur['promotion']['TypePromotion'] + `</span>` : '') + `
                                                         </div>
                                                         <div class="c2">
                                                             <span class="bold">` + utilisateur['Prenom'] + `</span>
-                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : `+ utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
+                                                            ` + (utilisateur['user_type'] === 'etudiant' ? `<span>Promotion : ` + utilisateur['promotion']['NomPromotion'] + `</span>` : '') + `
                                                         </div>
                                                     </article>
                                                 `;
@@ -97,17 +102,23 @@ async function filterUsers()
 
                               }
                               div.innerHTML = html;
+        if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
+        {
+            html += `<button class="delete">Supprimer</button>
+                                            <button class="update">Modifier</button>`
+        }
+        div.innerHTML = html;
 
-                              addEventTo(div, 'click', () =>
-                              {
-                                  window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
-                              });
+        addEventTo(div, 'click', () =>
+        {
+            window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
+        });
 
                               addEventTo(button1, 'clic', () =>{
 
                               });
                               addEventTo(button2, 'clic', () =>{
-                                
+
                               });
 
 
