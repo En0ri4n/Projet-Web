@@ -14,8 +14,7 @@
                 <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
                 <textarea id="description" placeholder="Description du poste" maxlength=512 required></textarea>
                 <select class="form-input" id="entreprise" required>
-                    <option value="entreprise 1">Entreprise 1</option>
-                    <option value="entreprise 2">Entreprise 2</option>
+                <option>Chargement...</option>
                 </select>
                 <input type="text" class="form-input" id="level" placeholder="Niveau d'études demandé" required>
                 <br>
@@ -23,13 +22,7 @@
                     <label for="start-date">Date début</label>
                     <input class="form-input" type="date" id="start-date" required>
                 </div>
-                <div id="duree">
-                    <input class="form-input" type="number" id="nb-duree" min="1" max="20" placeholder="Durée" required>
-                    <select class="form-input" id="type-duree" required>
-                        <option value="semaines">Semaines</option>
-                        <option value="mois">Mois</option>
-                    </select>
-                </div>
+                <input class="form-input" type="number" id="nb-duree" min="1" max="20" placeholder="Durée (mois)" required>
                 <br>
                 <div class="adresse-input">
                     <label for="location-numero">Adresse du stage</label>
@@ -40,17 +33,13 @@
                     <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                 </div>
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
-                <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" required>
-                <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">
-                <div class="add-div">
-                    <input class="form-input"  id="input-skill" placeholder="Ajouter une compétence" required>
-                    <div class="added-input-list">
-                        <ul id="skills">
-                            <li>Compétence 1<a>✕</a></li>
-                            <li>Compétence 2<a>✕</a></li>
-                            <li>Compétence 3<a>✕</a></li>
-                        </ul>
-                    </div>
+                <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" min="0" required>
+                <input type="hidden" id="nombre-skills" value=1>
+                <input class="form-input" id="skill1" placeholder="Compétence*" required>
+                <button type="button" class="add-form-data-button" id="button-add-skill">Ajouter une compétence</button>
+                <button type="button" class="add-form-data-button" id="button-remove-skill">Retirer une compétence</button>
+                <div class="added-skill-input" id="skills">
+
                 </div>
                 <input type="submit" class="submit" placeholder="Publier">
             </div>

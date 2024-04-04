@@ -87,6 +87,22 @@ async function filterUsers()
                                                     </article>
                                                 `;
 
+        if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+                                  
+                                            let supprimer = document.createElement('button1');
+                                            supprimer.classList.add('supprimer');
+                                            supprimer.innerHTML = 'Supprimer';
+                                            addEventTo(supprimer, 'click', () => window.location.href = '/creer-profil');//TODO : remplacer 'creer-profil' par une requete SQL
+                                            utilisateurs.appendChild(supprimer);
+
+                                            let modifier = document.createElement('button2');
+                                            modifier.classList.add('modifier');
+                                            modifier.innerHTML = 'Supprimer';
+                                            addEventTo(modifier, 'click', () => window.location.href = '/modifier-profil');
+                                            utilisateurs.appendChild(modifier);
+
+                              }
+                              div.innerHTML = html;
         if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
         {
             html += `<button class="delete">Supprimer</button>
@@ -98,6 +114,15 @@ async function filterUsers()
         {
             window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
         });
+
+                              addEventTo(button1, 'clic', () =>{
+
+                              });
+                              addEventTo(button2, 'clic', () =>{
+
+                              });
+
+
 
         utilisateurs.appendChild(div);
     }

@@ -32,3 +32,55 @@ function onReady()
 	
 	setCustomValidator(document.getElementById('location'), /^[a-zA-Z\s._-]{3,}$/, 'La localisation doit au moins contenir 3 caractères');
 }
+
+
+let nbrSkills= 1;
+document.getElementById("button-add-skill").addEventListener("click", addSkill)
+
+function addSkill()
+{
+    nbrSkills++;
+
+    const input = document.createElement("input");
+    input.setAttribute("class", "form-input");
+    input.setAttribute("id", "skill" + nbrSkills);
+    input.setAttribute("placeholder", "Compétence n°" + nbrSkills);
+
+    document.getElementById("skills").appendChild(input);
+    document.getElementById("nombre-skills").value++;
+}
+
+document.getElementById("button-remove-skill").addEventListener("click", removeSkill)
+
+function removeSkill()
+{
+    if(nbrSkills > 1)
+    {
+        document.getElementById("skill" + nbrSkills).remove();
+        nbrSkills--;
+    document.getElementById("nombre-skills").value--;
+    }
+}
+getEntrepriseList();
+
+async function getEntrepriseList(){
+	let enterUrl = '/api/entreprises';
+	const entreprises = document.getElementById('entreprise');
+
+	let responseEnter = await fetch(enterUrl, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+	let dataEnter = await responseEnter.json();
+
+	entreprises.innerHTML = "";
+
+	for(let i = 0; i < dataEnter['entreprises'].length; i++)
+    {
+        let html = `<option value="entreprise`+i+`">`+ dataEnter['entreprises'][i]["NomEntreprise"] +`</option>`;
+		entreprises.innerHTML += html;
+    }
+}
+

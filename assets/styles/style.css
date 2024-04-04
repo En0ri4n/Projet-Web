@@ -241,7 +241,7 @@ main {
     margin-top: 15px;
     margin-bottom: 15px;
 
-    .adresse-input, .added-domain-input{
+    .adresse-input, .added-domain-input, .added-skill-input{
         padding: 10px;
 
         input{
