@@ -12,13 +12,15 @@
         <form method="post" > 
             <div class="form-fiche-entreprise">
                 <div class="form__inputs">
-                    <input class="form__input" placeholder="Nom de l'entreprise*" required>
+                    <input class="form__input" id="nom-entreprise" placeholder="Nom de l'entreprise*" required>
                     <input class="form__input" placeholder="Mail de l'entreprise">
                     <div class="adresse-input">
                         <label for="location-numero">Adresse Principale</label>
-                        <input type="text" class="form-input" id="location-numero" placeholder="N°" required>
+                        <input type="number" class="form-input" id="location-numero" placeholder="N°" required>
                         <input type="text" class="form-input" id="location-rue" placeholder="Rue" required>
-                        <input type="text" class="form-input" id="location-ville" placeholder="Ville" required>
+                        <select class="form-input" id="location-ville" required>
+                            <option value="" disabled selected>Ville</option>
+                        </select>
                         <input type="text" class="form-input" id="location-cp" placeholder="Code Postal" required>
                         <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                     </div>
@@ -39,6 +41,7 @@
                     </div>
 
                     <input class="form__input" placeholder="E-mail">
+                    <input class="form__input" placeholder="Site">
                     <input class="form__input" placeholder="Téléphone">
                     <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" maxlength=512 required=""></textarea>
                 </div>
