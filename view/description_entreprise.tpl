@@ -74,10 +74,13 @@
         </div>
         <form method="post">
             <div class = "form__inputs">
-                <textarea id="commentaire" placeholder="Ecrivez votre demande"></textarea>
+                <textarea id="commentaire" placeholder="Ecrivez votre commentaire"></textarea>
                 <input class="submit" type="submit" value="Envoyer">
             </div>
         </form>
+        <div id="liste-evaluations">
+            <img src="/assets/loading.gif" alt="loading" id="loading"/>
+        </div>
     </div>
     <div class="contact">
         <h1>Contact</h1>
@@ -108,4 +111,5 @@
 {include file='components/footer.tpl'}
 </body>
 <script type="module" src="/scripts/etoile.js"></script>
+<script type="module" src="/scripts/description_entreprise.js"></script>
 </html>

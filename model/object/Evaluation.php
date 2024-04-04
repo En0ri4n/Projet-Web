@@ -9,10 +9,10 @@ class Evaluation extends SerializableObject
     private int $id;
     private int $note;
     private string $commentaire;
-    private int $id_utilisateur;
+    private string $id_utilisateur;
     private int $id_entreprise;
 
-    public function __construct(int $id, int $note, string $commentaire, int $id_utilisateur, int $id_entreprise)
+    public function __construct(int $id, int $note, string $commentaire, string $id_utilisateur, int $id_entreprise)
     {
         $this->id = $id;
         $this->note = $note;
@@ -36,7 +36,7 @@ class Evaluation extends SerializableObject
         return $this->commentaire;
     }
 
-    public function getIdUtilisateur(): int
+    public function getIdUtilisateur(): string
     {
         return $this->id_utilisateur;
     }

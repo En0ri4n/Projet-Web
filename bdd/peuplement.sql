@@ -193,3 +193,7 @@ FOR i IN 1..5 DO
                 VALUES (i,@secteur);
             END FOR;
     END FOR;
+
+INSERT INTO Evaluation(Note, Commentaire, IdUtilisateur, IdEntreprise)
+VALUES (4,'Délais de réponse très long dû au nombre de demandes, mais les nombreux avantages et notamment la rémunération en valent la peine','etudiant0018',1),
+    (2,'Pas le stage idéal mais ils prennent dès la deuxième année','etudiant0083',2);

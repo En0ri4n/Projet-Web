@@ -68,4 +68,9 @@ class LinkTable extends AbstractTable
     {
         return new LinkTable('Localiser', 'IdEntreprise', 'IdAdresse');
     }
+
+    public static function getEntrepriseToEtudiant(): LinkTable
+    {
+        return new LinkTable('Evaluation', 'IdEntreprise', 'IdEtudiant');
+    }
 }

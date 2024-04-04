@@ -6,3 +6,4 @@ RewriteRule ^users$ /api/utilisateurs.php [L,NC] # [L] - last rule # [NC] - case
 RewriteRule ^promos$ /api/promotions.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^entreprises$ /api/entreprises.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^adresses$ /api/adresses.php [L,NC] # [L] - last rule # [NC] - case insensitive
+RewriteRule ^evaluations$ /api/evaluations.php [L,NC] # [L] - last rule # [NC] - case insensitive
