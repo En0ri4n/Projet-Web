@@ -40,7 +40,6 @@ abstract class AbstractTable
     {
         $keys = array_keys($obj->toInsertArray());
         $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $keys) . ") VALUES (:" . implode(", :", array_map(fn($key) => $this->escape_and_lower($key), $keys)) . ")";
-        var_dump($query);
         $stmt = $this->getDatabase()->prepare($query);
         foreach($obj->toInsertArray() as $key => $value)
             $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
@@ -351,7 +350,6 @@ abstract class AbstractTable
     {
         $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
-        var_dump($query);
         foreach($columns as $column)
             $stmt->bindValue(':' . $column, $values[$column]);
         $stmt->bindValue(':id', $id);
@@ -392,6 +390,7 @@ abstract class AbstractTable
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
+
 
     public function getRowCount(): int
     {

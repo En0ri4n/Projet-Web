@@ -22,10 +22,7 @@ class PiloteTable extends AbstractTable
      */
     public function insert(mixed $obj): bool
     {
-        $utilisateur_table = new UtilisateurTable();
-        $created = $utilisateur_table->insert($obj);
-        $created &= $this->insert([self::$ID_COLUMN => $obj->getId()]);
-        return $created;
+        return $this->defaultInsert($obj);
     }
 
     /**
@@ -46,7 +43,11 @@ class PiloteTable extends AbstractTable
 
     public function delete(mixed $id): bool
     {
-        return $this->defaultDelete($id);
+        $query = "DELETE " . $this->getTableName() . ", Utilisateur FROM " . $this->getTableName() . " INNER JOIN Utilisateur ON Utilisateur.IdUtilisateur = " . $this->getTableName() . ".IdUtilisateur WHERE Utilisateur.IdUtilisateur = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function getIdColumn(): string
