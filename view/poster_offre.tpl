@@ -46,7 +46,7 @@
                 <input class="form-input" id="skill1" placeholder="Compétence*" required>
                 <button type="button" class="add-form-data-button" id="button-add-skill">Ajouter une compétence</button>
                 <button type="button" class="add-form-data-button" id="button-remove-skill">Retirer une compétence</button>
-                <div class="added-domain-input" id="skills">
+                <div class="added-skill-input" id="skills">
 
                 </div>
                 <input type="submit" class="submit" placeholder="Publier">
