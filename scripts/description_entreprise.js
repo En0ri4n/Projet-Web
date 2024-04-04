@@ -1,7 +1,6 @@
 import {addEventTo} from "./main.js";
 import {initPagination, reloadPagination, setTotalPages, currentPage, totalPages} from "./pagination.js";
-import { addEventTo } from "./main.js";
-import {currentPage, initPagination, reloadPagination, setTotalPages} from "./pagination.js";
+
 
 addEventTo(document, 'DOMContentLoaded', onReady);
 
