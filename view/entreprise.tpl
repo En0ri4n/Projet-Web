@@ -25,15 +25,17 @@
                         <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                     </div>
 
-                    <button type="button" class="add-form-data-button" id="button-add-adress" onclick="addSecondaryAdress()">Ajouter une adresse secondaire</button>
-                    <button type="button" class="add-form-data-button" id="button-remove-adress" onclick="removeSecondaryAdress()">Retirer une adresse secondaire</button>
+                    <button type="button" class="add-form-data-button" id="button-add-adress">Ajouter une adresse secondaire</button>
+                    <button type="button" class="add-form-data-button" id="button-remove-adress">Retirer une adresse secondaire</button>
+                    <input type="hidden" id="nombre-adresse-secondaires" value=0>
                     <div id="secondary-adresses">
 
                     </div>
 
+                    <input type="hidden" id="nombre-domaines" value=1>
                     <input class="form-input" id="domaine1" placeholder="Domaine*" required>
-                    <button type="button" class="add-form-data-button" id="button-add-domain" onclick="addSecondaryAdress()">Ajouter une domaine</button>
-                    <button type="button" class="add-form-data-button" id="button-remove-domain" onclick="removeSecondaryAdress()">Retirer une domaine</button>
+                    <button type="button" class="add-form-data-button" id="button-add-domain">Ajouter une domaine</button>
+                    <button type="button" class="add-form-data-button" id="button-remove-domain">Retirer une domaine</button>
                     <div class="added-domain-input" id="domaines">
 
                     </div>

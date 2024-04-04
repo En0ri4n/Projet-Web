@@ -104,6 +104,7 @@ function addSecondaryAdress()
     div.appendChild(inputPays);
 
     document.getElementById("secondary-adresses").appendChild(div);
+    document.getElementById("nombre-adresse-secondaires").value++;
 }
 
 
@@ -115,6 +116,7 @@ function removeSecondaryAdress()
     {
         document.getElementById("adresse-secondaire" + nbrAdressesSecondaire).remove();
         nbrAdressesSecondaire--;
+    document.getElementById("nombre-adresse-secondaires").value--;
     }
 }
 
@@ -131,6 +133,7 @@ function addDomain()
     input.setAttribute("placeholder", "Domaine n°" + nbrDomaines);
 
     document.getElementById("domaines").appendChild(input);
+    document.getElementById("nombre-domaines").value++;
 }
 
 document.getElementById("button-remove-domain").addEventListener("click", removeDomain)
@@ -141,5 +144,6 @@ function removeDomain()
     {
         document.getElementById("domaine" + nbrDomaines).remove();
         nbrDomaines--;
+    document.getElementById("nombre-domaines").value--;
     }
 }

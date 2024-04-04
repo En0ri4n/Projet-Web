@@ -6,7 +6,7 @@ addEventTo(document, 'DOMContentLoaded', onReady);
 async function onReady()
 {
 
-    initPagination(() => document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterUsers);
+    initPagination(() => document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterEntreprises);
 
     reloadPagination();
 }
@@ -17,10 +17,10 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 
     document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
 
-    filterUsers();
+    filterEntreprises();
 });
 
-async function filterUsers()
+async function filterEntreprises()
 {
 
     let self_response = await fetch('/api/users?self', {
