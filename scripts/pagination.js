@@ -1,4 +1,4 @@
-import { addEventTo, scrollToTop } from "./main.js";
+import { addEventTo } from "./main.js";
 
 export let currentPage = 1;
 export let totalPages = 1;
@@ -66,9 +66,7 @@ function checkButtons()
     nextPageElement.disabled = currentPage === totalPages;
     lastPageElement.disabled = currentPage === totalPages;
 
-    currentPageElement.innerHTML = currentPage + ' / ' + totalPages;
-
-    scrollToTop();
+    currentPageElement.innerHTML = (totalPages <= 0 ? 0 : currentPage) + ' / ' + totalPages;
 }
 
 export function reloadPagination()
