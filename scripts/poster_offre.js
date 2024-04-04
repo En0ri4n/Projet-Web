@@ -11,26 +11,94 @@ addEventTo(document, 'DOMContentLoaded', onReady);
  */
 function onReady()
 {
-	addEventTo(window, 'keyup', (event) => {
-		if(event.keyCode === 13) {
-			event.preventDefault();
-			return false;
+	// addEventTo(window, 'keyup', (event) => {
+	// 	if(event.keyCode === 13) {
+	// 		event.preventDefault();
+	// 		return false;
+	// 	}
+	// });
+	//
+	// addEventTo(document.getElementById('input-skill'), 'keyup', (evt) =>
+	// {
+	// 	if(evt.keyCode === 13)
+	// 	{
+	// 		console.log('enter', evt);
+	// 	}
+	// });
+	//
+	// setCustomValidator(document.getElementById('poste'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du poste doit au moins contenir 3 caractères');
+	// setCustomValidator(document.getElementById('domain'), /^[a-zA-Z\s._-]{3,}$/, 'Le domaine doit au moins contenir 3 caractères');
+	// setCustomValidator(document.getElementById('level'), /^[a-zA-Z\s._-]{3,}$/, 'Le niveau d\'études doit au moins contenir 3 caractères');
+	//
+	// setCustomValidator(document.getElementById('location'), /^[a-zA-Z\s._-]{3,}$/, 'La localisation doit au moins contenir 3 caractères');
+
+	const urlParams = new URLSearchParams(window.location.search);
+	if(urlParams.has('IdOffre'))
+		fillEntries(urlParams.get('IdOffre'));
+}
+
+async function fillEntries(id)
+{
+	let res = await fetch(`/api/offres?IdOffre=${id}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
 		}
 	});
-	
-	addEventTo(document.getElementById('input-skill'), 'keyup', (evt) =>
+
+	let data = await res.json();
+
+	console.log(data);
+
+	let offre = data['offres'][0];
+
+	console.log(offre);
+
+	document.getElementById('poste').value = offre['NomOffre'];
+	document.getElementById('description').value = offre['DescriptionOffre']
+	document.getElementById('entreprise').innerHTML = `<option value="${offre['entreprise']['IdEntreprise']}">${offre['entreprise']['NomEntreprise']}</option>`;
+	document.getElementById('level').value = offre['NiveauOffre'];
+	document.getElementById('start-date').value = offre['DateOffre'];
+
+	document.getElementById('nb-duree').value = offre['DureeOffre'];
+
+	let adresse = offre['adresse'];
+
+	document.getElementById('location-numero').value = adresse['Numero'];
+	document.getElementById('location-rue').value = adresse['Rue'];
+	document.getElementById('location-cp').value = adresse['CodePostal'];
+	document.getElementById('location-ville').innerHTML = `<option value="${adresse['Ville']}">${adresse['Ville']}</option>`;
+	document.getElementById('location-pays').value = adresse['Pays'];
+
+	document.getElementById('nb-places').value = offre['NbPlace'];
+	document.getElementById('remuneration').value = offre['NbPlace'];
+
+	for(let i = 0; i < offre['competences'].length; i++)
 	{
-		if(evt.keyCode === 13)
+		if(i === 0)
+			document.getElementById('skill1').value = offre['competences'][i]['NomCompetence'];
+		else
 		{
-			console.log('enter', evt);
+			addSkill();
+			document.getElementById('skill' + (i + 1)).value = offre['competences'][i]['NomCompetence'];
 		}
-	});
-	
-	setCustomValidator(document.getElementById('poste'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du poste doit au moins contenir 3 caractères');
-	setCustomValidator(document.getElementById('domain'), /^[a-zA-Z\s._-]{3,}$/, 'Le domaine doit au moins contenir 3 caractères');
-	setCustomValidator(document.getElementById('level'), /^[a-zA-Z\s._-]{3,}$/, 'Le niveau d\'études doit au moins contenir 3 caractères');
-	
-	setCustomValidator(document.getElementById('location'), /^[a-zA-Z\s._-]{3,}$/, 'La localisation doit au moins contenir 3 caractères');
+	}
+	document.getElementById('nb-places').value = offre['NbPlace'];
+
+
+	let skills = offre['competences'];
+
+	for(let i = 0; i < skills.length - 1; i++)
+	{
+		console.log(skills[i])
+		if(i === 0)
+			document.getElementById('skill1').value = skills[i]['NomCompetence'];
+		else
+		{
+			addSkill();
+			document.getElementById('skill' + (i + 1)).value = skills[i]['NomCompetence'];
+		}
+	}
 }
 
 

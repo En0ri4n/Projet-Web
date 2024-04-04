@@ -22,7 +22,6 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 
 async function filterUsers()
 {
-
     let self_response = await fetch('/api/users?self', {
         method: 'GET',
         headers: {
@@ -31,7 +30,6 @@ async function filterUsers()
     });
 
     let account = await self_response.json();
-
 
     let baseUrl = '/api/users?page=' + currentPage + '&per_page=10';
 
@@ -105,9 +103,12 @@ async function filterUsers()
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({IdUtilisateur: utilisateur["IdUtilisateur"]})
-                }).then(() => window.location.reload());
+                });
 
-            }); // TODO: replace with actual delete function
+                document.getElementById('liste-utilisateurs').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
+
+                filterUsers();
+            });
             contener.appendChild(supprimer);
 
             let modifier = document.createElement('button');

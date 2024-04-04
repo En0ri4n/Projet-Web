@@ -11,6 +11,70 @@ function onReady()
     // setCustomValidator(document.getElementById('description_entreprise_tuteur'), /^[a-zA-Z\s._-]{50,}$/, 'La description de lentreprise doit au moins contenir 3 caractères');
 
     fillFromCP(document.getElementById("location-cp"), document.getElementById("location-ville"));
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('IdEntreprise'))
+        fillEntries(urlParams.get('IdEntreprise'));
+}
+
+async function fillEntries(id)
+{
+    let res = await fetch(`/api/entreprises?IdEntreprise=${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let data = await res.json();
+
+    console.log(data)
+
+    let entreprise = data['entreprises'][0];
+
+    console.log(entreprise)
+
+    document.getElementById('nom-entreprise').value = entreprise['NomEntreprise'];
+
+    let adresses = entreprise['adresses'];
+
+    for(let i = 0; i < adresses.length; i++)
+    {
+        if(i === 0)
+        {
+            document.getElementById('location-numero').value = adresses[i]['Numero'];
+            document.getElementById('location-rue').value = adresses[i]['Rue'];
+            document.getElementById('location-cp').value = adresses[i]['CodePostal'];
+            document.getElementById('location-ville').innerHTML = `<option value="${adresses[i]['Ville']}">${adresses[i]['Ville']}</option>`;
+            document.getElementById('location-pays').value = adresses[i]['Pays'];
+        }
+        else
+        {
+            addSecondaryAdress();
+            document.getElementById('location' + i + '-numero').value = adresses[i]['Numero'];
+            document.getElementById('location' + i + '-rue').value = adresses[i]['Rue'];
+            document.getElementById('location' + i + '-cp').value = adresses[i]['CodePostal'];
+            document.getElementById('location' + i + '-ville').innerHTML = `<option value="${adresses[i]['Ville']}">${adresses[i]['Ville']}</option>`;
+            document.getElementById('location' + i + '-pays').value = adresses[i]['Pays'];
+        }
+    }
+
+    for(let i = 0; i < entreprise['secteurs'].length; i++)
+    {
+        if(i === 0)
+            document.getElementById('domaine1').value = entreprise['secteurs'][i];
+        else
+        {
+            addDomain();
+            document.getElementById('domaine' + i).value = entreprise['secteurs'][i]['NomSecteur'];
+        }
+    }
+
+    document.getElementById('mail-entreprise').value = entreprise['MailEntreprise'];
+    document.getElementById('tel-entreprise').value = entreprise['TelephoneEntreprise'];
+    document.getElementById('site-entreprise').value = entreprise['Site'];
+
+    document.getElementById('entreprise-desc').innerHTML = entreprise['DescriptionEntreprise'];
 }
 
 async function fillFromCP(cpElement, villeElement)
