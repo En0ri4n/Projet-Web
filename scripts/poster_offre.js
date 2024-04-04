@@ -79,7 +79,7 @@ async function getEntrepriseList(){
 
 	for(let i = 0; i < dataEnter['entreprises'].length; i++)
     {
-        let html = `<option value="entreprise`+i+`">`+ dataEnter['entreprises'][i]["NomEntreprise"] +`</option>`;
+        let html = `<option value="entreprise`+dataEnter['entreprises'][i]["IdEntreprise"]+`">`+ dataEnter['entreprises'][i]["NomEntreprise"] +`</option>`;
 		entreprises.innerHTML += html;
     }
 }
