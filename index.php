@@ -30,17 +30,20 @@ elseif(isset($_GET['view']))
         case 'description-entreprise':
             $controller->descriptionEntrepriseController();
             break;
+        case 'creer-entreprise':
+            $controller->creerEntrepriseController();
+            break;
+        case 'modifier-entreprise':
+            $controller->modifierEntrepriseController();
+            break;
         case 'description-offre':
             $controller->descriptionOffreController();
-            break;
-        case 'entreprise':
-            $controller->entrepriseController();
             break;
         case 'forbidden':
             $controller->forbiddenController();
             break;
         case 'creer-profil':
-            $controller->inscriptionController();
+            $controller->creerProfilController();
             break;
         case 'modifier-profil':
             $controller->modifierProfilController();
@@ -51,8 +54,8 @@ elseif(isset($_GET['view']))
         case 'offres': 
             $controller->offresController();
             break;
-        case 'poster-offre':
-            $controller->posterOffreController();
+        case 'creer-offre':
+            $controller->creerOffreController();
             break;
         case 'modifier-offre':
             $controller->modifierOffreController();

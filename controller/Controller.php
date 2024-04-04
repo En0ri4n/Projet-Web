@@ -9,6 +9,7 @@ use model\table\LinkTable;
 use model\table\OffreTable;
 use model\table\PromotionTable;
 use model\table\SecteurTable;
+use model\table\UtilisateurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/libs/Smarty.class.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
@@ -90,9 +91,12 @@ class Controller
         $this->display('view/admin_page.tpl');
     }
 
-    public function entrepriseController(): void
+    public function creerEntrepriseController(): void
     {
         $this->setup(false);
+
+        $this->smarty->assign('is_modification', false);
+
         $this->display('view/entreprise.tpl');
     }
 
@@ -189,25 +193,71 @@ class Controller
         $this->display('view/description_offre.tpl');
     }
 
-    public function inscriptionController(): void
+    public function creerProfilController(): void
     {
         $this->setup(false);
+
+        $this->smarty->assign('is_modification', false);
+
         $this->display('view/inscription.tpl');
     }
 
     public function modifierProfilController(): void
     {
+        if(!isset($_GET['userId']))
+            $this->utilisateursController();
+
         $this->setup(false);
-        $this->display('view/modifier_profil.tpl');
+
+        $table = new UtilisateurTable();
+        $user = $table->select([UtilisateurTable::$ID_COLUMN => $_GET['userId']]);
+
+        $this->smarty->assign('user', $user);
+        $this->smarty->assign('is_modification', true);
+
+        $this->display('view/inscription.tpl');
     }
 
-    public function posterOffreController(): void
+    public function creerOffreController(): void
     {
         $this->setup(false);
+
+        $this->smarty->assign('is_modification', false);
+
         $this->display('view/poster_offre.tpl');
     }
 
-    public function modifierOffreController() {}
+    public function modifierEntrepriseController(): void
+    {
+        if(!isset($_GET['IdEntreprise']))
+            $this->entreprisesController();
+
+        $this->setup(false);
+
+        $table = new EntrepriseTable();
+        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['IdEntreprise']]);
+
+        $this->smarty->assign('entreprise', $entreprise);
+        $this->smarty->assign('is_modification', true);
+
+        $this->display('view/entreprise.tpl');
+    }
+
+    public function modifierOffreController(): void
+    {
+        if(!isset($_GET['IdOffre']))
+            $this->offresController();
+
+        $this->setup(false);
+
+        $table = new OffreTable();
+        $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['IdOffre']]);
+
+        $this->smarty->assign('offre', $offre);
+        $this->smarty->assign('is_modification', true);
+
+        $this->display('view/poster_offre.tpl');
+    }
 
     public function entreprisesController(): void
     {
