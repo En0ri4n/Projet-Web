@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Inscription</title>
+    <title>{if $is_modification}Modifier un Utilisateur{else}Ajouter un utilisateur{/if}</title>
     {include file='components/head.tpl'}
     <!-- Description: This is the inscription page. -->
     <!-- It is used to create an account on the website. -->
@@ -12,15 +12,19 @@
 {include file='components/header.tpl'}
 <main>
     <div class="form">
-        <h1>Inscription</h1>
-        <form method="post" id="form_inscription">
+        <h1>{if $is_modification}Mettre à jour {$user->getId()}{else}Créer un Utilisateur{/if}</h1>
+        <form method="post" id="form_inscription" action="/api/users">
             <div class="form__inputs">
-                <input type="text" id="id-utilisateur" name="id-utilisateur" placeholder="Identifiant" required>
-                <input type="text" id="nom" name="nom" placeholder="Nom" required>
-                <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
-                <input type="email" id="email" name="email" placeholder="E-mail" required>
-                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                <input type="text" id="id-utilisateur" name="IdUtilisateur" placeholder="Identifiant" required>
+                <input type="text" id="nom" name="Nom" placeholder="Nom" required>
+                <input type="text" id="prenom" name="Prenom" placeholder="Prénom" required>
+                <input type="email" id="email" name="MailUtilisateur" placeholder="E-mail" required>
+                <input type="tel" id="telephone" name="TelephoneUtilisateur" placeholder="Téléphone" required>
+                <input type="password" id="password" name="MotDePasse" placeholder="Mot de passe" required>
                 <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirmation" required>
+                <select id="promotion" name="idPromo" required>
+                    <option value="" disabled selected>Promotion</option>
+                </select>
             </div>
             <div class="account-type" id="account">
                 <div>
@@ -33,35 +37,25 @@
                 </div>
                 {if $current_user_type == 'administrateur'}
                     <div>
-                        <input type="radio" id="admin-account" name="account-type" value="admin" required>
+                        <input type="radio" id="admin-account" name="account-type" value="admininistrateur" required>
                         <label for="admin-account">Administrateur</label>
                     </div>
                 {/if}
             </div>
-            <div class="form__inputs" id="pilote-form" style="display: none">
-                <input type='text' name='name-promotion' placeholder='Nom de la Promotion' required>
-                <input type="text" name="type-promotion" placeholder="Spécialité de la Promotion" required>
-                <input type='date' name='date-promotion' placeholder='Date de stag' required>
-                <input type="number" name="niveau-promotion" placeholder="Niveau" required>
-                <input type='text' name="duree-promotion" placeholder="Durée du stage" required>
-                <input type='text' name="centre-promotion" placeholder="Centre de formation" required>
-            </div>
+            <input type="hidden" value="etudiant" name="type" id="type">
             <div class="form__inputs" id="etudiant-form" style="display: none">
-                <select id="promotion" name="promotion" required>
-                    <option value="" disabled selected>Promotion</option>
-                </select>
                 <div class="adresse-form">
-                    <input type="text" name="numero-rue" placeholder="Numéro de rue" required>
-                    <input type="text" name="nom-rue" placeholder="Nom de rue" required>
-                    <input type="text" name="code-postal" placeholder="Code postal" required>
-                    <select id="ville" name="ville" required>
+                    <input type="number" id="adresse-numero" name="Numero" placeholder="Numéro de rue" required>
+                    <input type="text" id="adresse-rue" name="Rue" placeholder="Nom de rue" required>
+                    <input type="text" id="code-postal" name="CodePostal" placeholder="Code postal" required>
+                    <select id="ville" name="Ville" required>
                         <option value="" disabled selected>Ville</option>
                     </select>
-                    <input type="text" name="pays" placeholder="Pays" required>
+                    <input type="text" id="adresse-pays" name="Pays" placeholder="Pays" required>
                 </div>
             </div>
             <div class="center">
-                <input class="submit" type="submit" value="Confirmer l'inscription">
+                <input class="submit" type="submit" value="Confirmer {if $is_modification}la modification{else}l'inscription{/if}">
             </div>
         </form>
     </div>

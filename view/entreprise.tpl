@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Ajouter une Entreprise</title>
+    <title>{if $is_modification}Modifier une Entreprise{else}Ajouter une Entreprise{/if}</title>
     {include file='components/head.tpl'}
 </head>
 <body>
 {include file='components/header.tpl'}
 <main>
     <div class="form" id="premiere_section">
-        <h1>Créer une fiche entreprise</h1>
+        <h1>{if $is_modification}Mettre à jour {$entreprise->getNom()}{else}Ajouter un utilisateur{/if}</h1>
         <form method="post" > 
             <div class="form-fiche-entreprise">
                 <div class="form__inputs">
                     <input class="form__input" id="nom-entreprise" placeholder="Nom de l'entreprise*" required>
-                    <input class="form__input" placeholder="Mail de l'entreprise">
                     <div class="adresse-input">
                         <label for="location-numero">Adresse Principale</label>
                         <input type="number" class="form-input" id="location-numero" placeholder="N°" required>
@@ -40,14 +39,14 @@
 
                     </div>
 
-                    <input class="form__input" placeholder="E-mail">
-                    <input class="form__input" placeholder="Site">
-                    <input class="form__input" placeholder="Téléphone">
+                    <input class="form__input" placeholder="E-mail" id="mail-entreprise">
+                    <input class="form__input" placeholder="Site" id="site-entreprise">
+                    <input class="form__input" placeholder="Téléphone" id="tel-entreprise">
                     <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" maxlength=512 required=""></textarea>
                 </div>
             </div>
             <p>*Champs obligatoires</p>
-            <button type="submit" class="submit">Poster</button>
+            <input type="submit" class="submit" value="Poster">
         </form>
     </div>
 </main>

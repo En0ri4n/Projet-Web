@@ -12,17 +12,17 @@
         <div class="filtres">
             <input type="text" id="filter-name" placeholder="Nom">
             <select id="filter-entreprise">
-                <option value="" disabled selected>Entreprise...</option>
+                <option value="" disabled selected>Entreprise</option>
             </select>
             <select id="filter-niveau">
-                <option value="" disabled selected>Niveau...</option>
+                <option value="" disabled selected>Niveau</option>
             </select>
             <input type="date" id="filter-date" placeholder="Date">
             <input type="number" id="filter-duree" placeholder="Durée (Mois)" min="1">
             <select id="filter-location">
-                <option value="" disabled selected>Lieu...</option>
+                <option value="" disabled selected>Lieu</option>
             </select>
-            <button class="reset-filter">Réinitiliaser</button>
+            <button class="reset-filter" id="reset-filter">Réinitiliaser</button>
             <button id="search-button">Filtrer</button>
         </div>
     </div>

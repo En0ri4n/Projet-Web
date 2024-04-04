@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Ajouter une Offre de Stage</title>
+    <title>{if $is_modification}Modifier une Offre{else}Ajouter une Offre{/if}</title>
     {include file='components/head.tpl'}
 </head>
 <body>
 {include file='components/header.tpl'}
 <main>
     <div class="form" id="premiere_section">
-        <h1> Poster une offre</h1>
+        <h1>{if $is_modification}Mettre à jour {$offre->getName()}{else}Ajouter une Offre{/if}</h1>
         <form method="post">
             <div class="form__inputs">
                 <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
@@ -28,7 +28,7 @@
                     <label for="location-numero">Adresse du stage</label>
                     <input type="text" class="form-input" id="location-numero" placeholder="N°" required>
                     <input type="text" class="form-input" id="location-rue" placeholder="Rue" required>
-                    <input type="text" class="form-input" id="location-ville" placeholder="Ville" required>
+                    <select class="form-input" id="location-ville" required><option value="">Ville</option></select>
                     <input type="text" class="form-input" id="location-cp" placeholder="Code Postal" required>
                     <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                 </div>
