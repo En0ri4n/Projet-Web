@@ -87,6 +87,7 @@ switch($method)
         try
         {
             $table->insert($utilisateur);
+            http_response_code(201);
             echo json_encode(['success' => 'Utilisateur ajouté', 'utilisateur' => $utilisateur]);
         }
         catch(Exception $e)
@@ -237,5 +238,5 @@ switch($method)
                 http_response_code(500);
                 echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
-
+    exit();
 }
