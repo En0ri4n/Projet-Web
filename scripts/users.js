@@ -84,7 +84,17 @@ async function filterUsers()
 
         if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
                                   html += `<button class="delete">Supprimer</button>
-                                            <button class="update">Modifier</button>`
+                                            <button class="update">Modifier</button>`;
+                                            const button1 = document.createElement('button');
+                                            button1.setAttribute('class', 'delete');
+                                            button1.innerHTML('supprimer');
+                                            utilisateur.appendChild(button1);
+
+                                            const button2 = document.createElement('button');
+                                            button2.setAttribute('class', 'update');
+                                            button2.innerHTML('modifier');
+                                            utilisateur.appendChild(button2);
+
                               }
                               div.innerHTML = html;
 
@@ -92,6 +102,15 @@ async function filterUsers()
                               {
                                   window.location.href = '/profil?userId=' + utilisateur["IdUtilisateur"];
                               });
+
+                              addEventTo(button1, 'clic', () =>{
+
+                              });
+                              addEventTo(button2, 'clic', () =>{
+                                
+                              });
+
+
 
         utilisateurs.appendChild(div);
     }
