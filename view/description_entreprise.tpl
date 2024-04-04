@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title>Description Entreprise</title>
+    <title>
+        {if $entreprise_exists}
+            {$entreprise->getNom()} - Entreprise
+        {else}
+            Entreprise introuvable
+        {/if}
+    </title>
     {include file='components/head.tpl'}
 
     <!-- pas toucher -->
     <!-- etoiles -->
     <link rel="stylesheet" href="/assets/styles/etoile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <script src="scripts/etoile.js" defer></script>
+    <script src="/scripts/etoile.js" defer></script>
 
     <!-- map -->
     <link rel="stylesheet" href="/assets/styles/map.css">
@@ -19,7 +25,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-    <script src="scripts/map.js" defer></script>
+    <script src="/scripts/map.js" defer></script>
 
 </head>
 <body>
@@ -43,26 +49,11 @@
             {$entreprise->getDescription()}
         </p>
     </div>
-    <div class="liste-offres">
         <h1>Offres de l'entreprise</h1>
-        <article class="offre" onclick="window.location.href='{$default_page}';">
-            <div class="c1">
-                <span class="poste">Poste</span>
-                <span>Entreprise</span>
-                <span class="niveau">Niveau</span>
-            </div>
-            <div class="c2">
-                <span class="domaine">Domaine</span>
-                <span class="dates">Dates</span>
-            </div>
-            <div class="c3">
-                <ul class="competences">Compétences :
-                    <li>competence 1</li>
-                    <li>competence 2</li>
-                </ul>
-            </div>
-        </article>
+    <div class="liste-offres" id="liste-offres">
+        <img src="/assets/loading.gif" alt="loading" id="loading">
     </div>
+        {include file="components/pagination.tpl"}
     <div class="evaluation">
         <h2>Laisser une évaluation</h2>
         <div class="note-etoiles">
@@ -74,7 +65,7 @@
         </div>
         <form method="post">
             <div class = "form__inputs">
-                <textarea id="commentaire" placeholder="Ecrivez votre demande"></textarea>
+                <textarea id="commentaire" placeholder="Ecrivez votre évalution"></textarea>
                 <input class="submit" type="submit" value="Envoyer">
             </div>
         </form>
@@ -108,4 +99,5 @@
 {include file='components/footer.tpl'}
 </body>
 <script type="module" src="/scripts/etoile.js"></script>
+<script type="module" src="/scripts/description_entreprise.js"></script>
 </html>
