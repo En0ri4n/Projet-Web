@@ -55,7 +55,7 @@ switch($method)
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
 
@@ -66,7 +66,7 @@ switch($method)
         if(!isset($data['NomOffre']) || !isset($data['DateOffre']) || !isset($data['DureeOffre']) || !isset($data['Remuneration']) || !isset($data['NbPlace']) || !isset($data['NiveauOffre']) || !isset($data['DescriptionOffre']) || !isset($data['IdSecteur']) || !isset($data['IdEntreprise']) || !isset($data['noAddress']) || !isset($data['street']) || !isset($data['city']) || !isset($data['pc']) || !isset($data['country']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur', 'IdSecteur', 'IdEntreprise', 'noAddress', 'street', 'city', 'pc', 'country'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur', 'IdSecteur', 'IdEntreprise', 'noAddress', 'street', 'city', 'pc', 'country'], 'received' => array_keys($data ?? [])]);
             exit();
         }
         $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
@@ -80,12 +80,12 @@ switch($method)
             $offre = new Offre(-1, $data['NomOffre'], $data['DateOffre'], $data['DureeOffre'], $data['Remuneration'], $data['NbPlace'], $data['NiveauOffre'], $data['DescriptionOffre'], $data['IdSecteur'], $tableAddress->getLastInsertId(), $data['IdEntreprise']);
             $table->insert($offre);
             http_response_code(201);
-            echo json_encode(['id' => $offre->getId()]);
+            echo json_encode(['statut' => 'success', 'success' => 'Adresse ajoutée', 'id' => $offre->getId()]);
         }
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
 
@@ -95,7 +95,7 @@ switch($method)
         if (!isset($data['id']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -103,12 +103,12 @@ switch($method)
         $id = array_shift($data);
             try {
                 $offreTable->defaultJoinUpdate($id, '', $data);
-                echo json_encode(['success' => 'Offre mise à jour', 'offre' => $id]);
+                echo json_encode(['statut' => 'success', 'success' => 'Offre mise à jour', 'offre' => $id]);
             }
             catch(Exception $e)
             {
                 http_response_code(500);
-                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
 
 
@@ -120,7 +120,7 @@ switch($method)
         if (!isset($data['id']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -128,17 +128,17 @@ switch($method)
 
         try {
             $offreTable->delete($data['id']);
-            echo json_encode(['success' => 'Offre supprimée', 'offre' => $data['id']]);
+            echo json_encode(['statut' => 'success', 'success' => 'Offre supprimée', 'offre' => $data['id']]);
         }
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit();
 
     default:
         http_response_code(500);
-        echo json_encode(['error' => 'Méthode non supportée']);
+        echo json_encode(['statut' => 'error', 'error' => 'Méthode non supportée']);
         exit;
 }

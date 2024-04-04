@@ -48,7 +48,7 @@ switch($method)
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
 
@@ -58,13 +58,13 @@ switch($method)
         if($data === null)
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Données invalides']);
+            echo json_encode(['statut' => 'error', 'error' => 'Données invalides']);
             exit;
         }
 
         if(!isset($data['name']) || !isset($data['site']) || !isset($data['description']) || !isset($data['email']) || !isset($data['phone']) || !isset($data['status'])){
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['name', 'site', 'description', 'email', 'phone', 'status'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètres manquants', 'expected' => ['name', 'site', 'description', 'email', 'phone', 'status'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -79,7 +79,7 @@ switch($method)
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit;
 
@@ -89,7 +89,7 @@ switch($method)
         if (!isset($data['id']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -97,12 +97,12 @@ switch($method)
         $id = array_shift($data);
         try {
             $entrepriseTable->defaultJoinUpdate($id, '', $data);
-            echo json_encode(['success' => 'Entreprise mise à jour', 'entreprise' => $id]);
+            echo json_encode(['statut' => 'success', 'success' => 'Entreprise mise à jour', 'entreprise' => $id]);
         }
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit();
 
@@ -112,7 +112,7 @@ switch($method)
         if (!isset($data['IdEntreprise']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['IdEntreprise'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètre manquant', 'expected' => ['IdEntreprise'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -120,17 +120,17 @@ switch($method)
 
         try {
             $entrepriseTable->defaultJoinUpdate($data['IdEntreprise'], '', ['Statut'=>'Indisponible']);
-            echo json_encode(['success' => 'Entreprise archivée', 'entreprise' => $data['IdEntreprise']]);
+            echo json_encode(['statut' => 'success', 'success' => 'Entreprise archivée', 'entreprise' => $data['IdEntreprise']]);
         }
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
         exit();
 
     default:
         http_response_code(500);
-        echo json_encode(['error' => 'Méthode non supportée']);
+        echo json_encode(['statut' => 'error', 'error' => 'Méthode non supportée']);
         exit;
 }

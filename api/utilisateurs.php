@@ -73,7 +73,7 @@ switch($method)
         exit();
     default:
         http_response_code(405);
-        echo json_encode(['error' => 'Méthode non autorisée']);
+        echo json_encode(['statut' => 'error', 'error' => 'Méthode non autorisée']);
         exit();
 
     case 'POST':
@@ -82,7 +82,7 @@ switch($method)
         if(!isset($data['IdUtilisateur']) || !isset($data['Prenom']) || !isset($data['Nom']) || !isset($data['MailUtilisateur']) || !isset($data['MotDePasse']) || !isset($data['TelephoneUtilisateur']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -92,12 +92,12 @@ switch($method)
         {
             $table->insert($utilisateur);
             http_response_code(201);
-            echo json_encode(['success' => 'Utilisateur ajouté', 'utilisateur' => $utilisateur]);
+            echo json_encode(['statut' => 'success', 'success' => 'Utilisateur ajouté', 'utilisateur' => $utilisateur]);
         }
         catch(Exception $e)
         {
             http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
         }
 
         if(isset($data['type']))
@@ -105,7 +105,7 @@ switch($method)
             if($data['type']==='etudiant'){
                 if(!isset($data['Numero']) || !isset($data['Rue']) || !isset($data['Ville']) || !isset($data['CodePostal']) || !isset($data['Pays']) || !isset($data['idPromo'])){
                     http_response_code(400);
-                    echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['Numero', 'Rue', 'Ville', 'CodePostal', 'Pays', 'idPromo'], 'received' => array_keys($data ?? [])]);
+                    echo json_encode(['statut' => 'error', 'error' => 'Paramètres manquants', 'expected' => ['Numero', 'Rue', 'Ville', 'CodePostal', 'Pays', 'idPromo'], 'received' => array_keys($data ?? [])]);
                     exit();
                 }
                 $address = new \model\object\Adresse(-1, $data['Numero'], $data['Rue'], $data['Ville'], $data['CodePostal'], $data['Pays']);
@@ -117,19 +117,19 @@ switch($method)
                     echo json_encode(['success' => 'Adresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
                     $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], intval($data['idPromo'])  , $tableAddress->getLastInsertId());
                     $tableStudent->insert($etudiant);
-                    echo json_encode(['success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);
+                    echo json_encode(['statut' => 'success', 'success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);
                 }
                 catch(Exception $e)
                 {
                     http_response_code(500);
-                    echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                    echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
                 }
             }
             /*TODO : créer plusieurs promo par pilote*/
             if($data['type']==='pilote'){
                 if(!isset($data['namePromo']) || !isset($data['typePromo']) || !isset($data['datePromo']) || !isset($data['lvlPromo']) || !isset($data['durationPromo']) || !isset($data['center'])){
                     http_response_code(400);
-                    echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['namePromo', 'typePromo', 'datePromo', 'lvlPromo', 'durationPromo', 'center'], 'received' => array_keys($data ?? [])]);
+                    echo json_encode(['statut' => 'error', 'error' => 'Paramètres manquants', 'expected' => ['namePromo', 'typePromo', 'datePromo', 'lvlPromo', 'durationPromo', 'center'], 'received' => array_keys($data ?? [])]);
                     exit();
                 }
                 $pilote = new \model\object\Pilote($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur']);
@@ -139,14 +139,14 @@ switch($method)
                 try
                 {
                     $tablePilote->insert($pilote);
-                    echo json_encode(['success' => 'Pilote ajouté', 'pilote' => $pilote]);
+                    echo json_encode(['statut' => 'success', 'success' => 'Pilote ajouté', 'pilote' => $pilote]);
                     $tablePromotion->insert($promotion);
                     echo json_encode(['success' => 'Promotion ajoutée', 'promotion' => $promotion]);
                 }
                 catch(Exception $e)
                 {
                     http_response_code(500);
-                    echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                    echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
                 }
             }
             if($data['type']==='administrateur'){
@@ -154,12 +154,12 @@ switch($method)
                 $tableAdmin = new AdministrateurTable();
                 try{
                     $tableAdmin->insert($administrateur);
-                    echo json_encode(['success' => 'Administrateur ajouté', 'administrateur' => $administrateur]);
+                    echo json_encode(['statut' => 'success','success' => 'Administrateur ajouté', 'administrateur' => $administrateur]);
                 }
                 catch(Exception $e)
                 {
                     http_response_code(500);
-                    echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                    echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
                 }
             }
         }
@@ -171,7 +171,7 @@ switch($method)
         if (!isset($data['IdUtilisateur']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['IdUtilisateur'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètre manquant', 'expected' => ['IdUtilisateur'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -214,36 +214,36 @@ switch($method)
             try {
                 $etudiantTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, EtudiantTable::$ID_COLUMN), $data);
                 $adresseTable->delete($etudiant->getIdAdresse());
-                echo json_encode(['success' => 'Etudiant mis à jour', 'etudiant' => $id]);
+                echo json_encode(['statut' => 'success', 'success' => 'Etudiant mis à jour', 'etudiant' => $id]);
             }
             catch(Exception $e)
             {
                 http_response_code(500);
-                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
         }
 
         if ($piloteTable->isPilote($id)){
             try {
                 $piloteTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, PiloteTable::$ID_COLUMN), $data);
-                echo json_encode(['success' => 'Pilote mis à jour', 'pilote' => $id]);
+                echo json_encode(['statut' => 'success','success' => 'Pilote mis à jour', 'pilote' => $id]);
             }
             catch(Exception $e)
             {
                 http_response_code(500);
-                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
         }
 
         if ($adminTable->isAdministrateur($id)){
             try {
                 $adminTable->defaultJoinUpdate($id, \model\table\AbstractTable::inner_join(UtilisateurTable::$TABLE_NAME, UtilisateurTable::$ID_COLUMN, AdministrateurTable::$ID_COLUMN), $data);
-                echo json_encode(['success' => 'Administrateur mis à jour', 'administrateur' => $id]);
+                echo json_encode(['statut' => 'success', 'success' => 'Administrateur mis à jour', 'administrateur' => $id]);
             }
             catch(Exception $e)
             {
                 http_response_code(500);
-                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
         }
         exit();
@@ -254,7 +254,7 @@ switch($method)
         if (!isset($data['IdUtilisateur']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['IdUtilisateur'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['statut' => 'error', 'error' => 'Paramètre manquant', 'expected' => ['IdUtilisateur'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
@@ -281,12 +281,12 @@ switch($method)
                     $adminTable->delete($data['IdUtilisateur']);
                 }
 
-                echo json_encode(['success' => 'Utilisateur supprimé', 'utilisateur' => $data['IdUtilisateur']]);
+                echo json_encode(['statut' => 'success', 'success' => 'Utilisateur supprimé', 'utilisateur' => $data['IdUtilisateur']]);
             }
             catch(Exception $e)
             {
                 http_response_code(500);
-                echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
+                echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
             }
     exit();
 }

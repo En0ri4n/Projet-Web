@@ -132,23 +132,13 @@ function removeSkill()
 getEntrepriseList();
 
 async function getEntrepriseList(){
-	let enterUrl = '/api/entreprises';
-	const entreprises = document.getElementById('entreprise');
-
-	let responseEnter = await fetch(enterUrl, {
+	let entrepriseResponse = await fetch('/api/entreprises?column=NomEntreprise', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json'
 		}
 	});
-	let dataEnter = await responseEnter.json();
-
-	entreprises.innerHTML = "";
-
-	for(let i = 0; i < dataEnter['entreprises'].length; i++)
-    {
-        let html = `<option value="entreprise`+i+`">`+ dataEnter['entreprises'][i]["NomEntreprise"] +`</option>`;
-		entreprises.innerHTML += html;
-    }
+	let entrepriseData = await entrepriseResponse.json();
+	let entreprises = entrepriseData['values'];
+	document.getElementById('entreprise').innerHTML += Array.from(new Set(entreprises)).sort().map(entreprise => { return `<option value="${entreprise}">${entreprise}</option>` }).join('');
 }
-

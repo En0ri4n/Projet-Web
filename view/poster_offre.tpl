@@ -14,7 +14,7 @@
                 <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
                 <textarea id="description" placeholder="Description du poste" maxlength=512 required></textarea>
                 <select class="form-input" id="entreprise" required>
-                <option>Chargement...</option>
+                <option>Entreprise...</option>
                 </select>
                 <input type="text" class="form-input" id="level" placeholder="Niveau d'études demandé" required>
                 <br>
