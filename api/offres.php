@@ -22,6 +22,7 @@ switch($method)
         checkIfGetColumn(new OffreTable());
 
         $parameters = [];
+        addIfSetSpecial($parameters, $_GET, 'IdOffre', eq(OffreTable::$ID_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'name', like(OffreTable::$NAME_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'date', dateSup(OffreTable::$DATE_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'duration', sup(OffreTable::$DURATION_COLUMN));

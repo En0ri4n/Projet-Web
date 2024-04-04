@@ -38,13 +38,34 @@ function inf(string $column): callable
 
 function eq(string $column): callable
 {
-    return fn($value) => $column . " = " . $value;
+    return fn($value) => $column . " = '" . $value . "'";
 }
 
 function checkIfGetColumn(AbstractTable $table): void
 {
     if(isset($_GET['column']))
     {
+        if(str_contains($_GET['column'], ','))
+        {
+            $columns = explode(',', $_GET['column']);
+            $columns = array_map(fn($col) => trim($col), $columns);
+
+            foreach($columns as $column)
+            {
+                if(!in_array($column, $table->selectColumnNames()))
+                {
+                    http_response_code(400);
+                    echo json_encode(['column' => $column, 'error' => 'La colonne demandée n\'existe pas', 'count' => 0, 'values' => []]);
+                    exit();
+                }
+            }
+
+            $values = $table->selectColumnsValues($columns);
+
+            echo json_encode(['columns' => $columns, 'count' => count($values), 'values' => $values]);
+            exit();
+        }
+
         if(!in_array($_GET['column'], $table->selectColumnNames()))
         {
             http_response_code(400);
@@ -73,17 +94,16 @@ function checkConnection(): void
         echo json_encode(['error' => 'Vous devez être connecté pour effectuer cette action']);
         exit();
     }
-}
 
-function checkAdminConnection()
-{
-    checkConnection();
 
-    if(!AdministrateurTable::isAdministrateur(Controller::getCurrentUser()->getId()))
+    if(in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE']))
     {
-        http_response_code(403);
-        echo json_encode(['error' => 'Vous devez être administrateur pour effectuer cette action']);
-        exit();
+        if(!AdministrateurTable::isAdministrateur(Controller::getCurrentUser()->getId()))
+        {
+            http_response_code(403);
+            echo json_encode(['status' => 'error', 'error' => 'Vous devez être administrateur pour effectuer cette action']);
+            exit();
+        }
     }
 }
 
