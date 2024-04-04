@@ -58,6 +58,14 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
 
 async function filterOffres()
 {
+    let self_response = await fetch('/api/users?self', {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json'
+        }
+    });
+    let account = await self_response.json();
+
     let baseUrl = '/api/offres?page=' + currentPage + '&per_page=10';
 
     let nom = document.getElementById('filter-name').value;
@@ -80,36 +88,50 @@ async function filterOffres()
     console.log(data)
 
     const offres = document.getElementById('liste-offres');
-
     offres.innerHTML = '';
+
+    if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+        offres.innerHTML = `<button class="add">Ajouter</button>`
+    }
 
     setTotalPages(data['total_pages'])
 
-    for(let i = 0; i < data['offres'].length; i++)
-    {
-        let offre = data['offres'][i];
-        const div = document.createElement('article');
-        div.classList.add('offre');
-        div.innerHTML = `
-                <div class="c1">
-                    <span class="poste">` + offre["NomOffre"] + `</span>
-                    <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
-                    <span class="niveau">A` + offre["NiveauOffre"] + `</span>
-                </div>
-                <div class="c2">
-                    <span class="domaine">` + offre["secteur"]["NomSecteur"] + `</span>
-                    <span class="dates">` + offre["DateOffre"] + `</span>
-                </div>
-                <div class="c3">
-                </div>
-                <div class="list-competences">
-                    <ul class="competences">Compétences : ` +
-            (offre["competences"].length > 0 ? offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') : 'Non défini') + `
-                    </ul>
-                </div>
+    data['offres'].forEach(offre =>
+                           {
+                               const div = document.createElement('div');
+                               div.classList.add('contener_row');
+                               
+                let html = `
+                
+                <article class="offre">
+                        <div class="c1">
+                            <span class="poste">` + offre["NomOffre"] + `</span>
+                            <span class="entreprise"><h2>` + offre["entreprise"]["NomEntreprise"] + `</h2></span>
+                            <span class="niveau">A` + offre["NiveauOffre"] + `</span>
+                        </div>
+                        <div class="c2">
+                            <span class="domaine">` + offre["secteur"]["NomSecteur"] + `</span>
+                            <span class="dates">` + offre["DateOffre"] + `</span>
+                        </div>
+                        <div class="c3">
+                            <ul class="competences">Compétences : ` +
+                            (offre["competences"].length > 0 ?
+                                offre["competences"].map(competence => `<li>` + competence['NomCompetence'] + `</li>`).join('') :
+                                'Non défini') + `
+                            </ul>
+                        </div>
+                </article>
+               
             `;
-        offres.appendChild(div);
+            if (account['user_type']==='administrateur' || account['user_type']==='pilote'){
+                html += `<button class="delete">Supprimer</button>
+                          <button class="update">Modifier</button>`
+            }
+            div.innerHTML = html;
+                           offres.appendChild(div);
 
-        addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
-    }
+
+                               addEventTo(div, 'click', () => window.location.href = '/description-offre?offreId=' + offre["IdOffre"]);
+                           })
+
 }
