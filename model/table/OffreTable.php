@@ -37,6 +37,10 @@ class OffreTable extends AbstractTable
         var_dump($query);
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindValue(':id', $id);
+        /* Candidatures à l'offre */
+        $query = "DELETE FROM Candidature WHERE IdOffre = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 
@@ -63,6 +67,12 @@ class OffreTable extends AbstractTable
     public function update(mixed $id, array $columns, array $values): bool
     {
         return $this->defaultUpdate($id, $columns, $values);
+    }
+
+    public function updateJoin(mixed $id, string $join_query, array $values): bool
+    {
+
+        return $this->defaultJoinUpdate($id, $join_query, $values);
     }
 
     protected function getIdColumn(): string

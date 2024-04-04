@@ -58,23 +58,25 @@ switch($method)
         }
         exit;
 
-        /*TODO : Changer directement l'adresse et demander (lien offre-competences)*/
     case 'POST':
         $data = json_decode(file_get_contents('php://input'), true);
         if($data === null)
 
-        if(!isset($data['NomOffre']) || !isset($data['DateOffre']) || !isset($data['DureeOffre']) || !isset($data['Remuneration']) || !isset($data['NbPlace']) || !isset($data['NiveauOffre']) || !isset($data['DescriptionOffre']) || !isset($data['IdSecteur']) || !isset($data['IdAdresse']) || !isset($data['IdEntreprise']))
+        if(!isset($data['NomOffre']) || !isset($data['DateOffre']) || !isset($data['DureeOffre']) || !isset($data['Remuneration']) || !isset($data['NbPlace']) || !isset($data['NiveauOffre']) || !isset($data['DescriptionOffre']) || !isset($data['IdSecteur']) || !isset($data['IdEntreprise']) || !isset($data['noAddress']) || !isset($data['street']) || !isset($data['city']) || !isset($data['pc']) || !isset($data['country']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['IdUtilisateur', 'Prenom', 'Nom', 'MailUtilisateur', 'MotDePasse', 'TelephoneUtilisateur', 'IdSecteur', 'IdEntreprise', 'noAddress', 'street', 'city', 'pc', 'country'], 'received' => array_keys($data ?? [])]);
             exit();
         }
-
-        $offre = new Offre(-1, $data['NomOffre'], $data['DateOffre'], $data['DureeOffre'], $data['Remuneration'], $data['NbPlace'], $data['NiveauOffre'], $data['DescriptionOffre'], $data['IdSecteur'], $data['IdAdresse'], $data['IdEntreprise']);
+        $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
+        $tableAddress = new \model\table\AdresseTable();
         $table = new OffreTable();
 
         try
         {
+            $tableAddress->insert($address);
+            echo json_encode(['success' => 'Adresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
+            $offre = new Offre(-1, $data['NomOffre'], $data['DateOffre'], $data['DureeOffre'], $data['Remuneration'], $data['NbPlace'], $data['NiveauOffre'], $data['DescriptionOffre'], $data['IdSecteur'], $tableAddress->getLastInsertId(), $data['IdEntreprise']);
             $table->insert($offre);
             http_response_code(201);
             echo json_encode(['id' => $offre->getId()]);
