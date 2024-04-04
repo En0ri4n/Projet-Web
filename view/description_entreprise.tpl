@@ -72,6 +72,12 @@
             <span class="fas fa-star" data-star="4"></span>
             <span class="fas fa-star" data-star="5"></span>
         </div>
+        <form method="post">
+            <div class = "form__inputs">
+                <textarea id="commentaire" placeholder="Ecrivez votre demande"></textarea>
+                <input class="submit" type="submit" value="Envoyer">
+            </div>
+        </form>
     </div>
     <div class="contact">
         <h1>Contact</h1>
