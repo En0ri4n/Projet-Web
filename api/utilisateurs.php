@@ -108,13 +108,13 @@ switch($method)
                 }
                 /*TODO:verifier création d'étudiant/pilote avec adresse/promotion*/
                 $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
-                $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], $data['idPromo'], $address->getId()); /*TODO : eventuellement changer le constructeur pour prendre en param un objet Utilisateur*/
                 $tableAddress = new \model\table\AdresseTable();
                 $tableStudent = new EtudiantTable();
                 try
                 {
                     $tableAddress->insert($address);
-                    echo json_encode(['success' => 'Addresse ajoutée', 'adresse' => $address]);
+                    echo json_encode(['success' => 'Addresse ajoutée', 'adresse' => $tableAddress->getLastInsertId()]);
+                    $etudiant = new Etudiant($data['IdUtilisateur'], $data['Nom'], $data['Prenom'], $data['MailUtilisateur'], $data['MotDePasse'], $data['TelephoneUtilisateur'], $data['idPromo'], $tableAddress->getLastInsertId());
                     $tableStudent->insert($etudiant);
                     echo json_encode(['success' => 'Etudiant ajouté', 'etudiant' => $etudiant]);
                 }
@@ -222,18 +222,37 @@ switch($method)
     case 'DELETE':
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (!isset($data['id']))
+        if (!isset($data['IdUtilisateur']))
         {
             http_response_code(400);
-            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['id'], 'received' => array_keys($data ?? [])]);
+            echo json_encode(['error' => 'Paramètre manquant', 'expected' => ['IdUtilisateur'], 'received' => array_keys($data ?? [])]);
             exit();
         }
 
-        $utilisateurTable = new UtilisateurTable();
+        $adresseTable = new \model\table\AdresseTable();
+        $etudiantTable = new EtudiantTable();
+        $piloteTable = new PiloteTable();
+        $adminTable = new AdministrateurTable();
+        $testEtu = $etudiantTable->isEtudiant($data['IdUtilisateur']);
+        $testPil = $piloteTable->isPilote($data['IdUtilisateur']);
+        $testAdmin = $adminTable->isAdministrateur($data['IdUtilisateur']);
 
             try {
-                $utilisateurTable->delete($data['id']);
-                echo json_encode(['success' => 'Utilisateur supprimé', 'utilisateur' => $data['id']]);
+                if ($testEtu){
+                    $etudiant = $etudiantTable->select([EtudiantTable::$ID_COLUMN => $data['IdUtilisateur']]);
+                    $etudiantTable->delete($data['IdUtilisateur']);
+                    $adresseTable->delete($etudiant->getIdAdresse());
+                }
+
+                if ($testPil){
+                    $piloteTable->delete($data['IdUtilisateur']);
+                }
+
+                if ($testAdmin){
+                    $adminTable->delete($data['IdUtilisateur']);
+                }
+
+                echo json_encode(['success' => 'Utilisateur supprimé', 'utilisateur' => $data['IdUtilisateur']]);
             }
             catch(Exception $e)
             {
