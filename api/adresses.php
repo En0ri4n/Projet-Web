@@ -120,7 +120,7 @@ switch($method) {
         exit;
 
     default:
-        http_response_code(500);
+        http_response_code(405);
         echo json_encode(['error' => 'Méthode non supportée']);
         exit;
 }
