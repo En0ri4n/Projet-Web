@@ -2,6 +2,9 @@
 
 use model\table\AdresseTable;
 use model\object\Adresse;
+use model\table\EntrepriseTable;
+use model\table\LinkTable;
+use model\table\OffreTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/table/UtilisateurTable.php');
@@ -16,31 +19,79 @@ $method = $_SERVER['REQUEST_METHOD'];
 header('Content-Type: application/json');
 
 switch($method) {
-    case 'POST':
-        $data = json_decode(file_get_contents('php://input'), true);
-        if ($data === null) {
-            http_response_code(400);
-            echo json_encode(['error' => 'Données invalides']);
-            exit;
-        }
+    case 'GET':
+        checkIfGetColumn(new AdresseTable());
 
-        if(!isset($data['noAddress']) || !isset($data['street']) || !isset($data['city']) || !isset($data['pc']) || !isset($data['country'])){
-            http_response_code(400);
-            echo json_encode(['error' => 'Paramètres manquants', 'expected' => ['noAddress', 'street', 'city', 'pc', 'country', 'idPromo'], 'received' => array_keys($data ?? [])]);
+        $parameters = [];
+
+        if(isset($_GET[fromColumn(EntrepriseTable::$ID_COLUMN)]))
+        {
+            $wanted_entreprise = $_GET[fromColumn(EntrepriseTable::$ID_COLUMN)];
+
+            $table = new EntrepriseTable();
+            $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $wanted_entreprise]);
+
+            if($entreprise === null)
+            {
+                http_response_code(404);
+                echo json_encode([fromColumn(EntrepriseTable::$ID_COLUMN) => $wanted_entreprise, 'error' => 'Entreprise non trouvée', 'adresses' => []]);
+                exit();
+            }
+
+            $table = LinkTable::getEntrepriseToAdresse();
+            $links = $table->select([$table->getIdFromColumn() => $wanted_entreprise]);
+            $table = new AdresseTable();
+            $adresses = $links == null ? [] : Controller::fromLinks($links, AdresseTable::$ID_COLUMN, fn($a) => $table->selectOr($a), fn($a) => $table->select([AdresseTable::$ID_COLUMN => $a->getIdTo()]));
+
+            $json = [fromColumn(EntrepriseTable::$ID_COLUMN) => $wanted_entreprise, 'adresses' => $adresses];
+            echo json_encode($json);
+            exit();
+        }
+        elseif(isset($_GET[fromColumn(EtudiantTable::$ID_COLUMN)]))
+        {
+            $wanted_etudiant = $_GET[fromColumn(EtudiantTable::$ID_COLUMN)];
+
+            $table = new EtudiantTable();
+            $etudiant = $table->select([EtudiantTable::$ID_COLUMN => $wanted_etudiant]);
+
+            if($etudiant === null)
+            {
+                http_response_code(404);
+                echo json_encode([fromColumn(EtudiantTable::$ID_COLUMN) => $wanted_etudiant, 'error' => 'Etudiant non trouvé', 'adresses' => []]);
+                exit();
+            }
+
+            $table = new AdresseTable();
+            $adresse = $table->select([AdresseTable::$ID_COLUMN => $etudiant->getIdAdresse()]);
+
+            $json = [fromColumn(EtudiantTable::$ID_COLUMN) => $wanted_etudiant, 'adresse' => $adresse];
+            echo json_encode($json);
+            exit();
+        }
+        elseif(isset($_GET['IdOffre']))
+        {
+            $wanted_offre = $_GET['IdOffre'];
+
+            $table = new OffreTable();
+            $offre = $table->select([OffreTable::$ID_COLUMN => $wanted_offre]);
+
+            if($offre === null)
+            {
+                http_response_code(404);
+                echo json_encode(['IdOffre' => $wanted_offre, 'error' => 'Offre non trouvée', 'adresse' => []]);
+                exit();
+            }
+
+            $table = new AdresseTable();
+            $adresse = $table->select([AdresseTable::$ID_COLUMN => $offre->getIdAdresse()]);
+
+            $json = ['IdOffre' => $wanted_offre, 'adresse' => $adresse];
+            echo json_encode($json);
             exit();
         }
 
-        try {
-            $address = new \model\object\Adresse(-1, $data['noAddress'], $data['street'], $data['city'], $data['pc'], $data['country']);
-            $tableAddress = new \model\table\AdresseTable();
-            $tableAddress->insert($address);
-            http_response_code(201);
-            echo json_encode(['id' => $tableAddress->getLastInsertId()]);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => 'Erreur interne', 'message' => $e->getMessage()]);
-        }
-        exit;
+        echo json_encode(['error' => 'Paramètres invalides']);
+        break;
     default:
         http_response_code(500);
         echo json_encode(['error' => 'Méthode non supportée']);
