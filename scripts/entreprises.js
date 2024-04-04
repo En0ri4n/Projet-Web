@@ -49,10 +49,10 @@ async function filterEntreprises()
 
     let data = await response.json();
 
-    console.log(data);
+    // console.log(data);
 
-    const entreprises = document.getElementById('liste-entreprises');
-    entreprises.innerHTML = '';
+    const listeEntrepriseElement = document.getElementById('liste-entreprises');
+    listeEntrepriseElement.innerHTML = '';
 
     if(account['user_type'] === 'administrateur' || account['user_type'] === 'pilote')
     {
@@ -60,6 +60,13 @@ async function filterEntreprises()
         add.setAttribute('class', 'add');
         add.innerHTML = 'Ajouter une entreprise';
         addEventTo(add, 'click', () => window.location.href = '/poster_entreprise');
+    }
+
+    if(data['entreprises'].length === 0)
+    {
+        const h1 = document.createElement('h1');
+        h1.innerHTML = 'Aucune entreprise trouvée :(';
+        listeEntrepriseElement.appendChild(h1);
     }
 
     setTotalPages(data['total_pages'])
@@ -120,7 +127,7 @@ async function filterEntreprises()
             contener.appendChild(updateButton);
         }
 
-        entreprises.appendChild(contener);
+        listeEntrepriseElement.appendChild(contener);
     }
 }
 

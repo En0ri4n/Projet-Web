@@ -5,7 +5,7 @@ addEventTo(document, 'DOMContentLoaded', onReady);
 
 async function populateFilters()
 {
-    let entrepriseResponse = await fetch('/api/entreprises?column=NomEntreprise', {
+    let entrepriseResponse = await fetch('/api/entreprises?column=IdEntreprise,NomEntreprise', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ async function populateFilters()
     let niveaux = promotionData['values'];
 
     document.getElementById('filter-niveau').innerHTML += Array.from(new Set(niveaux)).sort().map(niveau => { return `<option value="${niveau}">${niveau}</option>` }).join('');
-    document.getElementById('filter-entreprise').innerHTML += Array.from(new Set(entreprises)).sort().map(entreprise => { return `<option value="${entreprise}">${entreprise}</option>` }).join('');
+    document.getElementById('filter-entreprise').innerHTML += Array.from(new Set(entreprises)).sort().map(entreprise => { return `<option value="${entreprise[0]}">${entreprise[1]}</option>` }).join('');
     document.getElementById('filter-location').innerHTML += Array.from(new Set(lieux)).sort().map(lieu => { return `<option value="${lieu}">${lieu}</option>` }).join('');
 }
 
@@ -52,6 +52,8 @@ function onWait()
     document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
 }
 
+let filtered = false;
+
 addEventTo(document.getElementById('reset-filter'), 'click', () =>
 {
     document.getElementById('filter-name').value = '';
@@ -60,6 +62,8 @@ addEventTo(document.getElementById('reset-filter'), 'click', () =>
     document.getElementById('filter-date').value = '';
     document.getElementById('filter-duree').value = '';
 
+    filtered = false;
+
     onWait();
     filterOffres();
 });
@@ -67,6 +71,8 @@ addEventTo(document.getElementById('reset-filter'), 'click', () =>
 addEventTo(document.getElementById('search-button'), 'click', (e) =>
 {
     e.preventDefault();
+
+    filtered = true;
 
     onWait();
     filterOffres();
@@ -84,13 +90,31 @@ async function filterOffres()
 
     let baseUrl = '/api/offres?page=' + currentPage + '&per_page=10';
 
-    let nom = document.getElementById('filter-name').value;
-    let entreprise = document.getElementById('filter-entreprise').value;
-    let niveau = document.getElementById('filter-niveau').value;
-    let date = document.getElementById('filter-date').value;
-    let duree = document.getElementById('filter-duree').value;
+    if(filtered)
+    {
+        let nom = document.getElementById('filter-name').value;
+        let entreprise = document.getElementById('filter-entreprise').value;
+        let niveau = document.getElementById('filter-niveau').value;
+        let date = document.getElementById('filter-date').value;
+        let duree = document.getElementById('filter-duree').value;
 
-    console.log(nom, entreprise, niveau, date, duree);
+        // console.log(nom, entreprise, niveau, date, duree);
+
+        if(nom !== '')
+            baseUrl += '&name=' + nom;
+
+        if(entreprise !== '')
+            baseUrl += '&company=' + entreprise;
+
+        if(niveau !== '')
+            baseUrl += '&level=' + niveau;
+
+        if(date !== '')
+            baseUrl += '&date=' + date;
+
+        if(duree !== '')
+            baseUrl += '&duration=' + duree;
+    }
 
     let response = await fetch(baseUrl, {
         method: 'GET',
@@ -101,10 +125,10 @@ async function filterOffres()
 
     let data = await response.json();
 
-    console.log(data)
+    // console.log(data)
 
-    const offres = document.getElementById('liste-offres');
-    offres.innerHTML = '';
+    const listeOffreElement = document.getElementById('liste-offres');
+    listeOffreElement.innerHTML = '';
 
     if (account['user_type']==='administrateur' || account['user_type']==='pilote')
     {
@@ -112,7 +136,14 @@ async function filterOffres()
         add.classList.add('add');
         add.innerHTML = 'Ajouter';
         addEventTo(add, 'click', () => window.location.href = '/creer-offre');
-        offres.appendChild(add);
+        listeOffreElement.appendChild(add);
+    }
+
+    if(data['offres'].length === 0)
+    {
+        const h1 = document.createElement('h1');
+        h1.innerHTML = 'Aucune offre trouvée :(';
+        listeOffreElement.appendChild(h1);
     }
 
     setTotalPages(data['total_pages'])
@@ -173,7 +204,6 @@ async function filterOffres()
             contener.appendChild(updateButton);
         }
 
-        offres.appendChild(contener);
+        listeOffreElement.appendChild(contener);
     }
-
 }
