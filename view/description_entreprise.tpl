@@ -72,6 +72,7 @@
         <div id="liste-evaluations">
             <img src="/assets/loading.gif" alt="loading" id="loading"/>
         </div>
+        {include file='components/pagination.tpl'}
     </div>
     <div class="contact">
         <h1>Contact</h1>
