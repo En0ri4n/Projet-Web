@@ -61,3 +61,26 @@ function removeSkill()
     document.getElementById("nombre-skills").value--;
     }
 }
+getEntrepriseList();
+
+async function getEntrepriseList(){
+	let enterUrl = '/api/entreprises';
+	const entreprises = document.getElementById('entreprise');
+
+	let responseEnter = await fetch(enterUrl, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+	let dataEnter = await responseEnter.json();
+
+	entreprises.innerHTML = "";
+
+	for(let i = 0; i < dataEnter['entreprises'].length; i++)
+    {
+        let html = `<option value="entreprise`+i+`">`+ dataEnter['entreprises'][i]["NomEntreprise"] +`</option>`;
+		entreprises.innerHTML += html;
+    }
+}
+
