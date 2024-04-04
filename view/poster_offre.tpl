@@ -40,17 +40,14 @@
                     <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                 </div>
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
-                <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" required>
+                <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" min="0" required>
                 <input type="number" class="form-input" id="niveau" placeholder="Années post-BAC (optionnel)" max="10">
-                <div class="add-div">
-                    <input class="form-input"  id="input-skill" placeholder="Ajouter une compétence" required>
-                    <div class="added-input-list">
-                        <ul id="skills">
-                            <li>Compétence 1<a>✕</a></li>
-                            <li>Compétence 2<a>✕</a></li>
-                            <li>Compétence 3<a>✕</a></li>
-                        </ul>
-                    </div>
+                <input type="hidden" id="nombre-skills" value=1>
+                <input class="form-input" id="skill1" placeholder="Compétence*" required>
+                <button type="button" class="add-form-data-button" id="button-add-skill">Ajouter une compétence</button>
+                <button type="button" class="add-form-data-button" id="button-remove-skill">Retirer une compétence</button>
+                <div class="added-domain-input" id="skills">
+
                 </div>
                 <input type="submit" class="submit" placeholder="Publier">
             </div>
