@@ -4,26 +4,22 @@ import {initPagination, reloadPagination, setTotalPages, currentPage, totalPages
 
 addEventTo(document, 'DOMContentLoaded', onReady);
 
-async function onReady() {
-    initPagination(() => document.getElementById('liste-evaluations').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterEval);
+async function onReady()
+{
+    initPagination(0, onWait, filterOffres);
+    initPagination(1, () => document.getElementById('liste-evaluations').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterEval);
 
     reloadPagination();
 }
 
-async function filterEval() {
+async function filterEval()
+{
+    const urlParams = new URLSearchParams(window.location.search);
+    if(!urlParams.has('IdEntreprise'))
+        return;
 
-    let current_response = await fetch(window.location.href, {
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/json'
-        }
-    });
+    let baseUrl = '/api/evaluations?page=' + currentPage[1] + '&per_page=3&IdEntreprise=' + urlParams.get('IdEntreprise');
 
-    let entreprise = await current_response.json();
-    console.log(entreprise)
-
-    let baseUrl = '/api/evaluations?page=' + currentPage + '&per_page=3&IdEntreprise=' + entreprise['IdEntreprise'] ;
-    console.log(baseUrl)
     let response = await fetch(baseUrl, {
         method: 'GET',
         headers: {
@@ -33,15 +29,25 @@ async function filterEval() {
 
     let data = await response.json();
 
-    const entreprises = document.getElementById('liste-evaluations');
-    entreprises.innerHTML = '';
-    for (let i = 0; i < data['evaluation'].length; i++) {
-        const evaluation = data['evaluation'][i];
-function onReady()
-{
-    initPagination(onWait, filterOffres);
+    console.log(data)
 
-    reloadPagination()
+    setTotalPages(1, data['total_pages']);
+
+    const evaluationListElement = document.getElementById('liste-evaluations');
+    evaluationListElement.innerHTML = '';
+
+    for(let i = 0; i < data['evaluations'].length; i++)
+    {
+        const evaluation = data['evaluations'][i];
+        const avis = document.createElement('div');
+        avis.classList.add("avis");
+        avis.innerHTML = `
+                            <span class="note">` + evaluation["Note"] + `</span>
+                            <span class="commentaire">` + evaluation["Commentaire"] + `</span>
+                        
+                                                `;
+        evaluationListElement.appendChild(avis);
+    }
 }
 
 async function filterOffres()
@@ -50,7 +56,7 @@ async function filterOffres()
     if(!urlParams.has('IdEntreprise'))
         return;
 
-    let url = '/api/offres?page=' + currentPage + '&per_page=3&company=' + urlParams.get('IdEntreprise');
+    let url = '/api/offres?page=' + currentPage[0] + '&per_page=3&company=' + urlParams.get('IdEntreprise');
 
     let res = await fetch(url, {
         method: 'GET',
@@ -62,6 +68,8 @@ async function filterOffres()
     let data = await res.json();
 
     console.log(data)
+
+    setTotalPages(0, data['total_pages']);
 
     let offres = data['offres'];
     let offreList = document.getElementById('liste-offres');
@@ -96,19 +104,35 @@ async function filterOffres()
 
         offreList.appendChild(article)
     }
-
-    setTotalPages(data['total_pages']);
 }
 
 function onWait()
 {
     document.getElementById('liste-offres').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
-        const avis = document.createElement('div');
-        avis.classList.add("avis");
-        avis.innerHTML = `
-                            <span class="note">` + evaluation["Note"] + `</span>
-                            <span class="commentaire">` + evaluation["commentaire"] + `</span>
-                        
-                                                `;
-    }
 }
+
+addEventTo(document.getElementById('btn-ajouter-avis'), 'click', async (e) =>
+{
+    e.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if(!urlParams.has('IdEntreprise'))
+        return;
+
+    let response = await fetch('/api/evaluations', {
+        method: 'POST',
+        body: new FormData(document.getElementById('form-avis')),
+    })
+
+    let data = await response.json();
+
+    if(data['statut'] === 'success')
+    {
+        alert('Avis ajouté avec succès');
+        filterEval();
+    }
+    else
+    {
+        alert('Erreur lors de l\'ajout de l\'avis');
+    }
+});

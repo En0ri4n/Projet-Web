@@ -19,7 +19,7 @@
             <img src="/assets/loading.gif" alt="loading" id="loading"/>
         </div>
     </div>
-    {include file='components/pagination.tpl'}
+    {include file='components/pagination.tpl' index=0}
 </main>
 {include file='components/footer.tpl'}
 </body>

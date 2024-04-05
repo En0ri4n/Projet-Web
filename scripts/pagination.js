@@ -1,75 +1,77 @@
 import { addEventTo } from "./main.js";
 
-export let currentPage = 1;
-export let totalPages = 1;
+export let currentPage = [];
+export let totalPages = [];
 
-let onChangeFunction = () => {};
+let onChangeFunctions = [];
 
-export function setTotalPages(total){
-    totalPages = total;
-    checkButtons();
+export function setTotalPages(index, total){
+    totalPages[index] = total;
+    checkButtons(index);
 }
 
 
-export function initPagination(onWait, onChange) {
+export function initPagination(index, onWait, onChange) {
 
-    onChangeFunction = onChange;
+    currentPage.push(1);
+    totalPages.push(1);
+    onChangeFunctions.push(onChange);
 
-    const firstPageElement = document.getElementById('pageDebut');
-    const previousPageElement = document.getElementById('pagePrecedente');
-    const nextPageElement = document.getElementById('pageSuivante');
-    const lastPageElement = document.getElementById('pageFin');
+    const firstPageElement = document.getElementById('pageDebut-' + index);
+    const previousPageElement = document.getElementById('pagePrecedente-' + index);
+    const nextPageElement = document.getElementById('pageSuivante-' + index);
+    const lastPageElement = document.getElementById('pageFin-' + index);
 
     addEventTo(firstPageElement, 'click', () =>
     {
         onWait();
-        currentPage = 1;
-        checkButtons();
+        currentPage[index] = 1;
+        checkButtons(index);
         onChange();
     });
     addEventTo(previousPageElement, 'click', () =>
     {
         onWait();
-        currentPage = currentPage > 1 ? currentPage - 1 : currentPage
-        checkButtons();
+        currentPage[index] = currentPage[index] > 1 ? currentPage[index] - 1 : currentPage[index]
+        checkButtons(index);
         onChange();
     });
 
     addEventTo(nextPageElement, 'click', () =>
     {
         onWait();
-        currentPage = currentPage < totalPages ? currentPage + 1 : currentPage;
-        checkButtons();
+        currentPage[index] = currentPage[index] < totalPages[index] ? currentPage[index] + 1 : currentPage[index];
+        checkButtons(index);
         onChange();
     });
     addEventTo(lastPageElement, 'click', () =>
     {
         onWait();
-        currentPage = totalPages;
-        checkButtons();
+        currentPage[index] = totalPages[index];
+        checkButtons(index);
         onChange();
     });
 
-    checkButtons();
+    checkButtons(index);
 }
 
-function checkButtons()
+function checkButtons(index)
 {
-    const firstPageElement = document.getElementById('pageDebut');
-    const previousPageElement = document.getElementById('pagePrecedente');
-    const currentPageElement = document.getElementById('pageActuelle');
-    const nextPageElement = document.getElementById('pageSuivante');
-    const lastPageElement = document.getElementById('pageFin');
+    const firstPageElement = document.getElementById('pageDebut-' + index);
+    const previousPageElement = document.getElementById('pagePrecedente-' + index);
+    const currentPageElement = document.getElementById('pageActuelle-' + index);
+    const nextPageElement = document.getElementById('pageSuivante-' + index);
+    const lastPageElement = document.getElementById('pageFin-' + index);
 
-    firstPageElement.disabled = currentPage === 1;
-    previousPageElement.disabled = currentPage === 1;
-    nextPageElement.disabled = currentPage === totalPages;
-    lastPageElement.disabled = currentPage === totalPages;
+    firstPageElement.disabled = currentPage[index] === 1;
+    previousPageElement.disabled = currentPage[index] === 1;
+    nextPageElement.disabled = currentPage[index] === totalPages[index];
+    lastPageElement.disabled = currentPage[index] === totalPages[index];
 
-    currentPageElement.innerHTML = (totalPages <= 0 ? 0 : currentPage) + ' / ' + totalPages;
+    currentPageElement.innerHTML = (currentPage[index] <= 0 ? 0 : currentPage[index]) + ' / ' + totalPages[index];
 }
 
 export function reloadPagination()
 {
-    onChangeFunction();
+    onChangeFunctions.forEach(f => f())
 }

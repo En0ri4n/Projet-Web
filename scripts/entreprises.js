@@ -5,8 +5,7 @@ addEventTo(document, 'DOMContentLoaded', onReady);
 
 async function onReady()
 {
-
-    initPagination(() => document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterEntreprises);
+    initPagination(0, () => document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterEntreprises);
 
     reloadPagination();
 }
@@ -31,7 +30,7 @@ async function filterEntreprises()
 
     let account = await self_response.json();
 
-    let baseUrl = '/api/entreprises?page=' + currentPage + '&per_page=10';
+    let baseUrl = '/api/entreprises?page=' + currentPage[0] + '&per_page=10';
 
     let nom = document.getElementById('filter-nom').value;
 
@@ -69,7 +68,7 @@ async function filterEntreprises()
         listeEntrepriseElement.appendChild(h1);
     }
 
-    setTotalPages(data['total_pages'])
+    setTotalPages(0, data['total_pages'])
 
     for(let i = 0; i < data['entreprises'].length; i++)
     {

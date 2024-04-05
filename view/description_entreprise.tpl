@@ -53,7 +53,7 @@
     <div class="liste-offres" id="liste-offres">
         <img src="/assets/loading.gif" alt="loading" id="loading">
     </div>
-        {include file="components/pagination.tpl"}
+        {include file="components/pagination.tpl" index=0}
     <div class="evaluation">
         <h2>Laisser une évaluation</h2>
         <div class="note-etoiles">
@@ -63,16 +63,18 @@
             <span class="fas fa-star" data-star="4"></span>
             <span class="fas fa-star" data-star="5"></span>
         </div>
-        <form method="post">
+        <form method="post" action="/api/evaluations" id="form-avis">
             <div class = "form__inputs">
-                <textarea id="commentaire" placeholder="Ecrivez votre commentaire"></textarea>
-                <input class="submit" type="submit" value="Envoyer">
+                <textarea id="commentaire" placeholder="Ecrivez votre commentaire" name="Commentaire"></textarea>
+                <input type="hidden" id="note" name="Note" value="0">
+                <input type="hidden" name="IdEntreprise" value="{$entreprise->getId()}">
+                <input class="submit" id="btn-ajouter-avis" type="submit" value="Envoyer">
             </div>
         </form>
         <div id="liste-evaluations">
             <img src="/assets/loading.gif" alt="loading" id="loading"/>
         </div>
-        {include file='components/pagination.tpl'}
+        {include file='components/pagination.tpl' index=1}
     </div>
     <div class="contact">
         <h1>Contact</h1>

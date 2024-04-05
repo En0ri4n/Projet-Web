@@ -42,7 +42,7 @@ function onReady()
 {
     populateFilters();
 
-    initPagination(onWait, filterOffres);
+    initPagination(0, onWait, filterOffres);
 
     reloadPagination();
 }
@@ -88,7 +88,7 @@ async function filterOffres()
     });
     let account = await self_response.json();
 
-    let baseUrl = '/api/offres?page=' + currentPage + '&per_page=10';
+    let baseUrl = '/api/offres?page=' + currentPage[0] + '&per_page=10';
 
     if(filtered)
     {
@@ -146,7 +146,7 @@ async function filterOffres()
         listeOffreElement.appendChild(h1);
     }
 
-    setTotalPages(data['total_pages'])
+    setTotalPages(0, data['total_pages'])
 
     for(let i = 0; i < data['offres'].length; i++)
     {

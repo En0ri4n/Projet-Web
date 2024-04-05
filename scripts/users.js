@@ -6,7 +6,7 @@ addEventTo(document, 'DOMContentLoaded', onReady);
 async function onReady()
 {
 
-    initPagination(() => document.getElementById('liste-utilisateurs').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterUsers);
+    initPagination(0, () => document.getElementById('liste-utilisateurs').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterUsers);
 
     reloadPagination();
 }
@@ -31,7 +31,7 @@ async function filterUsers()
 
     let account = await self_response.json();
 
-    let baseUrl = '/api/users?page=' + currentPage + '&per_page=10';
+    let baseUrl = '/api/users?page=' + currentPage[0] + '&per_page=10';
 
     let nom = document.getElementById('filter-nom').value;
 
@@ -70,7 +70,7 @@ async function filterUsers()
         listeUtilisateurElement.appendChild(h1);
     }
 
-    setTotalPages(data['total_pages'])
+    setTotalPages(0, data['total_pages'])
 
     for(let i = 0; i < data['users'].length; i++)
     {
