@@ -19,7 +19,7 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
     filterEntreprises();
 });
 
-async function filterEntreprises()
+export async function filterEntreprises()
 {
     let self_response = await fetch('/api/users?self', {
         method: 'GET',
@@ -32,7 +32,7 @@ async function filterEntreprises()
 
     let baseUrl = '/api/entreprises?page=' + currentPage[0] + '&per_page=10';
 
-    let nom = document.getElementById('filter-nom').value;
+    let nom = document.getElementById('filter-nomEntreprise').value;
 
     if(nom !== '')
         baseUrl += '&Nom=' + nom;

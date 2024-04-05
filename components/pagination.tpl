@@ -1,4 +1,4 @@
-<div class="pagination-{$index}">
+<div class="pagination">
     <button id="pageDebut-{$index}"><<</button>
     <button id="pagePrecedente-{$index}"><</button>
     <button id="pageActuelle-{$index}">x</button>

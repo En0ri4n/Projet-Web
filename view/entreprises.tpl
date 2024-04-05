@@ -11,7 +11,7 @@
         <form method="post">
             <h1>Entreprises</h1>
             <div class="search-by-name" id="premiere_section">
-                <input type="search" class="search-bar" id="filter-nom" placeholder="Rechercher une entreprise">
+                <input type="search" class="search-bar" id="filter-nomEntreprise" placeholder="Rechercher une entreprise">
                 <button class="submit-small" id="search-button">Rechercher</button>
             </div>
         </form>

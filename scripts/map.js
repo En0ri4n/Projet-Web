@@ -10,7 +10,7 @@ function getCoordinates(){
         }
     }).then(response => response.json()).then( (data) =>
     {
-        console.log(data)
+        // console.log(data)
         data['entreprises'].forEach(entreprises =>{
             console.log(entreprises)
             let num = entreprises['adresses'][0]['Numero'];
@@ -24,7 +24,7 @@ function getCoordinates(){
                 }
             }).then(resp => resp.json()).then( (data2)=>
             {
-            console.log(data2)
+            // console.log(data2)
             data2['features'].forEach(features =>{
                 console.log(features)
                 let latitude = features['properties']['lat'];
