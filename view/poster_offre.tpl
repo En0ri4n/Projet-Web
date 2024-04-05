@@ -11,17 +11,22 @@
         <h1>{if $is_modification}Mettre à jour {$offre->getName()}{else}Ajouter une Offre{/if}</h1>
         <form method="post">
             <div class="form__inputs">
+            <label for="poste">Poste</label>
                 <input type="text" class="form-input" id="poste" placeholder="Nom du poste" required>
+                <label for="description">Description</label>
                 <textarea id="description" placeholder="Description du poste" maxlength=512 required></textarea>
+                <label for="entreprise">Entreprise</label>
                 <select class="form-input" id="entreprise" required>
                 <option>Entreprise...</option>
                 </select>
+                <label for="level">Niveau</label>
                 <input type="text" class="form-input" id="level" placeholder="Niveau d'études demandé" required>
                 <br>
                 <div>
                     <label for="start-date">Date début</label>
                     <input class="form-input" type="date" id="start-date" required>
                 </div>
+                <label for="nb-duree">Durée (mois)</label>
                 <input class="form-input" type="number" id="nb-duree" min="1" max="20" placeholder="Durée (mois)" required>
                 <br>
                 <div class="adresse-input">
@@ -32,9 +37,12 @@
                     <input type="text" class="form-input" id="location-cp" placeholder="Code Postal" required>
                     <input type="text" class="form-input" id="location-pays" placeholder="Pays" required>
                 </div>
+                <label for="nb-place">Nombre de place</label>
                 <input type="number" class="form-input" id="nb-places" placeholder="Nombre de places" max="100" required>
+                <label for="remuneration">Remuneration (à l'heure)</label>
                 <input type="number" class="form-input" id="remuneration" placeholder="Rémunération (à l'heure)" max="50" min="0" required>
                 <input type="hidden" id="nombre-skills" value=1>
+                <label for="skill1">Compétences</label>
                 <input class="form-input" id="skill1" placeholder="Compétence*" required>
                 <button type="button" class="add-form-data-button" id="button-add-skill">Ajouter une compétence</button>
                 <button type="button" class="add-form-data-button" id="button-remove-skill">Retirer une compétence</button>
