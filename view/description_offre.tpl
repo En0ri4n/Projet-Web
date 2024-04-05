@@ -71,8 +71,8 @@
         </div>
     </section>
     <section class="actions-offres">
-        <button class="button-action-offre"id="postuler" onclick="window.location.href='/candidature?offreId={$offre->getId()}'">Postuler</button> {* TODO: Page postuler *}
-        <button class="button-action-offre" id="wishlist">Wishlist</button> {* TODO: requête wishlist *}
+        <button class="button-action-offre" id="postuler" onclick="window.location.href='/candidature?offreId={$offre->getId()}'">Postuler</button> {* TODO: Page postuler *}
+        <button class="button-action-offre" id="wishlist">Wishlist</button>
     </section>
     <section class="contact">
         <h1>Contact</h1>

@@ -8,10 +8,10 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/SerializableInterface.ph
 
 class Wishlist extends SerializableObject
 {
-    private int $id_utilisateur;
-    private array $offres;
+    private string $id_utilisateur;
+    private int $offres;
 
-    public function __construct(int $id_utilisateur, array $offres)
+    public function __construct(string $id_utilisateur, int $offres)
     {
         $this->id_utilisateur = $id_utilisateur;
         $this->offres = $offres;
