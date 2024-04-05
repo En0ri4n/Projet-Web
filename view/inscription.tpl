@@ -11,7 +11,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="form">
+    <section class="form">
         <h1>{if $is_modification}Mettre à jour {$user->getId()}{else}Créer un Utilisateur{/if}</h1>
         <form method="post" id="form_inscription" action="/api/users">
             <div class="form__inputs">
@@ -58,7 +58,7 @@
                 <input class="submit" type="submit" value="Confirmer {if $is_modification}la modification{else}l'inscription{/if}">
             </div>
         </form>
-    </div>
+    </section>
 </main>
 {include file='components/footer.tpl'}
 </body>

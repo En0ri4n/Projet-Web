@@ -8,7 +8,7 @@
 {include file='components/header.tpl'}
 <!--Ajouter un envoi invisible de l'username-->
 <main>
-    <div class="form">
+    <section class="form">
         <h1>Formulaire de contact</h1>
         <form method="post">
             <div class = "form__inputs">
@@ -16,7 +16,7 @@
                 <input class="submit" type="submit" value="Envoyer">
             </div>
         </form>
-    </div>
+    </section>
 </main>
 {include file='components/footer.tpl'}
 </body>

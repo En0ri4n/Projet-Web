@@ -7,7 +7,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="filtres_box" id="premiere_section">
+    <section class="filtres_box" id="premiere_section">
         <h1>Filtres</h1>
         <div class="filtres">
             <input type="text" id="filter-name" placeholder="Nom">
@@ -25,10 +25,10 @@
             <button class="reset-filter" id="reset-filter">Réinitiliaser</button>
             <button id="search-button">Filtrer</button>
         </div>
-    </div>
-    <div class="liste-offres" id="liste-offres">
+    </section>
+    <section class="liste-offres" id="liste-offres">
         <img src="/assets/loading.gif" alt="loading" id="loading"/>
-    </div>
+    </section>
     {include file="components/pagination.tpl" index=0}
 </main>
 {include file='components/footer.tpl'}

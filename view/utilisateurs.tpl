@@ -7,7 +7,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="liste-utilisateur">
+    <section class="liste-utilisateur">
         <form method="post">
             <h1>Utilisateurs</h1>
             <div class="search-by-name" id="premiere_section">
@@ -18,7 +18,7 @@
         <div class="list_data" id="liste-utilisateurs">
             <img src="/assets/loading.gif" alt="loading" id="loading"/>
         </div>
-    </div>
+    </section>
     {include file='components/pagination.tpl' index=0}
 </main>
 {include file='components/footer.tpl'}

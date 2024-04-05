@@ -61,6 +61,11 @@ main {
         }
     }
 }
+section{
+    h1{
+        font-size: 2em;
+    }
+}
 
 .liste-boutons-accueil {
     display: flex;
