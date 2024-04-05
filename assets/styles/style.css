@@ -586,7 +586,7 @@ iframe{
 }
 
 .liste-etudiant, .liste-utilisateur, .liste-entreprise{
-    width: 80%;
+    width: 100%;
     text-align: center;
     margin: 20px;
 }
