@@ -4,11 +4,17 @@ addEventTo(document, 'DOMContentLoaded', onReady);
 
 function onReady()
 {
-    setCustomValidator(document.getElementById('nom-entreprise'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de lentreprise doit au moins contenir 3 caractères');
-    // setCustomValidator(document.getElementById('siret'), /^[0-9\s.]{9}$/, 'Le numero de Siret doit contenir 9 chiffres');
-    // setCustomValidator(document.getElementById('domaine_tuteur'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du domaine doit au moins contenir 3 caractères');
-    // setCustomValidator(document.getElementById('nom_entreprise'), /^[a-zA-Z0-9\s._-]{3,}$/, 'Le nom de lentreprise doit au moins contenir 3 caractères');
-    // setCustomValidator(document.getElementById('description_entreprise_tuteur'), /^[a-zA-Z\s._-]{50,}$/, 'La description de lentreprise doit au moins contenir 3 caractères');
+    setCustomValidator(document.getElementById('nom-entreprise'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de l\'entreprise doit au moins contenir 3 caractères');
+    setCustomValidator(document.getElementById('location-numero'), /^[0-9]{1,}$/, 'Le numero de rue doit contenir au moins 1 chiffre');
+    setCustomValidator(document.getElementById('location-rue'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de la rue doit contenir au moins 3 caractères');
+    setCustomValidator(document.getElementById('location-ville'),/^[a-zA-Z\s._-]{3,}$/, 'Le nom de la ville doit contenir au moins 3 caractères'); 
+    setCustomValidator(document.getElementById('location-cp'), /^[0-9]{5}$/,'Le Code Postal doit contenir 5 chiffres');
+    setCustomValidator(document.getElementById('location-pays'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du pays doit contenir au moins 3 caractères');
+    setCustomValidator(document.getElementById('domaine'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du domaine doit contenir au moins 3 caractères');/*TODO : plusieurs domaines*/
+    setCustomValidator(document.getElementById('mail-entreprise'), /^[a-zA-Z\s._-]{3,}$/&&document.inscription.email.value.indexOf('@')==-1, 'Adresse mail invalide');
+    setCustomValidator(document.getElementById('site-entreprise'), /^[a-zA-Z\s._-]{3,}$/, 'Le site doit contenir au moins 3 caractères');
+    setCustomValidator(document.getElementById('tel-entreprise'),/^[0-9]{8}$/, 'Letelephone doit contenir 8 caractères');
+    setCustomValidator(document.getElementById('entreprise-desc'), /^[a-zA-Z\s._-]{3,}$/, 'La description doit contenir au moins 3 caractères');
 
     fillFromCP(document.getElementById("location-cp"), document.getElementById("location-ville"));
 
