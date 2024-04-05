@@ -15,13 +15,21 @@
         <h1>{if $is_modification}Mettre à jour {$user->getId()}{else}Créer un Utilisateur{/if}</h1>
         <form method="post" id="form_inscription" action="/api/users">
             <div class="form__inputs">
+                <label for="id-utilisateur">Identifiant</label>
                 <input type="text" id="id-utilisateur" name="IdUtilisateur" placeholder="Identifiant" required>
+                <label for="nom">Nom</label>
                 <input type="text" id="nom" name="Nom" placeholder="Nom" required>
+                <label for="prenom">Prénom</label>
                 <input type="text" id="prenom" name="Prenom" placeholder="Prénom" required>
+                <label for="email">Email</label>
                 <input type="email" id="email" name="MailUtilisateur" placeholder="E-mail" required>
+                <label for="telephone">Telephone</label>
                 <input type="tel" id="telephone" name="TelephoneUtilisateur" placeholder="Téléphone" required>
+                <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="MotDePasse" placeholder="Mot de passe" required>
+                <label for="password-confirm">Confirmez le mot de passe</label>
                 <input type="password" id="password-confirm" name="password-confirm" placeholder="Confirmation" required>
+                <label for="promotion">Promotion</label>
                 <select id="promotion" name="idPromo" required>
                     <option value="" disabled selected>Promotion</option>
                 </select>

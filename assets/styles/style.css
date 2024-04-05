@@ -264,7 +264,7 @@ section{
     }
 
     input {
-        margin: 10px 0 0 0;
+        margin: 10px 0 10px 0;
         padding: 8px 0 8px 8px;
         border-radius: 3px;
         border: 3px solid #3b4f50;
@@ -279,7 +279,7 @@ section{
 
     .form-input, textarea, select {
         box-sizing: border-box;
-        margin: 10px 0 0 0;
+        margin: 10px 0 10px 0;
         padding: 8px 0 8px 8px;
         border-radius: 3px;
         border: 3px solid #3b4f50;

@@ -206,7 +206,7 @@ class Controller
     {
         $this->setup(false);
 
-        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId())){
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
             $this->smarty->assign('is_modification', false);
             $this->display('view/inscription.tpl');
         }
@@ -222,7 +222,7 @@ class Controller
 
         $this->setup(false);
 
-        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId())){
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
             $table = new UtilisateurTable();
             $user = $table->select([UtilisateurTable::$ID_COLUMN => $_GET['userId']]);
             $this->smarty->assign('user', $user);
