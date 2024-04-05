@@ -150,6 +150,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
 }
 
 .contact {
@@ -482,7 +483,7 @@ p {
 
 .delete, .button-poster, .update, .add {
     margin: 5px;
-    width: 40%;
+    width: 40vw;
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -576,6 +577,7 @@ iframe{
     margin-bottom: 10px;
     margin-top: 0;
     width: 50%;
+    gap:10px;
 }
 
 .liste-etudiant, .liste-utilisateur, .liste-entreprise{
@@ -589,6 +591,7 @@ iframe{
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
+    padding-left: 50px;
 
 
     & > div {
@@ -717,7 +720,7 @@ iframe{
         justify-content: center;
         border-radius: 10px 10px 10px 10px;
 
-        width: 90%;
+        width: 90vw;
 
         height: 100%;
 
