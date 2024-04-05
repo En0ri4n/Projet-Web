@@ -25,7 +25,7 @@
     </div>
     <div class="resume-entreprise">
         <div class="entete-entreprise">
-            <h1><a class="titre-link" href="/description-entreprise?entrepriseId={$entreprise->getId()}">{$entreprise->getNom()}</a></h1>
+            <h1><a class="titre-link" href="/description-entreprise?IdEntreprise={$entreprise->getId()}">{$entreprise->getNom()}</a></h1>
             <span id="Domaine">
                 {foreach $entreprise_secteurs as $secteur}
                     {$secteur->getNom()}
