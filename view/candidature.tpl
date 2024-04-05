@@ -8,7 +8,7 @@
 {include file='components/header.tpl'}
 <main>
     {if $offre_exists}
-    <div class="offre-resume">
+    <section class="offre-resume">
         <div class="liste-info">
             <h1 class=><a class="titre-link" href="/description-entreprise?entrepriseId={$entreprise->getId()}">{$entreprise->getNom()}</a></h1>
             <div>
@@ -40,7 +40,7 @@
                 <input class="submit" type="submit" value="Candidater">
             </div>
         </form>
-    </div>
+    </section>
     {else}
         <h1>L'offre n'existe pas :/</h1>
     {/if}

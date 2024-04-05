@@ -4,7 +4,7 @@ function getCoordinates(){
     url = new URL(window.location.href);
     let id = url.searchParams.get("offreId");
 
-    fetch('/api/offres?IdOffres=' +id, { // TODO: mettre à jour tout ça bien
+    fetch('/api/offres?IdOffre=' +id, { // TODO: mettre à jour tout ça bien
         method: 'GET', headers: {
             'Content-Type': 'application/json'
         }
@@ -13,11 +13,11 @@ function getCoordinates(){
         console.log(data)
         data['offres'].forEach(offres =>{
             console.log(offres)
-            let num = offres['adresses'][0]['Numero'];
-            let rue = offres['adresses'][0]['Rue'];
-            let ville = offres['adresses'][0]['Ville'];
-            let cp = offres['adresses'][0]['CodePostal'];
-            let pays = offres['adresses'][0]['Pays'];
+            let num = offres['adresse']['Numero'];
+            let rue = offres['adresse']['Rue'];
+            let ville = offres['adresse']['Ville'];
+            let cp = offres['adresse']['CodePostal'];
+            let pays = offres['adresse']['Pays'];
             fetch('https://api.geoapify.com/v1/geocode/search?housenumber='+num+'&street='+rue+'&postcode='+cp+'&city='+ville+'&country='+pays+'&apiKey=8b0b65847e964e828fb065d72b3a57b4', {
                 method: 'GET', headers: {
                     'Content-Type': 'application/json'

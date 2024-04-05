@@ -61,6 +61,11 @@ main {
         }
     }
 }
+section{
+    h1{
+        font-size: 2em;
+    }
+}
 
 .liste-boutons-accueil {
     display: flex;
@@ -91,6 +96,14 @@ main {
         text-decoration: none;
         padding: 5px 5px 5px 5px;
     }
+}
+
+.list-all {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .go-button, .add-form-data-button {
@@ -150,6 +163,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
 }
 
 .contact {
@@ -250,7 +264,7 @@ main {
     }
 
     input {
-        margin: 10px 0 0 0;
+        margin: 10px 0 10px 0;
         padding: 8px 0 8px 8px;
         border-radius: 3px;
         border: 3px solid #3b4f50;
@@ -265,7 +279,7 @@ main {
 
     .form-input, textarea, select {
         box-sizing: border-box;
-        margin: 10px 0 0 0;
+        margin: 10px 0 10px 0;
         padding: 8px 0 8px 8px;
         border-radius: 3px;
         border: 3px solid #3b4f50;
@@ -482,7 +496,7 @@ p {
 
 .delete, .button-poster, .update, .add {
     margin: 5px;
-    width: 40%;
+    width: 40vw;
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -576,10 +590,11 @@ iframe{
     margin-bottom: 10px;
     margin-top: 0;
     width: 50%;
+    gap:10px;
 }
 
 .liste-etudiant, .liste-utilisateur, .liste-entreprise{
-    width: 80%;
+    width: 100%;
     text-align: center;
     margin: 20px;
 }
@@ -589,6 +604,7 @@ iframe{
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
+    padding-left: 50px;
 
 
     & > div {
@@ -717,7 +733,7 @@ iframe{
         justify-content: center;
         border-radius: 10px 10px 10px 10px;
 
-        width: 90%;
+        width: 90vw;
 
         height: 100%;
 

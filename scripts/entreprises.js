@@ -70,7 +70,7 @@ addEventTo(document.getElementById('reset-filter'), 'click', () =>
     filterEntreprises();
 });
 
-async function filterEntreprises()
+export async function filterEntreprises()
 {
     let self_response = await fetch('/api/users?self', {
         method: 'GET',
@@ -84,7 +84,7 @@ async function filterEntreprises()
     let baseUrl = '/api/entreprises?page=' + currentPage[0] + '&per_page=10';
 
     if(filtered) {
-        let nom = document.getElementById('filter-name').value;
+        let nom = document.getElementById('filter-nomEntreprise').value;
         let secteur = document.getElementById('filter-secteur').value;
 
         // console.log(nom, entreprise, niveau, date, duree);

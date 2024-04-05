@@ -88,16 +88,25 @@ class Controller
     public function adminPageController(): void
     {
         $this->setup(false);
-        $this->display('view/admin_page.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId())){
+            $this->display('view/admin_page.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function creerEntrepriseController(): void
     {
         $this->setup(false);
 
-        $this->smarty->assign('is_modification', false);
-
-        $this->display('view/entreprise.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $this->smarty->assign('is_modification', false);
+            $this->display('view/entreprise.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function descriptionEntrepriseController(): void
@@ -197,9 +206,13 @@ class Controller
     {
         $this->setup(false);
 
-        $this->smarty->assign('is_modification', false);
-
-        $this->display('view/inscription.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $this->smarty->assign('is_modification', false);
+            $this->display('view/inscription.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function modifierProfilController(): void
@@ -209,22 +222,29 @@ class Controller
 
         $this->setup(false);
 
-        $table = new UtilisateurTable();
-        $user = $table->select([UtilisateurTable::$ID_COLUMN => $_GET['userId']]);
-
-        $this->smarty->assign('user', $user);
-        $this->smarty->assign('is_modification', true);
-
-        $this->display('view/inscription.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $table = new UtilisateurTable();
+            $user = $table->select([UtilisateurTable::$ID_COLUMN => $_GET['userId']]);
+            $this->smarty->assign('user', $user);
+            $this->smarty->assign('is_modification', true);
+            $this->display('view/inscription.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function creerOffreController(): void
     {
         $this->setup(false);
 
-        $this->smarty->assign('is_modification', false);
-
-        $this->display('view/poster_offre.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $this->smarty->assign('is_modification', false);
+            $this->display('view/poster_offre.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function modifierEntrepriseController(): void
@@ -234,13 +254,16 @@ class Controller
 
         $this->setup(false);
 
-        $table = new EntrepriseTable();
-        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['IdEntreprise']]);
-
-        $this->smarty->assign('entreprise', $entreprise);
-        $this->smarty->assign('is_modification', true);
-
-        $this->display('view/entreprise.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $table = new EntrepriseTable();
+            $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['IdEntreprise']]);
+            $this->smarty->assign('entreprise', $entreprise);
+            $this->smarty->assign('is_modification', true);
+            $this->display('view/entreprise.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function modifierOffreController(): void
@@ -250,13 +273,16 @@ class Controller
 
         $this->setup(false);
 
-        $table = new OffreTable();
-        $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['IdOffre']]);
-
-        $this->smarty->assign('offre', $offre);
-        $this->smarty->assign('is_modification', true);
-
-        $this->display('view/poster_offre.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $table = new OffreTable();
+            $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['IdOffre']]);
+            $this->smarty->assign('offre', $offre);
+            $this->smarty->assign('is_modification', true);
+            $this->display('view/poster_offre.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function entreprisesController(): void

@@ -7,11 +7,12 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="form" id="premiere_section">
+    <section class="form" id="premiere_section">
         <h1>{if $is_modification}Mettre à jour {$entreprise->getNom()}{else}Ajouter un utilisateur{/if}</h1>
         <form method="post" > 
             <div class="form-fiche-entreprise">
                 <div class="form__inputs">
+                    <label for="nom-entreprise">Entreprise</label>
                     <input class="form__input" id="nom-entreprise" placeholder="Nom de l'entreprise*" required>
                     <div class="adresse-input">
                         <label for="location-numero">Adresse Principale</label>
@@ -32,23 +33,27 @@
                     </div>
 
                     <input type="hidden" id="nombre-domaines" value=1>
+                    <label for="domaine1">Domaines</label>
                     <input class="form-input" id="domaine1" placeholder="Domaine*" required>
                     <button type="button" class="add-form-data-button" id="button-add-domain">Ajouter une domaine</button>
                     <button type="button" class="add-form-data-button" id="button-remove-domain">Retirer une domaine</button>
                     <div class="added-domain-input" id="domaines">
 
                     </div>
-
+                    <label for="mail-entreprise">Mail</label>
                     <input class="form__input" placeholder="E-mail" id="mail-entreprise">
+                    <label for="site-entreprise">Site</label>
                     <input class="form__input" placeholder="Site" id="site-entreprise">
+                    <label for="tel-entreprise">Telephone</label>
                     <input class="form__input" placeholder="Téléphone" id="tel-entreprise">
+                    <label for="entreprise-desc">Description</label>
                     <textarea placeholder="Description de l'entreprise*" id="entreprise-desc" maxlength=512 required=""></textarea>
                 </div>
             </div>
             <p>*Champs obligatoires</p>
             <input type="submit" class="submit" value="Poster">
         </form>
-    </div>
+    </section>
 </main>
 {include file='components/footer.tpl'}
 </body>

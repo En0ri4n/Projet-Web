@@ -9,8 +9,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Wishlist.php');
 
 class WishlistTable extends AbstractTable
 {
-    public static string $ID_UTILISATEUR_COLUMN = 'idUtilisateur';
-    public static string $ID_OFFRE_COLUMN = 'idOffre';
+    public static string $ID_UTILISATEUR_COLUMN = 'Wishlist.IdUtilisateur';
+    public static string $ID_OFFRE_COLUMN = 'Wishlist.IdOffre';
 
     public function __construct()
     {

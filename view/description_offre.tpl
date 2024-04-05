@@ -20,10 +20,10 @@
 {include file='components/header.tpl'}
 <main>
     {if $offre_exists}
-    <div id="premiere_section">
+    <section id="premiere_section">
         <div class="map" id="map"></div>
-    </div>
-    <div class="resume-entreprise">
+    </section>
+    <section class="resume-entreprise">
         <div class="entete-entreprise">
             <h1><a class="titre-link" href="/description-entreprise?IdEntreprise={$entreprise->getId()}">{$entreprise->getNom()}</a></h1>
             <span id="Domaine">
@@ -35,8 +35,8 @@
         <p class="description">
             {$entreprise->getDescription()}
         </p>
-    </div>
-    <div class="resume-offre">
+    </section>
+    <section class="resume-offre">
         <h1>Offre</h1>
         <div class="liste-info">
             <div>
@@ -52,14 +52,14 @@
                 <span class="soustitre-liste">Domaine</span>  <span>{$secteur->getNom()}</span>
             </div>
         </div>
-    </div>
-    <div class="description-offre">
+    </section>
+    <section class="description-offre">
         <h1>Description de l'offre</h1>
         <p class="description">
             {$offre->getDescription()}
         </p>
-    </div>
-    <div class="competence-demandees">
+    </section>
+    <section class="competence-demandees">
     <h1>Compétences</h1>
         <div class="box_competences">
             {foreach $competences as $comp}
@@ -69,12 +69,12 @@
                 </div>
             {/foreach}
         </div>
-</div>
-    <div class="actions-offres">
-        <button class="button-action-offre"id="postuler" onclick="window.location.href='/candidature?offreId={$offre->getId()}'">Postuler</button> {* TODO: Page postuler *}
-        <button class="button-action-offre" id="wishlist">Wishlist</button> {* TODO: requête wishlist *}
-    </div>
-    <div class="contact">
+    </section>
+    <section class="actions-offres">
+        <button class="button-action-offre" id="postuler" onclick="window.location.href='/candidature?offreId={$offre->getId()}'">Postuler</button> {* TODO: Page postuler *}
+        <button class="button-action-offre" id="wishlist">Wishlist</button>
+    </section>
+    <section class="contact">
         <h1>Contact</h1>
         <div class="liste-info">
             <div>
@@ -91,7 +91,7 @@
                 <span class="soustitre-liste">Telephone</span>  <span><a href="tel:{$entreprise->getTelephone()}">{$entreprise->getTelephone()}</a></span>
             </div>
         </div>
-    </div>
+    </section>
     {else}
         <h1>L'offre n'existe pas :/</h1>
     {/if}

@@ -11,6 +11,20 @@ addEventTo(document, 'DOMContentLoaded', onReady);
  */
 function onReady()
 {
+	setCustomValidator(document.getElementById('poste'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de l\'entreprise doit au moins contenir 3 caractères');
+    setCustomValidator(document.getElementById('description'), /^[a-zA-Z\s._-]{3,}$/, 'La description doit contenir au moins 3 caractères');
+    setCustomValidator(document.getElementById('level'), /^[0-9]{1}$/, 'Le niveau doit contenir 1 chiffre');
+    setCustomValidator(document.getElementById('nb-duree'),/^[0-9]{1,}$/, 'La durée doit contenir au moins 1 chiffre'); 
+	setCustomValidator(document.getElementById('nom-entreprise'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de l\'entreprise doit au moins contenir 3 caractères');
+    setCustomValidator(document.getElementById('location-numero'), /^[0-9]{1,}$/, 'Le numero de rue doit contenir au moins 1 chiffre');
+    setCustomValidator(document.getElementById('location-rue'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de la rue doit contenir au moins 3 caractères');
+    setCustomValidator(document.getElementById('location-ville'),/^[a-zA-Z\s._-]{3,}$/, 'Le nom de la ville doit contenir au moins 3 caractères'); 
+    setCustomValidator(document.getElementById('location-cp'), /^[0-9]{5}$/,'Le Code Postal doit contenir 5 chiffres');
+    setCustomValidator(document.getElementById('location-pays'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom du pays doit contenir au moins 3 caractères');
+    setCustomValidator(document.getElementById('nb-places'), /^[0-9]{1}$/,'Le nombre de place doit contenir au moins 1 chiffre');
+    setCustomValidator(document.getElementById('remuneration'), /^[0-9]{1,}$/, 'La remuneration doit contenir au moins 1 chiffre');
+    setCustomValidator(document.getElementById('skill'), /^[a-zA-Z\s._-]{3,}$/, 'Le nom de la competence doit contenir au moins 3 caractères');/*TODO*/
+    
 	// addEventTo(window, 'keyup', (event) => {
 	// 	if(event.keyCode === 13) {
 	// 		event.preventDefault();

@@ -8,3 +8,4 @@ RewriteRule ^entreprises$ /api/entreprises.php [L,NC] # [L] - last rule # [NC] -
 RewriteRule ^adresses$ /api/adresses.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^evaluations$ /api/evaluations.php [L,NC] # [L] - last rule # [NC] - case insensitive
 RewriteRule ^candidatures$ /api/candidatures.php [L,NC] # [L] - last rule # [NC] - case insensitive
+RewriteRule ^wishlist$ /api/wishlist.php [L,NC] # [L] - last rule # [NC] - case insensitive
