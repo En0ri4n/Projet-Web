@@ -13,7 +13,9 @@ function init(){
 
 function saveRating(e) {
     removeEventListenerToAllStars();
-    rating.innerText = e.target.dataset.star;
+    // rating.innerText = e.target.dataset.star;
+    document.getElementById('note').value = e.target.dataset.star;
+    // console.log("rating", e.target.dataset.star);
 }
 
 function removeEventListenerToAllStars(){
@@ -42,7 +44,7 @@ function removeCSS(e, css="checked"){
 }
 
 function getPreviousSiblings(elem){
-    console.log("elem.previousSibling", elem.previousSibling);
+    // console.log("elem.previousSibling", elem.previousSibling);
     let siblings = [];
     const spanNodeType = 1;
     while((elem = elem.previousSibling)){
