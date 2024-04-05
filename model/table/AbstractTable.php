@@ -273,7 +273,41 @@ abstract class AbstractTable
         $query .= " WHERE " . implode(" AND ", $conditions);
 
         $query .= " " . $parameters;
+         $stmt = $this->getDatabase()->prepare($query);
 
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($rows) == 1)
+            return $fromArray($rows[0]);
+        elseif(count($rows) > 1)
+            return array_map((fn($row) => $fromArray($row)), $rows);
+
+        return null;
+    }
+
+    public function selectJoinSpecialConditionsAndParameters(string $join_query, array $conditions, string $parameters, callable $fromArray): mixed
+    {
+        $query = "SELECT * FROM " . $this->getTableName() . " " . $join_query;
+
+        if(empty($conditions))
+        {
+            $query .= " " . $parameters;
+            $stmt = $this->getDatabase()->query($query);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+
+            return null;
+        }
+
+        $query .= " WHERE " . implode(" AND ", $conditions);
+
+        $query .= " " . $parameters;
         $stmt = $this->getDatabase()->prepare($query);
 
         $stmt->execute();
@@ -461,6 +495,11 @@ abstract class AbstractTable
     public static function inner_join(string $joined_table, string $column, string $joined_column): string
     {
         return "INNER JOIN " . $joined_table . " ON " . $column . " = " . $joined_column;
+    }
+
+    public static function left_join(string $joined_table, string $column, string $joined_column): string
+    {
+        return "LEFT JOIN " . $joined_table . " ON " . $column . " = " . $joined_column;
     }
 
     public static function no_join(): string

@@ -3,19 +3,70 @@ import {currentPage, initPagination, reloadPagination, setTotalPages} from "./pa
 
 addEventTo(document, 'DOMContentLoaded', onReady);
 
+async function populateFilters()
+{
+    let entrepriseResponse = await fetch('/api/entreprises?column=IdEntreprise,NomEntreprise', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let secteurRes = await fetch('/api/entreprises?column=IdSecteur,NomSecteur', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let entrepriseData = await entrepriseResponse.json();
+
+    let secteurData = await secteurRes.json();
+
+
+    let entreprises = entrepriseData['values'];
+
+    let secteurs = secteurData['values'];
+
+    console.log(secteurs )
+
+
+    document.getElementById('filter-secteur').innerHTML += Array.from(new Set(secteurs)).sort().map(secteur => { return `<option value="${secteur[0]}">${secteur[1]}</option>` }).join('');
+}
+
 async function onReady()
 {
-    initPagination(0, () => document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>', filterEntreprises);
+    populateFilters()
+
+    initPagination(0, onWait, filterEntreprises);
 
     reloadPagination();
 }
 
+function onWait()
+{
+    document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>'
+}
 addEventTo(document.getElementById('search-button'), 'click', (e) =>
 {
     e.preventDefault();
 
     document.getElementById('liste-entreprises').innerHTML = '<img src="/assets/loading.gif" alt="loading" id="loading"/>';
 
+    filtered = true;
+
+    filterEntreprises();
+});
+
+let filtered = false;
+addEventTo(document.getElementById('reset-filter'), 'click', () =>
+{
+    document.getElementById('filter-name').value = '';
+    document.getElementById('filter-secteur').value = '';
+
+    filtered = false;
+
+    onWait();
     filterEntreprises();
 });
 
@@ -32,10 +83,18 @@ async function filterEntreprises()
 
     let baseUrl = '/api/entreprises?page=' + currentPage[0] + '&per_page=10';
 
-    let nom = document.getElementById('filter-nom').value;
+    if(filtered) {
+        let nom = document.getElementById('filter-name').value;
+        let secteur = document.getElementById('filter-secteur').value;
 
-    if(nom !== '')
-        baseUrl += '&Nom=' + nom;
+        // console.log(nom, entreprise, niveau, date, duree);
+
+        if (nom !== '')
+            baseUrl += '&name=' + nom;
+
+        if (secteur !== '')
+            baseUrl += '&IdSecteur=' + secteur;
+    }
 
     // console.log(baseUrl);
 
@@ -48,7 +107,7 @@ async function filterEntreprises()
 
     let data = await response.json();
 
-    // console.log(data);
+    console.log(data);
 
     const listeEntrepriseElement = document.getElementById('liste-entreprises');
     listeEntrepriseElement.innerHTML = '';
@@ -60,6 +119,8 @@ async function filterEntreprises()
         add.innerHTML = 'Ajouter une entreprise';
         addEventTo(add, 'click', () => window.location.href = '/poster_entreprise');
     }
+
+    console.log(data)
 
     if(data['entreprises'].length === 0)
     {

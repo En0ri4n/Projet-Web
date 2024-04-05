@@ -4,6 +4,7 @@ use model\object\Entreprise;
 use model\object\Offre;
 use model\table\EntrepriseTable;
 use model\table\OffreTable;
+use model\table\SecteurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/controller/Controller.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api/requests.php');
@@ -21,19 +22,24 @@ switch($method)
 {
     /*TODO : get statut et secteur*/
     case 'GET':
+        if(isset($_GET['column']) && (str_contains($_GET['column'], 'IdSecteur') || str_contains($_GET['column'], 'NomSecteur')))
+            checkIfGetColumn(new SecteurTable());
         checkIfGetColumn(new EntrepriseTable());
 
         $parameters = [];
         addIfSetSpecial($parameters, $_GET, 'IdEntreprise', eq(EntrepriseTable::$ID_COLUMN));
         addIfSetSpecial($parameters, $_GET, 'name', like(EntrepriseTable::$NOM_COLUMN));
+        addIfSetSpecial($parameters, $_GET, 'IdSecteur', eq(\model\table\LinkTable::getEntrepriseToSecteur()->getIdToColumn()));
 
         try
         {
             $entreprise_table = new EntrepriseTable();
 
-            $total_entreprises = $entreprise_table->selectSpecialConditionsAndParameters($parameters, "", fn($a) => Entreprise::fromArray($a));
+            $total_entreprises = $entreprise_table->selectJoinSpecialConditionsAndParameters(EntrepriseTable::inner_join('Composer', 'Entreprise.IdEntreprise', 'Composer.IdEntreprise'), $parameters, "GROUP BY " . 'Composer.IdEntreprise', fn($a) => Entreprise::fromArray($a));
 
-            $entreprises = $entreprise_table->selectSpecialConditionsAndParameters($parameters, "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Entreprise::fromArray($a));
+
+
+            $entreprises = $entreprise_table->selectJoinSpecialConditionsAndParameters(EntrepriseTable::inner_join('Composer', 'Entreprise.IdEntreprise', 'Composer.IdEntreprise'), $parameters,  "GROUP BY Composer.IdEntreprise " . "LIMIT " . getPerPage() . " OFFSET " . (getPerPage() * (getPage() - 1)), fn($a) => Entreprise::fromArray($a));
 
             $json = setupPages(count(is_array($total_entreprises) ? $total_entreprises : ($total_entreprises === null ? [] : [$total_entreprises])));
             $json['entreprises'] = $entreprises === null ? [] : (is_array($entreprises) ? $entreprises : [$entreprises]);
