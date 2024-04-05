@@ -7,7 +7,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="form" id="premiere_section">
+    <section class="form" id="premiere_section">
         <h1>{if $is_modification}Mettre à jour {$offre->getName()}{else}Ajouter une Offre{/if}</h1>
         <form method="post">
             <div class="form__inputs">
@@ -44,7 +44,7 @@
                 <input type="submit" class="submit" placeholder="Publier">
             </div>
         </form>
-    </div>
+    </section>
 </main>
 {include file='components/footer.tpl'}
 <script type="module" src="/scripts/poster_offre.js"></script>

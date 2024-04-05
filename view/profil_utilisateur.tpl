@@ -10,7 +10,7 @@
     {if $user_exists}
         {include file='components/profile.tpl'}
         {if $user_type == 'pilote'}
-            <div class="liste-etudiant">
+            <section class="liste-etudiant">
                 <form method="post">
                     <h1 id="premiere_section">Vos étudiants </h1>
                     <div class="search-by-name">
@@ -48,10 +48,10 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </section>
         {elseif $user_type == 'etudiant'}
             <h1 id="premiere_section">Wishlist</h1>
-            <div class="contener_row">
+            <section class="contener_row">
                 <article class="offre">
                     <div class="c1">
                         <span class="poste">Poste</span>
@@ -89,7 +89,7 @@
                     </div>
                 </article>
                 {if $current_user->getId() == $user->getId()}<button class="delete">Supprimer</button>{/if}
-            </div>
+            </section>
         {/if}
     {else}
         <h1>Cet utilisateur n'existe pas :/</h1>

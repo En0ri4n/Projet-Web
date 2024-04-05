@@ -7,7 +7,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="form" id="premiere_section">
+    <section class="form" id="premiere_section">
         <h1>{if $is_modification}Mettre à jour {$entreprise->getNom()}{else}Ajouter un utilisateur{/if}</h1>
         <form method="post" > 
             <div class="form-fiche-entreprise">
@@ -48,7 +48,7 @@
             <p>*Champs obligatoires</p>
             <input type="submit" class="submit" value="Poster">
         </form>
-    </div>
+    </section>
 </main>
 {include file='components/footer.tpl'}
 </body>

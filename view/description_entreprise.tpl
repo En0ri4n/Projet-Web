@@ -33,10 +33,10 @@
 {include file='components/header.tpl'}
 <main>
     {if $entreprise_exists}
-    <div id="premiere_section">
+    <section id="premiere_section">
         <div class="map" id="map"></div>
-    </div>
-    <div class="resume-entreprise">
+    </section>
+    <section class="resume-entreprise">
         <div class="entete-entreprise">
             <h1>{$entreprise->getNom()}</h1>
             <span id="Domaine">
@@ -48,13 +48,13 @@
         <p class="description">
             {$entreprise->getDescription()}
         </p>
-    </div>
+    </section>
         <h1>Offres de l'entreprise</h1>
-    <div class="liste-offres" id="liste-offres">
+    <section class="liste-offres" id="liste-offres">
         <img src="/assets/loading.gif" alt="loading" id="loading">
-    </div>
+    </section>
         {include file="components/pagination.tpl" index=0}
-    <div class="evaluation">
+    <section class="evaluation">
         <h2>Laisser une évaluation</h2>
         <div class="note-etoiles">
             <span class="fas fa-star" data-star="1"></span>
@@ -75,8 +75,8 @@
             <img src="/assets/loading.gif" alt="loading" id="loading"/>
         </div>
         {include file='components/pagination.tpl' index=1}
-    </div>
-    <div class="contact">
+    </section>
+    <section class="contact">
         <h1>Contact</h1>
         <div class="liste-info">
             <div>
@@ -97,7 +97,7 @@
                 <span class="soustitre-liste">Telephone</span> <span><a href="tel:{$entreprise->getTelephone()}">{$entreprise->getTelephone()}</a></span>
             </div>
         </div>
-    </div>
+    </section>
     {else}
         <h1>L'entreprise n'existe pas :/</h1>
     {/if}
