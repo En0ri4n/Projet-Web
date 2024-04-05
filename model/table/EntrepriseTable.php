@@ -29,7 +29,7 @@ class EntrepriseTable extends AbstractTable
 
     public function select(array $conditions): null|array|Entreprise
     {
-        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Entreprise::fromArray($a));
+        return $this->defaultSelect(self::left_join('Composer', 'IdEntreprise','IdEntreprise'), $conditions, fn($a) => Entreprise::fromArray($a));
     }
 
     public function update(mixed $id, array $columns, array $values): bool

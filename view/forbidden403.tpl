@@ -7,11 +7,9 @@
 </head>
 <body>
 {include file='components/header.tpl'}
-<main style="display: flex; flex-direction: column">
+<main>
     <h1>Erreur 403 - Interdit</h1>
-    <br>
-    <img src="https://http.dog/403.jpg" style="width: max(30vw, 400px);" alt="forbidden">
-    <br>
+    <img class="image-error-page" src="https://http.dog/403.jpg" alt="forbidden">
     <p>Vous n'avez pas le droit d'accéder à cette page.</p>
     <p><a href="{$connection_page}">Connectez vous pour continuer</a></p>
 </main>

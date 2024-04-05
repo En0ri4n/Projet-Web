@@ -61,6 +61,11 @@ main {
         }
     }
 }
+section{
+    h1{
+        font-size: 2em;
+    }
+}
 
 .liste-boutons-accueil {
     display: flex;
@@ -93,7 +98,15 @@ main {
     }
 }
 
-.go-button {
+.list-all {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.go-button, .add-form-data-button {
     padding: 5px 10px 5px 10px;
     margin: 10px 10px;
     border-radius: 3px;
@@ -150,6 +163,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
 }
 
 .contact {
@@ -160,7 +174,7 @@ main {
     display: flex;
     background-color: #82AEB1;
     border-radius: 30px 30px 30px 30px;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     width: 900px;
     height: 200px;
     max-width: 70vw;
@@ -216,7 +230,7 @@ main {
     background-color: #a51550;
 }
 
-.form {
+.form, .offre-resume {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -241,8 +255,16 @@ main {
     margin-top: 15px;
     margin-bottom: 15px;
 
+    .adresse-input, .added-domain-input, .added-skill-input{
+        padding: 10px;
+
+        input{
+            border-color:#5d8b8f;
+        }
+    }
+
     input {
-        margin: 10px 0 0 0;
+        margin: 10px 0 10px 0;
         padding: 8px 0 8px 8px;
         border-radius: 3px;
         border: 3px solid #3b4f50;
@@ -257,7 +279,7 @@ main {
 
     .form-input, textarea, select {
         box-sizing: border-box;
-        margin: 10px 0 0 0;
+        margin: 10px 0 10px 0;
         padding: 8px 0 8px 8px;
         border-radius: 3px;
         border: 3px solid #3b4f50;
@@ -268,6 +290,7 @@ main {
 
     textarea{
         resize: vertical;
+        height: 150px;
     }
 
     #duree {
@@ -355,6 +378,10 @@ p {
     cursor: pointer;
     width: 100%;
     font-size: 1em;
+}
+.submit:hover{
+    background-color: white;
+    border: 3px solid #82AEB1;
 }
 
 .texte_form {
@@ -467,9 +494,9 @@ p {
     height: 200vh;
 }
 
-.delete, .button-poster {
+.delete, .button-poster, .update, .add {
     margin: 5px;
-    width: 40%;
+    width: 40vw;
     padding: 5px;
     border-radius: 5px;
     border: none;
@@ -558,10 +585,16 @@ iframe{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #F00F0030;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    width: 50%;
+    gap:10px;
 }
 
 .liste-etudiant, .liste-utilisateur, .liste-entreprise{
-    width: 80%;
+    width: 100%;
     text-align: center;
     margin: 20px;
 }
@@ -571,6 +604,7 @@ iframe{
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
+    padding-left: 50px;
 
 
     & > div {
@@ -584,11 +618,14 @@ iframe{
 
 .list_data{
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pagination{
     margin-bottom: 20px;
-    a{
+    button{
         margin: 10px 0 10px 0;
         padding: 10px 20px;
         border-radius: 3px;
@@ -599,7 +636,7 @@ iframe{
         cursor: pointer;
         font-size: 1em; 
     }
-    a:hover{
+    button:hover{
         background-color: white;
         border: 3px solid #82AEB1;
     }
@@ -612,8 +649,48 @@ iframe{
 
 }
 
+.form__file{
+    display: flex;
+    flex-direction: column;
+    width: min(90vw,350px);
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    input {
+        margin: 10px 0 0 0;
+        padding: 8px 0 8px 8px;
+        border-radius: 3px;
+        border: 3px solid #3b4f50;
+        font-size: 1em;
+        font-weight: bold;
+
+        &:focus {
+            border: 3px solid #78a2a4;
+            outline-width: 0;
+        }
+    }
+    div{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+}
+
+.image-error-page{
+    width: max(30vw, 400px);
+    margin: 10px;
+}
+
+#list-promo>li{
+    margin-left: 2em;
+}
+
+.checked{
+    color: #D72483;
+}
+
 @media all and (max-width: 600px) {
-    .form {
+    .form, .offre-resume {
         border: none;
         box-shadow: none;
     }
@@ -656,7 +733,7 @@ iframe{
         justify-content: center;
         border-radius: 10px 10px 10px 10px;
 
-        width: 90%;
+        width: 90vw;
 
         height: 100%;
 

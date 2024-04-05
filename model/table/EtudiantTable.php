@@ -42,8 +42,7 @@ class EtudiantTable extends AbstractTable
     /*TODO : Tester insert et update (avec commentaires pour suivre mon interpretation du code)*/
     public function insert(mixed $obj): bool
     {
-        // TODO: Implement insert() method.
-        return false;
+        return $this->defaultInsert($obj);
     }
 
     public function update(mixed $id, array $columns, array $values): bool
@@ -101,19 +100,19 @@ class EtudiantTable extends AbstractTable
     public function delete(mixed $id): bool
     {
         /*Etudiant en lui-même*/
-        $query = "DELETE FROM " . $this->getTableName() . " WHERE id = :id";
+        $query = "DELETE " . $this->getTableName() . ", Utilisateur FROM " . $this->getTableName() . " INNER JOIN Utilisateur ON Utilisateur.IdUtilisateur = " . $this->getTableName() . ".IdUtilisateur WHERE Utilisateur.IdUtilisateur = :id";
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
 
         /* Wishlist de l'etudiant */
-        $query = "DELETE FROM Wishlist WHERE idUtilisateur = :id";
+        $query = "DELETE FROM Wishlist WHERE IdUtilisateur = :id";
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindValue(':id', $id);
         $stmt->execute();
 
         /* Candidatures de l'etudiant */
-        $query = "DELETE FROM Candidature WHERE idEtudiant = :id";
+        $query = "DELETE FROM Candidature WHERE IdEtudiant = :id";
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindValue(':id', $id);
         return $stmt->execute();

@@ -1,0 +1,16 @@
+@media (max-width:600px){
+    #map{
+        padding:10vh;
+        width :600px;
+        height:150px;
+    }
+}
+
+@media (min-width: 600px){
+    #map{
+        padding: 10vh;
+        width:1000px;
+        height: 500px;
+    }
+
+}

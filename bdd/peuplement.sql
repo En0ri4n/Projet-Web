@@ -73,7 +73,7 @@ CREATE PROCEDURE `createRandomOffres`(IN count INT)
 BEGIN
     FOR i IN 1..count DO
             INSERT INTO Offre (DateOffre, DureeOffre, Remuneration, NbPlace, NomOffre, NiveauOffre, DescriptionOffre, IdSecteur, IdAdresse, IdEntreprise)
-            VALUES ((SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 200) DAY),FLOOR(RAND()*6+1),(4.35+ROUND(RAND()*2,2)),FLOOR(RAND()*5+1),CONCAT('Poste', LPAD(i, 2, '0')),FLOOR(RAND()*5+1),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent felis ex, dapibus sit amet efficitur at, porta vitae sem. Aenean augue nibh, sollicitudin eu sem quis, lobortis pretium sapien. Morbi quis nunc luctus, tempus quam fermentum, faucibus quam. Praesent ut mollis nunc, quis consequat diam. Nam condimentum urna vitae velit.',
+            VALUES ((SELECT CURRENT_DATE + INTERVAL FLOOR(RAND() * 200) DAY),FLOOR(RAND()*6+1),(4.35+ROUND(RAND()*2,2)),FLOOR(RAND()*5+1),CONCAT('Poste', LPAD(i, 2, '0')),FLOOR(RAND()*4+2),'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent felis ex, dapibus sit amet efficitur at, porta vitae sem. Aenean augue nibh, sollicitudin eu sem quis, lobortis pretium sapien. Morbi quis nunc luctus, tempus quam fermentum, faucibus quam. Praesent ut mollis nunc, quis consequat diam. Nam condimentum urna vitae velit.',
                     (SELECT IdSecteur FROM Secteur ORDER BY RAND() LIMIT 1),(SELECT IdAdresse FROM Adresse ORDER BY RAND() LIMIT 1),(SELECT IdEntreprise FROM Entreprise ORDER BY RAND() LIMIT 1));
         END FOR;
 END;
@@ -193,3 +193,7 @@ FOR i IN 1..5 DO
                 VALUES (i,@secteur);
             END FOR;
     END FOR;
+
+INSERT INTO Evaluation(Note, Commentaire, IdUtilisateur, IdEntreprise)
+VALUES (4,'Délais de réponse très long dû au nombre de demandes, mais les nombreux avantages et notamment la rémunération en valent la peine','etudiant0018',1),
+    (2,'Pas le stage idéal mais ils prennent dès la deuxième année','etudiant0083',2);

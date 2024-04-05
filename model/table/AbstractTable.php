@@ -38,10 +38,11 @@ abstract class AbstractTable
      */
     protected function defaultInsert(SerializableObject $obj): bool
     {
-        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", array_map((fn($key) => $key), array_keys($obj->toArray()))) . ") VALUES (:" . implode(", :", array_keys($obj->toArray())) . ")";
+        $keys = array_keys($obj->toInsertArray());
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $keys) . ") VALUES (:" . implode(", :", array_map(fn($key) => $this->escape_and_lower($key), $keys)) . ")";
         $stmt = $this->getDatabase()->prepare($query);
-        foreach($obj->toArray() as $key => $value)
-            $stmt->bindValue(':' . $key, $value);
+        foreach($obj->toInsertArray() as $key => $value)
+            $stmt->bindValue(':' . $this->escape_and_lower($key), $value);
         return $stmt->execute();
     }
 
@@ -52,12 +53,27 @@ abstract class AbstractTable
      * @param array $values The values to insert (in the same order as the columns)
      * @return bool True if the insert was successful, false otherwise
      */
-    protected function insertWith(array $columns, array $values): bool
+    public function insertWith(array $columns, array $values): bool
     {
-        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $column), $columns)) . ")";
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", $columns) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $this->escape_and_lower($column)), $columns)) . ")";
         $stmt = $this->getDatabase()->prepare($query);
         foreach($columns as $column)
-            $stmt->bindParam(':' . $column, $values[$column]);
+            $stmt->bindValue(':' . $column, $values[$column]);
+        return $stmt->execute();
+    }
+
+    /**
+     * Insert a new row into the table with the given associative array of columns and values
+     *
+     * @param array $data Associative array of columns and values to insert
+     * @return bool True if the insert was successful, false otherwise
+     */
+    public function insertWithArray(array $data): bool
+    {
+        $query = "INSERT INTO " . $this->getTableName() . " (" . implode(", ", array_keys($data)) . ") VALUES (" . implode(", ", array_map((fn($column) => ":" . $this->escape_and_lower($column)), array_keys($data))) . ")";
+        $stmt = $this->getDatabase()->prepare($query);
+        foreach(array_keys($data) as $column)
+            $stmt->bindValue(':' . $this->escape_and_lower($column), $data[$column]);
         return $stmt->execute();
     }
 
@@ -257,6 +273,83 @@ abstract class AbstractTable
         $query .= " WHERE " . implode(" AND ", $conditions);
 
         $query .= " " . $parameters;
+         $stmt = $this->getDatabase()->prepare($query);
+
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($rows) == 1)
+            return $fromArray($rows[0]);
+        elseif(count($rows) > 1)
+            return array_map((fn($row) => $fromArray($row)), $rows);
+
+        return null;
+    }
+
+    public function selectJoinSpecialConditionsAndParameters(string $join_query, array $conditions, string $parameters, callable $fromArray): mixed
+    {
+        $query = "SELECT * FROM " . $this->getTableName() . " " . $join_query;
+
+        if(empty($conditions))
+        {
+            $query .= " " . $parameters;
+            $stmt = $this->getDatabase()->query($query);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+
+            return null;
+        }
+
+        $query .= " WHERE " . implode(" AND ", $conditions);
+
+        $query .= " " . $parameters;
+        $stmt = $this->getDatabase()->prepare($query);
+
+        $stmt->execute();
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if(count($rows) == 1)
+            return $fromArray($rows[0]);
+        elseif(count($rows) > 1)
+            return array_map((fn($row) => $fromArray($row)), $rows);
+
+        return null;
+    }
+
+    /**
+     * Select from the table with special conditions
+     *
+     * @param array $conditions The conditions to apply to the select (e.g. "id = 1")
+     * @return PDOStatement|null The result of the select
+     * @throws Exception if the function is not implemented
+     */
+    public function selectOrSpecialConditionsAndParameters(array $conditions, string $parameters, callable $fromArray): mixed
+    {
+        $query = "SELECT * FROM " . $this->getTableName();
+
+        if(empty($conditions))
+        {
+            $query .= " " . $parameters;
+            $stmt = $this->getDatabase()->query($query);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(count($rows) == 1)
+                return $fromArray($rows[0]);
+            elseif(count($rows) > 1)
+                return array_map((fn($row) => $fromArray($row)), $rows);
+
+            return null;
+        }
+
+        $query .= " WHERE " . implode(" OR ", $conditions);
+
+        $query .= " " . $parameters;
 
         $stmt = $this->getDatabase()->prepare($query);
 
@@ -270,6 +363,41 @@ abstract class AbstractTable
             return array_map((fn($row) => $fromArray($row)), $rows);
 
         return null;
+    }
+
+    public function selectColumnValues(string $columnName): array
+    {
+        $query = "SELECT " . $columnName . " FROM " . $this->getTableName() . " GROUP BY " . $columnName . " ORDER BY " . $columnName . " ASC";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function selectColumnsValues(array $columns): array
+    {
+        $query = "SELECT " . implode(', ', $columns) . " FROM " . $this->getTableName() . " GROUP BY " . $columns[0] . " ORDER BY " . $columns[0] . " ASC";
+        $stmt = $this->getDatabase()->query($query);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $values = [];
+
+        foreach($data as $row)
+            $values[] = array_map((fn($column) => $row[$column]), $columns);
+
+        return $values;
+    }
+
+    public function selectColumnNames(): array
+    {
+        $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $this->getTableName() . "'";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function selectJoinedColumnNames(string... $tables): array
+    {
+        $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" . $this->getTableName() . "' OR " . implode(" OR ", array_map((fn($table) => "TABLE_NAME = '" . $table . "'"), $tables));
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     /**
@@ -292,8 +420,24 @@ abstract class AbstractTable
         $query = "UPDATE " . $this->getTableName() . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $column), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
         foreach($columns as $column)
-            $stmt->bindParam(':' . $column, $values[$column]);
-        $stmt->bindParam(':id', $id);
+            $stmt->bindValue(':' . $column, $values[$column]);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+
+    /**
+     * Update the row with the given id<br>
+     * Default implementation
+     */
+    public function defaultJoinUpdate(mixed $id, string $join_query, array $data): bool
+    {
+        $columns = array_keys($data);
+        $query = "UPDATE " . $this->getTableName() . " " . $join_query . " SET " . implode(", ", array_map((fn($column) => $column . " = :" . $this->escape_and_lower($column)), $columns)) . " WHERE " . $this->getIdColumn() . " = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        foreach($data as $column => $value)
+            $stmt->bindValue(':' . $this->escape_and_lower($column), $value);
+        $stmt->bindValue(':id', $id);
+
         return $stmt->execute();
     }
 
@@ -303,7 +447,7 @@ abstract class AbstractTable
      * @param mixed $id The id of the row to delete
      * @return bool True if deletion was successful, false otherwise
      */
-    public abstract function delete(mixed $id): bool;
+    abstract public function delete(mixed $id): bool;
 
     /**
      * Delete the row with the given id<br>
@@ -313,13 +457,16 @@ abstract class AbstractTable
     {
         $query = "DELETE FROM " . $this->getTableName() . " WHERE " . $this->getIdColumn() . " = :id";
         $stmt = $this->getDatabase()->prepare($query);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
 
+
     public function getRowCount(): int
     {
-        return count($this->select([]));
+        $query = 'SELECT COUNT(*) AS rowCount FROM ' . $this->getTableName();
+        $stmt = $this->getDatabase()->query($query);
+        return intval($stmt->fetch()['rowCount']);
     }
 
     /**
@@ -345,20 +492,25 @@ abstract class AbstractTable
         return strtolower(str_replace(".", "", $input));
     }
 
-    protected static function inner_join(string $joined_table, string $column, string $joined_column): string
+    public static function inner_join(string $joined_table, string $column, string $joined_column): string
     {
         return "INNER JOIN " . $joined_table . " ON " . $column . " = " . $joined_column;
     }
 
-    protected static function no_join(): string
+    public static function left_join(string $joined_table, string $column, string $joined_column): string
+    {
+        return "LEFT JOIN " . $joined_table . " ON " . $column . " = " . $joined_column;
+    }
+
+    public static function no_join(): string
     {
         return "";
     }
 
-    protected function getLastInsertId(): bool
+    public function getLastInsertId(): int
     {
-        $query = "SELECT LAST_INSERT_ID() FROM " . $this->getTableName() . " LIMIT 1";
-        $stmt = $this->getDatabase()->prepare($query);
-        return $stmt->execute();
+        $query = "SELECT LAST_INSERT_ID() AS id FROM " . $this->getTableName() . " LIMIT 1";
+        $stmt = $this->getDatabase()->query($query);
+        return $stmt->fetch()['id'];
     }
 }

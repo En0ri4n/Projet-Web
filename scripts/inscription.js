@@ -81,29 +81,6 @@ function convertFormToJson(form, dict)
     return JSON.stringify(jsonObject);
 }
 
-const dict = {
-    'id-utilisateur': 'id',
-    'nom': 'lastname',
-    'prenom': 'firstname',
-    'email': 'email',
-    'password': 'password',
-    'account-type': 'type',
-
-    'promotion': 'data.id_promo',
-    'numero-rue': 'data.adresse.numero',
-    'nom-rue': 'data.adresse.rue',
-    'code-postal': 'data.adresse.code_postal',
-    'ville': 'data.adresse.ville',
-    'pays': 'data.adresse.pays',
-
-    'name-promotion': 'data.promotion.nom',
-    'type-promotion': 'data.promotion.type',
-    'date-promotion': 'data.promotion.date',
-    'niveau-promotion': 'data.promotion.niveau',
-    'duree-promotion': 'data.promotion.duree',
-    'centre-promotion': 'data.promotion.centre',
-};
-
 addEventTo(document, 'DOMContentLoaded', onReady);
 
 function onReady()
@@ -115,39 +92,100 @@ function onReady()
     setCustomConditionValidator(document.getElementById('password-confirm'), (value) => value === document.getElementById('password').value, 'Les mots de passe ne correspondent pas');
     // setCustomValidator(document.getElementById('account'), )
 
-    fetch('/api/promos', {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('userId'))
+        fillEntries(urlParams.get('userId'));
+
+    fetchPromotions();
+}
+
+async function fillEntries(id)
+{
+    document.getElementById('password').required = false;
+    document.getElementById('password-confirm').required = false;
+
+    let res = await fetch(`/api/users?IdUtilisateur=${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
-    })
-        .then(response => response.json())
-        .then(data =>
-              {
-                  // Nom de la promotion
-                  let html = '';
-                  for(let i = 0; i < data.length; i++)
-                      html += `<option value="${data[i]['IdPromotion']}">${data[i]['NomPromotion']}</option>`;
-                  document.getElementById('promotion').innerHTML = html;
-              });
+    });
+
+    let data = await res.json();
+
+    // console.log(data);
+
+    let user = data['users'][0];
+
+    // console.log(user);
+
+    document.getElementById('id-utilisateur').value = user['IdUtilisateur'];
+    document.getElementById('id-utilisateur').setAttribute('readonly', '');
+    document.getElementById('nom').value = user['Nom'];
+    document.getElementById('prenom').value = user['Prenom'];
+    document.getElementById('email').value = user['MailUtilisateur'];
+    document.getElementById('telephone').value = user['TelephoneUtilisateur'];
+
+    if(user['user_type'] === 'etudiant')
+    {
+        document.getElementById('student-account').checked = true;
+        document.getElementById("account").dispatchEvent(new Event('change'));
+
+        let promotion = user['promotion'];
+        document.getElementById('promotion').innerHTML += `<option value="${promotion['IdPromotion']}" selected>${promotion['NomPromotion']}</option>`;
+
+        let adresse = user['adresse'];
+        document.getElementById('adresse-numero').value = adresse['Numero'];
+        document.getElementById('adresse-rue').value = adresse['Rue'];
+        document.getElementById('code-postal').value = adresse['CodePostal'];
+        document.getElementById('ville').innerHTML += `<option value="${adresse['Ville']}" selected>${adresse['Ville']}</option>`;
+        document.getElementById('adresse-pays').value = adresse['Pays'];
+    }
+    else if(user['user_type'] === 'pilote')
+    {
+        document.getElementById('pilote-account').checked = true;
+        document.getElementById("account").dispatchEvent(new Event('change'));
+    }
+    else if(user['user_type'] === 'administrateur')
+    {
+        document.getElementById('admin-account').checked = true;
+        document.getElementById("account").dispatchEvent(new Event('change'));
+    }
+}
+
+async function fetchPromotions()
+{
+    let res = await fetch('/api/promos?column=IdPromotion,NomPromotion', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let promotionData = await res.json();
+
+    // console.log(promotionData);
+
+    // Nom de la promotion
+    let html = '';
+    for(let i = 0; i < promotionData['count']; i++)
+        html += `<option value="${promotionData['values'][i][0]}">${promotionData['values'][i][1]}</option>`;
+    document.getElementById('promotion').innerHTML = html;
 }
 
 addEventTo(document.getElementById("account"), "change", () =>
 {
     let checkedBox = document.querySelector('input[name="account-type"]:checked');
 
-    document.getElementById("pilote-form").style.display = 'none';
+    document.getElementById('type').value = checkedBox.value;
+
     document.getElementById('etudiant-form').style.display = 'none';
 
-    activeChildren(false, document.getElementById("pilote-form").children)
     activeChildren(false, document.getElementById("etudiant-form").children)
 
     switch(checkedBox.value)
     {
-        case 'pilote':
-            document.getElementById("pilote-form").style.display = 'flex';
-            activeChildren(true, document.getElementById("pilote-form").children)
-            break;
         case 'etudiant':
             document.getElementById("etudiant-form").style.display = 'flex';
 
@@ -156,7 +194,7 @@ addEventTo(document.getElementById("account"), "change", () =>
     }
 });
 
-addEventTo(document.getElementsByName('code-postal')[0], 'change', (e) =>
+addEventTo(document.getElementById('code-postal'), 'change', (e) =>
 {
     let codePostal = e.target.value;
     if(codePostal.length === 5)
@@ -176,22 +214,57 @@ addEventTo(document.getElementsByName('code-postal')[0], 'change', (e) =>
     }
 })
 
-addEventTo(document.getElementsByTagName('form')[0], 'submit', (e) =>
+addEventTo(document.getElementsByTagName('form')[0], 'submit', async(e) =>
 {
     e.preventDefault();
 
     let form = e.target;
+    let formdata = new FormData(form);
 
-    console.log(convertFormToJson(form, dict));
+    let json = {};
 
-    // TODO: send data
-    fetch('/api/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': "application/json"
+    for(let pair of formdata.entries())
+    {
+        json[pair[0]] = pair[1];
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    if(window.location.pathname === '/modifier-profil')
+    {
+        console.log(json);
+
+        let res = await fetch('/api/users', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json)
+        });
+
+        let data = await res.json();
+
+        console.log(data)
+
+        if(data['status'] === 'success')
+        {
+            window.location.href = '/profil?userId=' + json['IdUtilisateur'];
         }
-    }).then(res => res.json())
-        .then(data => {
+    }
+    else
+    {
+        let res = await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(json)
+        });
 
-        })
+        let data = await res.json();
+
+        if(data['status'] === 'success')
+        {
+            window.location.href = '/utilisateurs';
+        }
+    }
 });

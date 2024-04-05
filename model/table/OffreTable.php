@@ -33,7 +33,11 @@ class OffreTable extends AbstractTable
 
     public function delete(mixed $id): bool
     {
-        $query = "DELETE FROM " . $this->getTableName() . " LEFT JOIN Wishlist WHERE Wishlist.IdOffre = " . $this->getIdColumn() . " AND " . $this->getIdColumn() . " = :id";
+        $query = "DELETE " . $this->getTableName() . ", Wishlist FROM " . $this->getTableName() . " LEFT JOIN Wishlist ON Wishlist.IdOffre = " . $this->getIdColumn() . " WHERE " . $this->getIdColumn() . " = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        $stmt->bindValue(':id', $id);
+        /* Candidatures à l'offre */
+        $query = "DELETE FROM Candidature WHERE IdOffre = :id";
         $stmt = $this->getDatabase()->prepare($query);
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
@@ -62,6 +66,12 @@ class OffreTable extends AbstractTable
     public function update(mixed $id, array $columns, array $values): bool
     {
         return $this->defaultUpdate($id, $columns, $values);
+    }
+
+    public function updateJoin(mixed $id, string $join_query, array $values): bool
+    {
+
+        return $this->defaultJoinUpdate($id, $join_query, $values);
     }
 
     protected function getIdColumn(): string

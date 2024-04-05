@@ -21,7 +21,7 @@ class SecteurTable extends AbstractTable
 
     public function select(array $conditions): array|Secteur|null
     {
-        return $this->defaultSelect(self::no_join(), $conditions, fn($a) => Secteur::fromArray($a));
+        return $this->defaultSelect(self::left_join('Composer', 'IdSecteur','IdSecteur'), $conditions, fn($a) => Secteur::fromArray($a));
     }
 
     public function selectOr(array $conditions): array|Secteur|null

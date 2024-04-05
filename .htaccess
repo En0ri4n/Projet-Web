@@ -1,8 +1,10 @@
 RewriteEngine On
 
-# not assets files (css, js, images)
-RewriteCond %{REQUEST_FILENAME} !\.(css|js|png|svg|jpeg|jpg)$
+# not assets files (css, js, images...)
+RewriteCond %{REQUEST_FILENAME} !\.(css|js|png|svg|jpeg|jpg|gif|json|ico|txt)$
 # not in the api folder
 RewriteCond %{REQUEST_URI} !^/api/
+# not in the secret folder
+RewriteCond %{REQUEST_URI} !^/secret
 # NC for No Case - Used to rewrite all other requests to index.php
 RewriteRule ^(.*)$ index.php?view=$1&%{QUERY_STRING} [L]

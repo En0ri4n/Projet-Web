@@ -6,11 +6,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
 
 class Pilote extends Utilisateur
 {
-    public static string $ID_COLUMN = "Pilote.IdUtilisateur";
+    protected string $id;
 
-    public function __construct($id, $nom, $prenom, $email, $password, $telephone)
+    public function __construct(string $id, string $nom, string $prenom, string $email, string $password, string $telephone)
     {
         parent::__construct($id, $nom, $prenom, $email, $password, $telephone);
+        $this->id=$id;
     }
 
     public static function fromArray(array $array): Pilote
@@ -21,5 +22,10 @@ class Pilote extends Utilisateur
     private static function from(Utilisateur $utilisateur): Pilote
     {
         return new Pilote($utilisateur->getId(), $utilisateur->getNom(), $utilisateur->getPrenom(), $utilisateur->getEmail(), $utilisateur->getPassword(), $utilisateur->getTelephone());
+    }
+
+    public function toInsertArray(): array
+    {
+        return array(self::getColumnName(\AdministrateurTable::$ID_COLUMN) => $this->id);
     }
 }

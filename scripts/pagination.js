@@ -1,24 +1,79 @@
-/*Fonction a appeler pour générer une div de pagination*/
-function getPagination(nom_page,current_page,max_page) {
-    div =`<div class="pagination">`;
-    if (current_page == 1){
-        div += `<a id="pageDebut"><<</a>
-        <a id="pagePrecedent"><</a> 
-        <a id="pageActuelle">x</a>`;
-    }
-    else{
-        div += `<a id="pageDebut" href="/`+nom_page+`?page=1"><<</a>
-        <a id="pagePrecedent" href="/`+nom_page+`?page=`+(current_page-1)+`><</a> 
-        <a id="pageActuelle">x</a>`;
-    }
+import { addEventTo } from "./main.js";
 
-    if (current_page == max_page){
-        div +=`<a id="pageSuivant">></a>
-        <a id="pageFin">>></a></div>`;
-    }
-    else{
-        div +=`<a id="pageSuivant" href="/entreprises?page=`+(current_page+1)+`>></a>
-        <a id="pageFin" href="/entreprises?page=`+(max_page)+`>>></a></div>`;
-    }
-    return div;
+export let currentPage = [];
+export let totalPages = [];
+
+let onChangeFunctions = [];
+let onWaitFunctions = [];
+
+export function setTotalPages(index, total){
+    totalPages[index] = total;
+    checkButtons(index);
+}
+
+
+export function initPagination(index, onWait, onChange) {
+
+    currentPage.push(1);
+    totalPages.push(1);
+    onChangeFunctions.push(onChange);
+    onWaitFunctions.push(onWait);
+
+    const firstPageElement = document.getElementById('pageDebut-' + index);
+    const previousPageElement = document.getElementById('pagePrecedente-' + index);
+    const nextPageElement = document.getElementById('pageSuivante-' + index);
+    const lastPageElement = document.getElementById('pageFin-' + index);
+
+    addEventTo(firstPageElement, 'click', () =>
+    {
+        onWaitFunctions[index]();
+        currentPage[index] = 1;
+        checkButtons(index);
+        onChangeFunctions[index]();
+    });
+    addEventTo(previousPageElement, 'click', () =>
+    {
+        onWaitFunctions[index]();
+        currentPage[index] = currentPage[index] > 1 ? currentPage[index] - 1 : currentPage[index]
+        checkButtons(index);
+        onChangeFunctions[index]();
+    });
+
+    addEventTo(nextPageElement, 'click', () =>
+    {
+        onWaitFunctions[index]();
+        currentPage[index] = currentPage[index] < totalPages[index] ? currentPage[index] + 1 : currentPage[index];
+        checkButtons(index);
+        onChangeFunctions[index]();
+    });
+    addEventTo(lastPageElement, 'click', () =>
+    {
+        onWaitFunctions[index]();
+        currentPage[index] = totalPages[index];
+        checkButtons(index);
+        onChangeFunctions[index]();
+    });
+
+    checkButtons(index);
+}
+
+function checkButtons(index)
+{
+    const firstPageElement = document.getElementById('pageDebut-' + index);
+    const previousPageElement = document.getElementById('pagePrecedente-' + index);
+    const currentPageElement = document.getElementById('pageActuelle-' + index);
+    const nextPageElement = document.getElementById('pageSuivante-' + index);
+    const lastPageElement = document.getElementById('pageFin-' + index);
+
+    firstPageElement.disabled = currentPage[index] === 1;
+    previousPageElement.disabled = currentPage[index] === 1;
+    nextPageElement.disabled = currentPage[index] === totalPages[index];
+    lastPageElement.disabled = currentPage[index] === totalPages[index];
+
+    currentPageElement.innerHTML = (currentPage[index] <= 0 ? 0 : currentPage[index]) + ' / ' + totalPages[index];
+}
+
+export function reloadPagination()
+{
+    onChangeFunctions.forEach(f => f())
 }

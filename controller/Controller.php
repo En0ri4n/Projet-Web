@@ -9,6 +9,7 @@ use model\table\LinkTable;
 use model\table\OffreTable;
 use model\table\PromotionTable;
 use model\table\SecteurTable;
+use model\table\UtilisateurTable;
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/libs/Smarty.class.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Utilisateur.php');
@@ -87,13 +88,25 @@ class Controller
     public function adminPageController(): void
     {
         $this->setup(false);
-        $this->display('view/admin_page.tpl');
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId())){
+            $this->display('view/admin_page.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
-    public function entrepriseController(): void
+    public function creerEntrepriseController(): void
     {
         $this->setup(false);
-        $this->display('view/entreprise.tpl');
+
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $this->smarty->assign('is_modification', false);
+            $this->display('view/entreprise.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function descriptionEntrepriseController(): void
@@ -101,7 +114,7 @@ class Controller
         $this->setup(false);
         $this->smarty->assign('entreprise_exists', false);
 
-        if (!isset($_GET['entrepriseId'])) {
+        if (!isset($_GET['IdEntreprise'])) {
             $this->display('view/description_entreprise.tpl');
             return;
         }
@@ -112,7 +125,7 @@ class Controller
         $entreprise_to_secteur_table = LinkTable::getEntrepriseToSecteur();
         $entreprise_to_adresse_table = LinkTable::getEntrepriseToAdresse();
 
-        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['entrepriseId']]);
+        $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['IdEntreprise']]);
 
         if ($entreprise == null) {
             $this->display('view/description_entreprise.tpl');
@@ -183,22 +196,93 @@ class Controller
         $this->smarty->assign('adresse', $adresse);
 
         $links_competences = $offre_to_competence_table->select([LinkTable::getOffreToCompetence()->getIdFromColumn() => $offre->getId()]);
-        $competences = $this->fromLinks($links_competences, CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $competences = $this->fromLinks($links_competences ?? [], CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
         $this->smarty->assign('competences', $competences);
 
         $this->display('view/description_offre.tpl');
     }
 
-    public function inscriptionController(): void
+    public function creerProfilController(): void
     {
         $this->setup(false);
-        $this->display('view/inscription.tpl');
+
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $this->smarty->assign('is_modification', false);
+            $this->display('view/inscription.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
-    public function posterOffreController(): void
+    public function modifierProfilController(): void
+    {
+        if(!isset($_GET['userId']))
+            $this->utilisateursController();
+
+        $this->setup(false);
+
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $table = new UtilisateurTable();
+            $user = $table->select([UtilisateurTable::$ID_COLUMN => $_GET['userId']]);
+            $this->smarty->assign('user', $user);
+            $this->smarty->assign('is_modification', true);
+            $this->display('view/inscription.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
+    }
+
+    public function creerOffreController(): void
     {
         $this->setup(false);
-        $this->display('view/poster_offre.tpl');
+
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $this->smarty->assign('is_modification', false);
+            $this->display('view/poster_offre.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
+    }
+
+    public function modifierEntrepriseController(): void
+    {
+        if(!isset($_GET['IdEntreprise']))
+            $this->entreprisesController();
+
+        $this->setup(false);
+
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $table = new EntrepriseTable();
+            $entreprise = $table->select([EntrepriseTable::$ID_COLUMN => $_GET['IdEntreprise']]);
+            $this->smarty->assign('entreprise', $entreprise);
+            $this->smarty->assign('is_modification', true);
+            $this->display('view/entreprise.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
+    }
+
+    public function modifierOffreController(): void
+    {
+        if(!isset($_GET['IdOffre']))
+            $this->offresController();
+
+        $this->setup(false);
+
+        if (AdministrateurTable::isAdministrateur($this->getCurrentUser()->getId()) or PiloteTable::isPilote($this->getCurrentUser()->getId())){
+            $table = new OffreTable();
+            $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['IdOffre']]);
+            $this->smarty->assign('offre', $offre);
+            $this->smarty->assign('is_modification', true);
+            $this->display('view/poster_offre.tpl');
+        }
+        else{
+            $this->forbiddenController();
+        }
     }
 
     public function entreprisesController(): void
@@ -266,6 +350,49 @@ class Controller
         }
 
         $this->display('view/profil_utilisateur.tpl');
+    }
+
+    public function candidatureController(): void
+    {
+        $this->setup(false);
+
+        if (!isset($_GET['offreId'])) {
+            $this->smarty->assign('offre_exists', false);
+            $this->display('view/candidature.tpl');
+            return;
+        }
+
+        $this->smarty->assign('offre_exists', true);
+
+        $table = new OffreTable();
+        $offre = $table->select([OffreTable::$ID_COLUMN => $_GET['offreId']]);
+
+        if ($offre == null) {
+            $this->smarty->assign('offre_exists', false);
+            $this->display('view/candidature.tpl');
+            return;
+        }
+
+        $this->smarty->assign('offre', $offre);
+
+        $secteur_table = new SecteurTable();
+        $entreprise_table = new EntrepriseTable();
+        $offre_to_competence_table = LinkTable::getOffreToCompetence();
+        $offre_to_competence_table = LinkTable::getOffreToCompetence();
+        $competence_table = new CompetenceTable();
+
+        $secteur = $secteur_table->select([SecteurTable::$ID_COLUMN => $offre->getIdSecteur()]);
+        $this->smarty->assign('secteur', $secteur);
+        
+        $entreprise = $entreprise_table->select([EntrepriseTable::$ID_COLUMN => $offre->getIdCompany()]);
+        $this->smarty->assign('entreprise', $entreprise);
+
+        $links_competences = $offre_to_competence_table->select([LinkTable::getOffreToCompetence()->getIdFromColumn() => $offre->getId()]);
+        $competences = $this->fromLinks($links_competences ?? [], CompetenceTable::$ID_COLUMN, fn($q) => $competence_table->selectOr($q), fn($a) => $competence_table->select([CompetenceTable::$ID_COLUMN => $a->getIdTo()]));
+        $this->smarty->assign('competences', $competences);
+
+
+        $this->display('view/candidature.tpl');
     }
 
     /**
@@ -376,17 +503,22 @@ class Controller
             }
         }
 
-        $links = [
+        $header_links = [
             'Accueil' => self::$DEFAULT_PAGE,
             'Entreprises' => '/entreprises',
             'Offres' => '/offres',
-            'Utilisateurs' => '/utilisateurs',
+            'Utilisateurs' => '/utilisateurs'
+        ];
+
+        $footer_links = [
+            'Accueil' => self::$DEFAULT_PAGE,
             'Contact' => '/contact',
             'À propos' => '/about',
             'Mentions légales' => '/mentions'
         ];
 
-        $this->smarty->assign('links', $links);
+        $this->smarty->assign('links', $header_links);
+        $this->smarty->assign('footer_links', $footer_links);
 
         $this->smarty->assign('index_page', self::$INDEX_PAGE);
 

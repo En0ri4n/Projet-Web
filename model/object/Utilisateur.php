@@ -74,9 +74,23 @@ class Utilisateur extends SerializableObject
         );
     }
 
+    public function toInsertArray(): array
+    {
+        return array(
+            self::getColumnName(UtilisateurTable::$ID_COLUMN) => $this->id,
+            self::getColumnName(UtilisateurTable::$NOM_COLUMN) => $this->nom,
+            self::getColumnName(UtilisateurTable::$PRENOM_COLUMN) => $this->prenom,
+            self::getColumnName(UtilisateurTable::$EMAIL_COLUMN) => $this->email,
+            self::getColumnName(UtilisateurTable::$PASSWORD_COLUMN) => $this->motDePasse,
+            self::getColumnName(UtilisateurTable::$TELEPHONE_COLUMN) => $this->telephone
+        );
+    }
+
     public function jsonSerialize(): array
     {
         $a = parent::jsonSerialize();
+
+        unset($a[self::getColumnName(UtilisateurTable::$PASSWORD_COLUMN)]);
 
         if(EtudiantTable::isEtudiant($this->id))
         {
@@ -87,6 +101,9 @@ class Utilisateur extends SerializableObject
 
             $table = new AdresseTable();
             $a['adresse'] = $table->select([AdresseTable::$ID_COLUMN => $etudiant->getIdAdresse()])->jsonSerialize();
+
+            $table = new PromotionTable();
+            $a['promotion'] = $table->select([PromotionTable::$ID_COLUMN => $etudiant->getIdPromotion()])->jsonSerialize();
         }
         elseif(AdministrateurTable::isAdministrateur($this->id))
         {

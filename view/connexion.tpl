@@ -9,7 +9,7 @@
 <body>
 {include file='components/header.tpl'}
 <main>
-    <div class="form">
+    <section class="form">
         <h1>Connexion</h1>
         <form id="form" method="post" action="api/login" onsubmit="return onSubmit(this);">
             <div class="form__inputs">
@@ -21,7 +21,7 @@
                 <input type="submit" class="submit" id="connect-button" value="Connexion">
             </div>
         </form>
-    </div>
+    </section>
 </main>
 {include file='components/footer.tpl'}
 </body>

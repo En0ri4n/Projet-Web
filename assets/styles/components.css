@@ -7,6 +7,7 @@
  */
 
 #header {
+    z-index: 999999;
     background-color: #CB7C8C;
     height: 10vh;
     display: flex;
@@ -56,6 +57,7 @@
 
                         &:hover {
                             color: #3b0927;
+                            text-decoration: underline;
                         }
                     }
                 }
@@ -214,7 +216,7 @@
                     }
 
                     &:not(:last-child):after {
-                        content: " | ";
+                        content: "|";
                         color: #152c44;
                     }
                 }

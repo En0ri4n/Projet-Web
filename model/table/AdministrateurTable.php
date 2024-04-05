@@ -34,7 +34,11 @@ class AdministrateurTable extends AbstractTable
 
     public function delete(mixed $id): bool
     {
-        return $this->defaultDelete($id);
+        $query = "DELETE " . $this->getTableName() . ", Utilisateur FROM " . $this->getTableName() . " INNER JOIN Utilisateur ON Utilisateur.IdUtilisateur = " . $this->getTableName() . ".IdUtilisateur WHERE Utilisateur.IdUtilisateur = :id";
+        $stmt = $this->getDatabase()->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->execute();
     }
 
     public function getIdColumn(): string

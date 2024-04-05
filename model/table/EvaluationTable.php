@@ -5,6 +5,8 @@ namespace model\table;
 use model\object\Evaluation;
 use model\object\SerializableObject;
 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/model/object/Evaluation.php');
+
 class EvaluationTable extends AbstractTable
 {
     public static string $ID_COLUMN = "Evaluation.IdEvaluation";

@@ -33,6 +33,13 @@ class Secteur extends SerializableObject
         ];
     }
 
+    public function toInsertArray()
+    {
+        return [
+            self::getColumnName(SecteurTable::$NOM_COLUMN) => $this->getNom()
+        ];
+    }
+
     public static function fromArray(array $array): Secteur
     {
         return new Secteur($array[self::getColumnName(SecteurTable::$ID_COLUMN)], $array[self::getColumnName(SecteurTable::$NOM_COLUMN)]);
