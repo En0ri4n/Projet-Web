@@ -71,9 +71,15 @@ switch($method)
         $evaluation = new Evaluation(-1, $data['Note'], $data['Commentaire'], Controller::getCurrentUser()->getId(), $data['IdEntreprise']);
 
         $table = new EvaluationTable();
-        $table->insert($evaluation);
+        try {
+            $table->insert($evaluation);
+            echo json_encode(['statut' => 'success', 'evaluation' => $table->getLastInsertId()]);
+        }
+        catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['statut' => 'error', 'error' => 'Erreur interne', 'message' => $e->getMessage()]);
+        }
 
-        echo json_encode(['statut' => 'success', 'evaluation' => $table->getLastInsertId()]);
         exit();
     default:
         http_response_code(405);

@@ -20,7 +20,7 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
     filterUsers();
 });
 
-async function filterUsers()
+export async function filterUsers()
 {
     let self_response = await fetch('/api/users?self', {
         method: 'GET',

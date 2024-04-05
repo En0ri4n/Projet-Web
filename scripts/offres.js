@@ -78,7 +78,7 @@ addEventTo(document.getElementById('search-button'), 'click', (e) =>
     filterOffres();
 });
 
-async function filterOffres()
+export async function filterOffres()
 {
     let self_response = await fetch('/api/users?self', {
         method: 'GET',

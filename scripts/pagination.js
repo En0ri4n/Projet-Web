@@ -4,6 +4,7 @@ export let currentPage = [];
 export let totalPages = [];
 
 let onChangeFunctions = [];
+let onWaitFunctions = [];
 
 export function setTotalPages(index, total){
     totalPages[index] = total;
@@ -16,6 +17,7 @@ export function initPagination(index, onWait, onChange) {
     currentPage.push(1);
     totalPages.push(1);
     onChangeFunctions.push(onChange);
+    onWaitFunctions.push(onWait);
 
     const firstPageElement = document.getElementById('pageDebut-' + index);
     const previousPageElement = document.getElementById('pagePrecedente-' + index);
@@ -24,32 +26,32 @@ export function initPagination(index, onWait, onChange) {
 
     addEventTo(firstPageElement, 'click', () =>
     {
-        onWait();
+        onWaitFunctions[index]();
         currentPage[index] = 1;
         checkButtons(index);
-        onChange();
+        onChangeFunctions[index]();
     });
     addEventTo(previousPageElement, 'click', () =>
     {
-        onWait();
+        onWaitFunctions[index]();
         currentPage[index] = currentPage[index] > 1 ? currentPage[index] - 1 : currentPage[index]
         checkButtons(index);
-        onChange();
+        onChangeFunctions[index]();
     });
 
     addEventTo(nextPageElement, 'click', () =>
     {
-        onWait();
+        onWaitFunctions[index]();
         currentPage[index] = currentPage[index] < totalPages[index] ? currentPage[index] + 1 : currentPage[index];
         checkButtons(index);
-        onChange();
+        onChangeFunctions[index]();
     });
     addEventTo(lastPageElement, 'click', () =>
     {
-        onWait();
+        onWaitFunctions[index]();
         currentPage[index] = totalPages[index];
         checkButtons(index);
-        onChange();
+        onChangeFunctions[index]();
     });
 
     checkButtons(index);

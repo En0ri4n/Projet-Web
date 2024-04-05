@@ -29,7 +29,7 @@ async function filterEval()
 
     let data = await response.json();
 
-    console.log(data)
+    // console.log(data)
 
     setTotalPages(1, data['total_pages']);
 
@@ -67,7 +67,7 @@ async function filterOffres()
 
     let data = await res.json();
 
-    console.log(data)
+    // console.log(data)
 
     setTotalPages(0, data['total_pages']);
 
